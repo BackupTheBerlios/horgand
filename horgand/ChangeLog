@@ -4,6 +4,8 @@ horgand ChangeLog
 
 == v1.07 (  /  /2004) ==
 ---------------------------------------------------------------------------------------------
+- Default Bank mmodified.
+- Improved speed.
 - Improved Envelope.
 - Changed FIFO schedule priority, now works on kernel 2.6.
 - Velocity Sensitivity modified.

@@ -237,13 +237,13 @@ pthread_mutex_lock(&mutex);
           hor.sustain = 0.0;        
           enve1 = hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2); 
 
-         
+          hor.miraalfo(l2);
+          
 
 
           for (i=1; i<=20; i++)
             {
              if (hor.Operator[i].mar) hor.envi[l2]=enve1; else hor.envi[l2]=enve0;
-             hor.miraalfo(l2);
              hor.volumeOpC(i,l2);
              if (hor.Operator[i].con1 > 0)
              {

@@ -1318,15 +1318,15 @@ HOR::Alg1s (int nframes, void *)
           decay = 0.30;
           sustain = 0.0;        
           enve1 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2); 
-
+          miraalfo(l2);
+ 
 
 
 	  for (i = 1; i <= 20; i++)
 	    {
               
               if (Operator[i].mar) envi[l2]=enve1;  else  envi[l2]=enve0; 
-              miraalfo(l2);
-	      volumeOpC (i, l2);
+              volumeOpC (i, l2);
               f[i].dphi = partial * pitchOp (i, l2);
 	      if (f[i].dphi > D_PI) f[i].dphi -= D_PI;
               
