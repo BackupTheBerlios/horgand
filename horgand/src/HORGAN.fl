@@ -1,7 +1,15 @@
 # data file for the Fltk User Interface Designer (fluid)
 version 1.0104 
+i18n_type 1 
+i18n_include <libintl.h> 
+i18n_function gettext 
 header_name {.h} 
 code_name {.cxx}
+decl {//Copyright (c) 2003-2004 Josep Andreu (Holborn)} {selected
+} 
+
+decl {//License: GNU GPL version 2} {} 
+
 decl {\#include <alsa/asoundlib.h>} {public
 } 
 
@@ -2429,8 +2437,7 @@ if (strcmp(hor->MidiInPuerto[1].SetMidiIn,"Not Connected") !=0 )
 
 
 }
-else sprintf(hor->MidiInPuerto[1].pMIDIIN,"Not Conected");} {selected
-    }
+else sprintf(hor->MidiInPuerto[1].pMIDIIN,"Not Conected");} {}
   }
   Function {Undo()} {} {
     code {UndoCount = UndoCount -1;
