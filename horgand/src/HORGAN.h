@@ -64,6 +64,10 @@ private:
   static void cb_Load1(Fl_Menu_*, void*);
   inline void cb_Save1_i(Fl_Menu_*, void*);
   static void cb_Save1(Fl_Menu_*, void*);
+  inline void cb_Load2_i(Fl_Menu_*, void*);
+  static void cb_Load2(Fl_Menu_*, void*);
+  inline void cb_Save2_i(Fl_Menu_*, void*);
+  static void cb_Save2(Fl_Menu_*, void*);
   inline void cb_About_i(Fl_Menu_*, void*);
   static void cb_About(Fl_Menu_*, void*);
   inline void cb_E_i(Fl_Menu_*, void*);
@@ -486,8 +490,8 @@ public:
 private:
   inline void cb_SClose_i(Fl_Button*, void*);
   static void cb_SClose(Fl_Button*, void*);
-  inline void cb_Save2_i(Fl_Button*, void*);
-  static void cb_Save2(Fl_Button*, void*);
+  inline void cb_Save3_i(Fl_Button*, void*);
+  static void cb_Save3(Fl_Button*, void*);
 public:
   Fl_Browser *BMidiIn;
 private:

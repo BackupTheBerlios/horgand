@@ -134,7 +134,21 @@ void HORGAN::cb_Save(Fl_Menu_* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Save_i(o,v);
 }
 
-inline void HORGAN::cb_Load1_i(Fl_Menu_*, void*) {
+inline void HORGAN::cb_Load1_i(Fl_Menu_* o, void*) {
+  BLoad->do_callback(o);
+}
+void HORGAN::cb_Load1(Fl_Menu_* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Load1_i(o,v);
+}
+
+inline void HORGAN::cb_Save1_i(Fl_Menu_* o, void*) {
+  BSave->do_callback(o);
+}
+void HORGAN::cb_Save1(Fl_Menu_* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Save1_i(o,v);
+}
+
+inline void HORGAN::cb_Load2_i(Fl_Menu_*, void*) {
   char *filename;
 Fl::focus(PANICO);
 filename=fl_file_chooser("Load:","(*.hrt)",NULL,0);
@@ -143,11 +157,11 @@ filename=fl_filename_setext(filename,".hrt");
 hor->loadrhyt(filename);
 meteritmos();
 }
-void HORGAN::cb_Load1(Fl_Menu_* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Load1_i(o,v);
+void HORGAN::cb_Load2(Fl_Menu_* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Load2_i(o,v);
 }
 
-inline void HORGAN::cb_Save1_i(Fl_Menu_*, void*) {
+inline void HORGAN::cb_Save2_i(Fl_Menu_*, void*) {
   char *filename;
 #define EXT ".hrt"
 filename=fl_file_chooser("Save:","(*"EXT")",NULL,0);
@@ -156,8 +170,8 @@ filename=fl_filename_setext(filename,EXT);
 #undef EXT
 hor->saverhyt(filename);
 }
-void HORGAN::cb_Save1(Fl_Menu_* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Save1_i(o,v);
+void HORGAN::cb_Save2(Fl_Menu_* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Save2_i(o,v);
 }
 
 inline void HORGAN::cb_About_i(Fl_Menu_*, void*) {
@@ -213,11 +227,13 @@ void HORGAN::cb_Settings(Fl_Menu_* o, void* v) {
 
 Fl_Menu_Item HORGAN::menu_MenuPrincipal[] = {
  {"&File", 0,  (Fl_Callback*)HORGAN::cb_MFile, 0, 64, 0, 0, 14, 56},
- {"&New...", 0,  (Fl_Callback*)HORGAN::cb_New, 0, 0, 0, 0, 14, 56},
+ {"&New...", 0,  (Fl_Callback*)HORGAN::cb_New, 0, 128, 0, 0, 14, 56},
  {"&Load...", 0,  (Fl_Callback*)HORGAN::cb_Load, 0, 0, 0, 0, 14, 56},
  {"&Save...", 0,  (Fl_Callback*)HORGAN::cb_Save, 0, 128, 0, 0, 14, 56},
- {"Load Ryth...", 0,  (Fl_Callback*)HORGAN::cb_Load1, 0, 0, 0, 0, 14, 56},
- {"Save Rhyt...", 0,  (Fl_Callback*)HORGAN::cb_Save1, 0, 128, 0, 0, 14, 56},
+ {"Load Bank...", 0,  (Fl_Callback*)HORGAN::cb_Load1, 0, 0, 0, 0, 14, 56},
+ {"Save Bank...", 0,  (Fl_Callback*)HORGAN::cb_Save1, 0, 128, 0, 0, 14, 56},
+ {"Load Ryth...", 0,  (Fl_Callback*)HORGAN::cb_Load2, 0, 0, 0, 0, 14, 56},
+ {"Save Rhyt...", 0,  (Fl_Callback*)HORGAN::cb_Save2, 0, 128, 0, 0, 14, 56},
  {"&About...", 0,  (Fl_Callback*)HORGAN::cb_About, 0, 128, 0, 0, 14, 56},
  {"E&xit", 0,  (Fl_Callback*)HORGAN::cb_E, 0, 0, 0, 0, 14, 56},
  {0},
@@ -230,8 +246,8 @@ Fl_Menu_Item HORGAN::menu_MenuPrincipal[] = {
  {0}
 };
 Fl_Menu_Item* HORGAN::MFile = HORGAN::menu_MenuPrincipal + 0;
-Fl_Menu_Item* HORGAN::MEdit = HORGAN::menu_MenuPrincipal + 9;
-Fl_Menu_Item* HORGAN::MBank = HORGAN::menu_MenuPrincipal + 13;
+Fl_Menu_Item* HORGAN::MEdit = HORGAN::menu_MenuPrincipal + 11;
+Fl_Menu_Item* HORGAN::MBank = HORGAN::menu_MenuPrincipal + 15;
 
 inline void HORGAN::cb_CF_i(Fl_Light_Button* o, void*) {
   if (o->value() != 0 ) {
@@ -1245,13 +1261,13 @@ void HORGAN::cb_SClose(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_SClose_i(o,v);
 }
 
-inline void HORGAN::cb_Save2_i(Fl_Button*, void*) {
+inline void HORGAN::cb_Save3_i(Fl_Button*, void*) {
   GrabaSettings();
 fl_message("Changes will take effect the next time you restart the program");
 Settingswindow->hide();
 }
-void HORGAN::cb_Save2(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Save2_i(o,v);
+void HORGAN::cb_Save3(Fl_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Save3_i(o,v);
 }
 
 inline void HORGAN::cb_BMidiIn_i(Fl_Browser* o, void*) {
@@ -1319,8 +1335,8 @@ void HORGAN::cb_Close(Fl_Menu_* o, void* v) {
 
 Fl_Menu_Item HORGAN::menu_[] = {
  {"&File", 0,  0, 0, 64, 0, 0, 14, 56},
- {"&Load", 0,  (Fl_Callback*)HORGAN::cb_BLoad, 0, 0, 0, 0, 14, 56},
- {"&Save", 0,  (Fl_Callback*)HORGAN::cb_BSave, 0, 128, 0, 0, 14, 56},
+ {"&Load Bank", 0,  (Fl_Callback*)HORGAN::cb_BLoad, 0, 0, 0, 0, 14, 56},
+ {"&Save Bank", 0,  (Fl_Callback*)HORGAN::cb_BSave, 0, 128, 0, 0, 14, 56},
  {"&Close", 0,  (Fl_Callback*)HORGAN::cb_Close, 0, 0, 0, 0, 14, 56},
  {0},
  {0}
@@ -3334,7 +3350,7 @@ e version 2 of the \n GNU General Public License for details.");
       o->callback((Fl_Callback*)cb_SClose);
     }
     { Fl_Button* o = new Fl_Button(350, 125, 120, 30, "Save");
-      o->callback((Fl_Callback*)cb_Save2);
+      o->callback((Fl_Callback*)cb_Save3);
     }
     { Fl_Browser* o = BMidiIn = new Fl_Browser(5, 25, 295, 185);
       o->type(2);
@@ -4201,11 +4217,12 @@ void HORGAN::MiraClientes() {
         snd_seq_port_info_t *pinfo;
         int  client;
         int  err;
-        int i;
+        int i,iguales;
         snd_seq_t *handle;
         int count = 1;
         int count1 = 1;
         char temp[80];
+        char lafilo[8];
         char linea[256];
         BMidiIn->clear();
         BMidiIn->add("Not Connected");
@@ -4251,7 +4268,23 @@ void HORGAN::MiraClientes() {
                            sprintf(linea,"%s",hor->CPIMidiS[count1].CInfo);
                            bzero(temp,sizeof(temp));
                            sscanf(linea,"%s",temp);
-                           if (strcmp(temp,"Horgand")!=0) BMidiIn->add(linea);
+                           if (strcmp(temp,"Horgand")!=0)
+                           {
+                                iguales = 0;
+                                for(i=1; i<=(int)BMidiIn->size(); i++) if (strcmp(BMidiIn->text(i), linea) == 0) iguales ++; 
+                    
+                             if (iguales != 0)
+                                     {
+                                       bzero(lafilo,strlen(lafilo));
+                                       sprintf(lafilo,"%d",iguales);
+                                       strcat(linea,lafilo);
+                                       bzero(hor->CPIMidiS[count1].Info,sizeof(hor->CPIMidiS[count1].Info));
+                                       sprintf(hor->CPIMidiS[count1].Info, "%s",linea);
+                                     }
+
+                                BMidiIn->add(linea);
+                               }
+
                            count1++;
 
                                        }
