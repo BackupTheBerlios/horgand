@@ -471,6 +471,11 @@ public:
   Fl_Value_Output *NV4;
   Fl_Value_Output *NV5;
   Fl_Value_Output *NV6;
+  Fl_Counter *CPrograma;
+private:
+  inline void cb_CPrograma_i(Fl_Counter*, void*);
+  static void cb_CPrograma(Fl_Counter*, void*);
+public:
   Fl_Double_Window *aboutwindow;
 private:
   inline void cb_OK_i(Fl_Button*, void*);
@@ -903,5 +908,6 @@ public:
   void QuitaPon();
   void meteval();
   void ApagaTodo();
+  void meteprog();
 };
 #endif

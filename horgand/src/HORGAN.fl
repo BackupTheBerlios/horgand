@@ -128,7 +128,7 @@ exit(0);}
       Fl_Button PANICO {
         label {Panic!!}
         callback {hor->panico();}
-        xywh {5 265 95 40} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labeltype ENGRAVED_LABEL labelfont 1 labelsize 15 labelcolor 7
+        xywh {5 275 95 30} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labeltype ENGRAVED_LABEL labelfont 1 labelsize 15 labelcolor 7
       }
       Fl_Menu_Bar MenuPrincipal {open
         xywh {0 0 1030 25} box THIN_UP_BOX
@@ -369,7 +369,7 @@ if ( o->value() != 0 ) GetPrim(); else {
 UndoCount++;
 Undo();
 }}
-        xywh {5 225 95 40} box PLASTIC_UP_BOX color 0 labelfont 1 labelcolor 7 align 212 when 1
+        xywh {5 235 95 40} box PLASTIC_UP_BOX color 0 labelfont 1 labelcolor 7 align 212 when 1
       }
       Fl_Light_Button CL {
         label {Compare Last}
@@ -388,7 +388,7 @@ MEdit->activate();
 }
 
 if ( o->value() != 0 ) Undo(); else Redo();}
-        xywh {5 185 95 40} box PLASTIC_UP_BOX color 0 labelfont 1 labelcolor 7 align 212 when 1
+        xywh {5 195 95 40} box PLASTIC_UP_BOX color 0 labelfont 1 labelcolor 7 align 212 when 1
       }
       Fl_Slider VUI1 {
         callback {o->value(vum);}
@@ -406,7 +406,7 @@ if ( o->value() != 0 ) Undo(); else Redo();}
       }
       Fl_Box DispNumber {
         label {--}
-        xywh {15 100 75 80} box SHADOW_BOX color 0 selection_color 7 labeltype ENGRAVED_LABEL labelfont 14 labelsize 37 labelcolor 128 align 80
+        xywh {15 100 75 60} box SHADOW_BOX color 0 selection_color 7 labeltype ENGRAVED_LABEL labelfont 14 labelsize 37 labelcolor 128 align 80
       }
       Fl_Counter Transpose {
         callback {hor->transpose = (int) o->value();
@@ -1264,6 +1264,13 @@ hor->framesbass = (int) (hor->sfinfob.frames / 2.0);}
       Fl_Value_Output NV6 {
         xywh {255 565 45 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
       }
+      Fl_Counter CPrograma {
+        callback {hor->cprograma = (int) o->value();
+PutCombi(hor->cprograma);
+Actu();}
+        xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum -48 maximum 48 step 1
+        code0 {o->value(hor->cprograma);}
+      }
     }
     Fl_Window aboutwindow {
       label {About...}
@@ -1338,7 +1345,7 @@ o->select(valor,1);}
         }
       }
       Fl_File_Input BFiname {
-        label {  Bank Filename} selected
+        label {  Bank Filename}
         xywh {0 230 390 30} labelsize 12 align 5
       }
       Fl_Button {} {
@@ -1354,7 +1361,7 @@ strcpy(hor->BankFilename,filename);}
     }
     Fl_Window HORBank {
       label {DXEmulator Bank}
-      tooltip {Right Click Get  - Left Click Put} xywh {4 20 710 360} type Double hide
+      tooltip {Right Click Get  - Left Click Put} xywh {4 22 710 360} type Double hide
     } {
       Fl_Button BClose {
         label Close
@@ -2062,116 +2069,7 @@ RitEdit->hide();}
   }
   Function {metelo()} {} {
     code {Master->value(hor->master * 100.0);
-
-V1->value(hor->Operator[1].volumen * 100);
-V2->value(hor->Operator[2].volumen * 100);
-V3->value(hor->Operator[3].volumen * 100);
-V4->value(hor->Operator[4].volumen * 100);
-V5->value(hor->Operator[5].volumen * 100);
-V6->value(hor->Operator[6].volumen * 100);
-
-H1->value(hor->Operator[1].harmonic);
-H2->value(hor->Operator[2].harmonic);
-H3->value(hor->Operator[3].harmonic);
-H4->value(hor->Operator[4].harmonic);
-H5->value(hor->Operator[5].harmonic);
-H6->value(hor->Operator[6].harmonic);
-
-
-
-char *t;
-
-t = (char *) malloc (20 * sizeof (char) * 12);
-
-NV1->value(hor->lasfreq[hor->Operator[1].harmonic]);
-NV2->value(hor->lasfreq[hor->Operator[2].harmonic]);
-NV3->value(hor->lasfreq[hor->Operator[3].harmonic]);
-NV4->value(hor->lasfreq[hor->Operator[4].harmonic]);
-NV5->value(hor->lasfreq[hor->Operator[5].harmonic]);
-NV6->value(hor->lasfreq[hor->Operator[6].harmonic]);
-
-Marimba->value(hor->attack * 100);
-Detune->value(hor->detune);
-PLFOSpeed->value(hor->PLFOspeed);
-PLFODelay->value(hor->PLFOdelay * 10);
-LFOSpeed->value(hor->LFOspeed);
-LFOPitch->value(hor->LFOpitch);
-Rota->value(hor->rota);
-MasterT->value(1 - hor->mastertune);
-Transpose->value(hor->transpose);
-calbtrans();
-Nombre->value(hor->nombre);
-
-EchoVol->value(hor->echovol * 100);
-EchoDelay->value(hor->echodelay / 176400);
-EchoOn->value(hor->echoon);
-Rev->value((int)hor->revon);
-
-if ((int)hor->revon == 1)
-{
-
-R1->activate();
-R2->activate();
-R3->activate();
-R4->activate();
-R5->activate();
-R6->activate();
-R7->activate();
-R8->activate();
-switch((int) hor->ganmod)
-{
-case 1:
-R1->setonly();
-break;
-case 2:
-R2->setonly();
-break;
-case 3:
-R3->setonly();
-break;
-case 4:
-R4->setonly();
-break;
-case 5:
-R5->setonly();
-break;
-case 6:
-R6->setonly();
-break;
-case 7:
-R7->setonly();
-break;
-case 8:
-R8->setonly();
-break;
-}
-}
-else
-{
-R1->value(0);
-R2->value(0);
-R3->value(0);
-R4->value(0);
-R5->value(0);
-R6->value(0);
-R7->value(0);
-R8->value(0);
-R1->deactivate();
-R2->deactivate();
-R3->deactivate();
-R4->deactivate();
-R5->deactivate();
-R6->deactivate();
-R7->deactivate();
-R8->deactivate();
-}
-ponreverb();
-Split->value(hor->split);
-ChorusOn->value(hor->choron);
-ELFOAmplitude->value(hor->ELFOamplitude);
-POPO->value(hor->popo);
-ELFOSpeed->value(hor->ELFOspeed);
-ChorVol->value(hor->chorvol * 100);
+meteprog();
 
 switch (hor->Salida)
 {
@@ -2187,11 +2085,6 @@ switch (hor->Salida)
 }
 
 
-
-hor->procesaclean();
-hor->chorusclean();
-hor->rclean();
-
 Rit1->value(1);
 Rit = 1;
 GetRit(Rit);} {
@@ -2199,7 +2092,7 @@ GetRit(Rit);} {
 char tmp[64];
 sprintf(tmp, "%2.1f", hor->lasfreq[(int) o->value()]);
 V1->label(tmp);
-Actu();}
+Actu();} selected
     }
   }
   Function {GetCombi(int i)} {} {
@@ -2238,6 +2131,7 @@ hor->Banco[i].chorvol=hor->chorvol;} {}
   }
   Function {PutCombi(int i)} {} {
     code {int k;
+hor->cprograma= i;
 
 for (k=1; k<=6; k++)
 {
@@ -2274,10 +2168,11 @@ hor->ELFOspeed=hor->Banco[i].ELFOspeed;
 hor->chorvol=hor->Banco[i].chorvol;
 
 hor->Prim[1] = hor->Banco[i];
-metelo();
+meteprog();
 Actu();
 sprintf(hor->temporal, "%02d",i);
-DispNumber->label(hor->temporal);} {}
+DispNumber->label(hor->temporal);
+CPrograma->value(i);} {}
   }
   Function {MiraClientes()} {} {
     code {snd_seq_client_info_t *cinfo;
@@ -3039,5 +2934,120 @@ Rit17->value(0);
 Rit18->value(0);
 Rit19->value(0);
 Rit20->value(0);} {}
+  }
+  Function {meteprog()} {} {
+    code {V1->value(hor->Operator[1].volumen * 100);
+V2->value(hor->Operator[2].volumen * 100);
+V3->value(hor->Operator[3].volumen * 100);
+V4->value(hor->Operator[4].volumen * 100);
+V5->value(hor->Operator[5].volumen * 100);
+V6->value(hor->Operator[6].volumen * 100);
+
+H1->value(hor->Operator[1].harmonic);
+H2->value(hor->Operator[2].harmonic);
+H3->value(hor->Operator[3].harmonic);
+H4->value(hor->Operator[4].harmonic);
+H5->value(hor->Operator[5].harmonic);
+H6->value(hor->Operator[6].harmonic);
+
+
+
+char *t;
+
+t = (char *) malloc (20 * sizeof (char) * 12);
+
+NV1->value(hor->lasfreq[hor->Operator[1].harmonic]);
+NV2->value(hor->lasfreq[hor->Operator[2].harmonic]);
+NV3->value(hor->lasfreq[hor->Operator[3].harmonic]);
+NV4->value(hor->lasfreq[hor->Operator[4].harmonic]);
+NV5->value(hor->lasfreq[hor->Operator[5].harmonic]);
+NV6->value(hor->lasfreq[hor->Operator[6].harmonic]);
+
+Marimba->value(hor->attack * 100);
+Detune->value(hor->detune);
+PLFOSpeed->value(hor->PLFOspeed);
+PLFODelay->value(hor->PLFOdelay * 10);
+LFOSpeed->value(hor->LFOspeed);
+LFOPitch->value(hor->LFOpitch);
+Rota->value(hor->rota);
+MasterT->value(1 - hor->mastertune);
+Transpose->value(hor->transpose);
+calbtrans();
+Nombre->value(hor->nombre);
+CPrograma->value(hor->cprograma);
+EchoVol->value(hor->echovol * 100);
+EchoDelay->value(hor->echodelay / 176400);
+EchoOn->value(hor->echoon);
+Rev->value((int)hor->revon);
+
+if ((int)hor->revon == 1)
+{
+
+R1->activate();
+R2->activate();
+R3->activate();
+R4->activate();
+R5->activate();
+R6->activate();
+R7->activate();
+R8->activate();
+switch((int) hor->ganmod)
+{
+case 1:
+R1->setonly();
+break;
+case 2:
+R2->setonly();
+break;
+case 3:
+R3->setonly();
+break;
+case 4:
+R4->setonly();
+break;
+case 5:
+R5->setonly();
+break;
+case 6:
+R6->setonly();
+break;
+case 7:
+R7->setonly();
+break;
+case 8:
+R8->setonly();
+break;
+}
+}
+else
+{
+R1->value(0);
+R2->value(0);
+R3->value(0);
+R4->value(0);
+R5->value(0);
+R6->value(0);
+R7->value(0);
+R8->value(0);
+R1->deactivate();
+R2->deactivate();
+R3->deactivate();
+R4->deactivate();
+R5->deactivate();
+R6->deactivate();
+R7->deactivate();
+R8->deactivate();
+}
+ponreverb();
+Split->value(hor->split);
+ChorusOn->value(hor->choron);
+ELFOAmplitude->value(hor->ELFOamplitude);
+POPO->value(hor->popo);
+ELFOSpeed->value(hor->ELFOspeed);
+ChorVol->value(hor->chorvol * 100);
+
+hor->procesaclean();
+hor->chorusclean();
+hor->rclean();} {}
   }
 } 

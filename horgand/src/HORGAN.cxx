@@ -1220,6 +1220,15 @@ void HORGAN::cb_Bass3(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Bass3_i(o,v);
 }
 
+inline void HORGAN::cb_CPrograma_i(Fl_Counter* o, void*) {
+  hor->cprograma = (int) o->value();
+PutCombi(hor->cprograma);
+Actu();
+}
+void HORGAN::cb_CPrograma(Fl_Counter* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_CPrograma_i(o,v);
+}
+
 inline void HORGAN::cb_OK_i(Fl_Button*, void*) {
   aboutwindow->hide();
 }
@@ -2069,7 +2078,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     }
-    { Fl_Button* o = PANICO = new Fl_Button(5, 265, 95, 40, "Panic!!");
+    { Fl_Button* o = PANICO = new Fl_Button(5, 275, 95, 30, "Panic!!");
       o->box(FL_PLASTIC_UP_BOX);
       o->shortcut(0xff0d);
       o->color((Fl_Color)1);
@@ -2220,7 +2229,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { Fl_Box* o = new Fl_Box(240, 244, 46, 31);
       o->box(FL_DOWN_FRAME);
     }
-    { Fl_Light_Button* o = CF = new Fl_Light_Button(5, 225, 95, 40, "Compare First");
+    { Fl_Light_Button* o = CF = new Fl_Light_Button(5, 235, 95, 40, "Compare First");
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelfont(1);
@@ -2229,7 +2238,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(196|FL_ALIGN_INSIDE);
       o->when(FL_WHEN_CHANGED);
     }
-    { Fl_Light_Button* o = CL = new Fl_Light_Button(5, 185, 95, 40, "Compare Last");
+    { Fl_Light_Button* o = CL = new Fl_Light_Button(5, 195, 95, 40, "Compare Last");
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelfont(1);
@@ -2260,7 +2269,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(68|FL_ALIGN_INSIDE);
       o->label(hor->MidiInPuerto[1].pMIDIIN);
     }
-    { Fl_Box* o = DispNumber = new Fl_Box(15, 100, 75, 80, "--");
+    { Fl_Box* o = DispNumber = new Fl_Box(15, 100, 75, 60, "--");
       o->box(FL_SHADOW_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->selection_color(FL_BACKGROUND2_COLOR);
@@ -3272,6 +3281,18 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
+    { Fl_Counter* o = CPrograma = new Fl_Counter(15, 165, 75, 25);
+      o->type(1);
+      o->labeltype(FL_EMBOSSED_LABEL);
+      o->labelcolor((Fl_Color)208);
+      o->minimum(-48);
+      o->maximum(48);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_CPrograma);
+      o->align(FL_ALIGN_LEFT);
+      o->when(FL_WHEN_RELEASE);
+      o->value(hor->cprograma);
+    }
     o->end();
     o->resizable(o);
   }
@@ -4072,116 +4093,7 @@ e version 2 of the \n GNU General Public License for details.");
 
 void HORGAN::metelo() {
   Master->value(hor->master * 100.0);
-
-V1->value(hor->Operator[1].volumen * 100);
-V2->value(hor->Operator[2].volumen * 100);
-V3->value(hor->Operator[3].volumen * 100);
-V4->value(hor->Operator[4].volumen * 100);
-V5->value(hor->Operator[5].volumen * 100);
-V6->value(hor->Operator[6].volumen * 100);
-
-H1->value(hor->Operator[1].harmonic);
-H2->value(hor->Operator[2].harmonic);
-H3->value(hor->Operator[3].harmonic);
-H4->value(hor->Operator[4].harmonic);
-H5->value(hor->Operator[5].harmonic);
-H6->value(hor->Operator[6].harmonic);
-
-
-
-char *t;
-
-t = (char *) malloc (20 * sizeof (char) * 12);
-
-NV1->value(hor->lasfreq[hor->Operator[1].harmonic]);
-NV2->value(hor->lasfreq[hor->Operator[2].harmonic]);
-NV3->value(hor->lasfreq[hor->Operator[3].harmonic]);
-NV4->value(hor->lasfreq[hor->Operator[4].harmonic]);
-NV5->value(hor->lasfreq[hor->Operator[5].harmonic]);
-NV6->value(hor->lasfreq[hor->Operator[6].harmonic]);
-
-Marimba->value(hor->attack * 100);
-Detune->value(hor->detune);
-PLFOSpeed->value(hor->PLFOspeed);
-PLFODelay->value(hor->PLFOdelay * 10);
-LFOSpeed->value(hor->LFOspeed);
-LFOPitch->value(hor->LFOpitch);
-Rota->value(hor->rota);
-MasterT->value(1 - hor->mastertune);
-Transpose->value(hor->transpose);
-calbtrans();
-Nombre->value(hor->nombre);
-
-EchoVol->value(hor->echovol * 100);
-EchoDelay->value(hor->echodelay / 176400);
-EchoOn->value(hor->echoon);
-Rev->value((int)hor->revon);
-
-if ((int)hor->revon == 1)
-{
-
-R1->activate();
-R2->activate();
-R3->activate();
-R4->activate();
-R5->activate();
-R6->activate();
-R7->activate();
-R8->activate();
-switch((int) hor->ganmod)
-{
-case 1:
-R1->setonly();
-break;
-case 2:
-R2->setonly();
-break;
-case 3:
-R3->setonly();
-break;
-case 4:
-R4->setonly();
-break;
-case 5:
-R5->setonly();
-break;
-case 6:
-R6->setonly();
-break;
-case 7:
-R7->setonly();
-break;
-case 8:
-R8->setonly();
-break;
-}
-}
-else
-{
-R1->value(0);
-R2->value(0);
-R3->value(0);
-R4->value(0);
-R5->value(0);
-R6->value(0);
-R7->value(0);
-R8->value(0);
-R1->deactivate();
-R2->deactivate();
-R3->deactivate();
-R4->deactivate();
-R5->deactivate();
-R6->deactivate();
-R7->deactivate();
-R8->deactivate();
-}
-ponreverb();
-Split->value(hor->split);
-ChorusOn->value(hor->choron);
-ELFOAmplitude->value(hor->ELFOamplitude);
-POPO->value(hor->popo);
-ELFOSpeed->value(hor->ELFOspeed);
-ChorVol->value(hor->chorvol * 100);
+meteprog();
 
 switch (hor->Salida)
 {
@@ -4196,11 +4108,6 @@ switch (hor->Salida)
         break;
 }
 
-
-
-hor->procesaclean();
-hor->chorusclean();
-hor->rclean();
 
 Rit1->value(1);
 Rit = 1;
@@ -4244,6 +4151,7 @@ hor->Banco[i].chorvol=hor->chorvol;
 
 void HORGAN::PutCombi(int i) {
   int k;
+hor->cprograma= i;
 
 for (k=1; k<=6; k++)
 {
@@ -4280,10 +4188,11 @@ hor->ELFOspeed=hor->Banco[i].ELFOspeed;
 hor->chorvol=hor->Banco[i].chorvol;
 
 hor->Prim[1] = hor->Banco[i];
-metelo();
+meteprog();
 Actu();
 sprintf(hor->temporal, "%02d",i);
 DispNumber->label(hor->temporal);
+CPrograma->value(i);
 }
 
 void HORGAN::MiraClientes() {
@@ -5055,4 +4964,120 @@ Rit17->value(0);
 Rit18->value(0);
 Rit19->value(0);
 Rit20->value(0);
+}
+
+void HORGAN::meteprog() {
+  V1->value(hor->Operator[1].volumen * 100);
+V2->value(hor->Operator[2].volumen * 100);
+V3->value(hor->Operator[3].volumen * 100);
+V4->value(hor->Operator[4].volumen * 100);
+V5->value(hor->Operator[5].volumen * 100);
+V6->value(hor->Operator[6].volumen * 100);
+
+H1->value(hor->Operator[1].harmonic);
+H2->value(hor->Operator[2].harmonic);
+H3->value(hor->Operator[3].harmonic);
+H4->value(hor->Operator[4].harmonic);
+H5->value(hor->Operator[5].harmonic);
+H6->value(hor->Operator[6].harmonic);
+
+
+
+char *t;
+
+t = (char *) malloc (20 * sizeof (char) * 12);
+
+NV1->value(hor->lasfreq[hor->Operator[1].harmonic]);
+NV2->value(hor->lasfreq[hor->Operator[2].harmonic]);
+NV3->value(hor->lasfreq[hor->Operator[3].harmonic]);
+NV4->value(hor->lasfreq[hor->Operator[4].harmonic]);
+NV5->value(hor->lasfreq[hor->Operator[5].harmonic]);
+NV6->value(hor->lasfreq[hor->Operator[6].harmonic]);
+
+Marimba->value(hor->attack * 100);
+Detune->value(hor->detune);
+PLFOSpeed->value(hor->PLFOspeed);
+PLFODelay->value(hor->PLFOdelay * 10);
+LFOSpeed->value(hor->LFOspeed);
+LFOPitch->value(hor->LFOpitch);
+Rota->value(hor->rota);
+MasterT->value(1 - hor->mastertune);
+Transpose->value(hor->transpose);
+calbtrans();
+Nombre->value(hor->nombre);
+CPrograma->value(hor->cprograma);
+EchoVol->value(hor->echovol * 100);
+EchoDelay->value(hor->echodelay / 176400);
+EchoOn->value(hor->echoon);
+Rev->value((int)hor->revon);
+
+if ((int)hor->revon == 1)
+{
+
+R1->activate();
+R2->activate();
+R3->activate();
+R4->activate();
+R5->activate();
+R6->activate();
+R7->activate();
+R8->activate();
+switch((int) hor->ganmod)
+{
+case 1:
+R1->setonly();
+break;
+case 2:
+R2->setonly();
+break;
+case 3:
+R3->setonly();
+break;
+case 4:
+R4->setonly();
+break;
+case 5:
+R5->setonly();
+break;
+case 6:
+R6->setonly();
+break;
+case 7:
+R7->setonly();
+break;
+case 8:
+R8->setonly();
+break;
+}
+}
+else
+{
+R1->value(0);
+R2->value(0);
+R3->value(0);
+R4->value(0);
+R5->value(0);
+R6->value(0);
+R7->value(0);
+R8->value(0);
+R1->deactivate();
+R2->deactivate();
+R3->deactivate();
+R4->deactivate();
+R5->deactivate();
+R6->deactivate();
+R7->deactivate();
+R8->deactivate();
+}
+ponreverb();
+Split->value(hor->split);
+ChorusOn->value(hor->choron);
+ELFOAmplitude->value(hor->ELFOamplitude);
+POPO->value(hor->popo);
+ELFOSpeed->value(hor->ELFOspeed);
+ChorVol->value(hor->chorvol * 100);
+
+hor->procesaclean();
+hor->chorusclean();
+hor->rclean();
 }

@@ -77,7 +77,7 @@ public:
   SF_INFO sfinfob;
   int readcountb;
              
-
+  int cprograma;
   int PERIOD;
   int PERIOD2;
   int PERIOD4;

@@ -35,7 +35,7 @@ HOR::HOR ()
   sbars = 1;
   ae = 1;
   fe = 0;  
-
+  cprograma=1;
 
   lasfreq[1] = 0.5;
   lasfreq[2] = 0.75;

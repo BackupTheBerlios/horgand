@@ -4,8 +4,10 @@ horgand ChangeLog
 
 == v1.05 (  /01/2004) ==
 ---------------------------------------------------------------------------------------------
+- Changes programs without stop rhythm.
+- Added Change program in main window.
 - Small Changes in look.
-- Added Organ sound Benet 5
+- Added and Changed Default Sound Bank.
 - Fixed Bug in Start/Stop
 - Fixed bug in bar led.
 - Select Rhythm 1 at start.
