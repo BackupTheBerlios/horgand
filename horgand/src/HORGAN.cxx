@@ -110,7 +110,7 @@ filename=fl_file_chooser("Load:","(*.hor)",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,".hor");
 hor->loadfile(filename);
-metelo();
+meteprog();
 Actu();
 PutPrim();
 sprintf(hor->temporal,"--");
@@ -4482,7 +4482,7 @@ hor->chorvol=hor->Undo[UndoCount].chorvol;
 
 
 
-metelo();
+meteprog();
 }
 
 void HORGAN::Actu() {
@@ -4575,7 +4575,7 @@ hor->chorvol=hor->Undo[UndoCount].chorvol;
 
 
 
-metelo();
+meteprog();
 }
 
 void HORGAN::PutPrim() {
@@ -4654,7 +4654,7 @@ hor->popo=hor->Prim[1].popo;
 hor->ELFOspeed=hor->Prim[1].ELFOspeed;
 hor->chorvol=hor->Prim[1].chorvol;
 
-metelo();
+meteprog();
 }
 
 void HORGAN::tick(void *v) {

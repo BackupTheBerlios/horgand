@@ -4,6 +4,8 @@ horgand ChangeLog
 
 == v1.05 (  /01/2004) ==
 ---------------------------------------------------------------------------------------------
+- Fixed Bug in compare and Load functions.
+- Fixed Bug in Undo/Redo.
 - Fixed Bug in new function.
 - Optimized for low graphic resolutions
 - Rotary improved.

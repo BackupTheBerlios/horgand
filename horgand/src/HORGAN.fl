@@ -89,7 +89,7 @@ class HORGAN {} {
       callback {Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {78 133 690 595} type Double color 50 labelcolor 208 hide resizable hotspot
+      xywh {20 92 690 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
         xywh {460 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -147,7 +147,7 @@ Actu();
 PutPrim();
 sprintf(hor->temporal, "--"); 
 DispNumber->label(hor->temporal);
-CPrograma->value(0);} selected
+CPrograma->value(0);}
             xywh {0 0 100 20}
           }
           menuitem {} {
@@ -158,11 +158,11 @@ filename=fl_file_chooser("Load:","(*.hor)",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,".hor");
 hor->loadfile(filename);
-metelo();
+meteprog();
 Actu();
 PutPrim();
 sprintf(hor->temporal,"--");
-DispNumber->label(hor->temporal);}
+DispNumber->label(hor->temporal);} selected
             xywh {0 0 100 20}
           }
           menuitem {} {
@@ -2456,7 +2456,7 @@ hor->chorvol=hor->Undo[UndoCount].chorvol;
 
 
 
-metelo();} {}
+meteprog();} {}
   }
   Function {Actu()} {} {
     code {if ( (CL->value() != 0 ) || (CF->value() !=0 ) ) {
@@ -2547,7 +2547,7 @@ hor->chorvol=hor->Undo[UndoCount].chorvol;
 
 
 
-metelo();} {}
+meteprog();} {}
   }
   Function {PutPrim()} {} {
     code {int k;
@@ -2627,7 +2627,7 @@ hor->popo=hor->Prim[1].popo;
 hor->ELFOspeed=hor->Prim[1].ELFOspeed;
 hor->chorvol=hor->Prim[1].chorvol;
 
-metelo();} {}
+meteprog();} {}
   }
   Function {tick(void *v)} {return_type {static void}
   } {
