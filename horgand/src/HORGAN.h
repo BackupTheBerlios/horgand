@@ -941,7 +941,6 @@ public:
   void Undo();
   void Actu();
   void Redo();
-  void PutPrim();
   void GetPrim();
   static void tick(void *v);
 private:

@@ -292,3 +292,239 @@ HOR::New ()
   nombre = Name;
 }
 
+
+void
+HOR::MUndo()
+{
+
+int k;
+
+UndoCount = UndoCount -1;
+if (UndoCount == -1) UndoCount = 95;
+for (k=1; k<=20; k++)
+
+{
+Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
+Operator[k].harmonic_fine
+=Undo[UndoCount].Operator[k].harmonic_fine;
+Operator[k].harmonic =Undo[UndoCount].Operator[k].harmonic;
+}
+
+echoon = Undo[UndoCount].echoon;
+echovol = Undo[UndoCount].echovol;
+echodelay = Undo[UndoCount].echodelay;
+PLFOspeed = Undo[UndoCount].PLFOspeed;
+PLFOdelay = Undo[UndoCount].PLFOdelay;
+LFOspeed = Undo[UndoCount].LFOspeed;
+LFOpitch = Undo[UndoCount].LFOpitch;
+rota = Undo[UndoCount].rota;
+modulation = Undo[UndoCount].modulation;
+transpose = Undo[UndoCount].transpose;
+master = Undo[UndoCount].master;
+
+for (k=0; k<=24; k++) Name[k]=Undo[UndoCount].Name[k];
+nombre = Name;
+
+revon=Undo[UndoCount].revon;
+attack= Undo[UndoCount].attack;
+detune = Undo[UndoCount].detune;
+split=Undo[UndoCount].split;
+ganmod=Undo[UndoCount].ganmod;
+choron=Undo[UndoCount].choron;
+ELFOamplitude=Undo[UndoCount].ELFOamplitude;
+popo=Undo[UndoCount].popo;
+ELFOspeed=Undo[UndoCount].ELFOspeed;
+chorvol=Undo[UndoCount].chorvol;
+
+};
+
+
+void
+HOR::MRedo()
+{
+
+int k;
+
+
+UndoCount = UndoCount + 1;
+if (UndoCount == 95 ) UndoCount = 0;
+
+for (k=1; k<=20; k++)
+{
+Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
+Operator[k].harmonic_fine
+=Undo[UndoCount].Operator[k].harmonic_fine;
+Operator[k].harmonic =Undo[UndoCount].Operator[k].harmonic;
+}
+
+
+
+echoon = Undo[UndoCount].echoon;
+echovol = Undo[UndoCount].echovol;
+echodelay = Undo[UndoCount].echodelay;
+
+
+PLFOspeed = Undo[UndoCount].PLFOspeed;
+PLFOdelay = Undo[UndoCount].PLFOdelay;
+LFOspeed = Undo[UndoCount].LFOspeed;
+LFOpitch = Undo[UndoCount].LFOpitch;
+rota = Undo[UndoCount].rota;
+modulation = Undo[UndoCount].modulation;
+transpose = Undo[UndoCount].transpose;
+master = Undo[UndoCount].master;
+
+for (k=0; k<=24; k++) Name[k]=Undo[UndoCount].Name[k];
+nombre = Name;
+
+attack = Undo[UndoCount].attack;
+detune = Undo[UndoCount].detune;
+
+revon=Undo[UndoCount].revon;
+split=Undo[UndoCount].split;
+ganmod=Undo[UndoCount].ganmod;
+choron=Undo[UndoCount].choron;
+ELFOamplitude=Undo[UndoCount].ELFOamplitude;
+popo=Undo[UndoCount].popo;
+ELFOspeed=Undo[UndoCount].ELFOspeed;
+chorvol=Undo[UndoCount].chorvol;
+
+};
+
+
+void
+HOR::MActu()
+{
+
+int k;
+
+UndoCount++;
+if (UndoCount == 95) UndoCount = 0;
+
+for (k=1; k<=20; k++)
+{
+Undo[UndoCount].Operator[k].volumen=Operator[k].volumen;
+Undo[UndoCount].Operator[k].harmonic_fine=Operator[k].harmonic_fine;
+Undo[UndoCount].Operator[k].harmonic=Operator[k].harmonic;
+}
+
+
+Undo[UndoCount].echoon=echoon;
+Undo[UndoCount].echovol=echovol;
+Undo[UndoCount].echodelay=echodelay;
+Undo[UndoCount].PLFOspeed=PLFOspeed;
+Undo[UndoCount].PLFOdelay=PLFOdelay;
+Undo[UndoCount].LFOspeed=LFOspeed;
+Undo[UndoCount].LFOpitch=LFOpitch;
+Undo[UndoCount].rota=rota;
+Undo[UndoCount].modulation=modulation;
+Undo[UndoCount].transpose=transpose;
+Undo[UndoCount].master=master;
+
+for (k=0; k<=24; k++) Undo[UndoCount].Name[k]=Name[k];
+nombre = Name;
+Undo[UndoCount].attack=attack;
+Undo[UndoCount].detune=detune;
+Undo[UndoCount].revon=revon;
+Undo[UndoCount].split=split;
+Undo[UndoCount].ganmod =ganmod;
+Undo[UndoCount].choron=choron;
+Undo[UndoCount].ELFOamplitude=ELFOamplitude;
+Undo[UndoCount].popo=popo;
+Undo[UndoCount].ELFOspeed=ELFOspeed;
+Undo[UndoCount].chorvol=chorvol;
+
+
+};
+
+
+void
+HOR::PutPrim()
+{
+
+int k;
+for (k=1; k<=20; k++)
+{
+Prim[1].Operator[k].volumen=Operator[k].volumen;
+Prim[1].Operator[k].harmonic_fine=Operator[k].harmonic_fine;
+Prim[1].Operator[k].harmonic=Operator[k].harmonic;
+}
+
+
+
+Prim[1].echoon=echoon;
+Prim[1].echovol=echovol;
+Prim[1].echodelay=echodelay;
+
+Prim[1].PLFOspeed=PLFOspeed;
+Prim[1].PLFOdelay=PLFOdelay;
+Prim[1].LFOspeed=LFOspeed;
+Prim[1].LFOpitch=LFOpitch;
+Prim[1].rota=rota;
+Prim[1].modulation=modulation;
+Prim[1].transpose=transpose;
+Prim[1].master=master;
+
+for (k=0; k<=24; k++) Prim[1].Name[k]=Name[k];
+
+Prim[1].attack=attack;
+Prim[1].detune=detune;
+Prim[1].revon=revon;
+
+Prim[1].split=split;
+Prim[1].ganmod =ganmod;
+Prim[1].choron=choron;
+Prim[1].ELFOamplitude=ELFOamplitude;
+Prim[1].popo=popo;
+Prim[1].ELFOspeed=ELFOspeed;
+Prim[1].chorvol=chorvol;
+
+};
+
+
+void
+HOR::MGetPrim()
+{
+
+int k;
+for (k=1; k<=20; k++)
+{
+Operator[k].volumen =Prim[1].Operator[k].volumen;
+Operator[k].harmonic_fine =Prim[1].Operator[k].harmonic_fine;
+Operator[k].harmonic =Prim[1].Operator[k].harmonic;
+}
+
+
+
+
+echoon = Prim[1].echoon;
+echovol = Prim[1].echovol;
+echodelay = Prim[1].echodelay;
+PLFOspeed = Prim[1].PLFOspeed;
+PLFOdelay = Prim[1].PLFOdelay;
+LFOspeed = Prim[1].LFOspeed;
+LFOpitch = Prim[1].LFOpitch;
+rota = Prim[1].rota;
+modulation = Prim[1].modulation;
+transpose = Prim[1].transpose;
+master = Prim[1].master;
+bzero(Name,sizeof(Name));
+for (k=0; k<=24; k++) Name[k]=Prim[1].Name[k];
+nombre = Name;
+attack = Prim[1].attack;
+detune = Prim[1].detune;
+revon = Prim[1].revon;
+split=Prim[1].split;
+ganmod=Prim[1].ganmod;
+choron=Prim[1].choron;
+ELFOamplitude=Prim[1].ELFOamplitude;
+popo=Prim[1].popo;
+ELFOspeed=Prim[1].ELFOspeed;
+chorvol=Prim[1].chorvol;
+
+
+};
+
+
+
+
+

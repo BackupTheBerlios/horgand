@@ -92,6 +92,11 @@ public:
   void MiraTempo();
   void loadrhyt(char *filename);
   void saverhyt(char *filename);
+  void MUndo();
+  void MRedo();
+  void MActu();
+  void PutPrim();
+  void MGetPrim();
   
   SNDFILE *infile;
   SF_INFO sfinfo;

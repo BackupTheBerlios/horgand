@@ -97,7 +97,7 @@ inline void HORGAN::cb_New_i(Fl_Menu_*, void*) {
 ApagaTodo();
 metelo();
 Actu();
-PutPrim();
+hor->PutPrim();
 sprintf(hor->temporal, "--"); 
 DispNumber->label(hor->temporal);
 CPrograma->value(0);
@@ -115,7 +115,7 @@ filename=fl_filename_setext(filename,".hor");
 hor->loadfile(filename);
 meteprog();
 Actu();
-PutPrim();
+hor->PutPrim();
 sprintf(hor->temporal,"--");
 DispNumber->label(hor->temporal);
 }
@@ -131,7 +131,7 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 #undef EXT
 hor->savefile(filename);
-PutPrim();
+hor->PutPrim();
 }
 void HORGAN::cb_Save(Fl_Menu_* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Save_i(o,v);
@@ -4613,7 +4613,7 @@ metebanco();
 metelo();
 if(commandline == 0) PutCombi(1);
 Actu();
-PutPrim();
+hor->PutPrim();
 meteritmos();
 HORwindow->show();
 Fl::add_timeout(1.0/100,tick);
@@ -4696,47 +4696,7 @@ else sprintf(hor->MidiInPuerto[1].pMIDIIN,"Not Conected");
 }
 
 void HORGAN::Undo() {
-  UndoCount = UndoCount -1;
-if (UndoCount == -1) UndoCount = 95;
-int k;
-for (k=1; k<=20; k++)
-{
-hor->Operator[k].volumen =hor->Undo[UndoCount].Operator[k].volumen;
-hor->Operator[k].harmonic_fine =hor->Undo[UndoCount].Operator[k].harmonic_fine;
-hor->Operator[k].harmonic =hor->Undo[UndoCount].Operator[k].harmonic;
-}
-
-
-
-hor->echoon = hor->Undo[UndoCount].echoon;
-hor->echovol = hor->Undo[UndoCount].echovol;
-hor->echodelay = hor->Undo[UndoCount].echodelay;
-hor->PLFOspeed = hor->Undo[UndoCount].PLFOspeed;
-hor->PLFOdelay = hor->Undo[UndoCount].PLFOdelay;
-hor->LFOspeed = hor->Undo[UndoCount].LFOspeed;
-hor->LFOpitch = hor->Undo[UndoCount].LFOpitch;
-hor->rota = hor->Undo[UndoCount].rota;
-hor->modulation = hor->Undo[UndoCount].modulation;
-hor->transpose = hor->Undo[UndoCount].transpose;
-hor->master = hor->Undo[UndoCount].master;
-
-for (k=0; k<=24; k++) hor->Name[k]=hor->Undo[UndoCount].Name[k];
-hor->nombre = hor->Name;
-
-hor->revon=hor->Undo[UndoCount].revon;
-hor->attack= hor->Undo[UndoCount].attack;
-hor->detune = hor->Undo[UndoCount].detune;
-hor->split=hor->Undo[UndoCount].split;
-hor->ganmod=hor->Undo[UndoCount].ganmod;
-hor->choron=hor->Undo[UndoCount].choron;
-hor->ELFOamplitude=hor->Undo[UndoCount].ELFOamplitude;
-hor->popo=hor->Undo[UndoCount].popo;
-hor->ELFOspeed=hor->Undo[UndoCount].ELFOspeed;
-hor->chorvol=hor->Undo[UndoCount].chorvol;
-
-
-
-
+  hor->MUndo();
 meteprog();
 }
 
@@ -4746,169 +4706,16 @@ void HORGAN::Actu() {
            return;
            }
 
-UndoCount++;
-if (UndoCount == 95) UndoCount = 0;
-int k;
-for (k=1; k<=20; k++)
-{
-hor->Undo[UndoCount].Operator[k].volumen=hor->Operator[k].volumen;
-hor->Undo[UndoCount].Operator[k].harmonic_fine=hor->Operator[k].harmonic_fine;
-hor->Undo[UndoCount].Operator[k].harmonic=hor->Operator[k].harmonic;
-}
-
-
-hor->Undo[UndoCount].echoon=hor->echoon;
-hor->Undo[UndoCount].echovol=hor->echovol;
-hor->Undo[UndoCount].echodelay=hor->echodelay;
-hor->Undo[UndoCount].PLFOspeed=hor->PLFOspeed;
-hor->Undo[UndoCount].PLFOdelay=hor->PLFOdelay;
-hor->Undo[UndoCount].LFOspeed=hor->LFOspeed;
-hor->Undo[UndoCount].LFOpitch=hor->LFOpitch;
-hor->Undo[UndoCount].rota=hor->rota;
-hor->Undo[UndoCount].modulation=hor->modulation;
-hor->Undo[UndoCount].transpose=hor->transpose;
-hor->Undo[UndoCount].master=hor->master;
-
-for (k=0; k<=24; k++) hor->Undo[UndoCount].Name[k]=hor->Name[k];
-hor->nombre = hor->Name;
-hor->Undo[UndoCount].attack=hor->attack;
-hor->Undo[UndoCount].detune=hor->detune;
-hor->Undo[UndoCount].revon=hor->revon;
-hor->Undo[UndoCount].split=hor->split;
-hor->Undo[UndoCount].ganmod =hor->ganmod;
-hor->Undo[UndoCount].choron=hor->choron;
-hor->Undo[UndoCount].ELFOamplitude=hor->ELFOamplitude;
-hor->Undo[UndoCount].popo=hor->popo;
-hor->Undo[UndoCount].ELFOspeed=hor->ELFOspeed;
-hor->Undo[UndoCount].chorvol=hor->chorvol;
+hor->MActu();
 }
 
 void HORGAN::Redo() {
-  UndoCount = UndoCount + 1;
-if (UndoCount == 95 ) UndoCount = 0;
-int k;
-for (k=1; k<=20; k++)
-{
-hor->Operator[k].volumen =hor->Undo[UndoCount].Operator[k].volumen;
-hor->Operator[k].harmonic_fine =hor->Undo[UndoCount].Operator[k].harmonic_fine;
-hor->Operator[k].harmonic =hor->Undo[UndoCount].Operator[k].harmonic;
-}
-
-
-
-hor->echoon = hor->Undo[UndoCount].echoon;
-hor->echovol = hor->Undo[UndoCount].echovol;
-hor->echodelay = hor->Undo[UndoCount].echodelay;
-
-
-hor->PLFOspeed = hor->Undo[UndoCount].PLFOspeed;
-hor->PLFOdelay = hor->Undo[UndoCount].PLFOdelay;
-hor->LFOspeed = hor->Undo[UndoCount].LFOspeed;
-hor->LFOpitch = hor->Undo[UndoCount].LFOpitch;
-hor->rota = hor->Undo[UndoCount].rota;
-hor->modulation = hor->Undo[UndoCount].modulation;
-hor->transpose = hor->Undo[UndoCount].transpose;
-hor->master = hor->Undo[UndoCount].master;
-
-for (k=0; k<=24; k++) hor->Name[k]=hor->Undo[UndoCount].Name[k];
-hor->nombre = hor->Name;
-
-hor->attack = hor->Undo[UndoCount].attack;
-hor->detune = hor->Undo[UndoCount].detune;
-
-hor->revon=hor->Undo[UndoCount].revon;
-hor->split=hor->Undo[UndoCount].split;
-hor->ganmod=hor->Undo[UndoCount].ganmod;
-hor->choron=hor->Undo[UndoCount].choron;
-hor->ELFOamplitude=hor->Undo[UndoCount].ELFOamplitude;
-hor->popo=hor->Undo[UndoCount].popo;
-hor->ELFOspeed=hor->Undo[UndoCount].ELFOspeed;
-hor->chorvol=hor->Undo[UndoCount].chorvol;
-
-
-
-
-
-
+  hor->MRedo();
 meteprog();
 }
 
-void HORGAN::PutPrim() {
-  int k;
-for (k=1; k<=20; k++)
-{
-hor->Prim[1].Operator[k].volumen=hor->Operator[k].volumen;
-hor->Prim[1].Operator[k].harmonic_fine=hor->Operator[k].harmonic_fine;
-hor->Prim[1].Operator[k].harmonic=hor->Operator[k].harmonic;
-}
-
-
-
-hor->Prim[1].echoon=hor->echoon;
-hor->Prim[1].echovol=hor->echovol;
-hor->Prim[1].echodelay=hor->echodelay;
-
-hor->Prim[1].PLFOspeed=hor->PLFOspeed;
-hor->Prim[1].PLFOdelay=hor->PLFOdelay;
-hor->Prim[1].LFOspeed=hor->LFOspeed;
-hor->Prim[1].LFOpitch=hor->LFOpitch;
-hor->Prim[1].rota=hor->rota;
-hor->Prim[1].modulation=hor->modulation;
-hor->Prim[1].transpose=hor->transpose;
-hor->Prim[1].master=hor->master;
-
-for (k=0; k<=24; k++) hor->Prim[1].Name[k]=hor->Name[k];
-
-hor->Prim[1].attack=hor->attack;
-hor->Prim[1].detune=hor->detune;
-hor->Prim[1].revon=hor->revon;
-
-hor->Prim[1].split=hor->split;
-hor->Prim[1].ganmod =hor->ganmod;
-hor->Prim[1].choron=hor->choron;
-hor->Prim[1].ELFOamplitude=hor->ELFOamplitude;
-hor->Prim[1].popo=hor->popo;
-hor->Prim[1].ELFOspeed=hor->ELFOspeed;
-hor->Prim[1].chorvol=hor->chorvol;
-}
-
 void HORGAN::GetPrim() {
-  int k;
-for (k=1; k<=20; k++)
-{
-hor->Operator[k].volumen =hor->Prim[1].Operator[k].volumen;
-hor->Operator[k].harmonic_fine =hor->Prim[1].Operator[k].harmonic_fine;
-hor->Operator[k].harmonic =hor->Prim[1].Operator[k].harmonic;
-}
-
-
-
-
-hor->echoon = hor->Prim[1].echoon;
-hor->echovol = hor->Prim[1].echovol;
-hor->echodelay = hor->Prim[1].echodelay;
-hor->PLFOspeed = hor->Prim[1].PLFOspeed;
-hor->PLFOdelay = hor->Prim[1].PLFOdelay;
-hor->LFOspeed = hor->Prim[1].LFOspeed;
-hor->LFOpitch = hor->Prim[1].LFOpitch;
-hor->rota = hor->Prim[1].rota;
-hor->modulation = hor->Prim[1].modulation;
-hor->transpose = hor->Prim[1].transpose;
-hor->master = hor->Prim[1].master;
-bzero(hor->Name,sizeof(hor->Name));
-for (k=0; k<=24; k++) hor->Name[k]=hor->Prim[1].Name[k];
-hor->nombre = hor->Name;
-hor->attack = hor->Prim[1].attack;
-hor->detune = hor->Prim[1].detune;
-hor->revon = hor->Prim[1].revon;
-hor->split=hor->Prim[1].split;
-hor->ganmod=hor->Prim[1].ganmod;
-hor->choron=hor->Prim[1].choron;
-hor->ELFOamplitude=hor->Prim[1].ELFOamplitude;
-hor->popo=hor->Prim[1].popo;
-hor->ELFOspeed=hor->Prim[1].ELFOspeed;
-hor->chorvol=hor->Prim[1].chorvol;
-
+  hor->MGetPrim();
 meteprog();
 }
 
