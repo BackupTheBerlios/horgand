@@ -30,7 +30,7 @@
 #define MPERIOD  256
 #define BUFSIZE 1024
 #define POLY 32
-#define SAMPLE_RATE 44100
+#define DSAMPLE_RATE 44100
 #define D_PI 6.283184
 
 extern pthread_mutex_t mutex;
@@ -107,6 +107,7 @@ public:
              
   int cprograma;
   int PERIOD;
+  unsigned int SAMPLE_RATE;
   int PERIOD2;
   int PERIOD4;
   int PERIOD8;

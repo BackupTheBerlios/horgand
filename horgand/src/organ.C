@@ -52,8 +52,6 @@ HOR::HOR ()
   capsg=0;
   master = 0.70;
   omaster = 0.70;
-  incre = 0.5 / SAMPLE_RATE;
-  lalapi = D_PI / SAMPLE_RATE;
   sbars = 1;
   ae = 1;
   fe = 0;  
@@ -112,7 +110,6 @@ HOR::HOR ()
   Operator[19].harmonic = 19;
   Operator[20].harmonic = 22;
   
-
 
   solucion = 0;
   mastertune = 1;
@@ -985,6 +982,11 @@ for (j = 1; j<= 20; j++)
 	  Salida = 3;
 	  jackaudioprepare ();
 	}
+
+       incre = 0.5 / SAMPLE_RATE;
+       lalapi = D_PI / SAMPLE_RATE;
+
+
 
       bzero(BankFilename, sizeof (BankFilename));
       bzero (temp, sizeof (temp));

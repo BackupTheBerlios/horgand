@@ -2,8 +2,16 @@ horgand ChangeLog
 
 
 
-== v1.06 (  /02/2004) ==
+== v1.07 (  /  /2004) ==
 ---------------------------------------------------------------------------------------------
+- Auto adjust internal sample rate to jackd sample rate. 
+
+
+
+
+== v1.06 (13/02/2004) ==
+---------------------------------------------------------------------------------------------
+- Modified sounds.
 - Added Volume for organ section.
 - Master Volume now control the whole organ.
 - Update jack-process

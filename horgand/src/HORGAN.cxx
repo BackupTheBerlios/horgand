@@ -2186,7 +2186,7 @@ void HORGAN::cb_CloRit(Fl_Button* o, void* v) {
 
 Fl_Double_Window* HORGAN::make_window() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(825, 595, gettext("Horgand v1.06"));
+  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(825, 595, gettext("Horgand v1.07"));
     w = o;
     o->color(FL_LIGHT1);
     o->labelcolor((Fl_Color)208);
@@ -5138,7 +5138,7 @@ Rit20->value(0);
 }
 
 void HORGAN::meteprog() {
-  OMaster->value(hor->master * 100.0);
+  OMaster->value(hor->omaster * 100.0);
 
 
 V1->value(hor->Operator[1].volumen * 100);

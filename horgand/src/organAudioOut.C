@@ -61,6 +61,7 @@ HOR::ossaudioprepare ()
 {
 
   int snd_bitsize = 16;
+  SAMPLE_RATE = DSAMPLE_RATE;
   snd_fragment = 0x00080009;
   snd_stereo = 1;
   snd_format = AFMT_S16_LE;
@@ -100,6 +101,7 @@ HOR::alsaaudioprepare ()
       exit (1);
     }
   PERIOD = MPERIOD;
+  SAMPLE_RATE=DSAMPLE_RATE;
   ponpe ();
   snd_pcm_hw_params_alloca (&hw_params);
   snd_pcm_hw_params_any (playback_handle, hw_params);
@@ -134,14 +136,15 @@ HOR::jackaudioprepare ()
       fprintf (stderr, "Cannot make a jack client\n");
       exit (1);
     };
+  SAMPLE_RATE=DSAMPLE_RATE;
   fprintf (stderr, "Internal SampleRate   = %d\nJack Output SampleRate= %d\n",
 	   SAMPLE_RATE, jack_get_sample_rate (jackclient));
   if ((unsigned int) jack_get_sample_rate (jackclient) !=
       (unsigned int) SAMPLE_RATE)
     fprintf (stderr,
-	     "It is recomanded that the both samplerates to be equal.\n");
+	     "Adjusting SAMPLE_RATE to jackd.\n");
 
-
+  SAMPLE_RATE = jack_get_sample_rate(jackclient);
 
   jack_set_process_callback (jackclient, jackprocess, 0);
   PERIOD = jack_get_buffer_size (jackclient);

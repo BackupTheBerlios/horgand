@@ -92,10 +92,10 @@ return 1;
 class HORGAN {} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
-      label {Horgand v1.06}
+      label {Horgand v1.07}
       callback {Pexitprogram=1;
 o->hide();
-exit(0);}
+exit(0);} selected
       xywh {18 80 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
@@ -2917,8 +2917,9 @@ Rit18->value(0);
 Rit19->value(0);
 Rit20->value(0);} {}
   }
-  Function {meteprog()} {} {
-    code {OMaster->value(hor->master * 100.0);
+  Function {meteprog()} {open
+  } {
+    code {OMaster->value(hor->omaster * 100.0);
 
 
 V1->value(hor->Operator[1].volumen * 100);
@@ -3051,7 +3052,6 @@ ChorVol->value(hor->chorvol * 100);
 
 hor->procesaclean();
 hor->chorusclean();
-hor->rclean();} {selected
-    }
+hor->rclean();} {}
   }
 } 
