@@ -4092,8 +4092,7 @@ e version 2 of the \n GNU General Public License for details.");
 }
 
 void HORGAN::metelo() {
-  Master->value(hor->master * 100.0);
-meteprog();
+  meteprog();
 
 switch (hor->Salida)
 {
@@ -4967,7 +4966,10 @@ Rit20->value(0);
 }
 
 void HORGAN::meteprog() {
-  V1->value(hor->Operator[1].volumen * 100);
+  Master->value(hor->master * 100.0);
+
+
+V1->value(hor->Operator[1].volumen * 100);
 V2->value(hor->Operator[2].volumen * 100);
 V3->value(hor->Operator[3].volumen * 100);
 V4->value(hor->Operator[4].volumen * 100);

@@ -2068,8 +2068,7 @@ RitEdit->hide();}
     }
   }
   Function {metelo()} {} {
-    code {Master->value(hor->master * 100.0);
-meteprog();
+    code {meteprog();
 
 switch (hor->Salida)
 {
@@ -2936,7 +2935,10 @@ Rit19->value(0);
 Rit20->value(0);} {}
   }
   Function {meteprog()} {} {
-    code {V1->value(hor->Operator[1].volumen * 100);
+    code {Master->value(hor->master * 100.0);
+
+
+V1->value(hor->Operator[1].volumen * 100);
 V2->value(hor->Operator[2].volumen * 100);
 V3->value(hor->Operator[3].volumen * 100);
 V4->value(hor->Operator[4].volumen * 100);
