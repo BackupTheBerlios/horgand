@@ -4217,12 +4217,11 @@ void HORGAN::MiraClientes() {
         snd_seq_port_info_t *pinfo;
         int  client;
         int  err;
-        int i,iguales;
+        int i;
         snd_seq_t *handle;
         int count = 1;
         int count1 = 1;
         char temp[80];
-        char lafilo[8];
         char linea[256];
         BMidiIn->clear();
         BMidiIn->add("Not Connected");
@@ -4269,21 +4268,10 @@ void HORGAN::MiraClientes() {
                            bzero(temp,sizeof(temp));
                            sscanf(linea,"%s",temp);
                            if (strcmp(temp,"Horgand")!=0)
-                           {
-                                iguales = 0;
-                                for(i=1; i<=(int)BMidiIn->size(); i++) if (strcmp(BMidiIn->text(i), linea) == 0) iguales ++; 
-                    
-                             if (iguales != 0)
-                                     {
-                                       bzero(lafilo,strlen(lafilo));
-                                       sprintf(lafilo,"%d",iguales);
-                                       strcat(linea,lafilo);
-                                       bzero(hor->CPIMidiS[count1].Info,sizeof(hor->CPIMidiS[count1].Info));
-                                       sprintf(hor->CPIMidiS[count1].Info, "%s",linea);
-                                     }
+                           
 
                                 BMidiIn->add(linea);
-                               }
+                               
 
                            count1++;
 

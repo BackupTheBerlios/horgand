@@ -4,7 +4,6 @@ horgand ChangeLog
 
 == v1.05 (  /01/2004) ==
 ---------------------------------------------------------------------------------------------
-- Auto-Connect runs in devices with same name.
 - Improved Menus.
 - Fixed Bug in compare and Load functions.
 - Fixed Bug in Undo/Redo.
