@@ -104,7 +104,7 @@ public:
   SNDFILE *infileb;
   SF_INFO sfinfob;
   int readcountb;
-             
+  float asound;           
   int cprograma;
   int PERIOD;
   unsigned int SAMPLE_RATE;

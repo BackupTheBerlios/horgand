@@ -92,7 +92,7 @@ return 1;
 class HORGAN {} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
-      label {Horgand v1.07}
+      label {Horgand v1.08}
       callback {Pexitprogram=1;
 o->hide();
 exit(0);}
@@ -2520,53 +2520,54 @@ Actu();}
 switch((int) hor->ganmod)
 {
 case 1:
-hor->rtime = 1.2;
+hor->rtime = 1.7;
 hor->revvol = 0.45;
-hor->diffussion = 0.13;
+hor->diffussion = 0.14;
 
 break;
 
 case 2:
-hor->rtime = 1.2;
+hor->rtime = 1.7;
 hor->revvol = 0.65;
-hor->diffussion = 0.13;
+hor->diffussion = 0.14;
 break;
 
 case 3:
-hor->rtime = 1.7;
+hor->rtime = 2.4;
 hor->revvol = 0.45;
-hor->diffussion = 0.14;
+hor->diffussion = 0.16;
 break;
 
 case 4:
-hor->rtime = 1.7;
+hor->rtime = 2.4;
 hor->revvol = 0.65;
-hor->diffussion = 0.14;
+hor->diffussion = 0.16;
 break;
 
 case 5:
-hor->rtime = 2.4;
-hor->revvol = 0.45;
-hor->diffussion = 0.16;
-break;
-
-case 6:
-hor->rtime = 2.4;
-hor->revvol = 0.65;
-hor->diffussion = 0.16;
-
-case 7:
 hor->rtime = 3.2;
 hor->revvol = 0.45;
 hor->diffussion = 0.16;
 break;
 
-case 8:
+case 6:
 hor->rtime = 3.8;
 hor->revvol = 0.65;
 hor->diffussion = 0.16;
+
+case 7:
+hor->rtime = 4.4;
+hor->revvol = 0.45;
+hor->diffussion = 0.16;
 break;
-}} {}
+
+case 8:
+hor->rtime = 4.4;
+hor->revvol = 0.65;
+hor->diffussion = 0.16;
+break;
+}} {selected
+    }
   }
   Function {GetRit(int Rit)} {} {
     code {int i;
@@ -2946,7 +2947,6 @@ ChorVol->value(hor->chorvol * 100);
 
 hor->procesaclean();
 hor->chorusclean();
-hor->rclean();} {selected
-    }
+hor->rclean();} {}
   }
 } 

@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 {
 
   fprintf (stderr,
-	   "horgand v1.07 - Copyright (c) 2003-2004 Josep Andreu (Holborn)\n");
+	   "horgand v1.08 - Copyright (c) 2003-2004 Josep Andreu (Holborn)\n");
   if (argc == 1)
     fprintf (stderr, "Try 'horgand --help' for command-line options.\n");
 

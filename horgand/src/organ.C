@@ -1170,11 +1170,12 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
         }
       if (t > attack)
         {
-           return( 1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.01));
-            
+    return( 1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.01));
+       
         }
-           return ( t / (attack + 0.01));
-
+        return ( t / (attack + 0.01));
+                
+    
       
     }
   else
@@ -1306,7 +1307,8 @@ HOR::Alg1s (int nframes, void *)
           decay = 0.0;
           sustain = 0.99;          
           enve0 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
-          decay = 0.30;
+	  //printf("%f %f\n",enve0,env_time[l2]);
+	  decay = 0.30;
           sustain = 0.0;        
           enve1 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2); 
           miraalfo(l2);
@@ -1341,8 +1343,9 @@ HOR::Alg1s (int nframes, void *)
                                
 		 }
                 }
-	      buf[l1] += sound * omaster;
-              buf[l1+1] += sound * omaster;
+
+              buf[l1] += sound * omaster; 
+              buf[l1+1] += sound * omaster; 
               env_time[l2] += incre;
 	    }
               

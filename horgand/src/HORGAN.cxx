@@ -2152,7 +2152,7 @@ void HORGAN::cb_CloRit(Fl_Button* o, void* v) {
 
 Fl_Double_Window* HORGAN::make_window() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(825, 595, gettext("Horgand v1.07"));
+  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(825, 595, gettext("Horgand v1.08"));
     w = o;
     o->color(FL_LIGHT1);
     o->labelcolor((Fl_Color)208);
@@ -4731,49 +4731,49 @@ void HORGAN::ponreverb() {
 switch((int) hor->ganmod)
 {
 case 1:
-hor->rtime = 1.2;
+hor->rtime = 1.7;
 hor->revvol = 0.45;
-hor->diffussion = 0.13;
+hor->diffussion = 0.14;
 
 break;
 
 case 2:
-hor->rtime = 1.2;
+hor->rtime = 1.7;
 hor->revvol = 0.65;
-hor->diffussion = 0.13;
+hor->diffussion = 0.14;
 break;
 
 case 3:
-hor->rtime = 1.7;
+hor->rtime = 2.4;
 hor->revvol = 0.45;
-hor->diffussion = 0.14;
+hor->diffussion = 0.16;
 break;
 
 case 4:
-hor->rtime = 1.7;
+hor->rtime = 2.4;
 hor->revvol = 0.65;
-hor->diffussion = 0.14;
+hor->diffussion = 0.16;
 break;
 
 case 5:
-hor->rtime = 2.4;
-hor->revvol = 0.45;
-hor->diffussion = 0.16;
-break;
-
-case 6:
-hor->rtime = 2.4;
-hor->revvol = 0.65;
-hor->diffussion = 0.16;
-
-case 7:
 hor->rtime = 3.2;
 hor->revvol = 0.45;
 hor->diffussion = 0.16;
 break;
 
-case 8:
+case 6:
 hor->rtime = 3.8;
+hor->revvol = 0.65;
+hor->diffussion = 0.16;
+
+case 7:
+hor->rtime = 4.4;
+hor->revvol = 0.45;
+hor->diffussion = 0.16;
+break;
+
+case 8:
+hor->rtime = 4.4;
 hor->revvol = 0.65;
 hor->diffussion = 0.16;
 break;

@@ -111,7 +111,7 @@ void
 HOR::rotary ()
 {
   int i;
-  float a, l, r;
+  float a ,l, r;
   freqlfo = 8 * modulation * LFOamplitude * lalapi;
 
   for (i = 0; i <PERIOD2; i +=2)
@@ -119,12 +119,14 @@ HOR::rotary ()
 
       a = LFO (xx);
 
-      l = buf[i];
-      r = buf[i + 1];
+      l =  buf[i];
+      r =  buf[i + 1];
 
 
       buf[i] -= l * a;
       buf[i + 1] += r * a;
+      
+                         
 
 
     }

@@ -171,7 +171,5 @@ HOR::jackaudioprepare ()
   jack_connect (jackclient, jack_port_name (outport_right),
 		"alsa_pcm:playback_2");
 
-
 };
-
 
