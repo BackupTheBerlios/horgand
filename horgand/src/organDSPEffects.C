@@ -117,7 +117,7 @@ HOR::rotary ()
   for (i = 0; i <PERIOD2; i +=2)
     {
 
-      a = LFO (xx) / 3.141598;
+      a = LFO (xx);
 
       l = buf[i];
       r = buf[i + 1];

@@ -95,7 +95,7 @@ class HORGAN {} {
       label {Horgand v1.07}
       callback {Pexitprogram=1;
 o->hide();
-exit(0);} selected
+exit(0);}
       xywh {18 80 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
@@ -533,7 +533,7 @@ if (vavi == 1)
 { 
 Actu();
 vavi = 0;
-}}
+}} selected
         xywh {180 100 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 40 step 0.1
         code0 {o->value(hor->LFOspeed);}
         class Rueda
