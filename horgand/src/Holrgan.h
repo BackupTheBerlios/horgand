@@ -302,11 +302,11 @@ struct OperatorPar
  float volumen;
  float con1; 
  }    
-   Operator[7];
+   Operator[21];
 
 struct Todolo
 
-  { OperatorPar Operator[7];
+  { OperatorPar Operator[21];
 
    float modulation;
    float echovol;
@@ -373,7 +373,7 @@ jack_port_t *outport_left,*outport_right;
     float dphi_mod;
     float sphi[POLY];
     float sphi_mod[POLY];
-  } f[30];
+  } f[21];
   
 
 
@@ -381,7 +381,7 @@ jack_port_t *outport_left,*outport_right;
   
   { 
     float f1,f2,f3;
-  }  h[150];
+  }  h[170];
 
   
   struct PuertoMidiIn

@@ -2,8 +2,18 @@ horgand ChangeLog
 
 
 
-== v1.05 (  /01/2004) ==
+== v1.06 (  /  /2004) ==
 ---------------------------------------------------------------------------------------------
+- File format changed, new default bank released.
+- Improved Detune for stereo effect.
+- Sound engine changed (20 Carriers) (10x2)(stereo)
+
+
+
+
+== v1.05 (19/01/2004) ==
+---------------------------------------------------------------------------------------------
+- Added GPL headers in sources.
 - Fixed bug in auto-connect, now connect into the specified port.
 - Improved Menus.
 - Fixed Bug in compare and Load functions.

@@ -69,7 +69,7 @@ PACKAGE = @PACKAGE@
 VERSION = @VERSION@
 
 bin_PROGRAMS = horgand
-horgand_SOURCES = main.C         organ.C         HORGAN.cxx         Holrgan.h         HORGAN.h
+horgand_SOURCES = main.C         organ.C 	organvarios.C 	organAudioOut.C 	organMIDIIn.C 	organFileIO.C 	organAccompaniment.C 	organDSPEffects.C         HORGAN.cxx         Holrgan.h         HORGAN.h
 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_CLEAN_FILES = 
@@ -80,7 +80,9 @@ DEFS = @DEFS@ -I. -I$(srcdir)
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-horgand_OBJECTS =  main.o organ.o HORGAN.o
+horgand_OBJECTS =  main.o organ.o organvarios.o organAudioOut.o \
+organMIDIIn.o organFileIO.o organAccompaniment.o organDSPEffects.o \
+HORGAN.o
 horgand_LDADD = $(LDADD)
 horgand_DEPENDENCIES = 
 horgand_LDFLAGS = 
@@ -99,7 +101,10 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
-DEP_FILES =  .deps/HORGAN.P .deps/main.P .deps/organ.P
+DEP_FILES =  .deps/HORGAN.P .deps/main.P .deps/organ.P \
+.deps/organAccompaniment.P .deps/organAudioOut.P \
+.deps/organDSPEffects.P .deps/organFileIO.P .deps/organMIDIIn.P \
+.deps/organvarios.P
 SOURCES = $(horgand_SOURCES)
 OBJECTS = $(horgand_OBJECTS)
 

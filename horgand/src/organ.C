@@ -28,9 +28,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <sys/soundcard.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
 #include <unistd.h>
 
 
@@ -86,18 +83,33 @@ HOR::HOR ()
 
 
 
-  for (i = 1; i <= 6; i++)
+  for (i = 1; i <= 20; i++)
     {
       Operator[i].harmonic_fine = 0.0;
       Operator[i].volumen = 0.0;
     }
 
-  Operator[1].harmonic = 3;
-  Operator[2].harmonic = 5;
-  Operator[3].harmonic = 8;
-  Operator[4].harmonic = 11;
-  Operator[5].harmonic = 14;
-  Operator[6].harmonic = 22;
+  Operator[1].harmonic = 1;
+  Operator[2].harmonic = 3;
+  Operator[3].harmonic = 4;
+  Operator[4].harmonic = 5;
+  Operator[5].harmonic = 7;
+  Operator[6].harmonic = 8;
+  Operator[7].harmonic = 11;
+  Operator[8].harmonic = 14;
+  Operator[9].harmonic = 19;
+  Operator[10].harmonic = 22;
+  Operator[11].harmonic = 1;
+  Operator[12].harmonic = 3;
+  Operator[13].harmonic = 4;
+  Operator[14].harmonic = 5;
+  Operator[15].harmonic = 7;
+  Operator[16].harmonic = 8;
+  Operator[17].harmonic = 11;
+  Operator[18].harmonic = 14;
+  Operator[19].harmonic = 19;
+  Operator[20].harmonic = 22;
+  
 
 
   solucion = 0;
@@ -757,7 +769,7 @@ for (j = 1; j<= 20; j++)
 
   for (j = 1; j <= 32; j++)
     {
-      for (i = 1; i <= 6; i++)
+      for (i = 1; i <= 20; i++)
 	{
 	  Banco[j].Operator[i].harmonic = Operator[i].harmonic;
 	  Banco[j].Operator[i].harmonic_fine = 0.0;
@@ -796,7 +808,7 @@ for (j = 1; j<= 20; j++)
   for (j = 0; j <= 100; j++)
     {
 
-      for (i = 1; i <= 6; i++)
+      for (i = 1; i <= 20; i++)
 	{
 	  Undo[j].Operator[i].harmonic = Operator[i].harmonic;
 	  Undo[j].Operator[i].harmonic_fine = 0.0;
@@ -835,7 +847,7 @@ for (j = 1; j<= 20; j++)
   for (j = 0; j <= 3; j++)
     {
 
-      for (i = 1; i <= 6; i++)
+      for (i = 1; i <= 20; i++)
 	{
 	  Prim[j].Operator[i].harmonic = Operator[i].harmonic;
 	  Prim[j].Operator[i].harmonic_fine = 0.0;
@@ -891,10 +903,10 @@ for (j = 1; j<= 20; j++)
 
 
 
-  lsin = (float *) malloc (sizeof (float) * 10000);
-  nsin = (float *) malloc (sizeof (float) * 10000);
-  memset (lsin, 0, 10000);
-  memset (nsin, 0, 10000);
+  lsin = (float *) malloc (sizeof (float) * 8000);
+  nsin = (float *) malloc (sizeof (float) * 8000);
+  memset (lsin, 0, 8000);
+  memset (nsin, 0, 8000);
 
 
 
@@ -916,7 +928,7 @@ for (j = 1; j<= 20; j++)
     }
 
 
-  for (i = 1; i <= 140; i++)
+  for (i = 1; i <= 168; i++)
     {
       h[i].f1 = 8.1757989156 * exp ((float) (i - 2) * log (2.0) / 12.0);
       h[i].f2 = 8.1757989156 * exp ((float) (i) * log (2.0) / 12.0);
@@ -1078,573 +1090,6 @@ HOR::~HOR ()
 
 };
 
-
-void 
-
-HOR::MiraChord()
-{
-int i,j;
-int anote[POLY];
-int onote[POLY];
-int nnotes=0;
-int posi = 0;
-int baja,ubaja;
-int pafuera=0;
-int busca=0;
-int di1,di2,di3,di4;
-char AName[16];
-
-
-chord = 0;
-for (i=0; i<=POLY; i++) 
-	{
-	if (( note_active[i] == 1) && (rnote[i] < 60))
-		{
- 		anote[nnotes] = rnote[i];
- 		nnotes++;
-		}
-	}
-
-
-
-if ((nnotes < 3) || (nnotes > 5) ) return;
-
-while(posi<nnotes)
-{
-        baja=400;
-
-	for (i=0; i<nnotes; i++)
-	{
- 	if (anote[i] <= baja)
-		{ 
-		onote[posi] = anote[i];
-                ubaja=baja;	
-        	baja = anote[i];
-                pafuera = i;
-                }
-        }
-        baja = ubaja;
-        anote[pafuera]= 1000;
-        posi++;
-}
-
-
-if (nnotes == 3)
-   {
-
-	di1=onote[1] - onote[0];
-	di2=onote[2] - onote[1];
-
-	j =0;
-
- 	while(busca==0)
-
-	{
-	j++;
-	if ((Chord3[j].di1 == di1) && (Chord3[j].di2 == di2))
-		{ 
-    			busca = 1;
-    			chord = j;
-                        ctipo = Chord3[j].tipo;
-                        break;
-		}    
- 
-        if (j > 14 ) break;
-	}
-
-	if (chord != 0)
-	{
-	
-   	        int elke = onote[Chord3[chord].fund-1];
-                fundi = elke % 12;
-		sprintf(AName,"%s%s",NC[fundi].Nom,Chord3[chord].Nom);
-                
-                if (strcmp(AName, NombreAcorde) != 0)
-                { 
-                strcpy(NombreAcorde,AName);
-                cambialo = 1;
-		}
-	}
-     return;
-   }
-
-if (nnotes == 4)
-   {
-
-        di1=onote[1] - onote[0];
-        di2=onote[2] - onote[1];
-        di3=onote[3] - onote[2];
-        j =0;
-
-        while(busca==0)
-
-        {
-        j++;
-        if ((Chord4[j].di1 == di1) && (Chord4[j].di2 == di2) && (Chord4[j].di3 == di3))
-                {
-                        busca = 1;
-                        chord = j;
-                        ctipo = Chord4[j].tipo;
-                        break;
-                }
-
-        if (j > 46 ) break;
-        }
-
-        if (chord != 0)
-        {
-                int elke = onote[Chord4[chord].fund-1];
-                fundi = elke % 12;
-                sprintf(AName,"%s%s",NC[fundi].Nom,Chord4[chord].Nom);
-                if (strcmp(AName, NombreAcorde) != 0)
-                {
-                strcpy(NombreAcorde,AName);
-                cambialo = 1;
-                }
-
-                
-        }
-        return;
-
-   }
-
-if (nnotes == 5)
-   {
-
-        di1=onote[1] - onote[0];
-        di2=onote[2] - onote[1];
-        di3=onote[3] - onote[2];
-        di4=onote[4] - onote[3];
-        j =0;
-
-        while(busca==0)
-
-        {
-        j++;
-        if ((Chord5[j].di1 == di1) && (Chord5[j].di2 == di2) && (Chord5[j].di3 == di3) && (Chord5[j].di4 == di4))
-                {
-                        busca = 1;
-                        chord = j;
-                        ctipo = Chord5[j].tipo;
-                        break;
-                }
-
-        if (j > 9 ) break;
-        }
-
-        if (chord != 0)
-        {
-                int elke = onote[Chord5[chord].fund-1];
-                fundi = elke % 12;
-                sprintf(AName,"%s%s",NC[fundi].Nom,Chord5[chord].Nom);
-                if (strcmp(AName, NombreAcorde) != 0)
-                {
-                strcpy(NombreAcorde,AName);
-                cambialo = 1;
-                }
-
-                
-        }
-
-   }
-
-
-
-
-};
-
-void 
-HOR::MiraTempo()
-
-{
-
-int i;
-
-pos = (int) ((tempo * cuenta) / fracpos) + 1;
-if (pos == 1)  tum = 127; else tum = 0;
-for (i=1; i<=bars; i++) if (pos== 4*blackn) tum = 127;
-
-
-};
-
-
-void 
-
-HOR:: MiraLinea()
-{
-
-int readcounts,lanota;
-
-  
-  if ((linb[pos] == 0) && (basspending == 0)) return; 
-
-  if ( pos != lpos)
-	{
-        lpos = pos;
-        if (linb[pos] != 0)
-        {
-        if (split == 1) MiraChord();
-        lanota = linb[pos];
-        if (lanota == 5 ) lanota += TCh[ctipo].ter;
-        if (lanota == 8 ) lanota += TCh[ctipo].qui;
-        if (lanota == 12 ) lanota += TCh[ctipo].sep;
- 
-	bnote = btrans + lanota - 1 + fundi;
-        velobass = linbv[pos] / 100.0;
-        if (bnote > 11) bnote -= 12;
-        if (bnote < 0 ) bnote += 12;
-        afina = AB[bnote].afin+AB[bnote].bmt;
-        readcounts = sf_seek (infileb, 0, SEEK_SET);
-        basspending = 1;
-	CogeBass();
-        }
-	}
-  if (basspending == 1 ) CogeBass();
-
-};
-
-
-
-
-
-int
-
-HOR::SelectRitmo(char *nomrit)
-{
-
-   
-   if (! (infile = sf_open (nomrit, SFM_READ, &sfinfo)))
-{
-        printf ("Not able to open input file %s.\n", nomrit);
-        fe = 0;
-        return(1);
-}
-fe = 1;       
-return(0);
-};
-
-void
-
-HOR::SelectBass(char *nombass)
-{
-
-   
-   if (! (infileb = sf_open (nombass, SFM_READ, &sfinfob)))
-        printf ("Not able to open input file %s.\n", nombass) ;
-        
-      
-
-};
-
-
-void
-HOR::ponpe ()
-{
-  PERIOD2 = PERIOD * 2;
-  PERIOD4 = PERIOD * 4;
-  PERIOD8 = PERIOD * 8;
-};
-
-
-
-void
-HOR::CogeBass()
-{
-float l, r, rl, rr;
-int j,readcounts,readcountr;
-int longi;
-
-memset (bbuf, 0, PERIOD8);
-
-
-longi  = (int) (afina * PERIOD);
-
-readcounts = sf_seek (infileb, 0, SEEK_CUR); 
-readcountr = sf_readf_float (infileb, bbuf, longi);
-
-if ((readcounts + longi ) < framesbass) basspending = 1; 
-
-else basspending = 0; 
-
-
- for (i = 0; i < PERIOD2; i +=2)
-    {
-
-      j = (int) (i * afina);
-      if (j % 2 != 0) j++;
-
-      l = buf[i];
-      r = buf[i+1];
-
-       if (l < -1.0)
-        l = -1.0;
-      else if (l > 1.0)
-        l = 1.0;
-      if (r < -1.0)
-        r = -1.0;
-      else if (r > 1.0)
-        r = 1.0;
-     
-
-      rl = bbuf[j];
-      rr = bbuf[j+1];     
- 
-      if (rl < -1.0)
-        rl = -1.0;
-      else if (rl > 1.0)
-        rl = 1.0;
- 
-       if (rl < -1.0)
-        rl = -1.0;
-      else if (rl > 1.0)
-        rl = 1.0;
-     
-
-     buf[i] =  l  + (rl * bassvol * velobass);
-     buf[i+1] =  r  + (rr * bassvol * velobass);
-
-
-      }
-
-
-};
-
-
-
-void HOR::CogeRitmo() { float l, r, rl, rr; 
-int j,readcountr,falta; 
-int ftempo;
-
-memset (rbuf, 0, PERIOD8);
-
-
-ftempo  = (int) (tempo * PERIOD);
-
-MiraTempo();
-if (basson == 1 ) MiraLinea();
-
-cuenta  = sf_seek (infile, 0, SEEK_CUR);
-readcountr = sf_readf_float (infile, rbuf, ftempo);
-
-if (readcountr < ftempo)
-
-{
-
-falta = ftempo - readcountr;
-cuenta = sf_seek (infile, 0, SEEK_SET);
-readcountr = sf_readf_float (infile, rbuf, falta);
-
-}
-
-
- for (i = 0; i < PERIOD2; i += 2)
-    {
-
-      j = (int) (i * tempo);
-      if (j % 2 != 0) j++; 
-     
-      l = buf[i];
-      r = buf[i+1];
-      
-       if (l < -1.0)
-        l = -1.0;
-      else if (l > 1.0)
-        l = 1.0;
-      if (r < -1.0)
-        r = -1.0;
-      else if (r > 1.0)
-        r = 1.0;
-
- 
-      rl = rbuf[j];
-      rr = rbuf[j+1];     
- 
-      if (rl < -1.0)
-        rl = -1.0;
-      else if (rl > 1.0)
-        rl = 1.0;
-      if (rr < -1.0)
-        rr = -1.0;
-      else if (rr > 1.0)
-        rr = 1.0;
-     
-
-     buf[i] =  (l  + (rl * ritvol)) * 0.5;
-     buf[i+1] =  (r + (rr * ritvol)) * 0.5;
-
-      }
-
-};
-
-
-void
-HOR::Salidafinal ()
-{
-  int j;
-  float l, r;
-  short sl, sr;
-  memset (wbuf, 0, PERIOD8);
-  
-  
-  for (i = 0; i < PERIOD2; i += 2)
-    {
-
-      j = 2 * i;
-            
-      l = buf[i];
-      r = buf[i+1];
-      
-      sl = (short) (l * 32767.0);
-      sr = (short) (r * 32767.0);
-
-      wbuf[j] = sl;
-      wbuf[j + 1] = sr;
-      wbuf[j + 2] = sl;
-      wbuf[j + 3] = sr;
-
-    }
-};
-
-
-
-// OSS AUDIO OUT
-
-void
-HOR::ossaudioprepare ()
-{
-
-  int snd_bitsize = 16;
-  snd_fragment = 0x00080009;
-  snd_stereo = 1;
-  snd_format = AFMT_S16_LE;
-  snd_samplerate = SAMPLE_RATE;
-  PERIOD = MPERIOD;
-  ponpe ();
-  snd_handle = open ("/dev/dsp", O_WRONLY, 0);
-  if (snd_handle == -1)
-    {
-      fprintf (stderr, "ERROR - I can't open  /dev/dsp \n");
-      return;
-    };
-  ioctl (snd_handle, SNDCTL_DSP_RESET, NULL);
-
-  ioctl (snd_handle, SNDCTL_DSP_SETFMT, &snd_format);
-  ioctl (snd_handle, SNDCTL_DSP_STEREO, &snd_stereo);
-  ioctl (snd_handle, SNDCTL_DSP_SPEED, &snd_samplerate);
-  ioctl (snd_handle, SNDCTL_DSP_SAMPLESIZE, &snd_bitsize);
-  ioctl (snd_handle, SNDCTL_DSP_SETFRAGMENT, &snd_fragment);
-
-
-};
-
-// ALSA AUDIO OUT
-
-void
-HOR::alsaaudioprepare ()
-{
-  char pcm_name[50];
-  sprintf (pcm_name, "plughw:0,0");
-
-
-  if (snd_pcm_open (&playback_handle, pcm_name, SND_PCM_STREAM_PLAYBACK, 0) <
-      0)
-    {
-      fprintf (stderr, "cannot open audio device %s\n", pcm_name);
-      exit (1);
-    }
-  PERIOD = MPERIOD;
-  ponpe ();
-  snd_pcm_hw_params_alloca (&hw_params);
-  snd_pcm_hw_params_any (playback_handle, hw_params);
-  snd_pcm_hw_params_set_access (playback_handle, hw_params,
-				SND_PCM_ACCESS_RW_INTERLEAVED);
-  snd_pcm_hw_params_set_format (playback_handle, hw_params,
-				SND_PCM_FORMAT_S16_LE);
-  snd_pcm_hw_params_set_rate (playback_handle, hw_params, SAMPLE_RATE, 0);
-  snd_pcm_hw_params_set_channels (playback_handle, hw_params, 2);
-
-  snd_pcm_hw_params_set_periods (playback_handle, hw_params, 2, 0);
-  snd_pcm_hw_params_set_period_size (playback_handle, hw_params, PERIOD2, 0);
-  snd_pcm_hw_params (playback_handle, hw_params);
-  snd_pcm_sw_params_alloca (&sw_params);
-  snd_pcm_sw_params_current (playback_handle, sw_params);
-  snd_pcm_sw_params_set_avail_min (playback_handle, sw_params, PERIOD2);
-  snd_pcm_sw_params (playback_handle, sw_params);
-
-
-};
-
-// JACK Audio
-
-
-void
-HOR::jackaudioprepare ()
-{
-
-  jackclient = jack_client_new ("Horgand");
-  if (jackclient == 0)
-    {
-      fprintf (stderr, "Cannot make a jack client\n");
-      exit (1);
-    };
-  fprintf (stderr, "Internal SampleRate   = %d\nJack Output SampleRate= %d\n",
-	   SAMPLE_RATE, jack_get_sample_rate (jackclient));
-  if ((unsigned int) jack_get_sample_rate (jackclient) !=
-      (unsigned int) SAMPLE_RATE)
-    fprintf (stderr,
-	     "It is recomanded that the both samplerates to be equal.\n");
-
-
-
-  jack_set_process_callback (jackclient, jackprocess, 0);
-  PERIOD = jack_get_buffer_size (jackclient);
-  PERIOD /= 2;
-  ponpe ();
-  outport_left = jack_port_register (jackclient, "out_1",
-				     JACK_DEFAULT_AUDIO_TYPE,
-				     JackPortIsOutput | JackPortIsTerminal,
-				     0);
-  outport_right =
-    jack_port_register (jackclient, "out_2", JACK_DEFAULT_AUDIO_TYPE,
-			JackPortIsOutput | JackPortIsTerminal, 0);
-
-
-
-  if (jack_activate (jackclient))
-    {
-      fprintf (stderr, "Cannot activate jack client\n");
-      exit (1);
-    };
-
-  jack_connect (jackclient, jack_port_name (outport_left),
-		"alsa_pcm:playback_1");
-  jack_connect (jackclient, jack_port_name (outport_right),
-		"alsa_pcm:playback_2");
-
-
-};
-
-
-
-float
-HOR::fastabs (float f)
-{
-  int i = ((*(int *) &f) & 0x7fffffff);
-  return (*(float *) &i);
-
-};
-
-
-float
-HOR::Fsin (float x)
-{
-
-  if (x >= 0) return (lsin[(int) (x * 1000)]); else return (nsin[(int) (x * 1000)]);
-
-};
-
-
-
 float
 HOR::ELFO (float *kx)
 {
@@ -1666,257 +1111,6 @@ HOR::ELFO (float *kx)
   return ((1+out)*0.5 );
   
 
-
-};
-
-
-void
-HOR::bchorus ()
-{
-
-  long elkel, elker, elkel2, elker2;
-  float valorl, valorr;
-  float dll1, dlr1;
-  float dell, delr;
-  float dllo;
-  long aeperhis;
-  int j;
-
-  efreqlfo = 8 * modulation * ELFOamplitude * lalapi;
-
-
-
-  for (i = 0; i < PERIOD2; i +=2)
-    {
-      ehistoryl[eperhis] = buf[i];
-      ehistoryr[eperhis] = buf[i + 1];
-      if (++eperhis > 32800)
-	eperhis = 0;
-    }
-
-  aeperhis = eperhis - PERIOD;
-
-  for (i = 0; i < PERIOD; i++)
-
-    {
-      j = 2 * i;
-
-      ldelay1 = ldelay;
-      rdelay1 = rdelay;
-
-      dll1 = ELFO (&xel);
-      dlr1 = ELFO (&xer);
-
-
-      ldelay = PERIOD2 + (dll1 * popo);
-      rdelay = PERIOD2 + (dlr1 * popo);
-      dell = (ldelay1 * (PERIOD - i) + ldelay * i) / PERIOD;
-      delr = (rdelay1 * (PERIOD - i) + rdelay * i) / PERIOD;
-
-
-      dllo = 1.0 - fmod (dell, 1.0);
-
-      elkel = (long) (aeperhis + i - dell);
-      
-      if (elkel < 0)
-	elkel += 32800;
-      if (elkel > 32800)
-	elkel -= 32800;
-      elkel2 = elkel - 1;
-      if (elkel2 < 0)
-	elkel2 += 32800;
-      if (elkel2 > 32800)
-	elkel2 -= 32800;
-      valorl = ehistoryl[elkel] * dllo + ehistoryl[elkel2] * (1 - dllo);
-      buf[j] = (buf[j] * (1 - chorvol)) + (valorl * chorvol);
-
-      dllo = 1.0 - fmod (delr, 1.0);
-   
-      elker = (long) (aeperhis + i - delr);
-      if (elker < 0)
-	elker += 32800;
-      if (elker > 32800)
-	elker -= 32800;
-      elker2 = elker - 1;
-      if (elker2 < 0)
-	elker2 += 32800;
-      if (elker2 > 32800)
-	elker2 -= 32800;
-      valorr = ehistoryr[elker] * dllo + ehistoryr[elker2] * (1 - dllo);
-      buf[j + 1] = (buf[j + 1] * (1 - chorvol)) + (valorr * chorvol);
-
-
-    }
-};
-
-
-void
-HOR::rotary ()
-{
-  
-  float a, l, r;
-  freqlfo = 8 * modulation * LFOamplitude * lalapi;
-
-  for (i = 0; i <PERIOD2; i +=2)
-    {
-
-      a = LFO (xx) / 3.141598;
-
-      l = buf[i];
-      r = buf[i + 1];
-
-
-      buf[i] -= l * a;
-      buf[i + 1] += r * a;
-
-
-    }
-};
-
-
-void
-HOR::reverb ()
-
-{
-  
-  long elke, elke1;
-  float tmp=0;
-  float tmprvol=0;
-  float tmprvol1=0;
-  float bufl;
-  float bufr;
-  float efxoutl;
-  float efxoutr;
-  float stmp; 
-  
-    
-  
-  for (i = 0; i <PERIOD2; i +=2)
-
-    {
-
-  bufl = buf[i];
-  bufr = buf[i+1];
-  efxoutl = 0;
-  efxoutr = 0;
-  stmp = 0;
-
-  for (j = 0; j<=15; j++)
-    {
- 
-   
-      elke = rperhis - ((long) (combl[j] * rtime));
-      if (elke % 2 != 0) elke = elke + 1;
-      if (elke < 0) elke = 524800 + elke;
-
-      elke1 = rperhis  - ((long) (combr[j]  * rtime));
-      if (elke1 % 2 == 0) elke1 = elke1 + 1; 
-      if (elke1 < 0) elke1 = 524800 + elke1;
- 
-      tmp = diffussion * apsg[capsg] / apss;
-      stmp += tmp;
-      if (++capsg > 7 ) capsg = 0;
-      efxoutl += rhistory[elke] * stmp;
-
-      tmp = diffussion * apsg[capsg] / apss;
-      stmp += tmp;
-      if (++capsg > 7 ) capsg = 0;
-      efxoutr += rhistory[elke1] * stmp;
- 
-     }
-      
-      tmprvol =  stmp * revvol;
-      tmprvol1 = 1 - tmprvol;
-         
-  
-      buf[i] = (bufl * tmprvol1) + (efxoutl * tmprvol);
-      rhistory[rperhis] = buf[i];
-      if (++rperhis > 524800) rperhis = 0;
-      buf[i + 1] = (bufr * tmprvol1) + (efxoutr * tmprvol);
-      rhistory[rperhis] = buf[i + 1]; 
-      if (++rperhis > 524800) rperhis = 0;
-
-     }
-};
-
-
-
-void
-HOR::procesa ()
-{
-  
-  long elke, elke1;
-  long delay = (long) echodelay;
-  float voll, volr;
-  float echovolr, echovoll;
-
-  voll = 1 - lado;
-  volr = 1 - voll;
-  echovoll = voll * echovol;
-  echovolr = volr * echovol;
-
-
-  for (i = 0; i <PERIOD2; i +=2)
-
-    {
-      
-      elke = perhis - delay;
-      if (elke % 2 != 0) elke = elke + 1;
-      if (elke < 0)
-	elke = 524800 + elke;
-      elke1 = elke + 1;
-      if (elke1 < 0)
-	elke1 = 524800 + elke1;
-
-      buf[i] = (buf[i] * (1 - echovoll)) + (history[elke] * echovoll);
-      history[perhis] = buf[i];
-      if (++perhis > 524800)
-	perhis = 0;
-
-      buf[i + 1] =
-	(buf[i + 1] * (1 - echovolr)) + (history[elke1] * echovolr);
-      history[perhis] = buf[i+1];
-      if (++perhis > 524800)
-	perhis = 0;
-    }
-
-  switch (hacia)
-    {
-    case 0:
-      lado += 0.01;
-      if (lado > 1)
-	hacia = 1;
-      break;
-    case 1:
-      lado -= 0.01;
-      if (lado < 0)
-	hacia = 0;
-      break;
-    }
-    
-};
-
-void
-HOR::rclean()
-{
-
-memset (rhistory, 0, BUFSIZE * 1024);
-
-};
-
-
-void
-HOR::procesaclean ()
-{
-  memset (history, 0, BUFSIZE * 1024);
-
-};
-
-void
-HOR::chorusclean ()
-{
-  memset (ehistoryl, 0, BUFSIZE * 128);
-  memset (ehistoryr, 0, BUFSIZE * 128);
 
 };
 
@@ -1947,132 +1141,6 @@ HOR::miraalfo(int nota)
 {
 alfo = velocity[nota] * envi[nota] * (1 -((120 - note[nota]) / 120.0));
 };
-
-
-
-void
-HOR::midievents (int keIN)
-{
-
-
-  snd_seq_event_t *midievent;
-
-  midievent = NULL;
-  snd_seq_event_input (MidiInPuerto[keIN].midi_in, &midievent);
-  if (midievent == NULL)
-    return;
-
-
-  switch (midievent->type)
-    {
-    case SND_SEQ_EVENT_PITCHBEND:
-      pitch = (float) midievent->data.control.value / 8192.0;
-      break;
-
-    case SND_SEQ_EVENT_PGMCHANGE:
-
-
-      if ((midievent->data.control.value > 0)
-	  && (midievent->data.control.value < 33))
-	programa = midievent->data.control.value;
-
-
-      break;
-
-
-    case SND_SEQ_EVENT_CONTROLLER:
-
-      if (midievent->data.control.param == 1)
-	modulation = (float) midievent->data.control.value / 12.7;
-
-      if (midievent->data.control.param == 7)
-	master = (float) midievent->data.control.value / 127.0;
-
-      if (midievent->data.control.param == 64)
-	{
-	  if (midievent->data.control.value < 64)
-	    pedal = 0;
-	  if (midievent->data.control.value > 63)
-	    pedal = 1;
-	}
-
-
-
-      break;
-
-
-
-
-    case SND_SEQ_EVENT_NOTEON:
-
-      if (midievent->data.note.velocity != 0)
-	{
-	  for (l1 = 0; l1 < POLY; l1++)
-	    {
-	      if (!note_active[l1])
-		{
-		  rnote[l1] = midievent->data.note.note;
-		  note[l1] = rnote[l1];
-		  vumvum = vum;
-		  vum = midievent->data.note.velocity;
-		  velocity[l1] = midievent->data.note.velocity / 127.0;
-
-		  if ((split == 1) && (rnote[l1] < 60))
-		    {
-                     
-		      note[l1] += 24;
-		      velocity[l1] /= 2;
-		    }
-
-		  env_time[l1] = 0;
-		  gate[l1] = 1;
-		  note_active[l1] = 1;
-                  MiraChord();
-                  break;
-		}
-	    }
-	  break;
-	}
-      else
-	{
-	  vumvum = vum;
-	  vum = 0;
-	  for (l1 = 0; l1 < POLY; l1++)
-	    {
-
-	      if (gate[l1] && note_active[l1]
-		  && (rnote[l1] == midievent->data.note.note))
-		{
-		  env_time[l1] = 0;
-		  gate[l1] = 0;
-                  MiraChord();
-		}
-
-	    }
-	}
-      break;
-
-    case SND_SEQ_EVENT_NOTEOFF:
-
-      vumvum = vum;
-      vum = 0;
-      for (l1 = 0; l1 < POLY; l1++)
-	{
-
-	  if (gate[l1] && note_active[l1]
-	      && (rnote[l1] == midievent->data.note.note))
-	    {
-	      env_time[l1] = 0;
-	      gate[l1] = 0;
-              MiraChord();
-	    }
-
-	}
-      break;
-    }
-
-};
-
 
 
 
@@ -2116,7 +1184,7 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
 	}
       if ((pedal == 0) && (envi[nota] > 0))
 	{
-	  envi[nota] *= (1.0 - t / release);
+	  envi[nota] *= (1.0 - (t / release));
 	  if ((note_active) && (envi[nota] < 0.01))
 	    *note_active = 0;
              
@@ -2189,8 +1257,7 @@ HOR::MiraNota (int nota)
 {
   int l;
 
-  l = note[nota] + transpose;
-
+  l = note[nota] + transpose + 12;
   freq_note =
     (pitch >
      0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 -
@@ -2201,420 +1268,12 @@ HOR::MiraNota (int nota)
 };
 
 
-
-void
-HOR::savefile (char *filename)
-{
-
-
-  FILE *fn;
-  char buf[2048];
-  fn = fopen (filename, "w");
-  for (i = 1; i <= 6; i++)
-    {
-
-      bzero (buf, sizeof (buf));
-      sprintf (buf, "%d,%f,%f\n", Operator[i].harmonic,
-	       Operator[i].harmonic_fine, Operator[i].volumen);
-
-
-
-      fputs (buf, fn);
-    }
-
-  bzero (buf, sizeof (buf));
-  sprintf (buf, "%f,%d,%f,%f,%f,%d,%f,%f\n",
-	   master, transpose, PLFOspeed, PLFOdelay, LFOspeed, rota, LFOpitch,
-	   modulation);
-  fputs (buf, fn);
-  bzero (buf, sizeof (buf));
-  sprintf (buf, "%f,%f,%f,%d,%f,%f\n", attack, revon, detune, echoon,
-	   echodelay, echovol);
-  fputs (buf, fn);
-  bzero (buf, sizeof (buf));
-  sprintf (buf, "%d,%d,%f,%f,%f,%f,%f\n", split, choron, popo, ganmod,
-	   ELFOspeed, ELFOamplitude, chorvol);
-  fputs (buf, fn);
-  bzero (buf, sizeof (buf));
-  fputs (nombre, fn);
-  fputs ("\n", fn);
-  fclose (fn);
-
-};
-
-void
-HOR::loadfile (char *filename)
-{
-
-  int i;
-  FILE *fn;
-  char buf[2048];
-
-  if ((fn = fopen (filename, "r")) == NULL)
-    return;
-
-
-  for (i = 1; i <= 6; i++)
-    {
-
-      bzero (buf, sizeof (buf));
-      fgets (buf, sizeof buf, fn);
-      sscanf (buf, "%d,%f,%f", &Operator[i].harmonic,
-	      &Operator[i].harmonic_fine, &Operator[i].volumen);
-
-
-
-
-    }
-
-  bzero (buf, sizeof (buf));
-  fgets (buf, sizeof buf, fn);
-  sscanf (buf,
-	  "%f,%d,%f,%f,%f,%d,%f,%f", &master, &transpose, &PLFOspeed,
-	  &PLFOdelay, &LFOspeed, &rota, &LFOpitch, &modulation);
-
-  bzero (buf, sizeof (buf));
-  fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%f,%f,%f,%d,%f,%f", &attack, &revon, &detune, &echoon,
-	  &echodelay, &echovol);
-
-  bzero (buf, sizeof (buf));
-  fgets (buf, sizeof buf, fn);
-  sscanf
-    (buf, "%d,%d,%f,%f,%f,%f,%f\n", &split, &choron, &popo, &ganmod,
-     &ELFOspeed, &ELFOamplitude, &chorvol);
-
-  bzero (buf, sizeof (buf));
-  bzero (Name, sizeof (Name));
-  fgets (buf, sizeof buf, fn);
-  for (i = 0; i <= 24; i++)
-    if (buf[i] > 20)
-      Name[i] = buf[i];
-  nombre = Name;
-  fclose (fn);
-
-};
-
-void
-HOR::savebank (char *filename)
-{
-
-  FILE *fn;
-  char buf[2048];
-  fn = fopen (filename, "w");
-
-  for (j = 1; j <= 32; j++)
-    {
-
-
-      for (i = 1; i <= 6; i++)
-	{
-
-	  bzero (buf, sizeof (buf));
-	  sprintf (buf, "%d,%f,%f\n",
-		   Banco[j].Operator[i].harmonic,
-		   Banco[j].Operator[i].harmonic_fine,
-		   Banco[j].Operator[i].volumen);
-
-
-	  fputs (buf, fn);
-	}
-
-      bzero (buf, sizeof (buf));
-      sprintf (buf, "%f,%d,%f,%f,%f,%d,%f,%f\n",
-	       Banco[j].master, Banco[j].transpose, Banco[j].PLFOspeed,
-	       Banco[j].PLFOdelay, Banco[j].LFOspeed, Banco[j].rota,
-	       Banco[j].LFOpitch, Banco[j].modulation);
-
-
-      fputs (buf, fn);
-      bzero (buf, sizeof (buf));
-      sprintf (buf, "%f,%f,%f,%d,%f,%f\n", Banco[j].attack, Banco[j].revon,
-	       Banco[j].detune, Banco[j].echoon, Banco[j].echodelay,
-	       Banco[j].echovol);
-      fputs (buf, fn);
-      bzero (buf, sizeof (buf));
-      sprintf
-	(buf, "%d,%d,%f,%f,%f,%f,%f\n", Banco[j].split, Banco[j].choron,
-	 Banco[j].popo, Banco[j].ganmod, Banco[j].ELFOspeed,
-	 Banco[j].ELFOamplitude, Banco[j].chorvol);
-      fputs (buf, fn);
-
-
-      bzero (buf, sizeof (buf));
-      for (i = 0; i <= 24; i++)
-	buf[i] = Banco[j].Name[i];
-      fputs (buf, fn);
-      fputs ("\n", fn);
-      fputs ("---\n", fn);
-    }
-  fclose (fn);
-
-};
-
-
-void
-HOR::loadbank (char *filename)
-{
-
-  int i;
-  FILE *fn;
-  char buf[2048];
-
-  if ((fn = fopen (filename, "r")) == NULL)
-    return;
-  for (j = 1; j <= 32; j++)
-    {
-
-      for (i = 1; i <= 6; i++)
-	{
-
-	  bzero (buf, sizeof (buf));
-	  fgets (buf, sizeof buf, fn);
-
-	  sscanf (buf, "%d,%f,%f",
-		  &Banco[j].Operator[i].harmonic,
-		  &Banco[j].Operator[i].harmonic_fine,
-		  &Banco[j].Operator[i].volumen);
-
-	}
-
-      bzero (buf, sizeof (buf));
-      fgets (buf, sizeof buf, fn);
-      sscanf (buf,
-	      "%f,%d,%f,%f,%f,%d,%f,%f", &Banco[j].master,
-	      &Banco[j].transpose, &Banco[j].PLFOspeed, &Banco[j].PLFOdelay,
-	      &Banco[j].LFOspeed, &Banco[j].rota, &Banco[j].LFOpitch,
-	      &Banco[j].modulation);
-
-      bzero (buf, sizeof (buf));
-      fgets (buf, sizeof buf, fn);
-      sscanf (buf,
-	      "%f,%f,%f,%d,%f,%f", &Banco[j].attack, &Banco[j].revon,
-	      &Banco[j].detune, &Banco[j].echoon, &Banco[j].echodelay,
-	      &Banco[j].echovol);
-
-      bzero (buf, sizeof (buf));
-      fgets (buf, sizeof buf, fn);
-      sscanf
-	(buf, "%d,%d,%f,%f,%f,%f,%f\n", &Banco[j].split, &Banco[j].choron,
-	 &Banco[j].popo, &Banco[j].ganmod, &Banco[j].ELFOspeed,
-	 &Banco[j].ELFOamplitude, &Banco[j].chorvol);
-
-
-
-
-      bzero (buf, sizeof (buf));
-      bzero (Banco[j].Name, sizeof (Banco[j].Name));
-      fgets (buf, sizeof buf, fn);
-      for (i = 0; i <= 24; i++)
-	if (buf[i] > 20)
-	  Banco[j].Name[i] = buf[i];
-      bzero (buf, sizeof (buf));
-      fgets (buf, sizeof buf, fn);
-
-    }
-
-  fclose (fn);
-};
-
-
-void
-HOR::loadrhyt(char *filename)
-{
-   
-   FILE *fs;
-   char temp[1024];
-   
-   bzero(temp,sizeof(temp));
- 
-  if ((fs = fopen (filename, "r")) != NULL)
-   {
-         int linea = 0;
-         NumRit= 1;
-         int w;    
-      while (fgets(temp, sizeof temp, fs) != NULL)
-          {
-             linea++;
-             switch (linea)
-           { 
-             case 1:
-              for (i = 0; i <= (int) strlen(temp) - 2; i++) Rt[NumRit].Nom[i] = temp[i];                   
-              break; 
-             case 2:
-              for (i = 0; i <= (int) strlen(temp) - 2; i++) Rt[NumRit].Nfile[i] = temp[i];
-              break;
-             case 3:
-              sscanf (temp,"%d", &Rt[NumRit].bars);
-              break;
-             case 4:
-              sscanf (temp,"%d", &Rt[NumRit].blackn);
-              break;
-             case 5: 
-             sscanf(temp,"%d,%d,%d,%d",&Rt[NumRit].linb[1],&Rt[NumRit].linb[2],&Rt[NumRit].linb[3],&Rt[NumRit].linb[4]);
-             for (i=1; i<Rt[NumRit].bars*Rt[NumRit].blackn; i++)
-             {
-              w = i*4;
-              bzero(temp,sizeof(temp));
-              fgets(temp, sizeof temp, fs);
-              sscanf(temp,"%d,%d,%d,%d",&Rt[NumRit].linb[w+1],&Rt[NumRit].linb[w+2],&Rt[NumRit].linb[w+3],&Rt[NumRit].linb[w+4]);
-             } 
-             bzero(temp,sizeof(temp));
-             fgets(temp, sizeof temp, fs);
-             sscanf(temp,"%d,%d,%d,%d",&Rt[NumRit].linbv[1],&Rt[NumRit].linbv[2],&Rt[NumRit].linbv[3],&Rt[NumRit].linbv[4]);
-             for (i=1; i<Rt[NumRit].bars*Rt[NumRit].blackn; i++)
-             {
-              w = i*4;
-              bzero(temp,sizeof(temp));
-              fgets(temp, sizeof temp, fs);
-              sscanf(temp,"%d,%d,%d,%d",&Rt[NumRit].linbv[w+1],&Rt[NumRit].linbv[w+2],&Rt[NumRit].linbv[w+3],&Rt[NumRit].linbv[w+4]);
-             }
-              break;
-              case 6:
-              break;
-              case 7:
-              break;
-              case 8:
-              break;
-              case 9:
-              break;
-              case 10:
-              break;
-              case 11:
-              linea = 0;
-              NumRit++;
-              break;
-          }
- 
-
-
-         }
-       }
-
-
-
-
-};
-
-
-void
-HOR::saverhyt(char *filename)
-{
-   
-   FILE *fs;
-   char temp[1024];
-   int w=0;   
-   bzero(temp,sizeof(temp));
- 
-  if ((fs = fopen (filename, "w")) != NULL)
-   {     
-     for(NumRit=1; NumRit<=20; NumRit++)
-       {    
-         bzero(temp,sizeof(temp));
-         sprintf(temp,"%s\n",Rt[NumRit].Nom);
-         fputs (temp, fs);        
-         bzero(temp,sizeof(temp));           
-         sprintf(temp,"%s\n",Rt[NumRit].Nfile);
-         fputs (temp, fs);
-         bzero(temp,sizeof(temp));
-         sprintf (temp,"%d\n", Rt[NumRit].bars);
-         fputs (temp, fs);
-         bzero(temp,sizeof(temp));
-         sprintf (temp,"%d\n", Rt[NumRit].blackn);
-         fputs (temp, fs);
-         bzero(temp,sizeof(temp));
-         sprintf(temp,"%d,%d,%d,%d\n",Rt[NumRit].linb[1],Rt[NumRit].linb[2],Rt[NumRit].linb[3],Rt[NumRit].linb[4]);
-         fputs (temp, fs);
-         for (i=1; i<Rt[NumRit].bars*Rt[NumRit].blackn; i++)
-             {
-              w = i*4;
-              bzero(temp,sizeof(temp));
-              sprintf(temp,"%d,%d,%d,%d\n",Rt[NumRit].linb[w+1],Rt[NumRit].linb[w+2],Rt[NumRit].linb[w+3],Rt[NumRit].linb[w+4]);
-              fputs (temp, fs);
-             } 
-             bzero(temp,sizeof(temp));
-             sprintf(temp,"%d,%d,%d,%d\n",Rt[NumRit].linbv[1],Rt[NumRit].linbv[2],Rt[NumRit].linbv[3],Rt[NumRit].linbv[4]);
-             fputs (temp, fs);
-
-             for (i=1; i<Rt[NumRit].bars*Rt[NumRit].blackn; i++)
-             {
-              w = i*4;
-              bzero(temp,sizeof(temp));
-              sprintf(temp,"%d,%d,%d,%d\n",Rt[NumRit].linbv[w+1],Rt[NumRit].linbv[w+2],Rt[NumRit].linbv[w+3],Rt[NumRit].linbv[w+4]);
-              fputs (temp, fs);
-             }
-              for (j=1; j<=6; j++)
-              {
-              bzero(temp, sizeof(temp));
-              sprintf(temp, "0\n");
-              fputs(temp,fs);
-              }
-          }
-     fclose(fs);
-  }
-};
-
-
-
-
-
-
-
-
-
-void
-HOR::New ()
-{
-
-  for (i = 1; i <= 6; i++)
-    {
-
-      Operator[i].harmonic_fine = 0.0;
-      Operator[i].volumen = 0.0;
-
-    }
-
-  Operator[1].harmonic = 3;
-  Operator[2].harmonic = 5;
-  Operator[3].harmonic = 8;
-  Operator[4].harmonic = 11;
-  Operator[5].harmonic = 14;
-  Operator[6].harmonic = 22;
-
-  attack = 0.02;
-  decay = 0.00;
-  echoon = 0;
-  echodelay = 0;
-  echovol = 0;
-  PLFOspeed = 0;
-  PLFOdelay = 0;
-  LFOspeed = 0;
-  LFOpitch = 0;
-  modulation = 10;
-  transpose = 0;
-  rota = 0;
-  pitch = 0;
-  pedal = 0;
-  master = 0.70;
-  detune = 0;
-  split = 0;
-  chorvol = 0.60;
-  choron = 0;
-  ELFOspeed = 0;
-  ELFOamplitude = 0;
-  popo = 0;
-  ganmod = 1;
-  revon = 0;
-  bzero (Name, sizeof (Name));
-  nombre = Name;
-}
-
-
 void
 HOR::Alg1s (int nframes, void *)
 {
-
+ 
   int l1, l2, i, kk = 0;
+  float soundr,soundl = 0;
 
   memset (buf, 0, PERIOD8);
 
@@ -2634,38 +1293,35 @@ HOR::Alg1s (int nframes, void *)
 	  aplfo = PLFO (env_time[l2]);
           miraalfo(l2); 
           
-	  for (i = 1; i <= 6; i++)
+	  for (i = 1; i <= 20; i++)
 	    {
 	      volumeOpC (i, l2);
-             
-              if (Operator[i].con1 > 0)
-              {
-	      f[i].dphi = partial * pitchOp (i, l2);
-	      if (f[i].dphi > D_PI)
-		f[i].dphi -= D_PI;
-            }
+              f[i].dphi = partial * pitchOp (i, l2);
+	      if (f[i].dphi > D_PI) f[i].dphi -= D_PI;
+              
 	    }
 
 
 
-	  for (l1 = 0; l1 < PERIOD2; l1++)
+	  for (l1 = 0; l1 < PERIOD2; l1+= 2)
 	    {
 
-	      sound = 0;
+	      soundl = 0;
+              soundr = 0;
 
-	      for (i = 1; i <= 6; i++)
+	      for (i = 1; i <= 20; i++)
 		{
 
                if (Operator[i].con1 > 0)
                  {
 		  f[i].phi[l2] += f[i].dphi;
-		  if (f[i].phi[l2] > D_PI)
-		    f[i].phi[l2] -= D_PI;
-		   sound += Operator[i].con1 * Fsin (f[i].phi[l2]);
+		  if (f[i].phi[l2] > D_PI) f[i].phi[l2] -= D_PI;
+		  if (i<11) soundl += Operator[i].con1 * Fsin (f[i].phi[l2]);
+                  else soundr += Operator[i].con1 * Fsin (f[i].phi[l2]);                
 		 }
                 }
-	      buf[l1] += sound * master;
-
+	      buf[l1] += soundl*master;
+              buf[l1+1] += soundr*master;
 	      env_time[l2] += incre;
 	    }
 

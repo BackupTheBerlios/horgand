@@ -480,6 +480,50 @@ private:
   inline void cb_CPrograma_i(Fl_Counter*, void*);
   static void cb_CPrograma(Fl_Counter*, void*);
 public:
+  Drawbar *V7;
+private:
+  inline void cb_V7_i(Drawbar*, void*);
+  static void cb_V7(Drawbar*, void*);
+public:
+  Drawbar *V8;
+private:
+  inline void cb_V8_i(Drawbar*, void*);
+  static void cb_V8(Drawbar*, void*);
+public:
+  Drawbar *V9;
+private:
+  inline void cb_V9_i(Drawbar*, void*);
+  static void cb_V9(Drawbar*, void*);
+public:
+  Drawbar *V10;
+private:
+  inline void cb_V10_i(Drawbar*, void*);
+  static void cb_V10(Drawbar*, void*);
+public:
+  Fl_Slider *H7;
+private:
+  inline void cb_H7_i(Fl_Slider*, void*);
+  static void cb_H7(Fl_Slider*, void*);
+public:
+  Fl_Slider *H8;
+private:
+  inline void cb_H8_i(Fl_Slider*, void*);
+  static void cb_H8(Fl_Slider*, void*);
+public:
+  Fl_Slider *H9;
+private:
+  inline void cb_H9_i(Fl_Slider*, void*);
+  static void cb_H9(Fl_Slider*, void*);
+public:
+  Fl_Slider *H10;
+private:
+  inline void cb_H10_i(Fl_Slider*, void*);
+  static void cb_H10(Fl_Slider*, void*);
+public:
+  Fl_Value_Output *NV7;
+  Fl_Value_Output *NV8;
+  Fl_Value_Output *NV9;
+  Fl_Value_Output *NV10;
   Fl_Double_Window *aboutwindow;
 private:
   inline void cb_OK_i(Fl_Button*, void*);
