@@ -1,3 +1,27 @@
+/*
+  horgand - a organ software
+
+ organ.C  -  organ functions
+  Copyright (C) 2003-2004 Josep Andreu (Holborn)
+  Author: Josep Andreu
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of version 2 of the GNU General Public License
+ as published by the Free Software Foundation.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License (version 2) for more details.
+
+ You should have received a copy of the GNU General Public License
+ (version2)  along with this program; if not, write to the Free Software
+ Foundation,
+ Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+
+*/
+
+
 #include "Holrgan.h"
 #include <stdio.h>
 #include <string.h>
@@ -1584,17 +1608,19 @@ HOR::jackaudioprepare ()
     jack_port_register (jackclient, "out_2", JACK_DEFAULT_AUDIO_TYPE,
 			JackPortIsOutput | JackPortIsTerminal, 0);
 
+
+
   if (jack_activate (jackclient))
     {
       fprintf (stderr, "Cannot activate jack client\n");
       exit (1);
     };
 
-
   jack_connect (jackclient, jack_port_name (outport_left),
 		"alsa_pcm:playback_1");
   jack_connect (jackclient, jack_port_name (outport_right),
 		"alsa_pcm:playback_2");
+
 
 };
 
