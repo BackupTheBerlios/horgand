@@ -4,6 +4,9 @@ horgand ChangeLog
 
 == v1.06 (  /  /2004) ==
 ---------------------------------------------------------------------------------------------
+- Man File updated
+- Fixed bug in command line.
+- Split source code for future development.
 - File format changed, new default bank released.
 - Improved Detune for stereo effect.
 - Sound engine changed (20 Carriers) (10x2)(stereo)

@@ -139,8 +139,8 @@ int main(int argc, char *argv[])
       fprintf (stderr, "Usage: Horgand [OPTION]\n\n");
       fprintf (stderr, "  -h ,     --help \t\t\t display command-line help and exit\n");
       fprintf (stderr, "  -l File, --load=File \t\t\t loads sound\n");
-      fprintf (stderr, "  -b File, --load=File \t\t\t loads bank\n");
-      fprintf (stderr, "  -r File, --load=File \t\t\t loads rhytm\n");
+      fprintf (stderr, "  -b File, --bank=File \t\t\t loads bank\n");
+      fprintf (stderr, "  -r File, --rhyt=File \t\t\t loads rhythm\n");
 
       fprintf (stderr, "\n\n");
       return (0);
