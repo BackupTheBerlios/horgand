@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0104 
+version 1.0105 
 i18n_type 1 
 i18n_include <libintl.h> 
 i18n_function gettext 
@@ -89,7 +89,8 @@ return 1;
   }
 } 
 
-class HORGAN {} {
+class HORGAN {selected
+} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
       label {Horgand v1.07}
@@ -370,7 +371,6 @@ if ( o->value() != 0 ) Undo(); else Redo();}
       Fl_Slider VUI1 {
         callback {o->value(vum);}
         xywh {795 35 25 50} type {Vert Fill} color 30 selection_color 207 minimum 127 maximum 0 step 1
-        code0 {o->value(vum);}
       }
       Fl_Box {} {
         label {MIDI IN}
@@ -379,7 +379,6 @@ if ( o->value() != 0 ) Undo(); else Redo();}
       Fl_Box DMIN1 {
         callback {o->label(hor->MidiInPuerto[1].pMIDIIN);}
         xywh {530 35 260 25} box PLASTIC_DOWN_BOX color 40 labelsize 12 align 84
-        code0 {o->label(hor->MidiInPuerto[1].pMIDIIN);}
       }
       Fl_Box DispNumber {
         label {--}
@@ -390,7 +389,6 @@ if ( o->value() != 0 ) Undo(); else Redo();}
 calbtrans();
 Actu();}
         xywh {395 285 55 20} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum -48 maximum 48 step 1
-        code0 {o->value(hor->transpose);}
       }
       Fl_Slider Master {
         label Volume
@@ -401,7 +399,6 @@ Actu();
 vavi = 0;
 }}
         xywh {535 100 55 190} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 1 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 100 maximum 0 step 1 value 70
-        code0 {o->value(hor->master * 100.0);}
         class Drawbar
       }
       Fl_Input Nombre {
@@ -410,13 +407,11 @@ vavi = 0;
 strncpy(hor->Name,hor->nombre,24);
 Actu();}
         xywh {5 35 300 50} box PLASTIC_DOWN_BOX color 219 labeltype ENGRAVED_LABEL labelsize 21 labelcolor 208 align 68 textsize 29 textcolor 88
-        code0 {o->value(hor->nombre);}
       }
       Fl_Counter MasterT {
         callback {hor->mastertune = 1 + (float) (o->value() / 1600);
 calbtune();}
         xywh {395 255 55 20} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 minimum -99 maximum 99 step 1
-        code0 {o->value(1 - hor->mastertune * 1000);}
       }
       Fl_Slider V1 {
         callback {hor->Operator[1].volumen = (float) o->value() / 100;
@@ -427,8 +422,6 @@ Actu();
 vavi = 0;
 }}
         xywh {2 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[1].volumen * 100);}
-        code1 {o->value(hor->Operator[11].volumen * 100);}
         class Drawbar
       }
       Fl_Slider V2 {
@@ -440,8 +433,6 @@ Actu();
 vavi = 0;
 }}
         xywh {61 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[2].volumen * 100);}
-        code1 {o->value(hor->Operator[12].volumen * 100);}
         class Drawbar
       }
       Fl_Slider V3 {
@@ -453,8 +444,6 @@ Actu();
 vavi = 0;
 }}
         xywh {120 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[3].volumen * 100);}
-        code1 {o->value(hor->Operator[13].volumen * 100);}
         class Drawbar
       }
       Fl_Slider Marimba {
@@ -466,7 +455,6 @@ Actu();
 vavi = 0;
 }}
         xywh {10 315 165 15} type {Horz Knob} box PLASTIC_DOWN_BOX color 24 selection_color 5 labeltype ENGRAVED_LABEL labelcolor 4 align 8 minimum 4 maximum 0 step 0.01
-        code0 {o->value(hor->attack * 100);}
         class Drawbar
       }
       Fl_Slider V4 {
@@ -478,8 +466,6 @@ Actu();
 vavi = 0;
 }}
         xywh {180 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[4].volumen * 100);}
-        code1 {o->value(hor->Operator[14].volumen * 100);}
         class Drawbar
       }
       Fl_Slider V5 {
@@ -491,8 +477,6 @@ Actu();
 vavi = 0;
 }}
         xywh {238 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[5].volumen * 100);}
-        code1 {o->value(hor->Operator[15].volumen * 100);}
         class Drawbar
       }
       Fl_Slider V6 {
@@ -504,8 +488,6 @@ Actu();
 vavi = 0;
 }}
         xywh {295 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[6].volumen * 100);}
-        code1 {o->value(hor->Operator[16].volumen * 100);}
         class Drawbar
       }
       Fl_Dial Detune {
@@ -523,7 +505,6 @@ Actu();
 vavi = 0;
 }}
         xywh {180 245 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 when 4 maximum 100 step 0.1
-        code0 {o->value(hor->detune);}
         class Rueda
       }
       Fl_Dial LFOSpeed {
@@ -533,9 +514,8 @@ if (vavi == 1)
 { 
 Actu();
 vavi = 0;
-}} selected
+}}
         xywh {180 100 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 40 step 0.1
-        code0 {o->value(hor->LFOspeed);}
         class Rueda
       }
       Fl_Dial LFOPitch {
@@ -547,7 +527,6 @@ Actu();
 vavi = 0;
 }}
         xywh {115 245 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 20 step 0.01
-        code0 {o->value(hor->LFOpitch);}
         class Rueda
       }
       Fl_Dial PLFOSpeed {
@@ -559,7 +538,6 @@ Actu();
 vavi = 0;
 }}
         xywh {115 100 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 30 step 0.01
-        code0 {o->value(hor->PLFOspeed);}
         class Rueda
       }
       Fl_Dial PLFODelay {
@@ -571,20 +549,17 @@ Actu();
 vavi = 0;
 }}
         xywh {115 175 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 99 step 1
-        code0 {o->value(hor->PLFOdelay * 10);}
         class Rueda
       }
       Fl_Counter EchoVol {
         callback {hor->echovol = (float) o->value() / 100;
 Actu();}
         xywh {310 285 65 20} type Simple labelcolor 208 when 4 minimum 0 maximum 99 step 1
-        code0 {o->value(hor->echovol * 100);}
       }
       Fl_Counter EchoDelay {
         callback {hor->echodelay = (float) o->value() * 176400;
 Actu();}
         xywh {310 250 65 25} type Simple labelcolor 208 when 4 minimum 0 maximum 1 step 0.01
-        code0 {o->value(hor->echodelay / 176400);}
       }
       Fl_Slider H1 {
         callback {hor->Operator[1].harmonic = (int) o->value();
@@ -593,8 +568,6 @@ NV1->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
         xywh {2 563 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 align 1 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[1].harmonic);}
-        code1 {o->value(hor->Operator[11].harmonic);}
       }
       Fl_Box {} {
         xywh {650 464 52 36} box DOWN_FRAME
@@ -605,8 +578,6 @@ hor->Operator[12].harmonic = (int) o->value();
 NV2->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {61 563 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[2].harmonic);}
-        code1 {o->value(hor->Operator[12].harmonic);}
       }
       Fl_Slider H3 {
         callback {hor->Operator[3].harmonic = (int) o->value();
@@ -616,8 +587,6 @@ NV3->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
         xywh {120 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[3].harmonic);}
-        code1 {o->value(hor->Operator[13].harmonic);}
       }
       Fl_Slider H4 {
         callback {hor->Operator[4].harmonic = (int) o->value();
@@ -627,8 +596,6 @@ NV4->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
         xywh {179 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[4].harmonic);}
-        code1 {o->value(hor->Operator[14].harmonic);}
       }
       Fl_Slider H5 {
         callback {hor->Operator[5].harmonic = (int) o->value();
@@ -637,8 +604,6 @@ hor->Operator[15].harmonic = (int) o->value();
 NV5->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {238 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[5].harmonic);}
-        code1 {o->value(hor->Operator[15].harmonic);}
       }
       Fl_Slider H6 {
         callback {hor->Operator[6].harmonic = (int) o->value();
@@ -646,15 +611,12 @@ hor->Operator[16].harmonic = (int) o->value();
 NV6->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {297 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[6].harmonic);}
-        code1 {o->value(hor->Operator[16].harmonic);}
       }
       Fl_Button Rota {
         label Rotary
         callback {if (hor->rota == 0) hor->rota = 1; else hor->rota = 0;
 Actu();}
         xywh {180 170 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
-        code0 {o->value(hor->rota);}
       }
       Fl_Dial ELFOSpeed {
         label Speed
@@ -665,7 +627,6 @@ Actu();
 vavi = 0;
 }}
         xywh {240 140 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 5 step 0.01
-        code0 {o->value(hor->ELFOspeed);}
         class Rueda
       }
       Fl_Slider ELFOAmplitude {
@@ -677,7 +638,6 @@ Actu();
 vavi = 0;
 }}
         xywh {305 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 1 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 65 maximum 99 step 1
-        code0 {o->value(hor->ELFOamplitude);}
         class Drawbar
       }
       Fl_Slider POPO {
@@ -689,21 +649,18 @@ Actu();
 vavi = 0;
 }}
         xywh {345 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 65 maximum 99 step 1
-        code0 {o->value(hor->popo);}
         class Drawbar
       }
       Fl_Counter ChorVol {
         callback {hor->chorvol = (float) o->value() / 100;
 Actu();}
         xywh {310 210 65 20} type Simple labelcolor 208 when 4 minimum 0 maximum 99 step 1
-        code0 {o->value(hor->chorvol * 100);}
       }
       Fl_Button Split {
         label Split
         callback {if (hor->split == 0) hor->split = 1; else hor->split = 0;
 Actu();}
         xywh {180 205 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
-        code0 {o->value(hor->split);}
       }
       Fl_Box DMIN2 {
         callback {switch (hor->Salida)
@@ -726,7 +683,6 @@ Actu();}
 hor->procesaclean();
 Actu();}
         xywh {240 245 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
-        code0 {o->value(hor->echoon);}
       }
       Fl_Button ChorusOn {
         label Chorus
@@ -734,7 +690,6 @@ Actu();}
 hor->chorusclean();
 Actu();}
         xywh {240 100 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
-        code0 {o->value(hor->choron);}
       }
       Fl_Group {} {
         xywh {385 135 75 100}
@@ -868,13 +823,11 @@ break;
 hor->rclean();
 Actu();}
         xywh {390 100 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labeltype ENGRAVED_LABEL labelsize 10 align 64
-        code0 {o->value((int) hor->revon);}
       }
       Fl_Slider RitVol {
         label Volume
         callback {hor->ritvol = o->value();}
         xywh {605 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 0.99 maximum 0 step 0.01 value 0.5
-        code0 {o->value(hor->ritvol);}
       }
       Fl_Dial Tempo {
         label Tempo
@@ -882,12 +835,10 @@ Actu();}
 hor->frametot = (int) (hor->tempo * hor->sfinfo.frames);
 hor->fracpos = hor->frametot /(4 * hor->blackn * hor->bars);}
         xywh {655 525 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 1.7 maximum 2.7 step 0.01 value 2 deactivate
-        code0 {o->value(hor->tempo);}
       }
       Fl_Slider VUI2 {
         callback {o->value(tum);}
         xywh {650 510 15 15} type {Vert Fill} color 30 selection_color 1 minimum 127 maximum 0 step 1
-        code0 {o->value(tum);}
       }
       Fl_Button RitOn {
         label {Stop/Cont}
@@ -896,7 +847,6 @@ tum = 0;
 hor->riton =  o->value();
 VUI2->value(0);}
         xywh {650 465 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 8 align 64
-        code0 {o->value(hor->riton);}
       }
       Fl_Box {} {
         xywh {650 424 51 36} box DOWN_FRAME
@@ -913,7 +863,6 @@ hor->riton =  o->value();
 
 VUI2->value(0);}
         xywh {650 425 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 8 align 64
-        code0 {o->value(hor->riton);}
       }
       Fl_Box {} {
         xywh {595 95 230 310} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -1167,7 +1116,6 @@ if (Fl::event_button()==1) GetRit(Rit);}
         label Volume
         callback {hor->bassvol = o->value();}
         xywh {710 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 0.99 maximum 0 step 0.01 value 0.5
-        code0 {o->value(hor->bassvol);}
       }
       Fl_Box {} {
         xywh {765 424 51 36} box DOWN_FRAME
@@ -1180,7 +1128,6 @@ hor->split = o->value();
 Split->value(o->value());
 hor->basson =  o->value();}
         xywh {765 425 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
-        code0 {o->value(hor->basson);}
       }
       Fl_Group {} {
         xywh {760 465 60 95}
@@ -1262,7 +1209,6 @@ hor->framesbass = (int) (hor->sfinfob.frames / 2.0);}
 PutCombi(hor->cprograma);
 Actu();}
         xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum 0 maximum 32 step 1
-        code0 {o->value(hor->cprograma);}
       }
       Fl_Slider V7 {
         callback {hor->Operator[7].volumen = (float) o->value() / 100;
@@ -1273,8 +1219,6 @@ Actu();
 vavi = 0;
 }}
         xywh {355 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[7].volumen * 100);}
-        code1 {o->value(hor->Operator[17].volumen * 100);}
         class Drawbar
       }
       Fl_Slider V8 {
@@ -1286,8 +1230,6 @@ Actu();
 vavi = 0;
 }}
         xywh {415 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[8].volumen * 100);}
-        code1 {o->value(hor->Operator[18].volumen * 100);}
         class Drawbar
       }
       Fl_Slider V9 {
@@ -1299,8 +1241,6 @@ Actu();
 vavi = 0;
 }}
         xywh {474 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[9].volumen * 100);}
-        code1 {o->value(hor->Operator[19].volumen * 100);}
         class Drawbar
       }
       Fl_Slider V10 {
@@ -1312,8 +1252,6 @@ Actu();
 vavi = 0;
 }}
         xywh {533 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        code0 {o->value(hor->Operator[10].volumen * 100);}
-        code1 {o->value(hor->Operator[20].volumen * 100);}
         class Drawbar
       }
       Fl_Slider H7 {
@@ -1324,8 +1262,6 @@ NV7->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
         xywh {356 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[7].harmonic);}
-        code1 {o->value(hor->Operator[17].harmonic);}
       }
       Fl_Slider H8 {
         callback {hor->Operator[8].harmonic = (int) o->value();
@@ -1335,8 +1271,6 @@ NV8->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
         xywh {415 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[8].harmonic);}
-        code1 {o->value(hor->Operator[18].harmonic);}
       }
       Fl_Slider H9 {
         callback {hor->Operator[9].harmonic = (int) o->value();
@@ -1345,8 +1279,6 @@ hor->Operator[19].harmonic = (int) o->value();
 NV9->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {474 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[9].harmonic);}
-        code1 {o->value(hor->Operator[19].harmonic);}
       }
       Fl_Slider H10 {
         callback {hor->Operator[10].harmonic = (int) o->value();
@@ -1354,8 +1286,6 @@ hor->Operator[20].harmonic = (int) o->value();
 NV10->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {533 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
-        code0 {o->value(hor->Operator[10].harmonic);}
-        code1 {o->value(hor->Operator[20].harmonic);}
       }
       Fl_Value_Output NV7 {
         xywh {356 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
@@ -1434,7 +1364,6 @@ Actu();
 vavi = 0;
 }}
         xywh {470 100 55 190} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 2 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 100 maximum 0 step 1 value 70
-        code0 {o->value(hor->omaster * 100.0);}
         class Drawbar
       }
     }
@@ -1527,7 +1456,7 @@ strcpy(hor->BankFilename,filename);}
     }
     Fl_Window HORBank {
       label {DXEmulator Bank}
-      tooltip {Right Click Get  - Left Click Put} xywh {4 22 710 360} type Double hide
+      tooltip {Right Click Get  - Left Click Put} xywh {4 29 710 360} type Double hide
     } {
       Fl_Button BClose {
         label Close
@@ -1909,7 +1838,7 @@ if (hor->fe == 1)
 GetRit(hor->ae);
 }
 RitEdit->hide();}
-      xywh {4 20 615 175} type Double hide
+      xywh {4 29 615 175} type Double hide
     } {
       Fl_Input RtName {
         label Name
@@ -2917,8 +2846,7 @@ Rit18->value(0);
 Rit19->value(0);
 Rit20->value(0);} {}
   }
-  Function {meteprog()} {open
-  } {
+  Function {meteprog()} {} {
     code {OMaster->value(hor->omaster * 100.0);
 
 
