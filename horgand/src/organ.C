@@ -1338,9 +1338,7 @@ longi  = (int) (afina * PERIOD);
 readcounts = sf_seek (infileb, 0, SEEK_CUR); 
 readcountr = sf_readf_float (infileb, bbuf, longi);
 
-if ((readcounts + longi ) < framesbass) 
-
-basspending = 1; 
+if ((readcounts + longi ) < framesbass) basspending = 1; 
 
 else basspending = 0; 
 

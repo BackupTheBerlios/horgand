@@ -4414,9 +4414,11 @@ for (k=1; k<=46; k++)
     sprintf(linea,"Horgand IN");
 
 if (!strcmp(hor->CPOMidiS[k].Info ,linea)) hor->MidiInPuerto[1].YOIN = hor->CPOMidiS[k].Client;
-if (!strcmp(hor->CPIMidiS[k].Info ,hor->MidiInPuerto[1].SetMidiIn)) hor->MidiInPuerto[1].SettingsIN = hor->CPIMidiS[k].Client;
-
-
+if (!strcmp(hor->CPIMidiS[k].Info ,hor->MidiInPuerto[1].SetMidiIn))
+        {
+        hor->MidiInPuerto[1].SettingsIN = hor->CPIMidiS[k].Client;
+        hor->MidiInPuerto[1].Ports = hor->CPIMidiS[k].Port;
+        }
     }
 
 
@@ -4433,7 +4435,7 @@ if (strcmp(hor->MidiInPuerto[1].SetMidiIn,"Not Connected") !=0 )
  if ((client = snd_seq_client_id(hor->MidiInPuerto[1].midi_in)) < 0) printf("can't get client id\n");
  if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &sender,tt2) < 0) printf("invalid sender address %s\n", (char*) hor->MidiInPuerto[1].SettingsIN);
  if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &dest,tt1) < 0) printf("invalid destination address %s\n", (char*) hor->MidiInPuerto[1].YOIN);
-
+        dest.port = hor->MidiInPuerto[1].Ports;
         snd_seq_port_subscribe_alloca(&subs);
         snd_seq_port_subscribe_set_sender(subs, &sender);
         snd_seq_port_subscribe_set_dest(subs, &dest);

@@ -367,6 +367,7 @@ jack_port_t *outport_left,*outport_right;
     char *SMidiIn;
     char pMIDIIN[256];
     char SetMidiIn[40];
+    int Ports;
     snd_seq_t *midi_in;
     unsigned char IN[16];
   }

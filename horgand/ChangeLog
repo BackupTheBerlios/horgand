@@ -4,6 +4,7 @@ horgand ChangeLog
 
 == v1.05 (  /01/2004) ==
 ---------------------------------------------------------------------------------------------
+- Fixed bug in auto-connect, now connect into the specified port.
 - Improved Menus.
 - Fixed Bug in compare and Load functions.
 - Fixed Bug in Undo/Redo.

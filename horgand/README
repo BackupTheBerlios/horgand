@@ -73,10 +73,18 @@ I think the best way is start Horgand is:
 The hi try's to connect to your devices, loads sounds bank and is ready to
 play.
 
+NOTE about auto-connection
+--------------------------
+
+horgand stores in the config file the ALSA sequencer Info of each port you
+select in your configuration, and use this info for auto-connection ports
+when hi starts. (That's because Client and Port Info can change).
+
+Then if you have two devices with the same Info, horgand uses the second one.
+
+Anyway you can use programs like aconnect for connect the MIDI devices.
+
 Horgand has a velocity metter, you can see your midi input events.
-
-
-
 
 
 How to add more loops? 
