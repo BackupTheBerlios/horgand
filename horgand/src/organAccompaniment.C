@@ -65,7 +65,8 @@ int readcounts,lanota;
         velobass = linbv[pos] / 100.0;
         if (bnote > 11) bnote -= 12;
         if (bnote < 0 ) bnote += 12;
-        afina = AB[bnote].afin+AB[bnote].bmt;
+        afina = (((AB[bnote].afin+AB[bnote].bmt)*44100.0)/SAMPLE_RATE);
+         
         readcounts = sf_seek (infileb, 0, SEEK_SET);
         basspending = 1;
 	CogeBass();

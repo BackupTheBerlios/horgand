@@ -2408,6 +2408,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelsize(12);
       o->callback((Fl_Callback*)cb_DMIN1);
       o->align(68|FL_ALIGN_INSIDE);
+      o->label(hor->MidiInPuerto[1].pMIDIIN);
     }
     { Fl_Box* o = DispNumber = new Fl_Box(15, 100, 75, 60, gettext("--"));
       o->box(FL_SHADOW_BOX);

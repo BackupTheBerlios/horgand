@@ -89,8 +89,7 @@ return 1;
   }
 } 
 
-class HORGAN {selected
-} {
+class HORGAN {} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
       label {Horgand v1.07}
@@ -377,8 +376,9 @@ if ( o->value() != 0 ) Undo(); else Redo();}
         xywh {725 65 65 20} labelsize 9 align 64
       }
       Fl_Box DMIN1 {
-        callback {o->label(hor->MidiInPuerto[1].pMIDIIN);}
+        callback {o->label(hor->MidiInPuerto[1].pMIDIIN);} selected
         xywh {530 35 260 25} box PLASTIC_DOWN_BOX color 40 labelsize 12 align 84
+        code0 {o->label(hor->MidiInPuerto[1].pMIDIIN);}
       }
       Fl_Box DispNumber {
         label {--}

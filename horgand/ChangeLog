@@ -4,6 +4,7 @@ horgand ChangeLog
 
 == v1.07 (  /  /2004) ==
 ---------------------------------------------------------------------------------------------
+- Fixed bug in bass tune when jackd changes the default samplerate.
 - Clean code.
 - removed realtime priority's
 - Changed shed.priority
