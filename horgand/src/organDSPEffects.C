@@ -159,7 +159,7 @@ HOR::reverb ()
   stmp = 0;
   capsg = 0;
   
-  for (j = 0; j<=16; j++)
+  for (j = 0; j<=15; j++)
     {
     
       
@@ -173,12 +173,12 @@ HOR::reverb ()
  
       tmp = diffussion * apsg[capsg] / apss;
       stmp += tmp;
-      if (++capsg > 16 ) capsg = 0;
+      if (++capsg > 7 ) capsg = 0;
       efxoutl += rhistory[elke] * stmp;
 
       tmp = diffussion * apsg[capsg] / apss;
       stmp += tmp;
-      if (++capsg > 16 ) capsg = 0;
+      if (++capsg > 7 ) capsg = 0;
       efxoutr += rhistory[elke1] * stmp;
  
      }

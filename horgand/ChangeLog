@@ -4,10 +4,13 @@ horgand ChangeLog
 
 == v1.07 (  /  /2004) ==
 ---------------------------------------------------------------------------------------------
+- Improved Envelope.
+- Changed FIFO schedule priority, now works on kernel 2.6.
+- Velocity Sensitivity modified.
 - Fixed bug in bass tune when jackd changes the default samplerate.
 - Clean code.
-- removed realtime priority's
-- Changed shed.priority
+- removed realtime priority.
+- Changed schedule priority.
 - Default Bank modified.
 - Improved Reverb.
 - Improved Rotary effect.

@@ -42,8 +42,8 @@ void pon_realtime()
 {
     sched_param scprior;
 
-    scprior.sched_priority=20;
-    int prior=sched_setscheduler(0,SCHED_RR,&scprior);
+    scprior.sched_priority=50;
+    int prior=sched_setscheduler(0,SCHED_FIFO,&scprior);
     if (prior==0) printf("SCHED_FIFO\n");
 
 };
@@ -52,7 +52,7 @@ void pon_realtime()
 void *
 thread1 (void *arg)
 {
-//  pon_realtime();
+   pon_realtime();
   while (Pexitprogram ==0)  hor.midievents(1);
   return (0);
 };
@@ -61,7 +61,7 @@ void *
 thread2 (void *arg)
 {
     
-//    pon_realtime();
+    pon_realtime();
     while (Pexitprogram ==0)  hor.Alg1s(hor.PERIOD,0);
     return(0);
 
@@ -204,6 +204,7 @@ pthread_mutex_lock(&mutex);
 
   int l1, l2, i,j;
   float soundl, soundr = 0;
+  float enve0, enve1 = 0;
 
    jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
    jack_port_get_buffer(hor.outport_left, nframes);
@@ -229,11 +230,19 @@ pthread_mutex_lock(&mutex);
 
           hor.aplfo = hor.PLFO(hor.env_time[l2]);
 
+          hor.decay = 0.0;
+          hor.sustain = 0.99;          
+          enve0 = hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2);
+          hor.decay = 0.30;
+          hor.sustain = 0.0;        
+          enve1 = hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2); 
+
+         
+
+
           for (i=1; i<=20; i++)
             {
-             hor.decay = 0.30 * hor.Operator[i].mar;
-             if (hor.Operator[i].mar) hor.sustain= 0; else hor.sustain = 0.99;
-             hor.Jenvelope (&hor.note_active[l2],hor.gate[l2],hor.env_time[l2],l2);
+             if (hor.Operator[i].mar) hor.envi[l2]=enve1; else hor.envi[l2]=enve0;
              hor.miraalfo(l2);
              hor.volumeOpC(i,l2);
              if (hor.Operator[i].con1 > 0)

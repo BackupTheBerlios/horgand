@@ -90,7 +90,7 @@ HOR::midievents (int keIN)
 		  note[l1] = rnote[l1];
 		  vumvum = vum;
 		  vum = midievent->data.note.velocity;
-		  velocity[l1] = midievent->data.note.velocity / 127.0;
+		  velocity[l1] = midievent->data.note.velocity / 192.0;
 
 		  if ((split == 1) && (rnote[l1] < 60))
 		    {

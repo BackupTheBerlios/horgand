@@ -1139,6 +1139,7 @@ HOR::volumeOpC (int i, int l2)
 
   Operator[i].con1 =
     Operator[i].volumen * envi[l2] * alfo / (2 * lasfreq[Operator[i].harmonic]);
+   
 };
 
 
@@ -1164,7 +1165,7 @@ HOR::panico ()
 };
 
 
-void
+float
 HOR::Jenvelope (int *note_active, int gate, float t, int nota)
 {
 
@@ -1174,45 +1175,45 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
 
        if (t > attack + decay)
         {
-          envi[nota] = sustain;
-          return;
+          return (sustain);
         }
       if (t > attack)
         {
-          envi[nota] = 1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.0001);
-            return;
+           return( 1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.01));
+            
         }
-           envi[nota] = t / (attack + 0.0001);
+           return ( t / (attack + 0.01));
 
-      return;
+      
     }
   else
     {
       if (decay > 0 )
        {
-       envi[nota] = 0;
-       return;
+       return (0) ;
        }
 
       if ((pedal == 0) && (t < release))
 	{
 	  envi[nota] *= (1.0- (t /release));
-          if (envi[nota] < 0.01)
+     
+        if (envi[nota] < 0.01)
               {
               envi[nota] = 0;
               *note_active = 0;
+              return(0);
               }          
-          return;
+          return (envi[nota]);
 	}
 
       if (t >= release)
         {
           *note_active = 0;
-           envi[nota] = 0;
+           return(0);
         }
      }     
 
-
+     return(envi[nota]);
 };
 
 
@@ -1294,7 +1295,7 @@ HOR::Alg1s (int nframes, void *)
  
   int l1, l2, i, kk = 0;
   float soundr,soundl = 0;
-
+  float enve0,enve1 = 0;
   memset (buf, 0, PERIOD8);
 
   freqplfo = modulation * LFOpitch * lalapi;
@@ -1311,11 +1312,19 @@ HOR::Alg1s (int nframes, void *)
 
 	  aplfo = PLFO (env_time[l2]);
           
+          decay = 0.0;
+          sustain = 0.99;          
+          enve0 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
+          decay = 0.30;
+          sustain = 0.0;        
+          enve1 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2); 
+
+
+
 	  for (i = 1; i <= 20; i++)
 	    {
-              decay = 0.30 * Operator[i].mar;
-              if (Operator[i].mar) sustain = 0; else sustain = 0.99; 
-              Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
+              
+              if (Operator[i].mar) envi[l2]=enve1;  else  envi[l2]=enve0; 
               miraalfo(l2);
 	      volumeOpC (i, l2);
               f[i].dphi = partial * pitchOp (i, l2);

@@ -56,7 +56,7 @@ public:
   void panico ();
   void ponpe();
   void Alg1s (int frames, void*);
-  void Jenvelope(int *note_active, int gate, float t, int nota);
+  float Jenvelope(int *note_active, int gate, float t, int nota);
   void MiraNota(int note);
   float ELFO(float *kx);
   float LFO(float t);  
