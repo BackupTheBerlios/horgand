@@ -1362,6 +1362,7 @@ HOR::Alg1s (int nframes, void *)
     reverb();
   if (riton == 1) 
    CogeRitmo();
+
   
 
 

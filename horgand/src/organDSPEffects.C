@@ -157,27 +157,28 @@ HOR::reverb ()
   efxoutl = 0;
   efxoutr = 0;
   stmp = 0;
-
-  for (j = 0; j<=15; j++)
+  capsg = 0;
+  
+  for (j = 0; j<=16; j++)
     {
- 
-   
+    
+      
       elke = rperhis - ((long) (combl[j] * rtime));
       if (elke % 2 != 0) elke = elke + 1;
       if (elke < 0) elke = 524800 + elke;
 
-      elke1 = rperhis  - ((long) (combr[j]  * rtime));
+      elke1 = rperhis  - ((long) (combr[j] * rtime));
       if (elke1 % 2 == 0) elke1 = elke1 + 1; 
       if (elke1 < 0) elke1 = 524800 + elke1;
  
       tmp = diffussion * apsg[capsg] / apss;
       stmp += tmp;
-      if (++capsg > 7 ) capsg = 0;
+      if (++capsg > 16 ) capsg = 0;
       efxoutl += rhistory[elke] * stmp;
 
       tmp = diffussion * apsg[capsg] / apss;
       stmp += tmp;
-      if (++capsg > 7 ) capsg = 0;
+      if (++capsg > 16 ) capsg = 0;
       efxoutr += rhistory[elke1] * stmp;
  
      }
