@@ -4,6 +4,7 @@ horgand ChangeLog
 
 == v1.07 (  /  /2004) ==
 ---------------------------------------------------------------------------------------------
+- Default Bank modified.
 - Improved Reverb.
 - Improved Rotary effect.
 - Auto adjust internal sample rate to jackd sample rate. 
