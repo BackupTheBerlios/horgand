@@ -432,7 +432,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {2 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {2 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[1].volumen * 100);}
         code1 {o->value(hor->Operator[11].volumen * 100);}
         class Drawbar
@@ -445,7 +445,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {61 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {61 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[2].volumen * 100);}
         code1 {o->value(hor->Operator[12].volumen * 100);}
         class Drawbar
@@ -458,13 +458,13 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {120 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {120 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[3].volumen * 100);}
         code1 {o->value(hor->Operator[13].volumen * 100);}
         class Drawbar
       }
       Fl_Slider Marimba {
-        label {Perc.}
+        label Attack
         callback {hor->attack = (float) o->value() / 100.0;
 if (vavi == 1)
 { 
@@ -483,7 +483,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {179 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {180 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[4].volumen * 100);}
         code1 {o->value(hor->Operator[14].volumen * 100);}
         class Drawbar
@@ -496,7 +496,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {238 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {238 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[5].volumen * 100);}
         code1 {o->value(hor->Operator[15].volumen * 100);}
         class Drawbar
@@ -509,7 +509,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {297 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {295 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[6].volumen * 100);}
         code1 {o->value(hor->Operator[16].volumen * 100);}
         class Drawbar
@@ -1278,7 +1278,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {356 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {355 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[7].volumen * 100);}
         code1 {o->value(hor->Operator[17].volumen * 100);}
         class Drawbar
@@ -1291,7 +1291,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {415 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {415 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[8].volumen * 100);}
         code1 {o->value(hor->Operator[18].volumen * 100);}
         class Drawbar
@@ -1304,7 +1304,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {474 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {474 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[9].volumen * 100);}
         code1 {o->value(hor->Operator[19].volumen * 100);}
         class Drawbar
@@ -1317,7 +1317,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {533 318 55 222} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {533 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         code0 {o->value(hor->Operator[10].volumen * 100);}
         code1 {o->value(hor->Operator[20].volumen * 100);}
         class Drawbar
@@ -1374,6 +1374,62 @@ Actu();}
       }
       Fl_Value_Output NV10 {
         xywh {533 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+      }
+      Fl_Check_Button Mar4 {
+        label Marimba
+        callback {if ((int)o->value())
+{
+hor->Operator[10].mar = 1;
+hor->Operator[20].mar = 1;
+}
+else
+{
+hor->Operator[10].mar = 0;
+hor->Operator[20].mar = 0;
+}} selected
+        xywh {535 315 60 20} down_box DOWN_BOX labelsize 9
+      }
+      Fl_Check_Button Mar3 {
+        label Marimba
+        callback {if ((int)o->value())
+{
+hor->Operator[9].mar = 1;
+hor->Operator[19].mar = 1;
+}
+else
+{
+hor->Operator[9].mar = 0;
+hor->Operator[19].mar = 0;
+}}
+        xywh {475 315 55 20} down_box DOWN_BOX labelsize 9
+      }
+      Fl_Check_Button Mar2 {
+        label Marimba
+        callback {if ((int)o->value())
+{
+hor->Operator[8].mar = 1;
+hor->Operator[18].mar = 1;
+}
+else
+{
+hor->Operator[8].mar = 0;
+hor->Operator[18].mar = 0;
+}}
+        xywh {415 315 55 20} down_box DOWN_BOX labelsize 9
+      }
+      Fl_Check_Button Mar1 {
+        label Marimba
+        callback {if ((int)o->value())
+{
+hor->Operator[7].mar = 1;
+hor->Operator[17].mar = 1;
+}
+else
+{
+hor->Operator[7].mar = 0;
+hor->Operator[17].mar = 0;
+}}
+        xywh {355 315 55 20} down_box DOWN_BOX labelsize 9
       }
     }
     Fl_Window aboutwindow {
@@ -2205,6 +2261,7 @@ for (k=1; k<=20; k++)
 hor->Banco[i].Operator[k].volumen=hor->Operator[k].volumen;
 hor->Banco[i].Operator[k].harmonic_fine=hor->Operator[k].harmonic_fine;
 hor->Banco[i].Operator[k].harmonic=hor->Operator[k].harmonic;
+hor->Banco[i].Operator[k].mar=hor->Operator[k].mar;
 }
 
 
@@ -2241,6 +2298,7 @@ for (k=1; k<=20; k++)
 hor->Operator[k].volumen =hor->Banco[i].Operator[k].volumen;
 hor->Operator[k].harmonic_fine =hor->Banco[i].Operator[k].harmonic_fine;
 hor->Operator[k].harmonic =hor->Banco[i].Operator[k].harmonic;
+hor->Operator[k].mar=hor->Banco[i].Operator[k].mar;
 }
 
 
@@ -2275,8 +2333,7 @@ meteprog();
 Actu();
 sprintf(hor->temporal, "%02d",i);
 DispNumber->label(hor->temporal);
-CPrograma->value(i);} {selected
-    }
+CPrograma->value(i);} {}
   }
   Function {MiraClientes()} {} {
     code {snd_seq_client_info_t *cinfo;
@@ -2854,7 +2911,8 @@ Rit18->value(0);
 Rit19->value(0);
 Rit20->value(0);} {}
   }
-  Function {meteprog()} {} {
+  Function {meteprog()} {open
+  } {
     code {Master->value(hor->master * 100.0);
 
 
@@ -2897,6 +2955,10 @@ NV8->value(hor->lasfreq[hor->Operator[8].harmonic]);
 NV9->value(hor->lasfreq[hor->Operator[9].harmonic]);
 NV10->value(hor->lasfreq[hor->Operator[10].harmonic]);
 
+Mar1->value(hor->Operator[7].mar);
+Mar2->value(hor->Operator[8].mar);
+Mar3->value(hor->Operator[9].mar);
+Mar4->value(hor->Operator[10].mar);
 
 
 Marimba->value(hor->attack * 100);

@@ -87,6 +87,7 @@ HOR::HOR ()
     {
       Operator[i].harmonic_fine = 0.0;
       Operator[i].volumen = 0.0;
+      Operator[i].mar = 0;
     }
 
   Operator[1].harmonic = 1;
@@ -1118,9 +1119,12 @@ HOR::ELFO (float *kx)
 float
 HOR::pitchOp (int i, int note)
 {
+  float aplfot;
+  
+  if (Operator[i].mar) aplfot = 1; else aplfot = aplfo; 
 
   return ((lasfreq[(int) Operator[i].harmonic] +
-	   Operator[i].harmonic_fine) * aplfo);
+	   Operator[i].harmonic_fine) * aplfot);
 
 };
 
@@ -1162,32 +1166,51 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
 {
 
 
-  if (gate)
+    if (gate)
     {
 
-      if (t > attack )
-	{
-	  envi[nota] = sustain;
-	  return;
-	}
-      envi[nota] = t / (attack + 0.0001);
+       if (t > attack + decay)
+        {
+          envi[nota] = sustain;
+          return;
+        }
+      if (t > attack)
+        {
+          envi[nota] = 1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.0001);
+            return;
+        }
+           envi[nota] = t / (attack + 0.0001);
+
       return;
     }
   else
     {
-      if ((t > release) && (pedal == 0))
-	{
-	  if (note_active)
-	    *note_active = 0;
-             
-	  return;
-	}
+      if (decay > 0 )
+       {
+       envi[nota] = 0;
+       *note_active = 0;
+       return;
+       }
+
       if ((pedal == 0) && (envi[nota] > 0))
 	{
 	  envi[nota] *= (1.0 - (t / release));
 	  if ((note_active) && (envi[nota] < 0.01))
+            {
 	    *note_active = 0;
-             
+             envi[nota]= 0;
+             return;
+            } 
+	}
+
+       if ((t > release) && (pedal == 0))
+	{
+	  if (note_active)
+            {
+	    *note_active = 0;
+             envi[nota] = 0;
+            }         
+	  
 	}
 
     }
@@ -1289,12 +1312,14 @@ HOR::Alg1s (int nframes, void *)
 	{
 	  MiraNota (l2);
 
-	  Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
 	  aplfo = PLFO (env_time[l2]);
-          miraalfo(l2); 
           
 	  for (i = 1; i <= 20; i++)
 	    {
+              decay = 0.30 * Operator[i].mar;
+              if (Operator[i].mar) sustain = 0; else sustain = 0.99; 
+              Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
+              miraalfo(l2);
 	      volumeOpC (i, l2);
               f[i].dphi = partial * pitchOp (i, l2);
 	      if (f[i].dphi > D_PI) f[i].dphi -= D_PI;

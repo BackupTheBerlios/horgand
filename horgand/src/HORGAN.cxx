@@ -1352,6 +1352,70 @@ void HORGAN::cb_H10(Fl_Slider* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_H10_i(o,v);
 }
 
+inline void HORGAN::cb_Mar4_i(Fl_Check_Button* o, void*) {
+  if ((int)o->value())
+{
+hor->Operator[10].mar = 1;
+hor->Operator[20].mar = 1;
+}
+else
+{
+hor->Operator[10].mar = 0;
+hor->Operator[20].mar = 0;
+};
+}
+void HORGAN::cb_Mar4(Fl_Check_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar4_i(o,v);
+}
+
+inline void HORGAN::cb_Mar3_i(Fl_Check_Button* o, void*) {
+  if ((int)o->value())
+{
+hor->Operator[9].mar = 1;
+hor->Operator[19].mar = 1;
+}
+else
+{
+hor->Operator[9].mar = 0;
+hor->Operator[19].mar = 0;
+};
+}
+void HORGAN::cb_Mar3(Fl_Check_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar3_i(o,v);
+}
+
+inline void HORGAN::cb_Mar2_i(Fl_Check_Button* o, void*) {
+  if ((int)o->value())
+{
+hor->Operator[8].mar = 1;
+hor->Operator[18].mar = 1;
+}
+else
+{
+hor->Operator[8].mar = 0;
+hor->Operator[18].mar = 0;
+};
+}
+void HORGAN::cb_Mar2(Fl_Check_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar2_i(o,v);
+}
+
+inline void HORGAN::cb_Mar1_i(Fl_Check_Button* o, void*) {
+  if ((int)o->value())
+{
+hor->Operator[7].mar = 1;
+hor->Operator[17].mar = 1;
+}
+else
+{
+hor->Operator[7].mar = 0;
+hor->Operator[17].mar = 0;
+};
+}
+void HORGAN::cb_Mar1(Fl_Check_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar1_i(o,v);
+}
+
 inline void HORGAN::cb_OK_i(Fl_Button*, void*) {
   aboutwindow->hide();
 }
@@ -2406,7 +2470,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(FL_ALIGN_LEFT);
       o->value(1 - hor->mastertune * 1000);
     }
-    { Drawbar* o = V1 = new Drawbar(2, 318, 55, 222);
+    { Drawbar* o = V1 = new Drawbar(2, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2423,7 +2487,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->value(hor->Operator[1].volumen * 100);
       o->value(hor->Operator[11].volumen * 100);
     }
-    { Drawbar* o = V2 = new Drawbar(61, 318, 55, 222);
+    { Drawbar* o = V2 = new Drawbar(61, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2440,7 +2504,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->value(hor->Operator[2].volumen * 100);
       o->value(hor->Operator[12].volumen * 100);
     }
-    { Drawbar* o = V3 = new Drawbar(120, 318, 55, 222);
+    { Drawbar* o = V3 = new Drawbar(120, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2457,7 +2521,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->value(hor->Operator[3].volumen * 100);
       o->value(hor->Operator[13].volumen * 100);
     }
-    { Drawbar* o = Marimba = new Drawbar(400, 110, 45, 180, gettext("Perc."));
+    { Drawbar* o = Marimba = new Drawbar(400, 110, 45, 180, gettext("Attack"));
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2474,7 +2538,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_CHANGED);
       o->value(hor->attack * 100);
     }
-    { Drawbar* o = V4 = new Drawbar(179, 318, 55, 222);
+    { Drawbar* o = V4 = new Drawbar(180, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2491,7 +2555,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->value(hor->Operator[4].volumen * 100);
       o->value(hor->Operator[14].volumen * 100);
     }
-    { Drawbar* o = V5 = new Drawbar(238, 318, 55, 222);
+    { Drawbar* o = V5 = new Drawbar(238, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2508,7 +2572,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->value(hor->Operator[5].volumen * 100);
       o->value(hor->Operator[15].volumen * 100);
     }
-    { Drawbar* o = V6 = new Drawbar(297, 318, 55, 222);
+    { Drawbar* o = V6 = new Drawbar(295, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -3379,7 +3443,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_RELEASE);
       o->value(hor->cprograma);
     }
-    { Drawbar* o = V7 = new Drawbar(356, 318, 55, 222);
+    { Drawbar* o = V7 = new Drawbar(355, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -3396,7 +3460,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->value(hor->Operator[7].volumen * 100);
       o->value(hor->Operator[17].volumen * 100);
     }
-    { Drawbar* o = V8 = new Drawbar(415, 318, 55, 222);
+    { Drawbar* o = V8 = new Drawbar(415, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -3413,7 +3477,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->value(hor->Operator[8].volumen * 100);
       o->value(hor->Operator[18].volumen * 100);
     }
-    { Drawbar* o = V9 = new Drawbar(474, 318, 55, 222);
+    { Drawbar* o = V9 = new Drawbar(474, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -3430,7 +3494,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->value(hor->Operator[9].volumen * 100);
       o->value(hor->Operator[19].volumen * 100);
     }
-    { Drawbar* o = V10 = new Drawbar(533, 318, 55, 222);
+    { Drawbar* o = V10 = new Drawbar(533, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -3542,6 +3606,26 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textfont(1);
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
+    }
+    { Fl_Check_Button* o = Mar4 = new Fl_Check_Button(535, 315, 60, 20, gettext("Marimba"));
+      o->down_box(FL_DOWN_BOX);
+      o->labelsize(9);
+      o->callback((Fl_Callback*)cb_Mar4);
+    }
+    { Fl_Check_Button* o = Mar3 = new Fl_Check_Button(475, 315, 55, 20, gettext("Marimba"));
+      o->down_box(FL_DOWN_BOX);
+      o->labelsize(9);
+      o->callback((Fl_Callback*)cb_Mar3);
+    }
+    { Fl_Check_Button* o = Mar2 = new Fl_Check_Button(415, 315, 55, 20, gettext("Marimba"));
+      o->down_box(FL_DOWN_BOX);
+      o->labelsize(9);
+      o->callback((Fl_Callback*)cb_Mar2);
+    }
+    { Fl_Check_Button* o = Mar1 = new Fl_Check_Button(355, 315, 55, 20, gettext("Marimba"));
+      o->down_box(FL_DOWN_BOX);
+      o->labelsize(9);
+      o->callback((Fl_Callback*)cb_Mar1);
     }
     o->end();
     o->resizable(o);
@@ -4370,6 +4454,7 @@ for (k=1; k<=20; k++)
 hor->Banco[i].Operator[k].volumen=hor->Operator[k].volumen;
 hor->Banco[i].Operator[k].harmonic_fine=hor->Operator[k].harmonic_fine;
 hor->Banco[i].Operator[k].harmonic=hor->Operator[k].harmonic;
+hor->Banco[i].Operator[k].mar=hor->Operator[k].mar;
 }
 
 
@@ -4407,6 +4492,7 @@ for (k=1; k<=20; k++)
 hor->Operator[k].volumen =hor->Banco[i].Operator[k].volumen;
 hor->Operator[k].harmonic_fine =hor->Banco[i].Operator[k].harmonic_fine;
 hor->Operator[k].harmonic =hor->Banco[i].Operator[k].harmonic;
+hor->Operator[k].mar=hor->Banco[i].Operator[k].mar;
 }
 
 
@@ -5072,6 +5158,10 @@ NV8->value(hor->lasfreq[hor->Operator[8].harmonic]);
 NV9->value(hor->lasfreq[hor->Operator[9].harmonic]);
 NV10->value(hor->lasfreq[hor->Operator[10].harmonic]);
 
+Mar1->value(hor->Operator[7].mar);
+Mar2->value(hor->Operator[8].mar);
+Mar3->value(hor->Operator[9].mar);
+Mar4->value(hor->Operator[10].mar);
 
 
 Marimba->value(hor->attack * 100);

@@ -239,6 +239,7 @@ HOR::New ()
 
       Operator[i].harmonic_fine = 0.0;
       Operator[i].volumen = 0.0;
+      Operator[i].mar = 0;
 
     }
 
@@ -305,9 +306,9 @@ for (k=1; k<=20; k++)
 
 {
 Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
-Operator[k].harmonic_fine
-=Undo[UndoCount].Operator[k].harmonic_fine;
+Operator[k].harmonic_fine=Undo[UndoCount].Operator[k].harmonic_fine;
 Operator[k].harmonic =Undo[UndoCount].Operator[k].harmonic;
+Operator[k].mar=Undo[UndoCount].Operator[k].mar;
 }
 
 echoon = Undo[UndoCount].echoon;
@@ -352,9 +353,9 @@ if (UndoCount == 95 ) UndoCount = 0;
 for (k=1; k<=20; k++)
 {
 Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
-Operator[k].harmonic_fine
-=Undo[UndoCount].Operator[k].harmonic_fine;
+Operator[k].harmonic_fine=Undo[UndoCount].Operator[k].harmonic_fine;
 Operator[k].harmonic =Undo[UndoCount].Operator[k].harmonic;
+Operator[k].mar=Undo[UndoCount].Operator[k].mar;
 }
 
 
@@ -405,6 +406,7 @@ for (k=1; k<=20; k++)
 Undo[UndoCount].Operator[k].volumen=Operator[k].volumen;
 Undo[UndoCount].Operator[k].harmonic_fine=Operator[k].harmonic_fine;
 Undo[UndoCount].Operator[k].harmonic=Operator[k].harmonic;
+Undo[UndoCount].Operator[k].mar=Operator[k].mar;
 }
 
 
@@ -447,6 +449,7 @@ for (k=1; k<=20; k++)
 Prim[1].Operator[k].volumen=Operator[k].volumen;
 Prim[1].Operator[k].harmonic_fine=Operator[k].harmonic_fine;
 Prim[1].Operator[k].harmonic=Operator[k].harmonic;
+Prim[1].Operator[k].mar=Operator[k].mar;
 }
 
 
@@ -491,6 +494,7 @@ for (k=1; k<=20; k++)
 Operator[k].volumen =Prim[1].Operator[k].volumen;
 Operator[k].harmonic_fine =Prim[1].Operator[k].harmonic_fine;
 Operator[k].harmonic =Prim[1].Operator[k].harmonic;
+Operator[k].mar = Prim[1].Operator[k].mar;
 }
 
 

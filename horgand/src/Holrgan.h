@@ -305,7 +305,8 @@ struct OperatorPar
  int harmonic;
  float harmonic_fine;
  float volumen;
- float con1; 
+ float con1;
+ int mar; 
  }    
    Operator[21];
 
