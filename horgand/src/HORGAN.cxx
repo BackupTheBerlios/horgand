@@ -91,11 +91,13 @@ void HORGAN::cb_MFile(Fl_Menu_* o, void* v) {
 
 inline void HORGAN::cb_New_i(Fl_Menu_*, void*) {
   hor->New();
+ApagaTodo();
 metelo();
 Actu();
 PutPrim();
 sprintf(hor->temporal, "--"); 
 DispNumber->label(hor->temporal);
+CPrograma->value(0);
 }
 void HORGAN::cb_New(Fl_Menu_* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_New_i(o,v);

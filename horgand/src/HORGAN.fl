@@ -141,11 +141,13 @@ exit(0);}
           menuitem {} {
             label {&New...}
             callback {hor->New();
+ApagaTodo();
 metelo();
 Actu();
 PutPrim();
 sprintf(hor->temporal, "--"); 
-DispNumber->label(hor->temporal);}
+DispNumber->label(hor->temporal);
+CPrograma->value(0);} selected
             xywh {0 0 100 20}
           }
           menuitem {} {
@@ -2320,7 +2322,7 @@ Banco30->label(hor->Banco[30].Name);
 Banco31->label(hor->Banco[31].Name);
 Banco32->label(hor->Banco[32].Name);} {}
   }
-  Function {HORGAN(HOR *hor_)} {open C
+  Function {HORGAN(HOR *hor_)} {C
   } {
     code {Fl::visual(FL_DOUBLE|FL_INDEX);
 Fl::visual(FL_RGB);
@@ -2337,8 +2339,7 @@ Actu();
 PutPrim();
 meteritmos();
 HORwindow->show();
-Fl::add_timeout(1.0/100,tick);} {selected
-    }
+Fl::add_timeout(1.0/100,tick);} {}
   }
   Function {Conecta()} {} {
     code {char  t1[40], t2[40];
