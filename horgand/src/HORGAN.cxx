@@ -1987,13 +1987,13 @@ void HORGAN::cb_CloRit(Fl_Button* o, void* v) {
 
 Fl_Double_Window* HORGAN::make_window() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(690, 620, "Horgand v1.05");
+  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(690, 595, "Horgand v1.05");
     w = o;
     o->color(FL_LIGHT1);
     o->labelcolor((Fl_Color)208);
     o->callback((Fl_Callback*)cb_HORwindow, (void*)(this));
     w->hotspot(o);
-    { Fl_Box* o = new Fl_Box(460, 415, 230, 205);
+    { Fl_Box* o = new Fl_Box(460, 405, 230, 190);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -2001,7 +2001,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     }
-    { Fl_Box* o = new Fl_Box(0, 310, 310, 310);
+    { Fl_Box* o = new Fl_Box(0, 310, 310, 285);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -2016,7 +2016,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     }
-    { Fl_Box* o = new Fl_Box(385, 335, 75, 285, "Master");
+    { Fl_Box* o = new Fl_Box(385, 335, 75, 260, "Master");
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -2039,7 +2039,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor(FL_FOREGROUND_COLOR);
       o->align(FL_ALIGN_TOP_LEFT);
     }
-    { Fl_Box* o = new Fl_Box(310, 310, 75, 310);
+    { Fl_Box* o = new Fl_Box(310, 310, 75, 285);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -2098,7 +2098,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { Fl_Box* o = new Fl_Box(240, 139, 46, 46);
       o->box(FL_OVAL_FRAME);
     }
-    { Fl_Box* o = new Fl_Box(255, 585, 47, 27);
+    { Fl_Box* o = new Fl_Box(255, 563, 47, 27);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
       o->selection_color(FL_DARK1);
@@ -2106,32 +2106,32 @@ Fl_Double_Window* HORGAN::make_window() {
     { Fl_Box* o = new Fl_Box(115, 244, 46, 46);
       o->box(FL_OVAL_FRAME);
     }
-    { Fl_Box* o = new Fl_Box(5, 584, 47, 27);
+    { Fl_Box* o = new Fl_Box(5, 562, 47, 27);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
-    { Fl_Box* o = new Fl_Box(155, 584, 47, 27);
+    { Fl_Box* o = new Fl_Box(155, 562, 47, 27);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
     { Fl_Box* o = new Fl_Box(180, 169, 46, 31);
       o->box(FL_DOWN_FRAME);
     }
-    { Fl_Box* o = new Fl_Box(5, 319, 46, 246);
+    { Fl_Box* o = new Fl_Box(5, 318, 45, 222);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
     { Fl_Box* o = new Fl_Box(305, 115, 31, 90);
       o->box(FL_DOWN_FRAME);
     }
-    { Fl_Box* o = new Fl_Box(390, 344, 66, 256);
+    { Fl_Box* o = new Fl_Box(390, 339, 66, 231);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
     { Fl_Box* o = new Fl_Box(180, 99, 46, 46);
       o->box(FL_OVAL_FRAME);
     }
-    { Fl_Box* o = new Fl_Box(105, 584, 47, 27);
+    { Fl_Box* o = new Fl_Box(105, 562, 47, 27);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
@@ -2143,27 +2143,27 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     }
-    { Fl_Box* o = new Fl_Box(155, 319, 46, 246);
+    { Fl_Box* o = new Fl_Box(155, 318, 46, 222);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
-    { Fl_Box* o = new Fl_Box(105, 319, 46, 246);
+    { Fl_Box* o = new Fl_Box(105, 318, 45, 222);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
-    { Fl_Box* o = new Fl_Box(205, 319, 46, 246);
+    { Fl_Box* o = new Fl_Box(205, 318, 46, 222);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
-    { Fl_Box* o = new Fl_Box(55, 584, 47, 27);
+    { Fl_Box* o = new Fl_Box(55, 562, 47, 27);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
-    { Fl_Box* o = new Fl_Box(255, 319, 46, 246);
+    { Fl_Box* o = new Fl_Box(255, 318, 46, 222);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
-    { Fl_Box* o = new Fl_Box(55, 319, 46, 246);
+    { Fl_Box* o = new Fl_Box(55, 318, 45, 222);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
@@ -2182,7 +2182,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)208);
       o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
     }
-    { Fl_Box* o = new Fl_Box(325, 319, 46, 246);
+    { Fl_Box* o = new Fl_Box(325, 319, 46, 251);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
@@ -2201,7 +2201,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)208);
       o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
     }
-    { Fl_Box* o = new Fl_Box(205, 584, 47, 27);
+    { Fl_Box* o = new Fl_Box(205, 562, 47, 27);
       o->box(FL_DOWN_FRAME);
       o->color(FL_FOREGROUND_COLOR);
     }
@@ -2223,7 +2223,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)208);
       o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
     }
-    { Fl_Box* o = new Fl_Box(520, 555, 46, 45);
+    { Fl_Box* o = new Fl_Box(520, 525, 46, 45);
       o->box(FL_OVAL_FRAME);
     }
     { Fl_Box* o = new Fl_Box(240, 244, 46, 31);
@@ -2291,7 +2291,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_RELEASE);
       o->value(hor->transpose);
     }
-    { Drawbar* o = Master = new Drawbar(390, 345, 65, 255, "Volume");
+    { Drawbar* o = Master = new Drawbar(390, 340, 65, 230, "Volume");
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color(FL_FOREGROUND_COLOR);
@@ -2332,7 +2332,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(FL_ALIGN_LEFT);
       o->value(1 - hor->mastertune * 1000);
     }
-    { Drawbar* o = V1 = new Drawbar(5, 320, 45, 245);
+    { Drawbar* o = V1 = new Drawbar(5, 318, 45, 222);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2348,7 +2348,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_CHANGED);
       o->value(hor->Operator[1].volumen * 100);
     }
-    { Drawbar* o = V2 = new Drawbar(55, 320, 45, 245);
+    { Drawbar* o = V2 = new Drawbar(55, 318, 45, 222);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2364,7 +2364,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_CHANGED);
       o->value(hor->Operator[2].volumen * 100);
     }
-    { Drawbar* o = V3 = new Drawbar(105, 320, 45, 245);
+    { Drawbar* o = V3 = new Drawbar(105, 318, 45, 222);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2380,7 +2380,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_CHANGED);
       o->value(hor->Operator[3].volumen * 100);
     }
-    { Drawbar* o = Marimba = new Drawbar(325, 320, 45, 245, "Perc.");
+    { Drawbar* o = Marimba = new Drawbar(325, 320, 45, 250, "Perc.");
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2397,7 +2397,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_CHANGED);
       o->value(hor->attack * 100);
     }
-    { Drawbar* o = V4 = new Drawbar(155, 320, 45, 245);
+    { Drawbar* o = V4 = new Drawbar(155, 318, 45, 222);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2413,7 +2413,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_CHANGED);
       o->value(hor->Operator[4].volumen * 100);
     }
-    { Drawbar* o = V5 = new Drawbar(205, 320, 45, 245);
+    { Drawbar* o = V5 = new Drawbar(205, 318, 45, 222);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2429,7 +2429,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_CHANGED);
       o->value(hor->Operator[5].volumen * 100);
     }
-    { Drawbar* o = V6 = new Drawbar(255, 320, 45, 245);
+    { Drawbar* o = V6 = new Drawbar(255, 318, 45, 222);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2540,7 +2540,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_RELEASE);
       o->value(hor->echodelay / 176400);
     }
-    { Fl_Slider* o = H1 = new Fl_Slider(5, 585, 45, 25, "1");
+    { Fl_Slider* o = H1 = new Fl_Slider(5, 563, 45, 25, "1");
       o->type(5);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color(FL_FOREGROUND_COLOR);
@@ -2555,10 +2555,10 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_RELEASE);
       o->value(hor->Operator[1].harmonic);
     }
-    { Fl_Box* o = new Fl_Box(515, 494, 52, 36);
+    { Fl_Box* o = new Fl_Box(515, 464, 52, 36);
       o->box(FL_DOWN_FRAME);
     }
-    { Fl_Slider* o = H2 = new Fl_Slider(55, 585, 45, 25);
+    { Fl_Slider* o = H2 = new Fl_Slider(55, 563, 45, 25);
       o->type(5);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color(FL_FOREGROUND_COLOR);
@@ -2572,7 +2572,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_RELEASE);
       o->value(hor->Operator[2].harmonic);
     }
-    { Fl_Slider* o = H3 = new Fl_Slider(105, 585, 45, 25);
+    { Fl_Slider* o = H3 = new Fl_Slider(105, 563, 45, 25);
       o->type(5);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color(FL_FOREGROUND_COLOR);
@@ -2586,7 +2586,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_RELEASE);
       o->value(hor->Operator[3].harmonic);
     }
-    { Fl_Slider* o = H4 = new Fl_Slider(155, 585, 45, 25);
+    { Fl_Slider* o = H4 = new Fl_Slider(155, 563, 45, 25);
       o->type(5);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color(FL_FOREGROUND_COLOR);
@@ -2600,7 +2600,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_RELEASE);
       o->value(hor->Operator[4].harmonic);
     }
-    { Fl_Slider* o = H5 = new Fl_Slider(205, 585, 45, 25);
+    { Fl_Slider* o = H5 = new Fl_Slider(205, 563, 45, 25);
       o->type(5);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color(FL_FOREGROUND_COLOR);
@@ -2614,7 +2614,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->when(FL_WHEN_RELEASE);
       o->value(hor->Operator[5].harmonic);
     }
-    { Fl_Slider* o = H6 = new Fl_Slider(255, 585, 45, 25);
+    { Fl_Slider* o = H6 = new Fl_Slider(255, 563, 45, 25);
       o->type(5);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color(FL_FOREGROUND_COLOR);
@@ -2834,7 +2834,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(FL_ALIGN_CLIP);
       o->value((int) hor->revon);
     }
-    { Fl_Slider* o = RitVol = new Fl_Slider(470, 425, 40, 175, "Volume");
+    { Fl_Slider* o = RitVol = new Fl_Slider(470, 415, 40, 155, "Volume");
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2849,7 +2849,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_RitVol);
       o->value(hor->ritvol);
     }
-    { Fl_Dial* o = Tempo = new Fl_Dial(520, 555, 45, 45, "Tempo");
+    { Fl_Dial* o = Tempo = new Fl_Dial(520, 525, 45, 45, "Tempo");
       o->box(FL_OSHADOW_BOX);
       o->color(FL_DARK1);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -2863,7 +2863,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->deactivate();
       o->value(hor->tempo);
     }
-    { Fl_Slider* o = VUI2 = new Fl_Slider(515, 540, 15, 15);
+    { Fl_Slider* o = VUI2 = new Fl_Slider(515, 510, 15, 15);
       o->type(2);
       o->color((Fl_Color)30);
       o->selection_color((Fl_Color)1);
@@ -2873,7 +2873,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_VUI2);
       o->value(tum);
     }
-    { Fl_Button* o = RitOn = new Fl_Button(515, 495, 50, 35, "Stop/Cont");
+    { Fl_Button* o = RitOn = new Fl_Button(515, 465, 50, 35, "Stop/Cont");
       o->type(1);
       o->box(FL_PLASTIC_UP_BOX);
       o->color((Fl_Color)31);
@@ -2884,10 +2884,10 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(FL_ALIGN_CLIP);
       o->value(hor->riton);
     }
-    { Fl_Box* o = new Fl_Box(515, 454, 51, 36);
+    { Fl_Box* o = new Fl_Box(515, 424, 51, 36);
       o->box(FL_DOWN_FRAME);
     }
-    { Fl_Button* o = StStRiton = new Fl_Button(515, 455, 50, 35, "Start/Stop");
+    { Fl_Button* o = StStRiton = new Fl_Button(515, 425, 50, 35, "Start/Stop");
       o->type(1);
       o->box(FL_PLASTIC_UP_BOX);
       o->color((Fl_Color)31);
@@ -2898,7 +2898,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(FL_ALIGN_CLIP);
       o->value(hor->riton);
     }
-    { Fl_Box* o = new Fl_Box(460, 95, 230, 320);
+    { Fl_Box* o = new Fl_Box(460, 95, 230, 310);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -2906,7 +2906,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     }
-    { Fl_Group* o = new Fl_Group(460, 95, 230, 320);
+    { Fl_Group* o = new Fl_Group(460, 95, 230, 310);
       { Fl_Button* o = Rit4 = new Fl_Button(470, 195, 95, 25);
         o->tooltip("Right Click Edit -  Left Click Select");
         o->type(1);
@@ -3149,7 +3149,7 @@ Fl_Double_Window* HORGAN::make_window() {
       }
       o->end();
     }
-    { Fl_Slider* o = BassVol = new Fl_Slider(575, 425, 40, 175, "Volume");
+    { Fl_Slider* o = BassVol = new Fl_Slider(575, 415, 40, 155, "Volume");
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -3164,10 +3164,10 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_BassVol);
       o->value(hor->bassvol);
     }
-    { Fl_Box* o = new Fl_Box(630, 454, 51, 36);
+    { Fl_Box* o = new Fl_Box(630, 424, 51, 36);
       o->box(FL_DOWN_FRAME);
     }
-    { Fl_Button* o = Basson = new Fl_Button(630, 455, 50, 35, "Bass");
+    { Fl_Button* o = Basson = new Fl_Button(630, 425, 50, 35, "Bass");
       o->type(1);
       o->box(FL_PLASTIC_UP_BOX);
       o->color((Fl_Color)31);
@@ -3178,11 +3178,11 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(FL_ALIGN_CLIP);
       o->value(hor->basson);
     }
-    { Fl_Group* o = new Fl_Group(625, 495, 60, 95);
+    { Fl_Group* o = new Fl_Group(625, 465, 60, 95);
       o->end();
     }
-    { Fl_Group* o = new Fl_Group(620, 500, 70, 85);
-      { Fl_Button* o = Bass1 = new Fl_Button(620, 500, 65, 25, "Acoustic");
+    { Fl_Group* o = new Fl_Group(620, 470, 70, 85);
+      { Fl_Button* o = Bass1 = new Fl_Button(620, 470, 65, 25, "Acoustic");
         o->type(102);
         o->box(FL_PLASTIC_UP_BOX);
         o->color((Fl_Color)31);
@@ -3193,7 +3193,7 @@ Fl_Double_Window* HORGAN::make_window() {
         o->callback((Fl_Callback*)cb_Bass1);
         o->align(FL_ALIGN_CLIP);
       }
-      { Fl_Button* o = Bass2 = new Fl_Button(620, 530, 65, 25, "Electric");
+      { Fl_Button* o = Bass2 = new Fl_Button(620, 500, 65, 25, "Electric");
         o->type(102);
         o->box(FL_PLASTIC_UP_BOX);
         o->color((Fl_Color)31);
@@ -3204,7 +3204,7 @@ Fl_Double_Window* HORGAN::make_window() {
         o->callback((Fl_Callback*)cb_Bass2);
         o->align(FL_ALIGN_CLIP);
       }
-      { Fl_Button* o = Bass3 = new Fl_Button(620, 560, 65, 25, "Fretless");
+      { Fl_Button* o = Bass3 = new Fl_Button(620, 530, 65, 25, "Fretless");
         o->type(102);
         o->box(FL_PLASTIC_UP_BOX);
         o->color((Fl_Color)31);
@@ -3226,7 +3226,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor(FL_FOREGROUND_COLOR);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
-    { Fl_Value_Output* o = NV1 = new Fl_Value_Output(5, 565, 45, 20);
+    { Fl_Value_Output* o = NV1 = new Fl_Value_Output(5, 543, 45, 20);
       o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->labelfont(1);
@@ -3236,7 +3236,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
-    { Fl_Value_Output* o = NV2 = new Fl_Value_Output(55, 565, 45, 20);
+    { Fl_Value_Output* o = NV2 = new Fl_Value_Output(55, 543, 45, 20);
       o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
@@ -3245,7 +3245,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
-    { Fl_Value_Output* o = NV3 = new Fl_Value_Output(105, 565, 45, 20);
+    { Fl_Value_Output* o = NV3 = new Fl_Value_Output(105, 543, 45, 20);
       o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
@@ -3254,7 +3254,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
-    { Fl_Value_Output* o = NV4 = new Fl_Value_Output(155, 565, 45, 20);
+    { Fl_Value_Output* o = NV4 = new Fl_Value_Output(155, 543, 45, 20);
       o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
@@ -3263,7 +3263,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
-    { Fl_Value_Output* o = NV5 = new Fl_Value_Output(205, 565, 45, 20);
+    { Fl_Value_Output* o = NV5 = new Fl_Value_Output(205, 543, 45, 20);
       o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
@@ -3272,7 +3272,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
-    { Fl_Value_Output* o = NV6 = new Fl_Value_Output(255, 565, 45, 20);
+    { Fl_Value_Output* o = NV6 = new Fl_Value_Output(255, 543, 45, 20);
       o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
@@ -4351,7 +4351,6 @@ Fl::visual(FL_RGB);
 hor=hor_;
 make_window();
 HORwindow->position(1,1);
-HORwindow->show();
 Fl::focus(PANICO);
 MiraClientes();
 Conecta();
@@ -4361,6 +4360,7 @@ if(commandline == 0) PutCombi(1);
 Actu();
 PutPrim();
 meteritmos();
+HORwindow->show();
 Fl::add_timeout(1.0/100,tick);
 }
 
