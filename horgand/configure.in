@@ -1,0 +1,49 @@
+
+define([AC_CACHE_LOAD], )dnl
+define([AC_CACHE_SAVE], )dnl
+
+
+
+AC_INIT(src/main.C) 
+AM_INIT_AUTOMAKE(horgand,1.04)
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_MAKE_SET
+
+# Checks for libraries.
+AC_CHECK_LIB([Xft], [main])
+AC_CHECK_LIB([Xrender], [main])
+AC_CHECK_LIB([asound], [main])
+AC_CHECK_LIB([dl], [main])
+AC_CHECK_LIB([fltk], [main])
+AC_CHECK_LIB([fontconfig], [main])
+AC_CHECK_LIB([freetype], [main])
+AC_CHECK_LIB([m], [main])
+AC_CHECK_LIB([pthread], [main])
+AC_CHECK_LIB([rt], [main])
+AC_CHECK_LIB([z], [main])
+AC_CHECK_LIB([jack],main)
+AC_CHECK_LIB([sndfile],sf_open)
+
+
+
+
+# Checks for header files.
+
+AC_HEADER_STDC
+AC_CHECK_HEADERS([fcntl.h stdlib.h string.h sys/ioctl.h unistd.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+# Checks for library functions.
+AC_PROG_GCC_TRADITIONAL
+AC_CHECK_FUNCS([bzero floor memset])
+CXXFLAGS="-O6 `fltk-config --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
+LIBS="`fltk-config --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile`"
+
+
+
+AC_OUTPUT(Makefile src/Makefile data/Makefile)

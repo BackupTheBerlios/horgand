@@ -1,0 +1,76 @@
+horgand ChangeLog
+
+
+
+== v1.04 (20/12/2003) ==
+----------------------------------------------------------------------------------------------
+- Solved bug in compilation.
+- Solved bug in compilation scripts.
+- Removed warnings in compilation.
+- Solved bug in tempo led
+- Load default bank at start.
+- Solved bug "flash" in command line.
+- Settings changed, Added default bank
+- Removed unused variables.
+- Debugged memory usage.
+- Solved bug in refresh labels adding output value widget replacing labels. 
+
+
+
+== v1.03 (11/12/2003) ==
+----------------------------------------------------------------------------------------------
+- Solved small bugs.
+- Solved bug now horgand read the config rhythm file from the installed dir.
+- Rewrited GNU-Autotools scripts, now better.
+- Rewrited alsa detection for compatibility with alsa 1.0 pre1.
+- Rewrited jack support for compatibility with jack 0.80.
+
+
+
+== v1.02 (24/06/2003) ==
+----------------------------------------------------------------------------------------------
+- Bass file pattern editor.
+- Posibility to load-save your rythm patterns.
+- New command line option.
+- Added more chords to recognition.
+- Bug in +7 chord resolved.
+
+
+
+== v1.01 (21/06/2003) ==
+----------------------------------------------------------------------------------------------
+- Fixed Bass frequencys, now are tuned :-)
+- Master Transpose transposes the bass line too.
+- Master MasterTune tunes the bass line too. 
+- Added more chords to recognition.
+- Fixed small bugs in split, chords ...
+
+
+
+== v1.00 (19/06/2003) ==
+------------------------------------------------------------------------------------------------
+- Added small auto-accompaniment, Looped Drums and a Bass line in
+  a wave table way.
+- Added chord recognition
+- Some free drum loops and bass samples. 
+- Bugs solved in DSP effects, now more stereo, minus noises :-)
+
+
+
+== v0.92 (13/06/2003) ==
+-------------------------------------------------------------------------------------------------
+- Added Reverb at this moment only presets available.
+- All the sliders and dials widget reponse in realtime.
+- Solved bug in keyboard level scaling, that reduced noises, 
+  unfortunatelly sound changes a little bit.
+- Small look changes and other minor bugs solved.
+
+
+== v0.91 (05/06/2003) ==
+-------------------------------------------------------------------------------------------------
+- Tones of major and minor bugs solved. 
+- Many "noises" removed.
+- Code optimized for speed-up at least a 20%. 
+
+
+

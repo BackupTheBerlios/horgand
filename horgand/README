@@ -1,0 +1,129 @@
+Horgand v1.04
+---------------------
+Sorry for the english :-)
+This is my fist DSP program attempt, my first jack client, and my first
+attempt to produce any sound, and i'm not programmer. 
+THIS PROGRAM COMES WITH NO WARRANTY, and sure have tones of
+bugs. 
+
+Horgand is a organ ... generates sound like a FM sinthesizer in real time,
+good reason for use a fast computer, there are many others programs who emulate a organ and sure
+their sound is better, but i program what i need, and just for fun.   
+
+You can modify the frequency of all "drawars" and use the "effects".
+
+I'm not a DSP "guru" and belive me, i will never be. Sure Horgand has many
+"noises", but ... i remember old organs ... they have many "noises" too.
+
+
+Requirements:
+------------    
+
+* Linux (Tested on a PIII 933 Debian sid and PII 300 Gentoo).
+* ALSA (with sequencer).
+* JACK
+* FLTK (tested and compiled with v1.1.1)
+* Libsndfile
+* Midi Keyboard or virtual keyboard like vkeybd.    
+
+
+Get the lastest version in :
+
+http://personal.telefonica.terra.es/web/soudfontcombi/
+
+
+
+First i want to say something, personally i dont like any kind of auto-accompaniment, sequences,
+organs, because many people use it for work, and this is not good for the
+musiciens. In fact i wonder the day when the musiciens dont want to record
+anything, anymore. Only write the papers, and play live, that's music.
+
+Thanks for this great drums and bass loops, unfortunatelly i cant remember
+where i get it. If you know it, please let me know.
+
+Thanks to all the people who makes wonderfoul programs, and specially to Paul
+Nasca (from ZynaddSubFZ), always a inspiaration. Please read the Links
+section bellow.
+
+
+The bad news is...  Yes i know, the pitch of the drums
+changes when you moves the tempo slider, well maybe in future versions, but
+i like how that program runs on a PII 300, and ... pitch change? ... well
+sometimes is not to bad ... and you can write your loops at your favorite
+tempos.
+
+
+How to start?
+-------------
+I think the best way is start Horgand is:
+
+
+- Run horgand
+- Go to the settings menu
+- Select you favorite Midi Input
+- Select your audio output driver
+- Select the default bank to load
+  Default.horeb is an example bank released with horgand is located in  
+  /usr/local/share/horgand/  in the default installation.
+- Save Settings
+- Close horgand
+- Restart horgand
+
+
+The hi try's to connect to your devices, loads sounds bank and is ready to
+play.
+
+Horgand has a velocity metter, you can see your midi input events.
+
+
+
+
+
+How to add more loops? 
+----------------------
+Put your loops in  installed prefix /share/horgand and after you can edit your bass line
+pressing right click inside an empy pattern. Sorry but is responsability of
+the user to put the correrct numbers of bars and nominator for the loop. A
+mistake on this can produce unexpected results.
+
+Load & Save rythm file patterns in Menu File, also you can load you favorite
+file with -r when you start horgand.
+
+(Ex. horgand -r MiFav.hrt -b Default.horeb) Loads MiFav as rhytm file and
+also Default as bank file.Command line override settings.
+
+
+
+
+Banks
+-----
+Left Click to put the organ sound in the main window.
+Rigth Click to get the organ sound of the main window.
+
+
+-----------------------------------------------------------------------------------------
+
+
+
+If you need support subscribe to:
+
+http://groups.yahoo.com/group/hlsu/
+
+
+
+Links
+-----
+
+If you want to hear something impressive please try this synthesizer .... 
+
+ZynAddSubFX - Copyright (c) 2002-2003 Nasca Octavian Paul at
+
+http://zynaddsubfx.sourceforge.net/
+
+
+
+You can send your comments to: holborn@telefonica.net 
+
+have a nice day ...
+
+
