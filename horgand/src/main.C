@@ -1,4 +1,6 @@
 #include <getopt.h>
+#include <sched.h>
+#include <sys/mman.h>
 #include <pthread.h>
 #include "Holrgan.h"
 #include "HORGAN.h"
@@ -8,16 +10,31 @@ int kk;
 HOR hor;
 
 
+void pon_realtime()
+
+{
+    sched_param scprior;
+
+    scprior.sched_priority=50;
+    int prior=sched_setscheduler(0,SCHED_RR,&scprior);
+    if (prior==0) printf("SCHED_FIFO\n");
+
+};
+
+
 void *
 thread1 (void *arg)
 {
-  Fl::run ();
+  pon_realtime();
+  while (Pexitprogram ==0)  hor.midievents(1);
   return (0);
 };
 
 void *
 thread2 (void *arg)
 {
+    
+    pon_realtime();
     while (Pexitprogram ==0)  hor.Alg1s(hor.PERIOD,0);
     return(0);
 
@@ -29,7 +46,7 @@ int main(int argc, char *argv[])
 {
 
   fprintf (stderr,
-	   "horgand v1.04 - Copyright (c) 2003 Josep Andreu (Holborn)\n");
+	   "horgand v1.05 - Copyright (c) 2003-2004 Josep Andreu (Holborn)\n");
   if (argc == 1)
     fprintf (stderr, "Try 'horgand --help' for command-line options.\n");
 
@@ -44,7 +61,7 @@ int main(int argc, char *argv[])
 
   
   Pexitprogram = 0;
-  
+  commandline = 0;
 
 
   opterr = 0;
@@ -67,6 +84,7 @@ int main(int argc, char *argv[])
 	case 'l':
 	  if (optarguments != NULL)
 	    {
+              commandline = 1;
 	      hor.loadfile (optarguments);
 	      break;
 	    }
@@ -101,8 +119,8 @@ int main(int argc, char *argv[])
       return (0);
     };
 
-
-
+  mlockall(MCL_CURRENT | MCL_FUTURE);
+  
   HORGAN *horUI = new HORGAN(&hor);
 
 
@@ -110,11 +128,11 @@ int main(int argc, char *argv[])
   pthread_create (&thr1, NULL, thread1, NULL);
   if (hor.Salida < 3)  pthread_create (&thr2, NULL, thread2, NULL);
  
- 
+  
 
   while (Pexitprogram == 0)
     { 
-      hor.midievents(1);
+      Fl::wait();
       if (vumvum != vum) horUI->VUI1->value(vum);
       
       if (hor.riton != 0) if (tum != horUI->VUI2->value()) horUI->VUI2->value(tum);
@@ -150,99 +168,12 @@ if (hor.Salida == 1)  close(hor.snd_handle);
 };
 
 
-int Alg1sj (long unsigned int nframes,void* )
-{
-
-  int l1, l2, i,j;
-
-   jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
-   jack_port_get_buffer(hor.outport_left, nframes);
-   jack_default_audio_sample_t *outr = (jack_default_audio_sample_t*)
-   jack_port_get_buffer(hor.outport_right, nframes);
-
-
-   memset(outl, 0, hor.PERIOD2 * sizeof(jack_default_audio_sample_t));
-   memset(outr, 0, hor.PERIOD2 * sizeof(jack_default_audio_sample_t));
-   memset (hor.buf, 0, hor.PERIOD8);
-
-   hor.freqplfo =  hor.modulation * hor.LFOpitch * hor.lalapi;
-
-
-
-
-  for (l2 = 0; l2 < POLY; l2++)
-    {
-
-      if (hor.note_active[l2])
-        {
-          hor.MiraNota(l2);
-
-          hor.Jenvelope (&hor.note_active[l2], hor.gate[l2],hor.env_time[l2], l2);
-          hor.aplfo = hor.PLFO(hor.env_time[l2]);
-          hor.miraalfo(l2);
-
-          for (i=1; i<=6; i++)
-            {
-             hor.volumeOpC(i,l2);
-             if (hor.Operator[i].con1 > 0)
-             {
-             hor.f[i].dphi =  hor.partial * hor.pitchOp(i,l2);
-            if (hor.f[i].dphi > D_PI) hor.f[i].dphi -= D_PI;
-             }
-             }
-
-
-
-          for (l1 = 0; l1 <hor.PERIOD2; l1++)
-            {
-
-              hor.sound =0;
-
-              for (i=1; i<=6; i++)
-              {
-              if (hor.Operator[i].con1 > 0)
-              {
-              hor.f[i].phi[l2] += hor.f[i].dphi;
-              if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] -= D_PI;
-              hor.sound += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
-              }
-              }
-
-              hor.buf[l1] += hor.sound * hor.master;
-              hor.env_time[l2] += hor.incre;
-             }
-
-        }
-
-
-    }
-
-if (hor.choron == 1 ) hor.bchorus();
-if (hor.rota == 1 )  hor.rotary();
-if (hor.echoon == 1) hor.procesa();
-if (hor.revon == 1)  hor.reverb();
-if (hor.riton == 1)  hor.CogeRitmo();
-
-
-for (i=0; i<hor.PERIOD; i++)
-{
- j = 2 * i;
- outl[j]=hor.buf[j];
- outr[j]=hor.buf[j+1];
- outl[j+1]=hor.buf[j];
- outr[j+1]=hor.buf[j+1];
-}
-
-return(0);
-
-};
-
-
 int jackprocess(jack_nframes_t nframes,void *arg)
 
 {
+
 pthread_mutex_lock(&mutex);
-//kk=Alg1sj(nframes,0);
+
 
   int l1, l2, i,j;
 
@@ -326,5 +257,6 @@ for (i=0; i<hor.PERIOD; i++)
 
 pthread_mutex_unlock(&mutex);
 return(0);
+
 };
 

@@ -2,6 +2,23 @@ horgand ChangeLog
 
 
 
+== v1.05 (  /01/2004) ==
+---------------------------------------------------------------------------------------------
+- Small Changes in look.
+- Added Organ sound Benet 5
+- Fixed Bug in Start/Stop
+- Fixed bug in bar led.
+- Select Rhythm 1 at start.
+- Load Bank 1 at start if ni command line provided.
+- Optimized code to fix format strings.
+- Drastically reduced the amount of memory needed.
+- Main window re-sizable.
+- Added memory lock.
+- Added FIFO real-time priority.
+- Improved Graphic Speed.
+ 
+
+
 == v1.04 (20/12/2003) ==
 ----------------------------------------------------------------------------------------------
 - Solved bug in compilation.
@@ -20,17 +37,18 @@ horgand ChangeLog
 == v1.03 (11/12/2003) ==
 ----------------------------------------------------------------------------------------------
 - Solved small bugs.
-- Solved bug now horgand read the config rhythm file from the installed dir.
-- Rewrited GNU-Autotools scripts, now better.
-- Rewrited alsa detection for compatibility with alsa 1.0 pre1.
-- Rewrited jack support for compatibility with jack 0.80.
+- Solved bug now horgand read the configuration rhythm file from the installed
+  directory.
+- Re-write GNU-Autotools scripts, now better.
+- Re-write alsa detection for compatibility with alsa 1.0 pre1.
+- Re-write jack support for compatibility with jack 0.80.
 
 
 
 == v1.02 (24/06/2003) ==
 ----------------------------------------------------------------------------------------------
 - Bass file pattern editor.
-- Posibility to load-save your rythm patterns.
+- Possibility to load-save your rhythm patterns.
 - New command line option.
 - Added more chords to recognition.
 - Bug in +7 chord resolved.
@@ -39,7 +57,7 @@ horgand ChangeLog
 
 == v1.01 (21/06/2003) ==
 ----------------------------------------------------------------------------------------------
-- Fixed Bass frequencys, now are tuned :-)
+- Fixed Bass frequency's, now are tuned :-)
 - Master Transpose transposes the bass line too.
 - Master MasterTune tunes the bass line too. 
 - Added more chords to recognition.
@@ -60,9 +78,9 @@ horgand ChangeLog
 == v0.92 (13/06/2003) ==
 -------------------------------------------------------------------------------------------------
 - Added Reverb at this moment only presets available.
-- All the sliders and dials widget reponse in realtime.
+- All the sliders and dials widget response in real-time.
 - Solved bug in keyboard level scaling, that reduced noises, 
-  unfortunatelly sound changes a little bit.
+  unfortunately sound changes a little bit.
 - Small look changes and other minor bugs solved.
 
 
@@ -73,4 +91,7 @@ horgand ChangeLog
 - Code optimized for speed-up at least a 20%. 
 
 
+== v0.90 (27/05/2003) ==
+--------------------------------------------------------------------------------------------------
 
+- First Release.

@@ -83,14 +83,13 @@ return 1;
 } 
 
 class HORGAN {} {
-  Function {make_window()} {selected
-  } {
+  Function {make_window()} {} {
     Fl_Window HORwindow {
-      label {Horgand v1.04}
+      label {Horgand v1.05}
       callback {Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {29 91 690 620} type Double color 50 labelcolor 208 hide hotspot
+      xywh {78 133 690 620} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
         xywh {460 415 230 205} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -901,7 +900,8 @@ hor->fracpos = hor->frametot /(4 * hor->blackn * hor->bars);}
         label {Stop/Cont}
         callback {StStRiton->value(o->value());
 tum = 0;
-hor->riton =  o->value();}
+hor->riton =  o->value();
+VUI2->value(0);}
         xywh {515 495 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 8 align 64
         code0 {o->value(hor->riton);}
       }
@@ -910,19 +910,15 @@ hor->riton =  o->value();}
       }
       Fl_Button StStRiton {
         label {Start/Stop}
-        callback {if (Rit == 0)
-{
- o->value(0);
- VUI2->value(0);
-
-}
-if (Rit != 0)
+        callback {if (Rit != 0)
 {
 // int readcounts = sf_seek (hor->infile, 0, SEEK_SET);
 RitOn->value(o->value());
 tum = 0;
 hor->riton =  o->value();
-}}
+}
+
+VUI2->value(0);}
         xywh {515 455 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 8 align 64
         code0 {o->value(hor->riton);}
       }
@@ -1251,37 +1247,37 @@ hor->framesbass = (int) (hor->sfinfob.frames / 2.0);}
         xywh {315 35 155 50} box PLASTIC_DOWN_BOX color 219 labeltype ENGRAVED_LABEL labelfont 1 labelsize 22 labelcolor 0 align 80
       }
       Fl_Value_Output NV1 {
-        xywh {5 565 45 20} color 42 selection_color 1 align 88 maximum 16 step 0.5
+        xywh {5 565 45 20} color 47 selection_color 1 labelfont 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV2 {
-        xywh {55 565 45 20} color 42 selection_color 1 align 88 maximum 16 step 0.5
+        xywh {55 565 45 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV3 {
-        xywh {105 565 45 20} color 42 selection_color 1 align 88 maximum 16 step 0.5
+        xywh {105 565 45 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV4 {
-        xywh {155 565 45 20} color 42 selection_color 1 align 88 maximum 16 step 0.5
+        xywh {155 565 45 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV5 {
-        xywh {205 565 45 20} color 42 selection_color 1 align 88 maximum 16 step 0.5
+        xywh {205 565 45 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV6 {
-        xywh {255 565 45 20} color 42 selection_color 1 align 88 maximum 16 step 0.5
+        xywh {255 565 45 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
       }
     }
     Fl_Window aboutwindow {
       label {About...}
-      xywh {1 140 340 300} type Double hide
+      xywh {4 140 380 300} type Double hide
     } {
       Fl_Box {} {
         label Horgand
         xywh {35 5 260 40} labelfont 1 labelsize 24 align 64
       }
       Fl_Box {} {
-        label {      Copyright (C) 2003 by Josep Andreu
+        label {Copyright (C) 2003-2004 by Josep Andreu
      (Holborn) 
       holborn@@telefonica.net }
-        xywh {10 45 320 70} labelfont 1 align 80
+        xywh {10 45 345 70} labelfont 1 align 80
       }
       Fl_Box {} {
         label {This is free software. you may redistribute and/or modify it under the terms of the version 2 of the GNU General Public License as published by the Free Software Fundation.
@@ -1342,7 +1338,8 @@ o->select(valor,1);}
         }
       }
       Fl_File_Input BFiname {
-        xywh {0 230 390 30}
+        label {  Bank Filename} selected
+        xywh {0 230 390 30} labelsize 12 align 5
       }
       Fl_Button {} {
         label Browse
@@ -2193,7 +2190,11 @@ switch (hor->Salida)
 
 hor->procesaclean();
 hor->chorusclean();
-hor->rclean();} {
+hor->rclean();
+
+Rit1->value(1);
+Rit = 1;
+GetRit(Rit);} {
       callback {hor->Operator[1].harmonic = (int) o->value();
 char tmp[64];
 sprintf(tmp, "%2.1f", hor->lasfreq[(int) o->value()]);
@@ -2427,7 +2428,9 @@ Banco32->label(hor->Banco[32].Name);} {}
   }
   Function {HORGAN(HOR *hor_)} {C
   } {
-    code {hor=hor_;
+    code {Fl::visual(FL_DOUBLE|FL_INDEX);
+Fl::visual(FL_RGB);
+hor=hor_;
 make_window();
 HORwindow->position(1,1);
 HORwindow->show();
@@ -2436,6 +2439,7 @@ MiraClientes();
 Conecta();
 metebanco();
 metelo();
+if(commandline == 0) PutCombi(1);
 Actu();
 PutPrim();
 meteritmos();
@@ -2485,8 +2489,8 @@ if (strcmp(hor->MidiInPuerto[1].SetMidiIn,"Not Connected") !=0 )
   sprintf(t2,"%d",hor->MidiInPuerto[1].SettingsIN);tt2 = t2;
 
  if ((client = snd_seq_client_id(hor->MidiInPuerto[1].midi_in)) < 0) printf("can't get client id\\n");
- if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &sender,tt2) < 0) printf("invalid sender address %s\\n", hor->MidiInPuerto[1].SettingsIN);
- if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &dest,tt1) < 0) printf("invalid destination address %s\\n", hor->MidiInPuerto[1].YOIN);
+ if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &sender,tt2) < 0) printf("invalid sender address %s\\n", (char*) hor->MidiInPuerto[1].SettingsIN);
+ if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &dest,tt1) < 0) printf("invalid destination address %s\\n", (char*) hor->MidiInPuerto[1].YOIN);
 
         snd_seq_port_subscribe_alloca(&subs);
         snd_seq_port_subscribe_set_sender(subs, &sender);

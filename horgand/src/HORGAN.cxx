@@ -827,25 +827,22 @@ inline void HORGAN::cb_RitOn_i(Fl_Button* o, void*) {
   StStRiton->value(o->value());
 tum = 0;
 hor->riton =  o->value();
+VUI2->value(0);
 }
 void HORGAN::cb_RitOn(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_RitOn_i(o,v);
 }
 
 inline void HORGAN::cb_StStRiton_i(Fl_Button* o, void*) {
-  if (Rit == 0)
-{
- o->value(0);
- VUI2->value(0);
-
-}
-if (Rit != 0)
+  if (Rit != 0)
 {
 // int readcounts = sf_seek (hor->infile, 0, SEEK_SET);
 RitOn->value(o->value());
 tum = 0;
 hor->riton =  o->value();
-};
+}
+
+VUI2->value(0);
 }
 void HORGAN::cb_StStRiton(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_StStRiton_i(o,v);
@@ -1981,7 +1978,7 @@ void HORGAN::cb_CloRit(Fl_Button* o, void* v) {
 
 Fl_Double_Window* HORGAN::make_window() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(690, 620, "Horgand v1.04");
+  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(690, 620, "Horgand v1.05");
     w = o;
     o->color(FL_LIGHT1);
     o->labelcolor((Fl_Color)208);
@@ -3221,50 +3218,64 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV1 = new Fl_Value_Output(5, 565, 45, 20);
-      o->color((Fl_Color)42);
+      o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
+      o->labelfont(1);
       o->maximum(16);
       o->step(0.5);
+      o->textfont(1);
+      o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV2 = new Fl_Value_Output(55, 565, 45, 20);
-      o->color((Fl_Color)42);
+      o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
       o->step(0.5);
+      o->textfont(1);
+      o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV3 = new Fl_Value_Output(105, 565, 45, 20);
-      o->color((Fl_Color)42);
+      o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
       o->step(0.5);
+      o->textfont(1);
+      o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV4 = new Fl_Value_Output(155, 565, 45, 20);
-      o->color((Fl_Color)42);
+      o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
       o->step(0.5);
+      o->textfont(1);
+      o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV5 = new Fl_Value_Output(205, 565, 45, 20);
-      o->color((Fl_Color)42);
+      o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
       o->step(0.5);
+      o->textfont(1);
+      o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV6 = new Fl_Value_Output(255, 565, 45, 20);
-      o->color((Fl_Color)42);
+      o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
       o->maximum(16);
       o->step(0.5);
+      o->textfont(1);
+      o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
     o->end();
+    o->resizable(o);
   }
-  { Fl_Double_Window* o = aboutwindow = new Fl_Double_Window(340, 300, "About...");
+  { Fl_Double_Window* o = aboutwindow = new Fl_Double_Window(380, 300, "About...");
     w = o;
     o->user_data((void*)(this));
     { Fl_Box* o = new Fl_Box(35, 5, 260, 40, "Horgand");
@@ -3272,8 +3283,8 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelsize(24);
       o->align(FL_ALIGN_CLIP);
     }
-    { Fl_Box* o = new Fl_Box(10, 45, 320, 70, "      Copyright (C) 2003 by Josep Andreu\n     (Holborn) \n      holborn@@tel\
-efonica.net ");
+    { Fl_Box* o = new Fl_Box(10, 45, 345, 70, "Copyright (C) 2003-2004 by Josep Andreu\n     (Holborn) \n      holborn@@tele\
+fonica.net ");
       o->labelfont(1);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
@@ -3327,7 +3338,10 @@ e version 2 of the \n GNU General Public License for details.");
       }
       o->end();
     }
-    BFiname = new Fl_File_Input(0, 230, 390, 30);
+    { Fl_File_Input* o = BFiname = new Fl_File_Input(0, 230, 390, 30, "  Bank Filename");
+      o->labelsize(12);
+      o->align(FL_ALIGN_TOP_LEFT);
+    }
     { Fl_Button* o = new Fl_Button(405, 230, 65, 30, "Browse");
       o->callback((Fl_Callback*)cb_Browse);
     }
@@ -4187,6 +4201,10 @@ switch (hor->Salida)
 hor->procesaclean();
 hor->chorusclean();
 hor->rclean();
+
+Rit1->value(1);
+Rit = 1;
+GetRit(Rit);
 }
 
 void HORGAN::GetCombi(int i) {
@@ -4420,7 +4438,9 @@ Banco32->label(hor->Banco[32].Name);
 }
 
 HORGAN::HORGAN(HOR *hor_) {
-  hor=hor_;
+  Fl::visual(FL_DOUBLE|FL_INDEX);
+Fl::visual(FL_RGB);
+hor=hor_;
 make_window();
 HORwindow->position(1,1);
 HORwindow->show();
@@ -4429,6 +4449,7 @@ MiraClientes();
 Conecta();
 metebanco();
 metelo();
+if(commandline == 0) PutCombi(1);
 Actu();
 PutPrim();
 meteritmos();
@@ -4479,8 +4500,8 @@ if (strcmp(hor->MidiInPuerto[1].SetMidiIn,"Not Connected") !=0 )
   sprintf(t2,"%d",hor->MidiInPuerto[1].SettingsIN);tt2 = t2;
 
  if ((client = snd_seq_client_id(hor->MidiInPuerto[1].midi_in)) < 0) printf("can't get client id\n");
- if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &sender,tt2) < 0) printf("invalid sender address %s\n", hor->MidiInPuerto[1].SettingsIN);
- if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &dest,tt1) < 0) printf("invalid destination address %s\n", hor->MidiInPuerto[1].YOIN);
+ if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &sender,tt2) < 0) printf("invalid sender address %s\n", (char*) hor->MidiInPuerto[1].SettingsIN);
+ if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &dest,tt1) < 0) printf("invalid destination address %s\n", (char*) hor->MidiInPuerto[1].YOIN);
 
         snd_seq_port_subscribe_alloca(&subs);
         snd_seq_port_subscribe_set_sender(subs, &sender);

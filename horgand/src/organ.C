@@ -14,7 +14,7 @@ pthread_mutex_t mutex;
 int l1, i, j, k, Pexitprogram, vum, vumvum, espera,
 UndoCount,programa,vavi,pr,pr1,tum,cambialo;
 char NombreAcorde[16];
-int solucion,Rit;
+int solucion,Rit,commandline;
 const char *FilePreset;
 
 

@@ -5,14 +5,14 @@
 #include <jack/jack.h>
 #include <sndfile.h>
 #define MPERIOD  256
-#define BUFSIZE 2048
+#define BUFSIZE 1024
 #define POLY 32
 #define SAMPLE_RATE 44100
 #define D_PI 6.283184
 
 extern pthread_mutex_t mutex;
 extern int Pexitprogram, espera, UndoCount, programa,vum,vumvum,tum,cambialo;
-extern int vavi,pr,pr1;
+extern int vavi,pr,pr1,commandline;
 extern char NombreAcorde[16];
 extern int solucion,Rit;
 int  Alg1sj (jack_nframes_t nframes,void *arg);
@@ -242,7 +242,7 @@ struct Ch3
  int di1;
  int di2;
  char Nom[10];
-} Chord3[50];
+} Chord3[15];
 
 struct Ch4
 
@@ -265,7 +265,7 @@ struct Ch5
   int di3;
   int di4;
   char Nom[10];
-} Chord5[50];
+} Chord5[12];
      
 
 
