@@ -227,7 +227,7 @@ pthread_mutex_lock(&mutex);
         {
           hor.MiraNota(l2);
 
-          hor.Jenvelope (&hor.note_active[l2], hor.gate[l2],hor.env_time[l2], l2);
+          hor.Jenvelope (&hor.note_active[l2], hor.gate[l2],hor.env_time[l2],l2);
           hor.aplfo = hor.PLFO(hor.env_time[l2]);
           hor.miraalfo(l2);
 

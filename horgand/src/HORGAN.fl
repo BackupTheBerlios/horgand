@@ -564,7 +564,7 @@ if (vavi == 1)
 Actu();
 vavi = 0;
 }}
-        xywh {115 100 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 20 step 0.01
+        xywh {115 100 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 30 step 0.01
         code0 {o->value(hor->PLFOspeed);}
         class Rueda
       }
@@ -1267,7 +1267,7 @@ hor->framesbass = (int) (hor->sfinfob.frames / 2.0);}
         callback {hor->cprograma = (int) o->value();
 PutCombi(hor->cprograma);
 Actu();}
-        xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum -48 maximum 48 step 1
+        xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum 0 maximum 32 step 1
         code0 {o->value(hor->cprograma);}
       }
       Fl_Slider V7 {
@@ -1386,7 +1386,7 @@ else
 {
 hor->Operator[10].mar = 0;
 hor->Operator[20].mar = 0;
-}} selected
+}}
         xywh {535 315 60 20} down_box DOWN_BOX labelsize 9
       }
       Fl_Check_Button Mar3 {
@@ -1526,7 +1526,7 @@ strcpy(hor->BankFilename,filename);}
       Fl_Button BClose {
         label Close
         callback {HORBank->hide();
-Fl::focus(PANICO);}
+Fl::focus(PANICO);} selected
         xywh {275 310 145 40} box PLASTIC_UP_BOX shortcut 0xff0d labeltype ENGRAVED_LABEL
       }
       Fl_Menu_Bar {} {open

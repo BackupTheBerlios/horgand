@@ -4,9 +4,12 @@ horgand ChangeLog
 
 == v1.06 (  /  /2004) ==
 ---------------------------------------------------------------------------------------------
+- Fixed bug in change programs.
+- Added more sounds.
+- Improved Tremolo Speed.
 - Added drawbar conversion to marimba
-- Improved ADSR
-- Man File updated
+- Improved ADSR.
+- Man File updated.
 - Fixed bug in command line.
 - Split source code for future development.
 - File format changed, new default bank released.

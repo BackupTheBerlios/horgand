@@ -135,6 +135,7 @@ public:
   int  note[POLY];
   int rnote[POLY];
   int  gate[POLY];
+  float envi[POLY];
   int  note_active[POLY];
   float  mastertune;
   float lasfreq[64];
@@ -157,7 +158,6 @@ public:
   float sustain;
   float release;
   float con1;       
-  float envi[POLY];
   float aplfo;
   float alfo; 
   float detune;

@@ -904,16 +904,16 @@ for (j = 1; j<= 20; j++)
 
 
 
-  lsin = (float *) malloc (sizeof (float) * 8000);
-  nsin = (float *) malloc (sizeof (float) * 8000);
-  memset (lsin, 0, 8000);
-  memset (nsin, 0, 8000);
+  lsin = (float *) malloc (sizeof (float) * 6300);
+  nsin = (float *) malloc (sizeof (float) * 6300);
+  memset (lsin, 0, 6300);
+  memset (nsin, 0, 6300);
 
 
 
   float pepin;
 
-  for (i = 0; i <= 7000; i++)
+  for (i = 0; i <= 6300; i++)
 
     {
       pepin = (float) (i / 1000.0);
@@ -1121,7 +1121,7 @@ HOR::pitchOp (int i, int note)
 {
   float aplfot;
   
-  if (Operator[i].mar) aplfot = 1; else aplfot = aplfo; 
+  if (Operator[i].mar) aplfot = .5; else aplfot = aplfo; 
 
   return ((lasfreq[(int) Operator[i].harmonic] +
 	   Operator[i].harmonic_fine) * aplfot);
@@ -1135,7 +1135,7 @@ HOR::volumeOpC (int i, int l2)
 
 
   Operator[i].con1 =
-    Operator[i].volumen * alfo / (2 * lasfreq[Operator[i].harmonic]);
+    Operator[i].volumen * envi[l2] * alfo / (2 * lasfreq[Operator[i].harmonic]);
 };
 
 
@@ -1143,7 +1143,7 @@ void
 
 HOR::miraalfo(int nota)
 {
-alfo = velocity[nota] * envi[nota] * (1 -((120 - note[nota]) / 120.0));
+alfo = velocity[nota] * (1 -((120 - note[nota]) / 120.0));
 };
 
 
@@ -1188,32 +1188,26 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
       if (decay > 0 )
        {
        envi[nota] = 0;
-       *note_active = 0;
        return;
        }
 
-      if ((pedal == 0) && (envi[nota] > 0))
+      if ((pedal == 0) && (t < release))
 	{
-	  envi[nota] *= (1.0 - (t / release));
-	  if ((note_active) && (envi[nota] < 0.01))
-            {
-	    *note_active = 0;
-             envi[nota]= 0;
-             return;
-            } 
+	  envi[nota] *= (1.0- (t /release));
+          if (envi[nota] < 0.01)
+              {
+              envi[nota] = 0;
+              *note_active = 0;
+              }          
+          return;
 	}
 
-       if ((t > release) && (pedal == 0))
-	{
-	  if (note_active)
-            {
-	    *note_active = 0;
-             envi[nota] = 0;
-            }         
-	  
-	}
-
-    }
+      if (t >= release)
+        {
+          *note_active = 0;
+           envi[nota] = 0;
+        }
+     }     
 
 
 };
@@ -1242,7 +1236,7 @@ HOR::PLFO (float t)
   else if (out > 1.0)
     out = 1.0;
   out *= freqplfo;
-  return ((1 + out) * 0.5);
+  return ((1+out) * 0.5);
 
 }
 

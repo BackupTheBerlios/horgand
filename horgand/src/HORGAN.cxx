@@ -2642,7 +2642,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelfont(0);
       o->labelsize(12);
       o->labelcolor((Fl_Color)4);
-      o->maximum(20);
+      o->maximum(30);
       o->step(0.01);
       o->callback((Fl_Callback*)cb_PLFOSpeed);
       o->align(FL_ALIGN_BOTTOM);
@@ -3435,8 +3435,8 @@ Fl_Double_Window* HORGAN::make_window() {
       o->type(1);
       o->labeltype(FL_EMBOSSED_LABEL);
       o->labelcolor((Fl_Color)208);
-      o->minimum(-48);
-      o->maximum(48);
+      o->minimum(0);
+      o->maximum(32);
       o->step(1);
       o->callback((Fl_Callback*)cb_CPrograma);
       o->align(FL_ALIGN_LEFT);
