@@ -1129,8 +1129,9 @@ HOR::volumeOpC (int i, int l2)
 
 
   Operator[i].con1 =
-    Operator[i].volumen * envi[l2] * alfo / (2 * lasfreq[Operator[i].harmonic]);
+    Operator[i].volumen * envi[l2] * alfo / (lasfreq[Operator[i].harmonic]);
    
+  if (Operator[1].con1 > 1 ) Operator[1].con1 = 1;
 };
 
 
@@ -1138,7 +1139,7 @@ void
 
 HOR::miraalfo(int nota)
 {
-alfo = velocity[nota] * (1 -((120 - note[nota]) / 120.0));
+alfo = velocity[nota] * (1 -((120 - note[nota]) / 240.0));
 };
 
 
@@ -1307,7 +1308,6 @@ HOR::Alg1s (int nframes, void *)
           decay = 0.0;
           sustain = 0.99;          
           enve0 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
-	  //printf("%f %f\n",enve0,env_time[l2]);
 	  decay = 0.30;
           sustain = 0.0;        
           enve1 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2); 

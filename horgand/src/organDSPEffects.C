@@ -112,7 +112,7 @@ HOR::rotary ()
 {
   int i;
   float a ,l, r;
-  freqlfo = 8 * modulation * LFOamplitude * lalapi;
+  freqlfo = 4 * modulation * LFOamplitude * lalapi;
 
   for (i = 0; i <PERIOD2; i +=2)
     {
