@@ -4,6 +4,8 @@ horgand ChangeLog
 
 == v1.07 (  /  /2004) ==
 ---------------------------------------------------------------------------------------------
+- removed realtime priority's
+- Changed shed.priority
 - Default Bank modified.
 - Improved Reverb.
 - Improved Rotary effect.

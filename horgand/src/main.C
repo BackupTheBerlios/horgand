@@ -42,7 +42,7 @@ void pon_realtime()
 {
     sched_param scprior;
 
-    scprior.sched_priority=50;
+    scprior.sched_priority=20;
     int prior=sched_setscheduler(0,SCHED_RR,&scprior);
     if (prior==0) printf("SCHED_FIFO\n");
 
@@ -52,7 +52,7 @@ void pon_realtime()
 void *
 thread1 (void *arg)
 {
-  pon_realtime();
+//  pon_realtime();
   while (Pexitprogram ==0)  hor.midievents(1);
   return (0);
 };
@@ -61,7 +61,7 @@ void *
 thread2 (void *arg)
 {
     
-    pon_realtime();
+//    pon_realtime();
     while (Pexitprogram ==0)  hor.Alg1s(hor.PERIOD,0);
     return(0);
 
