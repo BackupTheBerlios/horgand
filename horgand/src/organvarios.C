@@ -280,6 +280,7 @@ HOR::New ()
   pitch = 0;
   pedal = 0;
   master = 0.70;
+  omaster = 0.70;
   detune = 0;
   split = 0;
   chorvol = 0.60;
@@ -321,7 +322,7 @@ LFOpitch = Undo[UndoCount].LFOpitch;
 rota = Undo[UndoCount].rota;
 modulation = Undo[UndoCount].modulation;
 transpose = Undo[UndoCount].transpose;
-master = Undo[UndoCount].master;
+omaster = Undo[UndoCount].omaster;
 
 for (k=0; k<=24; k++) Name[k]=Undo[UndoCount].Name[k];
 nombre = Name;
@@ -372,7 +373,7 @@ LFOpitch = Undo[UndoCount].LFOpitch;
 rota = Undo[UndoCount].rota;
 modulation = Undo[UndoCount].modulation;
 transpose = Undo[UndoCount].transpose;
-master = Undo[UndoCount].master;
+omaster = Undo[UndoCount].omaster;
 
 for (k=0; k<=24; k++) Name[k]=Undo[UndoCount].Name[k];
 nombre = Name;
@@ -420,7 +421,7 @@ Undo[UndoCount].LFOpitch=LFOpitch;
 Undo[UndoCount].rota=rota;
 Undo[UndoCount].modulation=modulation;
 Undo[UndoCount].transpose=transpose;
-Undo[UndoCount].master=master;
+Undo[UndoCount].omaster=omaster;
 
 for (k=0; k<=24; k++) Undo[UndoCount].Name[k]=Name[k];
 nombre = Name;
@@ -465,7 +466,7 @@ Prim[1].LFOpitch=LFOpitch;
 Prim[1].rota=rota;
 Prim[1].modulation=modulation;
 Prim[1].transpose=transpose;
-Prim[1].master=master;
+Prim[1].omaster=omaster;
 
 for (k=0; k<=24; k++) Prim[1].Name[k]=Name[k];
 
@@ -510,7 +511,7 @@ LFOpitch = Prim[1].LFOpitch;
 rota = Prim[1].rota;
 modulation = Prim[1].modulation;
 transpose = Prim[1].transpose;
-master = Prim[1].master;
+omaster = Prim[1].omaster;
 bzero(Name,sizeof(Name));
 for (k=0; k<=24; k++) Name[k]=Prim[1].Name[k];
 nombre = Name;

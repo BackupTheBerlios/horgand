@@ -41,8 +41,8 @@ HOR::Salidafinal ()
 
       j = i * 2;          
             
-      sl = (short) (buf[i] * 32767.0);
-      sr = (short) (buf[i+1] * 32767.0);
+      sl = (short) (buf[i] * master * 32767.0);
+      sr = (short) (buf[i+1] * master * 32767.0);
 
       wbuf[j] = sl;
       wbuf[j + 1] = sr;

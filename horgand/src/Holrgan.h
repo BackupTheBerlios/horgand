@@ -141,6 +141,7 @@ public:
   float lasfreq[64];
   int rota;
   float  master;
+  float omaster;
   int pedal;
   long perhis;
   long rperhis;
@@ -325,7 +326,7 @@ struct Todolo
    float detune;
    int transpose;
    int rota;
-   float  master;
+   float omaster;
    int echoon;
    float echodelay;
    int split;

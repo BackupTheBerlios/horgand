@@ -48,7 +48,7 @@ HOR::savefile (char *filename)
 
   bzero (buf, sizeof (buf));
   sprintf (buf, "%f,%d,%f,%f,%f,%d,%f,%f\n",
-	   master, transpose, PLFOspeed, PLFOdelay, LFOspeed, rota, LFOpitch,
+	   omaster, transpose, PLFOspeed, PLFOdelay, LFOspeed, rota, LFOpitch,
 	   modulation);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
@@ -94,7 +94,7 @@ HOR::loadfile (char *filename)
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf (buf,
-	  "%f,%d,%f,%f,%f,%d,%f,%f", &master, &transpose, &PLFOspeed,
+	  "%f,%d,%f,%f,%f,%d,%f,%f", &omaster, &transpose, &PLFOspeed,
 	  &PLFOdelay, &LFOspeed, &rota, &LFOpitch, &modulation);
 
   bzero (buf, sizeof (buf));
@@ -146,7 +146,7 @@ HOR::savebank (char *filename)
 
       bzero (buf, sizeof (buf));
       sprintf (buf, "%f,%d,%f,%f,%f,%d,%f,%f\n",
-	       Banco[j].master, Banco[j].transpose, Banco[j].PLFOspeed,
+	       Banco[j].omaster, Banco[j].transpose, Banco[j].PLFOspeed,
 	       Banco[j].PLFOdelay, Banco[j].LFOspeed, Banco[j].rota,
 	       Banco[j].LFOpitch, Banco[j].modulation);
 
@@ -206,7 +206,7 @@ HOR::loadbank (char *filename)
       bzero (buf, sizeof (buf));
       fgets (buf, sizeof buf, fn);
       sscanf (buf,
-	      "%f,%d,%f,%f,%f,%d,%f,%f", &Banco[j].master,
+	      "%f,%d,%f,%f,%f,%d,%f,%f", &Banco[j].omaster,
 	      &Banco[j].transpose, &Banco[j].PLFOspeed, &Banco[j].PLFOdelay,
 	      &Banco[j].LFOspeed, &Banco[j].rota, &Banco[j].LFOpitch,
 	      &Banco[j].modulation);

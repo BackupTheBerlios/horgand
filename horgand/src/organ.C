@@ -51,6 +51,7 @@ HOR::HOR ()
   eperhis = 0;
   capsg=0;
   master = 0.70;
+  omaster = 0.70;
   incre = 0.5 / SAMPLE_RATE;
   lalapi = D_PI / SAMPLE_RATE;
   sbars = 1;
@@ -788,7 +789,7 @@ for (j = 1; j<= 20; j++)
       Banco[j].rota = 0;
       Banco[j].modulation = 0;
       Banco[j].transpose = 0;
-      Banco[j].master = 0.70;
+      Banco[j].omaster = 0.70;
       Banco[j].attack = 0.02;
       Banco[j].detune = 0;
       Banco[j].choron = 0;
@@ -827,7 +828,7 @@ for (j = 1; j<= 20; j++)
       Undo[j].rota = 0;
       Undo[j].modulation = 0;
       Undo[j].transpose = 0;
-      Undo[j].master = 0.70;
+      Undo[j].omaster = 0.70;
       Undo[j].attack = 0.02;
       Undo[j].detune = 0;
       Undo[j].choron = 0;
@@ -867,7 +868,7 @@ for (j = 1; j<= 20; j++)
       Prim[j].rota = 0;
       Prim[j].modulation = 0;
       Prim[j].transpose = 0;
-      Prim[j].master = 0.70;
+      Prim[j].omaster = 0.70;
       Prim[j].attack = 0.02;
       Prim[j].detune = 0;
       Prim[j].choron = 0;
@@ -1339,11 +1340,11 @@ HOR::Alg1s (int nframes, void *)
                   else soundr += Operator[i].con1 * Fsin (f[i].phi[l2]);                
 		 }
                 }
-	      buf[l1] += soundl*master;
-              buf[l1+1] += soundr*master;
-	      env_time[l2] += incre;
+	      buf[l1] += soundl * omaster;
+              buf[l1+1] += soundr * omaster;
+              env_time[l2] += incre;
 	    }
-
+              
 	}
 
 

@@ -544,6 +544,11 @@ private:
   inline void cb_Mar1_i(Fl_Check_Button*, void*);
   static void cb_Mar1(Fl_Check_Button*, void*);
 public:
+  Drawbar *OMaster;
+private:
+  inline void cb_OMaster_i(Drawbar*, void*);
+  static void cb_OMaster(Drawbar*, void*);
+public:
   Fl_Double_Window *aboutwindow;
 private:
   inline void cb_OK_i(Fl_Button*, void*);

@@ -227,12 +227,14 @@ pthread_mutex_lock(&mutex);
         {
           hor.MiraNota(l2);
 
-          hor.Jenvelope (&hor.note_active[l2], hor.gate[l2],hor.env_time[l2],l2);
           hor.aplfo = hor.PLFO(hor.env_time[l2]);
-          hor.miraalfo(l2);
 
           for (i=1; i<=20; i++)
             {
+             hor.decay = 0.30 * hor.Operator[i].mar;
+             if (hor.Operator[i].mar) hor.sustain= 0; else hor.sustain = 0.99;
+             hor.Jenvelope (&hor.note_active[l2],hor.gate[l2],hor.env_time[l2],l2);
+             hor.miraalfo(l2);
              hor.volumeOpC(i,l2);
              if (hor.Operator[i].con1 > 0)
              {
@@ -255,8 +257,8 @@ pthread_mutex_lock(&mutex);
          (i<11) ? soundl += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]) : soundr += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
               }
 
-              hor.buf[l1] += soundl * hor.master;
-              hor.buf[l1+1] += soundr * hor.master;
+              hor.buf[l1] += soundl * hor.omaster;
+              hor.buf[l1+1] += soundr * hor.omaster;
               hor.env_time[l2] += hor.incre;
              }
 
@@ -275,10 +277,10 @@ if (hor.riton == 1)  hor.CogeRitmo();
 for (i=0; i<hor.PERIOD; i++)
 {
  j = 2 * i;
- outl[j]=hor.buf[j];
- outr[j]=hor.buf[j+1];
- outl[j+1]=hor.buf[j];
- outr[j+1]=hor.buf[j+1];
+ outl[j]=hor.buf[j] * hor.master;
+ outr[j]=hor.buf[j+1] * hor.master;
+ outl[j+1]=hor.buf[j] * hor.master;
+ outr[j+1]=hor.buf[j+1] * hor.master;
 }
 
 pthread_mutex_unlock(&mutex);

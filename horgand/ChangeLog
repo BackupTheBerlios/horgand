@@ -2,8 +2,11 @@ horgand ChangeLog
 
 
 
-== v1.06 (  /  /2004) ==
+== v1.06 (  /02/2004) ==
 ---------------------------------------------------------------------------------------------
+- Added Volume for organ section.
+- Master Volume now control the whole organ.
+- Update jack-process
 - Fixed bug in change programs.
 - Added more sounds.
 - Improved Tremolo Speed.
