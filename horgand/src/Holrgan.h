@@ -146,6 +146,7 @@ public:
   int pedal;
   long perhis;
   long rperhis;
+  long hrperhis;
   long eperhis;
   char *nombre;  
   char Name[36];  
@@ -310,11 +311,11 @@ struct OperatorPar
  float con1;
  int mar; 
  }    
-   Operator[21];
+   Operator[11];
 
 struct Todolo
 
-  { OperatorPar Operator[21];
+  { OperatorPar Operator[11];
 
    float modulation;
    float echovol;

@@ -2,9 +2,14 @@ horgand ChangeLog
 
 
 
-== v1.07 (  /  /2004) ==
+== v1.07 (23/06/2004) ==
 ---------------------------------------------------------------------------------------------
-- Default Bank mmodified.
+- Sound Engine Changed (10 Carriers), +/- same sound than 20 carriers and half CPU
+  usage
+- Recognizes MIDI Control Reverb depth message.
+- Recognizes MIDI Control Chorus depth message.
+- Fixed bug cleaning reverb.
+- Default Bank modified.
 - Improved speed.
 - Improved Envelope.
 - Changed FIFO schedule priority, now works on kernel 2.6.

@@ -59,7 +59,13 @@ HOR::midievents (int keIN)
 
       if (midievent->data.control.param == 1)
 	modulation = (float) midievent->data.control.value / 12.7;
+ 
+      if (midievent->data.control.param == 91)
+              revvol = (float) midievent->data.control.value / 256.0;
 
+      if (midievent->data.control.param == 93)
+              chorvol = (float) midievent->data.control.value / 127.0;
+            
       if (midievent->data.control.param == 7)
 	master = (float) midievent->data.control.value / 127.0;
 

@@ -48,6 +48,7 @@ HOR::HOR ()
   espera = 0;
   perhis = 0;
   rperhis = 0;
+  hrperhis = 260000;
   eperhis = 0;
   capsg=0;
   master = 0.70;
@@ -82,7 +83,7 @@ HOR::HOR ()
 
 
 
-  for (i = 1; i <= 20; i++)
+  for (i = 1; i <= 10; i++)
     {
       Operator[i].harmonic_fine = 0.0;
       Operator[i].volumen = 0.0;
@@ -99,16 +100,6 @@ HOR::HOR ()
   Operator[8].harmonic = 14;
   Operator[9].harmonic = 19;
   Operator[10].harmonic = 22;
-  Operator[11].harmonic = 1;
-  Operator[12].harmonic = 3;
-  Operator[13].harmonic = 4;
-  Operator[14].harmonic = 5;
-  Operator[15].harmonic = 7;
-  Operator[16].harmonic = 8;
-  Operator[17].harmonic = 11;
-  Operator[18].harmonic = 14;
-  Operator[19].harmonic = 19;
-  Operator[20].harmonic = 22;
   
 
   solucion = 0;
@@ -768,7 +759,7 @@ for (j = 1; j<= 20; j++)
 
   for (j = 1; j <= 32; j++)
     {
-      for (i = 1; i <= 20; i++)
+      for (i = 1; i <= 10; i++)
 	{
 	  Banco[j].Operator[i].harmonic = Operator[i].harmonic;
 	  Banco[j].Operator[i].harmonic_fine = 0.0;
@@ -807,7 +798,7 @@ for (j = 1; j<= 20; j++)
   for (j = 0; j <= 100; j++)
     {
 
-      for (i = 1; i <= 20; i++)
+      for (i = 1; i <= 10; i++)
 	{
 	  Undo[j].Operator[i].harmonic = Operator[i].harmonic;
 	  Undo[j].Operator[i].harmonic_fine = 0.0;
@@ -846,7 +837,7 @@ for (j = 1; j<= 20; j++)
   for (j = 0; j <= 3; j++)
     {
 
-      for (i = 1; i <= 20; i++)
+      for (i = 1; i <= 10; i++)
 	{
 	  Prim[j].Operator[i].harmonic = Operator[i].harmonic;
 	  Prim[j].Operator[i].harmonic_fine = 0.0;
@@ -1294,7 +1285,7 @@ HOR::Alg1s (int nframes, void *)
 {
  
   int l1, l2, i, kk = 0;
-  float soundr,soundl = 0;
+  float sound = 0;
   float enve0,enve1 = 0;
   memset (buf, 0, PERIOD8);
 
@@ -1322,7 +1313,7 @@ HOR::Alg1s (int nframes, void *)
  
 
 
-	  for (i = 1; i <= 20; i++)
+	  for (i = 1; i <= 10; i++)
 	    {
               
               if (Operator[i].mar) envi[l2]=enve1;  else  envi[l2]=enve0; 
@@ -1337,22 +1328,21 @@ HOR::Alg1s (int nframes, void *)
 	  for (l1 = 0; l1 < PERIOD2; l1+= 2)
 	    {
 
-	      soundl = 0;
-              soundr = 0;
+	      sound=0;
 
-	      for (i = 1; i <= 20; i++)
+	      for (i = 1; i <= 10; i++)
 		{
 
                if (Operator[i].con1 > 0)
                  {
 		  f[i].phi[l2] += f[i].dphi;
 		  if (f[i].phi[l2] > D_PI) f[i].phi[l2] -= D_PI;
-		  if (i<11) soundl += Operator[i].con1 * Fsin (f[i].phi[l2]);
-                  else soundr += Operator[i].con1 * Fsin (f[i].phi[l2]);                
+		  sound += Operator[i].con1 * Fsin (f[i].phi[l2]);
+                               
 		 }
                 }
-	      buf[l1] += soundl * omaster;
-              buf[l1+1] += soundr * omaster;
+	      buf[l1] += sound * omaster;
+              buf[l1+1] += sound * omaster;
               env_time[l2] += incre;
 	    }
               
@@ -1395,4 +1385,5 @@ Salidafinal();
 
    return;
 };
+
 

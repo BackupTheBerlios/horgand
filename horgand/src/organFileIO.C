@@ -34,7 +34,7 @@ HOR::savefile (char *filename)
   FILE *fn;
   char buf[2048];
   fn = fopen (filename, "w");
-  for (i = 1; i <= 20; i++)
+  for (i = 1; i <= 10; i++)
     {
 
       bzero (buf, sizeof (buf));
@@ -78,7 +78,7 @@ HOR::loadfile (char *filename)
     return;
 
 
-  for (i = 1; i <= 20; i++)
+  for (i = 1; i <= 10; i++)
     {
 
       bzero (buf, sizeof (buf));
@@ -131,7 +131,7 @@ HOR::savebank (char *filename)
     {
 
 
-      for (i = 1; i <= 20; i++)
+      for (i = 1; i <= 10; i++)
 	{
 
 	  bzero (buf, sizeof (buf));
@@ -190,7 +190,7 @@ HOR::loadbank (char *filename)
   for (j = 1; j <= 32; j++)
     {
 
-      for (i = 1; i <= 20; i++)
+      for (i = 1; i <= 10; i++)
 	{
 
 	  bzero (buf, sizeof (buf));

@@ -139,7 +139,6 @@ HOR::reverb ()
   long elke, elke1;
   float tmp=0;
   float tmprvol=0;
-  float tmprvol1=0;
   float bufl;
   float bufr;
   float efxoutl;
@@ -157,44 +156,50 @@ HOR::reverb ()
   efxoutl = 0;
   efxoutr = 0;
   stmp = 0;
-  capsg = 0;
   
+    
   for (j = 0; j<=15; j++)
     {
     
       
-      elke = rperhis - ((long) (combl[j] * rtime));
+      elke = rperhis - ((long) (combl[j] * rtime))+10000;
       if (elke % 2 != 0) elke = elke + 1;
       if (elke < 0) elke = 524800 + elke;
 
-      elke1 = rperhis  - ((long) (combr[j] * rtime));
+      elke1 = rperhis  - ((long) (combr[j] * rtime))+10000;
       if (elke1 % 2 == 0) elke1 = elke1 + 1; 
       if (elke1 < 0) elke1 = 524800 + elke1;
  
       tmp = diffussion * apsg[capsg] / apss;
       stmp += tmp;
-      if (++capsg > 7 ) capsg = 0;
+      if (++capsg > 15 ) capsg = 0;
       efxoutl += rhistory[elke] * stmp;
-
+                  
       tmp = diffussion * apsg[capsg] / apss;
       stmp += tmp;
-      if (++capsg > 7 ) capsg = 0;
+      if (++capsg > 15 ) capsg = 0;
       efxoutr += rhistory[elke1] * stmp;
- 
+             
      }
-      
+       
+        
       tmprvol =  stmp * revvol;
-      tmprvol1 = 1 - tmprvol;
-         
-  
-      buf[i] = (bufl * tmprvol1) + (efxoutl * tmprvol);
+       
+    
+      buf[i] = bufl + (efxoutl * tmprvol);
       rhistory[rperhis] = buf[i];
       if (++rperhis > 524800) rperhis = 0;
-      buf[i + 1] = (bufr * tmprvol1) + (efxoutr * tmprvol);
-      rhistory[rperhis] = buf[i + 1]; 
+      buf[i + 1] = bufr + (efxoutr * tmprvol);
+      rhistory[rperhis] = buf[i+1];
       if (++rperhis > 524800) rperhis = 0;
+                                                   
+      if (++hrperhis > 524800) hrperhis = 0;
+      rhistory[hrperhis] = 0;
+      if (++hrperhis > 524800) hrperhis = 0;
+      rhistory[hrperhis] = 0;
+            
 
-     }
+    }
 };
 
 
@@ -258,7 +263,7 @@ void
 HOR::rclean()
 {
 
-memset (rhistory, 0, BUFSIZE * 1024);
+memset (rhistory, 0, 2 * sizeof (float) * BUFSIZE * 1024);
 
 };
 

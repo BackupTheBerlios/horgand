@@ -350,7 +350,6 @@ void HORGAN::cb_MasterT(Fl_Counter* o, void* v) {
 
 inline void HORGAN::cb_V1_i(Drawbar* o, void*) {
   hor->Operator[1].volumen = (float) o->value() / 100;
-hor->Operator[11].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -363,7 +362,6 @@ void HORGAN::cb_V1(Drawbar* o, void* v) {
 
 inline void HORGAN::cb_V2_i(Drawbar* o, void*) {
   hor->Operator[2].volumen = (float) o->value() / 100;
-hor->Operator[12].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -376,7 +374,6 @@ void HORGAN::cb_V2(Drawbar* o, void* v) {
 
 inline void HORGAN::cb_V3_i(Drawbar* o, void*) {
   hor->Operator[3].volumen = (float) o->value() / 100;
-hor->Operator[13].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -401,7 +398,6 @@ void HORGAN::cb_Marimba(Drawbar* o, void* v) {
 
 inline void HORGAN::cb_V4_i(Drawbar* o, void*) {
   hor->Operator[4].volumen = (float) o->value() / 100;
-hor->Operator[14].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -414,7 +410,6 @@ void HORGAN::cb_V4(Drawbar* o, void* v) {
 
 inline void HORGAN::cb_V5_i(Drawbar* o, void*) {
   hor->Operator[5].volumen = (float) o->value() / 100;
-hor->Operator[15].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -427,7 +422,6 @@ void HORGAN::cb_V5(Drawbar* o, void* v) {
 
 inline void HORGAN::cb_V6_i(Drawbar* o, void*) {
   hor->Operator[6].volumen = (float) o->value() / 100;
-hor->Operator[16].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -444,7 +438,6 @@ int i;
 for (i=1; i<=10; i++)
 {
 hor->Operator[i].harmonic_fine = (float) ((o->value()) / ((16 -hor->Operator[i].harmonic) * i * 1000.0));
-hor->Operator[i+10].harmonic_fine = (float) ((-1 * o->value()) / ((16 -hor->Operator[i].harmonic) * i * 1000.0));
 }
 if (vavi == 1)
 { 
@@ -522,7 +515,6 @@ void HORGAN::cb_EchoDelay(Fl_Counter* o, void* v) {
 
 inline void HORGAN::cb_H1_i(Fl_Slider* o, void*) {
   hor->Operator[1].harmonic = (int) o->value();
-hor->Operator[11].harmonic = (int) o->value();
 NV1->value(hor->lasfreq[(int) o->value()]);
 
 Actu();
@@ -533,7 +525,6 @@ void HORGAN::cb_H1(Fl_Slider* o, void* v) {
 
 inline void HORGAN::cb_H2_i(Fl_Slider* o, void*) {
   hor->Operator[2].harmonic = (int) o->value();
-hor->Operator[12].harmonic = (int) o->value();
 NV2->value(hor->lasfreq[(int) o->value()]);
 Actu();
 }
@@ -543,8 +534,6 @@ void HORGAN::cb_H2(Fl_Slider* o, void* v) {
 
 inline void HORGAN::cb_H3_i(Fl_Slider* o, void*) {
   hor->Operator[3].harmonic = (int) o->value();
-hor->Operator[13].harmonic = (int) o->value();
-
 NV3->value(hor->lasfreq[(int) o->value()]);
 
 Actu();
@@ -555,8 +544,6 @@ void HORGAN::cb_H3(Fl_Slider* o, void* v) {
 
 inline void HORGAN::cb_H4_i(Fl_Slider* o, void*) {
   hor->Operator[4].harmonic = (int) o->value();
-hor->Operator[14].harmonic = (int) o->value();
-
 NV4->value(hor->lasfreq[(int) o->value()]);
 
 Actu();
@@ -567,8 +554,6 @@ void HORGAN::cb_H4(Fl_Slider* o, void* v) {
 
 inline void HORGAN::cb_H5_i(Fl_Slider* o, void*) {
   hor->Operator[5].harmonic = (int) o->value();
-hor->Operator[15].harmonic = (int) o->value();
-
 NV5->value(hor->lasfreq[(int) o->value()]);
 Actu();
 }
@@ -578,7 +563,6 @@ void HORGAN::cb_H5(Fl_Slider* o, void* v) {
 
 inline void HORGAN::cb_H6_i(Fl_Slider* o, void*) {
   hor->Operator[6].harmonic = (int) o->value();
-hor->Operator[16].harmonic = (int) o->value();
 NV6->value(hor->lasfreq[(int) o->value()]);
 Actu();
 }
@@ -788,7 +772,6 @@ R5->activate();
 R6->activate();
 R7->activate();
 R8->activate();
-
 if (hor->ganmod==0) hor->ganmod = 1;
 
 switch((int) hor->ganmod)
@@ -1257,7 +1240,6 @@ void HORGAN::cb_CPrograma(Fl_Counter* o, void* v) {
 
 inline void HORGAN::cb_V7_i(Drawbar* o, void*) {
   hor->Operator[7].volumen = (float) o->value() / 100;
-hor->Operator[17].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -1270,7 +1252,6 @@ void HORGAN::cb_V7(Drawbar* o, void* v) {
 
 inline void HORGAN::cb_V8_i(Drawbar* o, void*) {
   hor->Operator[8].volumen = (float) o->value() / 100;
-hor->Operator[18].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -1283,7 +1264,6 @@ void HORGAN::cb_V8(Drawbar* o, void* v) {
 
 inline void HORGAN::cb_V9_i(Drawbar* o, void*) {
   hor->Operator[9].volumen = (float) o->value() / 100;
-hor->Operator[19].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -1296,7 +1276,6 @@ void HORGAN::cb_V9(Drawbar* o, void* v) {
 
 inline void HORGAN::cb_V10_i(Drawbar* o, void*) {
   hor->Operator[10].volumen = (float) o->value() / 100;
-hor->Operator[20].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -1309,8 +1288,6 @@ void HORGAN::cb_V10(Drawbar* o, void* v) {
 
 inline void HORGAN::cb_H7_i(Fl_Slider* o, void*) {
   hor->Operator[7].harmonic = (int) o->value();
-hor->Operator[17].harmonic = (int) o->value();
-
 NV7->value(hor->lasfreq[(int) o->value()]);
 
 Actu();
@@ -1321,8 +1298,6 @@ void HORGAN::cb_H7(Fl_Slider* o, void* v) {
 
 inline void HORGAN::cb_H8_i(Fl_Slider* o, void*) {
   hor->Operator[8].harmonic = (int) o->value();
-hor->Operator[18].harmonic = (int) o->value();
-
 NV8->value(hor->lasfreq[(int) o->value()]);
 
 Actu();
@@ -1333,8 +1308,6 @@ void HORGAN::cb_H8(Fl_Slider* o, void* v) {
 
 inline void HORGAN::cb_H9_i(Fl_Slider* o, void*) {
   hor->Operator[9].harmonic = (int) o->value();
-hor->Operator[19].harmonic = (int) o->value();
-
 NV9->value(hor->lasfreq[(int) o->value()]);
 Actu();
 }
@@ -1344,7 +1317,6 @@ void HORGAN::cb_H9(Fl_Slider* o, void* v) {
 
 inline void HORGAN::cb_H10_i(Fl_Slider* o, void*) {
   hor->Operator[10].harmonic = (int) o->value();
-hor->Operator[20].harmonic = (int) o->value();
 NV10->value(hor->lasfreq[(int) o->value()]);
 Actu();
 }
@@ -1356,12 +1328,10 @@ inline void HORGAN::cb_Mar4_i(Fl_Check_Button* o, void*) {
   if ((int)o->value())
 {
 hor->Operator[10].mar = 1;
-hor->Operator[20].mar = 1;
 }
 else
 {
 hor->Operator[10].mar = 0;
-hor->Operator[20].mar = 0;
 };
 }
 void HORGAN::cb_Mar4(Fl_Check_Button* o, void* v) {
@@ -1372,12 +1342,10 @@ inline void HORGAN::cb_Mar3_i(Fl_Check_Button* o, void*) {
   if ((int)o->value())
 {
 hor->Operator[9].mar = 1;
-hor->Operator[19].mar = 1;
 }
 else
 {
 hor->Operator[9].mar = 0;
-hor->Operator[19].mar = 0;
 };
 }
 void HORGAN::cb_Mar3(Fl_Check_Button* o, void* v) {
@@ -1388,12 +1356,11 @@ inline void HORGAN::cb_Mar2_i(Fl_Check_Button* o, void*) {
   if ((int)o->value())
 {
 hor->Operator[8].mar = 1;
-hor->Operator[18].mar = 1;
 }
 else
 {
 hor->Operator[8].mar = 0;
-hor->Operator[18].mar = 0;
+
 };
 }
 void HORGAN::cb_Mar2(Fl_Check_Button* o, void* v) {
@@ -1404,12 +1371,11 @@ inline void HORGAN::cb_Mar1_i(Fl_Check_Button* o, void*) {
   if ((int)o->value())
 {
 hor->Operator[7].mar = 1;
-hor->Operator[17].mar = 1;
+
 }
 else
 {
 hor->Operator[7].mar = 0;
-hor->Operator[17].mar = 0;
 };
 }
 void HORGAN::cb_Mar1(Fl_Check_Button* o, void* v) {
@@ -4400,7 +4366,7 @@ GetRit(Rit);
 
 void HORGAN::GetCombi(int i) {
   int k;
-for (k=1; k<=20; k++)
+for (k=1; k<=10; k++)
 {
 hor->Banco[i].Operator[k].volumen=hor->Operator[k].volumen;
 hor->Banco[i].Operator[k].harmonic_fine=hor->Operator[k].harmonic_fine;
@@ -4438,7 +4404,7 @@ void HORGAN::PutCombi(int i) {
   int k;
 hor->cprograma= i;
 
-for (k=1; k<=20; k++)
+for (k=1; k<=10; k++)
 {
 hor->Operator[k].volumen =hor->Banco[i].Operator[k].volumen;
 hor->Operator[k].harmonic_fine =hor->Banco[i].Operator[k].harmonic_fine;
@@ -4807,7 +4773,7 @@ hor->diffussion = 0.16;
 break;
 
 case 8:
-hor->rtime = 3.2;
+hor->rtime = 3.8;
 hor->revvol = 0.65;
 hor->diffussion = 0.16;
 break;

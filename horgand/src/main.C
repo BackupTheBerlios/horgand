@@ -203,7 +203,7 @@ pthread_mutex_lock(&mutex);
 
 
   int l1, l2, i,j;
-  float soundl, soundr = 0;
+  float sound = 0;
   float enve0, enve1 = 0;
 
    jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
@@ -241,7 +241,7 @@ pthread_mutex_lock(&mutex);
           
 
 
-          for (i=1; i<=20; i++)
+          for (i=1; i<=10; i++)
             {
              if (hor.Operator[i].mar) hor.envi[l2]=enve1; else hor.envi[l2]=enve0;
              hor.volumeOpC(i,l2);
@@ -257,17 +257,17 @@ pthread_mutex_lock(&mutex);
           for (l1 = 0; l1 <hor.PERIOD2; l1 += 2)
             {
 
-              soundl =0;
-              soundr =0;
-              for (i=1; i<=20; i++)
+              sound=0;
+              
+              for (i=1; i<=10; i++)
               {
               hor.f[i].phi[l2] += hor.f[i].dphi;
               if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] -= D_PI;
-         (i<11) ? soundl += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]) : soundr += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
+              sound += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
               }
 
-              hor.buf[l1] += soundl * hor.omaster;
-              hor.buf[l1+1] += soundr * hor.omaster;
+              hor.buf[l1] += sound * hor.omaster;
+              hor.buf[l1+1] += sound * hor.omaster;
               hor.env_time[l2] += hor.incre;
              }
 

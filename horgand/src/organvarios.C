@@ -234,7 +234,7 @@ HOR::New ()
 {
   int i;
 
-  for (i = 1; i <= 20; i++)
+  for (i = 1; i <= 10; i++)
     {
 
       Operator[i].harmonic_fine = 0.0;
@@ -253,16 +253,6 @@ HOR::New ()
   Operator[8].harmonic = 14;
   Operator[9].harmonic = 19;
   Operator[10].harmonic = 22;
-  Operator[11].harmonic = 1;
-  Operator[12].harmonic = 3;
-  Operator[13].harmonic = 4;
-  Operator[14].harmonic = 5;
-  Operator[15].harmonic = 7;
-  Operator[16].harmonic = 8;
-  Operator[17].harmonic = 11;
-  Operator[18].harmonic = 14;
-  Operator[19].harmonic = 19;
-  Operator[20].harmonic = 22;
 
 
   attack = 0.02;
@@ -303,7 +293,7 @@ int k;
 
 UndoCount = UndoCount -1;
 if (UndoCount == -1) UndoCount = 95;
-for (k=1; k<=20; k++)
+for (k=1; k<=10; k++)
 
 {
 Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
@@ -351,7 +341,7 @@ int k;
 UndoCount = UndoCount + 1;
 if (UndoCount == 95 ) UndoCount = 0;
 
-for (k=1; k<=20; k++)
+for (k=1; k<=10; k++)
 {
 Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
 Operator[k].harmonic_fine=Undo[UndoCount].Operator[k].harmonic_fine;
@@ -402,7 +392,7 @@ int k;
 UndoCount++;
 if (UndoCount == 95) UndoCount = 0;
 
-for (k=1; k<=20; k++)
+for (k=1; k<=10; k++)
 {
 Undo[UndoCount].Operator[k].volumen=Operator[k].volumen;
 Undo[UndoCount].Operator[k].harmonic_fine=Operator[k].harmonic_fine;
@@ -445,7 +435,7 @@ HOR::PutPrim()
 {
 
 int k;
-for (k=1; k<=20; k++)
+for (k=1; k<=10; k++)
 {
 Prim[1].Operator[k].volumen=Operator[k].volumen;
 Prim[1].Operator[k].harmonic_fine=Operator[k].harmonic_fine;
@@ -490,7 +480,7 @@ HOR::MGetPrim()
 {
 
 int k;
-for (k=1; k<=20; k++)
+for (k=1; k<=10; k++)
 {
 Operator[k].volumen =Prim[1].Operator[k].volumen;
 Operator[k].harmonic_fine =Prim[1].Operator[k].harmonic_fine;

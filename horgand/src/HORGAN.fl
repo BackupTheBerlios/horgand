@@ -376,7 +376,7 @@ if ( o->value() != 0 ) Undo(); else Redo();}
         xywh {725 65 65 20} labelsize 9 align 64
       }
       Fl_Box DMIN1 {
-        callback {o->label(hor->MidiInPuerto[1].pMIDIIN);} selected
+        callback {o->label(hor->MidiInPuerto[1].pMIDIIN);}
         xywh {530 35 260 25} box PLASTIC_DOWN_BOX color 40 labelsize 12 align 84
         code0 {o->label(hor->MidiInPuerto[1].pMIDIIN);}
       }
@@ -415,7 +415,6 @@ calbtune();}
       }
       Fl_Slider V1 {
         callback {hor->Operator[1].volumen = (float) o->value() / 100;
-hor->Operator[11].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -426,7 +425,6 @@ vavi = 0;
       }
       Fl_Slider V2 {
         callback {hor->Operator[2].volumen = (float) o->value() / 100;
-hor->Operator[12].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -437,7 +435,6 @@ vavi = 0;
       }
       Fl_Slider V3 {
         callback {hor->Operator[3].volumen = (float) o->value() / 100;
-hor->Operator[13].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -459,7 +456,6 @@ vavi = 0;
       }
       Fl_Slider V4 {
         callback {hor->Operator[4].volumen = (float) o->value() / 100;
-hor->Operator[14].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -470,7 +466,6 @@ vavi = 0;
       }
       Fl_Slider V5 {
         callback {hor->Operator[5].volumen = (float) o->value() / 100;
-hor->Operator[15].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -481,7 +476,6 @@ vavi = 0;
       }
       Fl_Slider V6 {
         callback {hor->Operator[6].volumen = (float) o->value() / 100;
-hor->Operator[16].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -497,7 +491,6 @@ int i;
 for (i=1; i<=10; i++)
 {
 hor->Operator[i].harmonic_fine = (float) ((o->value()) / ((16 -hor->Operator[i].harmonic) * i * 1000.0));
-hor->Operator[i+10].harmonic_fine = (float) ((-1 * o->value()) / ((16 -hor->Operator[i].harmonic) * i * 1000.0));
 }
 if (vavi == 1)
 { 
@@ -563,7 +556,6 @@ Actu();}
       }
       Fl_Slider H1 {
         callback {hor->Operator[1].harmonic = (int) o->value();
-hor->Operator[11].harmonic = (int) o->value();
 NV1->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
@@ -574,15 +566,12 @@ Actu();}
       }
       Fl_Slider H2 {
         callback {hor->Operator[2].harmonic = (int) o->value();
-hor->Operator[12].harmonic = (int) o->value();
 NV2->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {61 563 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
       }
       Fl_Slider H3 {
         callback {hor->Operator[3].harmonic = (int) o->value();
-hor->Operator[13].harmonic = (int) o->value();
-
 NV3->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
@@ -590,8 +579,6 @@ Actu();}
       }
       Fl_Slider H4 {
         callback {hor->Operator[4].harmonic = (int) o->value();
-hor->Operator[14].harmonic = (int) o->value();
-
 NV4->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
@@ -599,15 +586,12 @@ Actu();}
       }
       Fl_Slider H5 {
         callback {hor->Operator[5].harmonic = (int) o->value();
-hor->Operator[15].harmonic = (int) o->value();
-
 NV5->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {238 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
       }
       Fl_Slider H6 {
         callback {hor->Operator[6].harmonic = (int) o->value();
-hor->Operator[16].harmonic = (int) o->value();
 NV6->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {297 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
@@ -789,7 +773,6 @@ R5->activate();
 R6->activate();
 R7->activate();
 R8->activate();
-
 if (hor->ganmod==0) hor->ganmod = 1;
 
 switch((int) hor->ganmod)
@@ -1212,7 +1195,6 @@ Actu();}
       }
       Fl_Slider V7 {
         callback {hor->Operator[7].volumen = (float) o->value() / 100;
-hor->Operator[17].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -1223,7 +1205,6 @@ vavi = 0;
       }
       Fl_Slider V8 {
         callback {hor->Operator[8].volumen = (float) o->value() / 100;
-hor->Operator[18].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -1234,7 +1215,6 @@ vavi = 0;
       }
       Fl_Slider V9 {
         callback {hor->Operator[9].volumen = (float) o->value() / 100;
-hor->Operator[19].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -1245,7 +1225,6 @@ vavi = 0;
       }
       Fl_Slider V10 {
         callback {hor->Operator[10].volumen = (float) o->value() / 100;
-hor->Operator[20].volumen = (float) o->value() / 100;
 if (vavi == 1)
 { 
 Actu();
@@ -1256,8 +1235,6 @@ vavi = 0;
       }
       Fl_Slider H7 {
         callback {hor->Operator[7].harmonic = (int) o->value();
-hor->Operator[17].harmonic = (int) o->value();
-
 NV7->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
@@ -1265,8 +1242,6 @@ Actu();}
       }
       Fl_Slider H8 {
         callback {hor->Operator[8].harmonic = (int) o->value();
-hor->Operator[18].harmonic = (int) o->value();
-
 NV8->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
@@ -1274,15 +1249,12 @@ Actu();}
       }
       Fl_Slider H9 {
         callback {hor->Operator[9].harmonic = (int) o->value();
-hor->Operator[19].harmonic = (int) o->value();
-
 NV9->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {474 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
       }
       Fl_Slider H10 {
         callback {hor->Operator[10].harmonic = (int) o->value();
-hor->Operator[20].harmonic = (int) o->value();
 NV10->value(hor->lasfreq[(int) o->value()]);
 Actu();}
         xywh {533 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
@@ -1304,12 +1276,10 @@ Actu();}
         callback {if ((int)o->value())
 {
 hor->Operator[10].mar = 1;
-hor->Operator[20].mar = 1;
 }
 else
 {
 hor->Operator[10].mar = 0;
-hor->Operator[20].mar = 0;
 }}
         xywh {535 315 60 20} down_box DOWN_BOX labelsize 9
       }
@@ -1318,12 +1288,10 @@ hor->Operator[20].mar = 0;
         callback {if ((int)o->value())
 {
 hor->Operator[9].mar = 1;
-hor->Operator[19].mar = 1;
 }
 else
 {
 hor->Operator[9].mar = 0;
-hor->Operator[19].mar = 0;
 }}
         xywh {475 315 55 20} down_box DOWN_BOX labelsize 9
       }
@@ -1332,12 +1300,11 @@ hor->Operator[19].mar = 0;
         callback {if ((int)o->value())
 {
 hor->Operator[8].mar = 1;
-hor->Operator[18].mar = 1;
 }
 else
 {
 hor->Operator[8].mar = 0;
-hor->Operator[18].mar = 0;
+
 }}
         xywh {415 315 55 20} down_box DOWN_BOX labelsize 9
       }
@@ -1346,12 +1313,11 @@ hor->Operator[18].mar = 0;
         callback {if ((int)o->value())
 {
 hor->Operator[7].mar = 1;
-hor->Operator[17].mar = 1;
+
 }
 else
 {
 hor->Operator[7].mar = 0;
-hor->Operator[17].mar = 0;
 }}
         xywh {355 315 55 20} down_box DOWN_BOX labelsize 9
       }
@@ -2191,7 +2157,7 @@ Actu();}
   }
   Function {GetCombi(int i)} {} {
     code {int k;
-for (k=1; k<=20; k++)
+for (k=1; k<=10; k++)
 {
 hor->Banco[i].Operator[k].volumen=hor->Operator[k].volumen;
 hor->Banco[i].Operator[k].harmonic_fine=hor->Operator[k].harmonic_fine;
@@ -2228,7 +2194,7 @@ hor->Banco[i].chorvol=hor->chorvol;} {}
     code {int k;
 hor->cprograma= i;
 
-for (k=1; k<=20; k++)
+for (k=1; k<=10; k++)
 {
 hor->Operator[k].volumen =hor->Banco[i].Operator[k].volumen;
 hor->Operator[k].harmonic_fine =hor->Banco[i].Operator[k].harmonic_fine;
@@ -2596,7 +2562,7 @@ hor->diffussion = 0.16;
 break;
 
 case 8:
-hor->rtime = 3.2;
+hor->rtime = 3.8;
 hor->revvol = 0.65;
 hor->diffussion = 0.16;
 break;
@@ -2980,6 +2946,7 @@ ChorVol->value(hor->chorvol * 100);
 
 hor->procesaclean();
 hor->chorusclean();
-hor->rclean();} {}
+hor->rclean();} {selected
+    }
   }
 } 
