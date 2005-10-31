@@ -26,7 +26,7 @@
 #include <sys/soundcard.h>
 #include <sys/stat.h>
 #include <sys/ioctl.h>
-
+#include <math.h>
 
 void
 HOR::Salidafinal ()
@@ -41,8 +41,12 @@ HOR::Salidafinal ()
 
       j = i * 2;          
             
-      sl = (short) (buf[i] * master * 32767.0);
-      sr = (short) (buf[i+1] * master * 32767.0);
+      // 32767.0      
+            
+      sl = (short) (buf[i] * master * 16385.0);
+      sr = (short) (buf[i+1] * master * 16385.0);
+
+
 
       wbuf[j] = sl;
       wbuf[j + 1] = sr;

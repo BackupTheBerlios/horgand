@@ -123,8 +123,8 @@ HOR::rotary ()
       r =  buf[i + 1];
 
 
-      buf[i] -= l * a;
-      buf[i + 1] += r * a;
+      buf[i] -= (l * a) / 2.0;
+      buf[i + 1] += (r * a) / 2.0;
       
                          
 
@@ -188,10 +188,10 @@ HOR::reverb ()
       tmprvol =  stmp * revvol;
        
     
-      buf[i] = bufl + (efxoutl * tmprvol);
+      buf[i] = bufl + ((efxoutl * tmprvol) / 2.0 );
       rhistory[rperhis] = buf[i];
       if (++rperhis > 524800) rperhis = 0;
-      buf[i + 1] = bufr + (efxoutr * tmprvol);
+      buf[i + 1] = bufr + ((efxoutr * tmprvol) / 2.0 );
       rhistory[rperhis] = buf[i+1];
       if (++rperhis > 524800) rperhis = 0;
                                                    

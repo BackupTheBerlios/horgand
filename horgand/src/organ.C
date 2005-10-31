@@ -1139,7 +1139,7 @@ void
 
 HOR::miraalfo(int nota)
 {
-alfo = velocity[nota] * (1 -((120 - note[nota]) / 240.0));
+alfo = velocity[nota] * (1 -((120 - note[nota]) / 120.0));
 };
 
 
@@ -1344,8 +1344,9 @@ HOR::Alg1s (int nframes, void *)
 		 }
                 }
 
-              buf[l1] += sound * omaster; 
-              buf[l1+1] += sound * omaster; 
+              buf[l1] += (sound * omaster) / 2.0; 
+              buf[l1+1] += (sound * omaster) / 2.0; 
+              
               env_time[l2] += incre;
 	    }
               
