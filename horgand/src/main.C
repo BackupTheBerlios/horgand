@@ -245,11 +245,10 @@ pthread_mutex_lock(&mutex);
             {
              if (hor.Operator[i].mar) hor.envi[l2]=enve1; else hor.envi[l2]=enve0;
              hor.volumeOpC(i,l2);
-             if (hor.Operator[i].con1 > 0)
-             {
+             
              hor.f[i].dphi =  hor.partial * hor.pitchOp(i,l2);
-            if (hor.f[i].dphi > D_PI) hor.f[i].dphi -= D_PI;
-             }
+             if (hor.f[i].dphi > D_PI) hor.f[i].dphi -= D_PI;
+             
              }
 
 
@@ -261,15 +260,17 @@ pthread_mutex_lock(&mutex);
               
               for (i=1; i<=10; i++)
               {
+              if (hor.Operator[i].con1 > 0 )
+              {
               hor.f[i].phi[l2] += hor.f[i].dphi;
               if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] -= D_PI;
               sound += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
               }
-
-              hor.buf[l1] += sound * hor.omaster;
-              hor.buf[l1+1] += sound * hor.omaster;
+              }
+              hor.buf[l1] += sound * hor.omaster / 2.0;
+              hor.buf[l1+1] += sound * hor.omaster / 2.0;
               hor.env_time[l2] += hor.incre;
-             }
+           }  
 
         }
 

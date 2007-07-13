@@ -1293,7 +1293,7 @@ HOR::Alg1s (int nframes, void *)
 
   freqplfo = modulation * LFOpitch * lalapi;
 
-
+  if (freqplfo > D_PI ) freqplfo -=D_PI;  
 
 
   for (l2 = 0; l2 < POLY; l2++)
