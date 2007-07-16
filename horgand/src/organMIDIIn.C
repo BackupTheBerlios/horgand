@@ -143,7 +143,7 @@ HOR::midievents (int keIN)
 	  if (gate[l1] && note_active[l1]
 	      && (rnote[l1] == midievent->data.note.note))
 	    {
-	      env_time[l1] = 0;
+	      env_time[l1] =0 ; 
 	      gate[l1] = 0;
               MiraChord();
 	    }

@@ -1102,11 +1102,9 @@ HOR::ELFO (float *kx)
     out = -1.0;
   else if (out > 1.0)
     out = 1.0;
-    out *=efreqlfo;
-  return ((1+out)*0.5 );
+   out *= efreqlfo;
+ return ((1+out)*.5);
   
-
-
 };
 
 
@@ -1120,18 +1118,16 @@ HOR::pitchOp (int i, int note)
   return ((lasfreq[(int) Operator[i].harmonic] +
 	   Operator[i].harmonic_fine) * aplfot);
 
-};
+}
 
 
 void
 HOR::volumeOpC (int i, int l2)
 {
-
-
   Operator[i].con1 =
     Operator[i].volumen * envi[l2] * alfo / (lasfreq[Operator[i].harmonic]);
    
-  if (Operator[1].con1 > 1 ) Operator[1].con1 = 1;
+  if (Operator[1].con1 > 1 ) Operator[1].con1 = .9;
 };
 
 
@@ -1233,7 +1229,7 @@ HOR::PLFO (float t)
   else if (out > 1.0)
     out = 1.0;
   out *= freqplfo;
-  return ((1+out) * 0.5);
+  return ((1+out)*.5);
 
 }
 
@@ -1256,9 +1252,9 @@ HOR::LFO (float t)
     out = -1.0;
   else if (out > 1.0)
     out = 1.0;
-    return(out *= freqlfo);
-
-      
+   out *= freqlfo;
+   return ((1+out)*.5);
+  
 };
 
 
@@ -1305,12 +1301,15 @@ HOR::Alg1s (int nframes, void *)
 
 	  aplfo = PLFO (env_time[l2]);
           
+
           decay = 0.0;
           sustain = 0.99;          
           enve0 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
 	  decay = 0.30;
           sustain = 0.0;        
           enve1 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2); 
+
+
           miraalfo(l2);
  
 

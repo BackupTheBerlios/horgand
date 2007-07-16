@@ -39,15 +39,19 @@ HOR::bchorus ()
   long aeperhis;
   int i,j;
 
-  efreqlfo = 8 * modulation * ELFOamplitude * lalapi;
+  efreqlfo = 16 * modulation * ELFOamplitude * lalapi ;
 
+
+  if (efreqlfo > D_PI ) efreqlfo -=D_PI;
+  
+  
 
 
   for (i = 0; i < PERIOD2; i +=2)
     {
       ehistoryl[eperhis] = buf[i];
       ehistoryr[eperhis] = buf[i + 1];
-      if (++eperhis > 32800)
+      if (++eperhis >= 32800)
 	eperhis = 0;
     }
 
@@ -65,13 +69,19 @@ HOR::bchorus ()
       dlr1 = ELFO (&xer);
 
 
+
       ldelay = PERIOD2 + (dll1 * popo);
       rdelay = PERIOD2 + (dlr1 * popo);
+      
+
       dell = (ldelay1 * (PERIOD - i) + ldelay * i) / PERIOD;
       delr = (rdelay1 * (PERIOD - i) + rdelay * i) / PERIOD;
 
 
+
+
       dllo = 1.0 - fmod (dell, 1.0);
+      
 
       elkel = (long) (aeperhis + i - dell);
       
@@ -84,12 +94,20 @@ HOR::bchorus ()
 	elkel2 += 32800;
       if (elkel2 > 32800)
 	elkel2 -= 32800;
+
+      
+
       valorl = ehistoryl[elkel] * dllo + ehistoryl[elkel2] * (1 - dllo);
+      
       buf[j] = (buf[j] * (1 - chorvol)) + (valorl * chorvol);
 
       dllo = 1.0 - fmod (delr, 1.0);
-   
-      elker = (long) (aeperhis + i - delr);
+      
+      
+      
+      
+      elker = (long) (aeperhis + i  - delr);
+
       if (elker < 0)
 	elker += 32800;
       if (elker > 32800)
@@ -99,7 +117,10 @@ HOR::bchorus ()
 	elker2 += 32800;
       if (elker2 > 32800)
 	elker2 -= 32800;
+
       valorr = ehistoryr[elker] * dllo + ehistoryr[elker2] * (1 - dllo);
+      
+      
       buf[j + 1] = (buf[j + 1] * (1 - chorvol)) + (valorr * chorvol);
 
 
