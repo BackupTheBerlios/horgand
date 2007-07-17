@@ -107,7 +107,7 @@ HOR::HOR ()
   attack = 0.02;
   decay = 0.00;
   sustain = 0.99;
-  release = 0.14;
+  release = 2.74;
   echoon = 0;
   echodelay = 0;
   echovol = 0;
@@ -1163,25 +1163,24 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
 
        if (t > attack + decay)
         {
-          return (sustain);
+          envi[nota]=sustain;
+          return (envi[nota]);
         }
       if (t > attack)
         {
-    return( 1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.01));
-       
+       envi[nota]=1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.01);
+
+       return(envi[nota]);
         }
-        return ( t / (attack + 0.01));
-                
+     
+
+    envi[nota] = (t / (attack + 0.01));
+    return(envi[nota]);
     
       
     }
   else
     {
-      if (decay > 0 )
-       {
-       return (0) ;
-       }
-
       if ((pedal == 0) && (t < release))
 	{
 	  envi[nota] *= (1.0- (t /release));
@@ -1190,7 +1189,7 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
               {
               envi[nota] = 0;
               *note_active = 0;
-              return(0);
+              return(envi[nota]);
               }          
           return (envi[nota]);
 	}
@@ -1198,7 +1197,8 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
       if (t >= release)
         {
           *note_active = 0;
-           return(0);
+           envi[nota]=0;
+           return(envi[nota]);
         }
      }     
 
@@ -1302,8 +1302,8 @@ HOR::Alg1s (int nframes, void *)
 	  aplfo = PLFO (env_time[l2]);
           
 
-          decay = 0.0;
-          sustain = 0.99;          
+          decay = 0.15;
+          sustain = 0.79;          
           enve0 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
 	  decay = 0.30;
           sustain = 0.0;        
