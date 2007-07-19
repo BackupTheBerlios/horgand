@@ -111,7 +111,7 @@ HOR::HOR ()
   attack = 0.02;
   decay = 0.00;
   sustain = 0.99;
-  release = 1.04;
+  release = 0.74;
   E_Delay_On = 0;
   Delay_Delay = 0;
   Delay_Volume = 0;
@@ -1157,7 +1157,7 @@ HOR::volume_Operator (int i, int l2)
 void
 HOR::Get_Keyb_Level_Scaling(int nota)
 {
-Keyb_Level_Scaling = velocity[nota] * (1 -((120 - note[nota]) / 120.0));
+Keyb_Level_Scaling = .5 * velocity[nota] * (1 -((120 - note[nota]) / 120.0));
 };
 
 
@@ -1183,25 +1183,24 @@ float
 HOR::Jenvelope (int *note_active, int gate, float t, int nota)
 {
 
-
+    
     if (gate)
     {
 
        if (t > attack + decay)
         {
           Envelope_Volume[nota]=sustain;
-          return (Envelope_Volume[nota]);
+          return (2 *Envelope_Volume[nota]);
         }
       if (t > attack)
         {
        Envelope_Volume[nota]=1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.01);
-
-       return(Envelope_Volume[nota]);
+         
+         return(2 * Envelope_Volume[nota]);
         }
-     
-
-    Envelope_Volume[nota] = (t / (attack + 0.01));
-    return(Envelope_Volume[nota]);
+       
+     Envelope_Volume[nota] = t / (attack + 0.01);
+    return(2 * Envelope_Volume[nota]);
     
       
     }
@@ -1295,7 +1294,6 @@ HOR::Alg1s (int nframes, void *)
   memset (buf, 0, PERIOD8);
 
   LFO_Frequency = modulation * LFOpitch * D_PI_to_SAMPLE_RATE;
-
   while (LFO_Frequency > D_PI ) LFO_Frequency -=D_PI;  
 
 
@@ -1323,7 +1321,7 @@ HOR::Alg1s (int nframes, void *)
 	  for (i = 1; i <= 10; i++)
 	    {
               
-              if (Operator[i].marimba) Envelope_Volume[l2]=envelope_type_1;  else  Envelope_Volume[l2]=envelope_type_0; 
+              if (Operator[i].marimba) Envelope_Volume[l2]=envelope_type_0;  else  Envelope_Volume[l2]=envelope_type_0; 
               volume_Operator(i, l2);
               f[i].dphi = partial * pitch_Operator (i, l2);
 	      if (f[i].dphi > D_PI) f[i].dphi -= D_PI;
@@ -1336,7 +1334,6 @@ HOR::Alg1s (int nframes, void *)
 	    {
 
 	      sound=0;
-
 	      for (i = 1; i <= 10; i++)
 		{
 
@@ -1344,21 +1341,27 @@ HOR::Alg1s (int nframes, void *)
                  {
 		  f[i].phi[l2] += f[i].dphi;
 		  if (f[i].phi[l2] > D_PI) f[i].phi[l2] -= D_PI;
-		  sound += Operator[i].con1 * Fsin (f[i].phi[l2]);
+		  sound += Operator[i].con1 * Fsin (f[i].phi[l2]) * .5;
                                
 		 }
                 }
 
-              buf[l1] += (sound * Organ_Master_Volume) / 2.0; 
-              buf[l1+1] += (sound * Organ_Master_Volume) / 2.0; 
-              
+              buf[l1] += (sound * Organ_Master_Volume * .5); 
+              buf[l1+1] += (sound * Organ_Master_Volume * .5); 
+              if (buf[l1]<-1.0) buf[l1]=-1.0; else if (buf[l1]>1.0) buf[l1]=1.0;
+              if (buf[l1+1]<-1.0) buf[l1+1]=-1.0; else if (buf[l1+1]>1.0) buf[l1+1]=1.0;
+                    
               env_time[l2] += increment;
+              
 	    }
               
 	}
 
 
     }
+
+ 
+
 
   if (E_Chorus_On == 1)
     Effect_Chorus ();

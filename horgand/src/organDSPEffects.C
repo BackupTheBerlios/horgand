@@ -71,17 +71,20 @@ HOR::Effect_Chorus()
   
   
 
-
   for (i = 0; i < PERIOD2; i +=2)
     {
       ehistoryl[eperhis] = buf[i];
       ehistoryr[eperhis] = buf[i + 1];
-      if (++eperhis >= 32800)
-	eperhis = 0;
+      if (++eperhis >= 32800) eperhis = 0;
     }
 
   aeperhis = eperhis - PERIOD;
+  
+  if (aeperhis < 0) aeperhis += 32800;
+  if (aeperhis > 32800) aeperhis -= 32800;
+    
 
+  
   for (i = 0; i < PERIOD; i++)
 
     {
@@ -107,7 +110,6 @@ HOR::Effect_Chorus()
 
       dllo = 1.0 - fmod (dell, 1.0);
       
-
       elkel = (long) (aeperhis + i - dell);
       
       if (elkel < 0)
@@ -123,15 +125,17 @@ HOR::Effect_Chorus()
       
 
       valorl = ehistoryl[elkel] * dllo + ehistoryl[elkel2] * (1 - dllo);
+      valorl += (buf[j] * dllo) + (buf[j] * (1 - dllo));      
       
-      buf[j] = (buf[j] * (1 - Chorus_Volume)) + (valorl * Chorus_Volume);
+      buf[j] = (buf[j] * (1 - Chorus_Volume)) + (valorl * Chorus_Volume );
+
+
+
+
 
       dllo = 1.0 - fmod (delr, 1.0);
       
-      
-      
-      
-      elker = (long) (aeperhis + i  - delr);
+      elker = (long) (1 + aeperhis + i - delr);
 
       if (elker < 0)
 	elker += 32800;
@@ -142,11 +146,14 @@ HOR::Effect_Chorus()
 	elker2 += 32800;
       if (elker2 > 32800)
 	elker2 -= 32800;
+	
+	
 
       valorr = ehistoryr[elker] * dllo + ehistoryr[elker2] * (1 - dllo);
+
+      valorr += (buf[j+1] * dllo) + (buf[j+1] * (1 - dllo));      
       
-      
-      buf[j + 1] = (buf[j + 1] * (1 - Chorus_Volume)) + (valorr * Chorus_Volume);
+      buf[j + 1] = (buf[j + 1] * (1 - Chorus_Volume)) + (valorr * Chorus_Volume );
 
 
     }
@@ -200,8 +207,8 @@ HOR::Effect_Rotary ()
       r =  buf[i + 1];
 
 
-      buf[i] -= (l * a) / 2.0;
-      buf[i + 1] += (r * a) / 2.0;
+      buf[i] -= (l * a *.5);
+      buf[i + 1] += (r * a *.5);
       
                          
 

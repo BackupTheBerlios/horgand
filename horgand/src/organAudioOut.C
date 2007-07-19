@@ -45,10 +45,13 @@ HOR::Final_Output ()
       j = i * 2;          
             
       // 32767.0      
+
+      if (buf[i]<-1.0) buf[i]=-1.0; else if (buf[i]>1.0) buf[i]=1.0;
+      if (buf[i+1]<-1.0) buf[i+1]=-1.0; else if (buf[i+1]>1.0) buf[i+1]=1.0;
+            
             
       sl = (short) (buf[i] * Master_Volume * 16385.0);
       sr = (short) (buf[i+1] * Master_Volume * 16385.0);
-
 
 
       wbuf[j] = sl;
