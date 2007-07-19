@@ -1,6 +1,6 @@
 datadir = $(prefix)/share/${PACKAGE}
 data_DATA= Default.horeb \
-	RithmList.txt \
+	Rhythm_List.txt \
 	130_Houseloop_2.wav \
 	AcousticBass.wav \
 	crackle_loop01.wav \

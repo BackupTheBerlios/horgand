@@ -25,80 +25,89 @@
 #include "Holrgan.h"
 
 
+
+// Calculates the 1/16 position of the drumploop sampleplayed  to play the bass line
+
 void 
-HOR::MiraTempo()
+HOR::Get_Tempo()
+
 
 {
 
 int i;
 
-pos = (int) ((tempo * cuenta) / fracpos) + 1;
-if (pos == 1)  tum = 127; else tum = 0;
-for (i=1; i<=bars; i++) if (pos== 4*blackn) tum = 127;
-
+pos = (int) ((tempo * Samples_Readed) / fractional_position) + 1;
+if (pos == 1)  BarLead = 127; else BarLead = 0;
+for (i=1; i<=bars; i++) if (pos== 4*quarter_note) BarLead = 127;
 
 };
 
 
+// Reads the Bass Line and play if found notes
+
+
 void 
 
-HOR:: MiraLinea()
+HOR:: Get_Bass_Line()
 {
 
 int readcounts,lanota;
 
   
-  if ((linb[pos] == 0) && (basspending == 0)) return; 
+  if ((Line_Bass_Note[pos] == 0) && (basspending == 0)) return; 
 
   if ( pos != lpos)
 	{
         lpos = pos;
-        if (linb[pos] != 0)
+        if (Line_Bass_Note[pos] != 0)
         {
-        if (split == 1) MiraChord();
-        lanota = linb[pos];
-        if (lanota == 5 ) lanota += TCh[ctipo].ter;
-        if (lanota == 8 ) lanota += TCh[ctipo].qui;
-        if (lanota == 12 ) lanota += TCh[ctipo].sep;
+        if (split == 1) Get_Chord();
+        lanota = Line_Bass_Note[pos];
+        if (lanota == 5 ) lanota += TCh[chord_type].third;
+        if (lanota == 8 ) lanota += TCh[chord_type].five_th;
+        if (lanota == 12 ) lanota += TCh[chord_type].seven_th;
  
-	bnote = btrans + lanota - 1 + fundi;
-        velobass = linbv[pos] / 100.0;
-        if (bnote > 11) bnote -= 12;
-        if (bnote < 0 ) bnote += 12;
-        afina = (((AB[bnote].afin+AB[bnote].bmt)*44100.0)/SAMPLE_RATE);
+	bass_note = bass_transpose + lanota - 1 + fundamental;
+        bass_velocity = Line_Bass_Velocity[pos] / 100.0;
+        if (bass_note > 11) bass_note -= 12;
+        if (bass_note < 0 ) bass_note += 12;
+        length_bass_note = (((AB[bass_note].tune+AB[bass_note].bmt)*44100.0)/SAMPLE_RATE);
          
         readcounts = sf_seek (infileb, 0, SEEK_SET);
         basspending = 1;
-	CogeBass();
+	Get_Bass();
         }
 	}
-  if (basspending == 1 ) CogeBass();
+  if (basspending == 1 ) Get_Bass();
 
 };
 
 
 
 
+// Open DrumLoop File
+
 
 int
-
-HOR::SelectRitmo(char *nomrit)
+HOR::Select_Rhythm(char *nomrit)
 {
 
    
    if (! (infile = sf_open (nomrit, SFM_READ, &sfinfo)))
 {
         printf ("Not able to open input file %s.\n", nomrit);
-        fe = 0;
+        file_ok = 0;
         return(1);
 }
-fe = 1;       
+file_ok = 1;       
 return(0);
 };
 
-void
 
-HOR::SelectBass(char *nombass)
+// Open Bass Sampled Instrument
+
+void
+HOR::Select_Bass(char *nombass)
 {
 
    
@@ -110,9 +119,11 @@ HOR::SelectBass(char *nombass)
 };
 
 
+// Put the Sampled Bass on the Audio Buffer
+
 
 void
-HOR::CogeBass()
+HOR::Get_Bass()
 {
 float l, r, rl, rr;
 int i,j,readcounts,readcountr;
@@ -121,12 +132,12 @@ int longi;
 memset (bbuf, 0, PERIOD8);
 
 
-longi  = (int) (afina * PERIOD);
+longi  = (int) (length_bass_note * PERIOD);
 
 readcounts = sf_seek (infileb, 0, SEEK_CUR); 
 readcountr = sf_readf_float (infileb, bbuf, longi);
 
-if ((readcounts + longi ) < framesbass) basspending = 1; 
+if ((readcounts + longi ) < frames_bass) basspending = 1; 
 
 else basspending = 0; 
 
@@ -134,7 +145,7 @@ else basspending = 0;
  for (i = 0; i < PERIOD2; i +=2)
     {
 
-      j = (int) (i * afina);
+      j = (int) (i * length_bass_note);
       if (j % 2 != 0) j++;
 
       l = buf[i];
@@ -164,8 +175,8 @@ else basspending = 0;
         rl = 1.0;
      
 
-     buf[i] =  l  + (rl * bassvol * velobass);
-     buf[i+1] =  r  + (rr * bassvol * velobass);
+     buf[i] =  l  + (rl * Bass_Volume * bass_velocity);
+     buf[i+1] =  r  + (rr * Bass_Volume * bass_velocity);
 
 
       }
@@ -174,8 +185,10 @@ else basspending = 0;
 };
 
 
+// Put the Sampled Drumloop on the Audio buffer
 
-void HOR::CogeRitmo() { float l, r, rl, rr; 
+
+void HOR::Get_Rhythm() { float l, r, rl, rr; 
 int i,j,readcountr,falta; 
 int ftempo;
 
@@ -184,10 +197,10 @@ memset (rbuf, 0, PERIOD8);
 
 ftempo  = (int) (tempo * PERIOD);
 
-MiraTempo();
-if (basson == 1 ) MiraLinea();
+Get_Tempo();
+if (Bass_On == 1 ) Get_Bass_Line();
 
-cuenta  = sf_seek (infile, 0, SEEK_CUR);
+Samples_Readed  = sf_seek (infile, 0, SEEK_CUR);
 readcountr = sf_readf_float (infile, rbuf, ftempo);
 
 if (readcountr < ftempo)
@@ -195,7 +208,7 @@ if (readcountr < ftempo)
 {
 
 falta = ftempo - readcountr;
-cuenta = sf_seek (infile, 0, SEEK_SET);
+Samples_Readed = sf_seek (infile, 0, SEEK_SET);
 readcountr = sf_readf_float (infile, rbuf, falta);
 
 }
@@ -233,8 +246,8 @@ readcountr = sf_readf_float (infile, rbuf, falta);
         rr = 1.0;
      
 
-     buf[i] =  (l  + (rl * ritvol)) * 0.5;
-     buf[i+1] =  (r + (rr * ritvol)) * 0.5;
+     buf[i] =  (l  + (rl * Rhythm_Volume)) * 0.5;
+     buf[i+1] =  (r + (rr * Rhythm_Volume)) * 0.5;
 
       }
 

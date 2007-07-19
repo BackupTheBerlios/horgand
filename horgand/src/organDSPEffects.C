@@ -25,10 +25,37 @@
 #include "Holrgan.h"
 #include <math.h>
 
+// LFO for chorus
 
+float
+HOR::Chorus_LFO (float *Chorus_X)
+{
+
+  float out;
+
+  *Chorus_X += increment * Chorus_LFO_Speed;
+
+  if (*Chorus_X > 1)
+   *Chorus_X = 0;
+
+  ;
+
+  out = Fsin (*Chorus_X * D_PI);
+
+  if (out < -1.0)
+    out = -1.0;
+  else if (out > 1.0)
+    out = 1.0;
+   out *= Chorus_LFO_Frequency;
+ return (out);
+  
+};
+
+
+// Chorus Effect
 
 void
-HOR::bchorus ()
+HOR::Effect_Chorus()
 {
 
   long elkel, elker, elkel2, elker2;
@@ -39,10 +66,8 @@ HOR::bchorus ()
   long aeperhis;
   int i,j;
 
-  efreqlfo = 16 * modulation * ELFOamplitude * lalapi ;
-
-
-  if (efreqlfo > D_PI ) efreqlfo -=D_PI;
+  Chorus_LFO_Frequency = 8 * modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE ;
+  while (Chorus_LFO_Frequency > D_PI ) Chorus_LFO_Frequency -=D_PI;
   
   
 
@@ -65,13 +90,13 @@ HOR::bchorus ()
       ldelay1 = ldelay;
       rdelay1 = rdelay;
 
-      dll1 = ELFO (&xel);
-      dlr1 = ELFO (&xer);
+      dll1 = Chorus_LFO (&Chorus_X_L);
+      dlr1 = Chorus_LFO (&Chorus_X_R);
 
 
 
-      ldelay = PERIOD2 + (dll1 * popo);
-      rdelay = PERIOD2 + (dlr1 * popo);
+      ldelay = PERIOD2 + (dll1 * Chorus_Delay);
+      rdelay = PERIOD2 + (dlr1 * Chorus_Delay);
       
 
       dell = (ldelay1 * (PERIOD - i) + ldelay * i) / PERIOD;
@@ -99,7 +124,7 @@ HOR::bchorus ()
 
       valorl = ehistoryl[elkel] * dllo + ehistoryl[elkel2] * (1 - dllo);
       
-      buf[j] = (buf[j] * (1 - chorvol)) + (valorl * chorvol);
+      buf[j] = (buf[j] * (1 - Chorus_Volume)) + (valorl * Chorus_Volume);
 
       dllo = 1.0 - fmod (delr, 1.0);
       
@@ -121,25 +146,56 @@ HOR::bchorus ()
       valorr = ehistoryr[elker] * dllo + ehistoryr[elker2] * (1 - dllo);
       
       
-      buf[j + 1] = (buf[j + 1] * (1 - chorvol)) + (valorr * chorvol);
+      buf[j + 1] = (buf[j + 1] * (1 - Chorus_Volume)) + (valorr * Chorus_Volume);
 
 
     }
 };
 
 
+// LFO for Rotary
+
+
+float
+HOR::Rotary_LFO (float t)
+{
+
+  float out;
+
+
+  Rotary_X += Rotary_LFO_Speed * increment;
+
+  if (Rotary_X > 1)
+    Rotary_X = 0;
+
+  out = Fsin (Rotary_X * D_PI);
+
+  if (out < -1.0)
+    out = -1.0;
+  else if (out > 1.0)
+    out = 1.0;
+   out *= Rotary_LFO_Frequency;
+   return (out);
+  
+};
+
+
+// Rotary Effect
+
+
 void
-HOR::rotary ()
+HOR::Effect_Rotary ()
 {
   int i;
   float a ,l, r;
-  freqlfo = 4 * modulation * LFOamplitude * lalapi;
+  Rotary_LFO_Frequency = 8 * modulation * Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
+  while (Rotary_LFO_Frequency > D_PI ) Rotary_LFO_Frequency -=D_PI;
+
 
   for (i = 0; i <PERIOD2; i +=2)
     {
 
-      a = LFO (xx);
-
+      a = Rotary_LFO (Rotary_X);
       l =  buf[i];
       r =  buf[i + 1];
 
@@ -154,8 +210,10 @@ HOR::rotary ()
 };
 
 
+// Reverb Effect
+
 void
-HOR::reverb ()
+HOR::Effect_Reverb ()
 
 {
   int i,j;
@@ -185,20 +243,20 @@ HOR::reverb ()
     {
     
       
-      elke = rperhis - ((long) (combl[j] * rtime))+10000;
+      elke = rperhis - ((long) (combl[j] * Reverb_Time))+10000;
       if (elke % 2 != 0) elke = elke + 1;
       if (elke < 0) elke = 524800 + elke;
 
-      elke1 = rperhis  - ((long) (combr[j] * rtime))+10000;
+      elke1 = rperhis  - ((long) (combr[j] * Reverb_Time))+10000;
       if (elke1 % 2 == 0) elke1 = elke1 + 1; 
       if (elke1 < 0) elke1 = 524800 + elke1;
  
-      tmp = diffussion * apsg[capsg] / apss;
+      tmp = Reverb_Diffussion * apsg[capsg] / apss;
       stmp += tmp;
       if (++capsg > 15 ) capsg = 0;
       efxoutl += rhistory[elke] * stmp;
                   
-      tmp = diffussion * apsg[capsg] / apss;
+      tmp = Reverb_Diffussion * apsg[capsg] / apss;
       stmp += tmp;
       if (++capsg > 15 ) capsg = 0;
       efxoutr += rhistory[elke1] * stmp;
@@ -206,13 +264,13 @@ HOR::reverb ()
      }
        
         
-      tmprvol =  stmp * revvol;
+      tmprvol =  stmp * Reverb_Volume;
        
     
-      buf[i] = bufl + ((efxoutl * tmprvol) / 2.0 );
+      buf[i] = bufl + ((efxoutl * tmprvol));
       rhistory[rperhis] = buf[i];
       if (++rperhis > 524800) rperhis = 0;
-      buf[i + 1] = bufr + ((efxoutr * tmprvol) / 2.0 );
+      buf[i + 1] = bufr + ((efxoutr * tmprvol));
       rhistory[rperhis] = buf[i+1];
       if (++rperhis > 524800) rperhis = 0;
                                                    
@@ -226,20 +284,21 @@ HOR::reverb ()
 };
 
 
+// Delay Effect
 
 void
-HOR::procesa ()
+HOR::Effect_Delay()
 {
   int i;  
   long elke, elke1;
-  long delay = (long) echodelay;
+  long delay = (long) Delay_Delay;
   float voll, volr;
-  float echovolr, echovoll;
+  float Delay_Volumer, Delay_Volumel;
 
-  voll = 1 - lado;
+  voll = 1 - Stereo_Side;
   volr = 1 - voll;
-  echovoll = voll * echovol;
-  echovolr = volr * echovol;
+  Delay_Volumel = voll * Delay_Volume;
+  Delay_Volumer = volr * Delay_Volume;
 
 
   for (i = 0; i <PERIOD2; i +=2)
@@ -254,49 +313,55 @@ HOR::procesa ()
       if (elke1 < 0)
 	elke1 = 524800 + elke1;
 
-      buf[i] = (buf[i] * (1 - echovoll)) + (history[elke] * echovoll);
+      buf[i] = (buf[i] * (1 - Delay_Volumel)) + (history[elke] * Delay_Volumel);
       history[perhis] = buf[i];
       if (++perhis > 524800)
 	perhis = 0;
 
       buf[i + 1] =
-	(buf[i + 1] * (1 - echovolr)) + (history[elke1] * echovolr);
+	(buf[i + 1] * (1 - Delay_Volumer)) + (history[elke1] * Delay_Volumer);
       history[perhis] = buf[i+1];
       if (++perhis > 524800)
 	perhis = 0;
     }
 
-  switch (hacia)
+  switch (To_Stereo_Side)
     {
     case 0:
-      lado += 0.01;
-      if (lado > 1)
-	hacia = 1;
+      Stereo_Side += 0.01;
+      if (Stereo_Side > 1)
+	To_Stereo_Side = 1;
       break;
     case 1:
-      lado -= 0.01;
-      if (lado < 0)
-	hacia = 0;
+      Stereo_Side -= 0.01;
+      if (Stereo_Side < 0)
+	To_Stereo_Side = 0;
       break;
     }
     
 };
 
+
+// Reverb Clean Buffers
+
 void
-HOR::rclean()
+HOR::reverbclean()
 {
 
 memset (rhistory, 0, 2 * sizeof (float) * BUFSIZE * 1024);
 
 };
 
+// Delay Clean Buffers
 
 void
-HOR::procesaclean ()
+HOR::delayclean ()
 {
   memset (history, 0, BUFSIZE * 1024);
 
 };
+
+// Chorus Clean Buffers
 
 void
 HOR::chorusclean ()

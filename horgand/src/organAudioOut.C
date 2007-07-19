@@ -28,8 +28,11 @@
 #include <sys/ioctl.h>
 #include <math.h>
 
+
+// Convert fload to short to send to the devices
+
 void
-HOR::Salidafinal ()
+HOR::Final_Output ()
 {
   int i,j;
   short sl, sr;
@@ -43,8 +46,8 @@ HOR::Salidafinal ()
             
       // 32767.0      
             
-      sl = (short) (buf[i] * master * 16385.0);
-      sr = (short) (buf[i+1] * master * 16385.0);
+      sl = (short) (buf[i] * Master_Volume * 16385.0);
+      sr = (short) (buf[i+1] * Master_Volume * 16385.0);
 
 
 
@@ -58,7 +61,9 @@ HOR::Salidafinal ()
 
 
 
-// OSS AUDIO OUT
+
+
+// OSS AUDIO OUT Check and prepare
 
 void
 HOR::ossaudioprepare ()
@@ -71,7 +76,7 @@ HOR::ossaudioprepare ()
   snd_format = AFMT_S16_LE;
   snd_samplerate = SAMPLE_RATE;
   PERIOD = MPERIOD;
-  ponpe ();
+  Put_Period ();
   snd_handle = open ("/dev/dsp", O_WRONLY, 0);
   if (snd_handle == -1)
     {
@@ -89,7 +94,7 @@ HOR::ossaudioprepare ()
 
 };
 
-// ALSA AUDIO OUT
+// ALSA AUDIO OUT Check and prepare
 
 void
 HOR::alsaaudioprepare ()
@@ -106,7 +111,7 @@ HOR::alsaaudioprepare ()
     }
   PERIOD = MPERIOD;
   SAMPLE_RATE=DSAMPLE_RATE;
-  ponpe ();
+  Put_Period ();
   snd_pcm_hw_params_alloca (&hw_params);
   snd_pcm_hw_params_any (playback_handle, hw_params);
   snd_pcm_hw_params_set_access (playback_handle, hw_params,
@@ -127,7 +132,7 @@ HOR::alsaaudioprepare ()
 
 };
 
-// JACK Audio
+// JACK Audio Check and Prepare
 
 
 void
@@ -149,11 +154,10 @@ HOR::jackaudioprepare ()
 	     "Adjusting SAMPLE_RATE to jackd.\n");
 
   SAMPLE_RATE = jack_get_sample_rate(jackclient);
-
   jack_set_process_callback (jackclient, jackprocess, 0);
   PERIOD = jack_get_buffer_size (jackclient);
   PERIOD /= 2;
-  ponpe ();
+  Put_Period ();
   outport_left = jack_port_register (jackclient, "out_1",
 				     JACK_DEFAULT_AUDIO_TYPE,
 				     JackPortIsOutput | JackPortIsTerminal,

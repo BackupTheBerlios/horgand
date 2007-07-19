@@ -32,35 +32,39 @@
 #include "Holrgan.h"
 #include "HORGAN.h"
 #include <math.h>
+
 pthread_t thr1, thr2;
-int kk;
 HOR hor;
 
 
-void pon_realtime()
+// Put Kernel RT priority to a thread
 
+void pon_realtime()
 {
     sched_param scprior;
 
     scprior.sched_priority=50;
     int prior=sched_setscheduler(0,SCHED_FIFO,&scprior);
     if (prior==0) printf("SCHED_FIFO\n");
-
 };
 
+
+// MIDI Input thread ( Read MIDI incoming messages)
 
 void *
 thread1 (void *arg)
 {
-   pon_realtime();
+  pon_realtime();
   while (Pexitprogram ==0)  hor.midievents(1);
   return (0);
 };
 
+
+// Audio thread
+
 void *
 thread2 (void *arg)
 {
-    
     pon_realtime();
     while (Pexitprogram ==0)  hor.Alg1s(hor.PERIOD,0);
     return(0);
@@ -71,6 +75,8 @@ thread2 (void *arg)
 int main(int argc, char *argv[])
 
 {
+
+// Read command Line
 
   fprintf (stderr,
 	   "horgand v1.08 - Copyright (c) 2003-2004 Josep Andreu (Holborn)\n");
@@ -145,44 +151,69 @@ int main(int argc, char *argv[])
       fprintf (stderr, "\n\n");
       return (0);
     };
+    
+    
+  //Locks memory
 
   mlockall(MCL_CURRENT | MCL_FUTURE);
   
+  // Launch GUI
+
   HORGAN *horUI = new HORGAN(&hor);
 
 
   pthread_mutex_init (&mutex, NULL);
+
+  // Launch MIDI thread
+
   pthread_create (&thr1, NULL, thread1, NULL);
+
+  // Launch AUDIO thread for ALSA and OSS, not for JACK
+  
   if (hor.Salida < 3)  pthread_create (&thr2, NULL, thread2, NULL);
  
   
+  // Main  
 
   while (Pexitprogram == 0)
     { 
+ 
+      // Refresh GUI
       Fl::wait();
-      if (vumvum != vum) horUI->VUI1->value(vum);
       
-      if (hor.riton != 0) if (tum != horUI->VUI2->value()) horUI->VUI2->value(tum);
-      if (cambialo == 1) 
-      {
-       horUI->ACI->label(NombreAcorde);
-       cambialo = 0;
-      }
+      // Refresh MIDI Input Level on GUI
+      if (LastMidiInLevel != MidiInLevel) horUI->VUI1->value(MidiInLevel);
+      
+      // Refresh Bar Lead of Drum Loops
+      if (hor.Rhythm_On != 0) if (BarLead != horUI->VUI2->value()) horUI->VUI2->value(BarLead);
 
-      if (programa != 0)
+      // Refresh Chord Names
+
+      if (changeNameChord == 1) 
+      {
+       horUI->ACI->label(NameChord);
+       changeNameChord = 0;
+      }
+      // If MIDI Program Change Message arrives change preset
+
+      if (preset != 0)
 	{ 
           
- 	  horUI->PutCombi (programa);
-	  programa = 0;
+ 	  horUI->PutCombi (preset);
+	  preset = 0;
 	}
 
          
     }
 
+
+    // Exit  Close Audio devices
+
 if (hor.Salida == 3)  jack_client_close(hor.jackclient);
 if (hor.Salida == 2)  snd_pcm_close (hor.playback_handle);
 if (hor.Salida == 1)  close(hor.snd_handle);
 
+    // free memory etc.
 
   free(hor.nsin);
   free(hor.lsin);    
@@ -194,6 +225,8 @@ if (hor.Salida == 1)  close(hor.snd_handle);
 
 };
 
+
+// JACK Audio thread
 
 int jackprocess(jack_nframes_t nframes,void *arg)
 
@@ -216,7 +249,7 @@ pthread_mutex_lock(&mutex);
    memset(outr, 0, hor.PERIOD2 * sizeof(jack_default_audio_sample_t));
    memset (hor.buf, 0, hor.PERIOD8);
 
-   hor.freqplfo =  hor.modulation * hor.LFOpitch * hor.lalapi;
+   hor.LFO_Frequency =  hor.modulation * hor.LFOpitch * hor.D_PI_to_SAMPLE_RATE;
 
 
 
@@ -226,10 +259,10 @@ pthread_mutex_lock(&mutex);
 
       if (hor.note_active[l2])
         {
-          hor.MiraNota(l2);
+          hor.Get_Partial(l2);
 
-          hor.aplfo = hor.PLFO(hor.env_time[l2]);
-
+          hor.LFO_Volume = hor.Pitch_LFO(hor.env_time[l2]);
+          
           hor.decay = 0.0;
           hor.sustain = 0.99;          
           enve0 = hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2);
@@ -237,16 +270,14 @@ pthread_mutex_lock(&mutex);
           hor.sustain = 0.0;        
           enve1 = hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2); 
 
-          hor.miraalfo(l2);
-          
-
+                    
 
           for (i=1; i<=10; i++)
             {
-             if (hor.Operator[i].mar) hor.envi[l2]=enve1; else hor.envi[l2]=enve0;
-             hor.volumeOpC(i,l2);
+             if (hor.Operator[i].marimba) hor.Envelope_Volume[l2]=enve1; else hor.Envelope_Volume[l2]=enve0;
+             hor.volume_Operator(i,l2);
              
-             hor.f[i].dphi =  hor.partial * hor.pitchOp(i,l2);
+             hor.f[i].dphi =  hor.partial * hor.pitch_Operator(i,l2);
              if (hor.f[i].dphi > D_PI) hor.f[i].dphi -= D_PI;
              
              }
@@ -267,9 +298,9 @@ pthread_mutex_lock(&mutex);
               sound += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
               }
               }
-              hor.buf[l1] += sound * hor.omaster / 2.0;
-              hor.buf[l1+1] += sound * hor.omaster / 2.0;
-              hor.env_time[l2] += hor.incre;
+              hor.buf[l1] += sound * hor.Organ_Master_Volume / 2.0;
+              hor.buf[l1+1] += sound * hor.Organ_Master_Volume / 2.0;
+              hor.env_time[l2] += hor.increment;
            }  
 
         }
@@ -277,20 +308,20 @@ pthread_mutex_lock(&mutex);
 
     }
 
-if (hor.choron == 1 ) hor.bchorus();
-if (hor.rota == 1 )  hor.rotary();
-if (hor.echoon == 1) hor.procesa();
-if (hor.revon == 1)  hor.reverb();
-if (hor.riton == 1)  hor.CogeRitmo();
+if (hor.E_Chorus_On == 1 ) hor.Effect_Chorus();
+if (hor.E_Rotary_On == 1 )  hor.Effect_Rotary();
+if (hor.E_Delay_On == 1) hor.Effect_Delay();
+if (hor.E_Reverb_On == 1)  hor.Effect_Reverb();
+if (hor.Rhythm_On == 1)  hor.Get_Rhythm();
 
 
 for (i=0; i<hor.PERIOD; i++)
 {
  j = 2 * i;
- outl[j]=hor.buf[j] * hor.master;
- outr[j]=hor.buf[j+1] * hor.master;
- outl[j+1]=hor.buf[j] * hor.master;
- outr[j+1]=hor.buf[j+1] * hor.master;
+ outl[j]=hor.buf[j] * hor.Master_Volume;
+ outr[j]=hor.buf[j+1] * hor.Master_Volume;
+ outl[j+1]=hor.buf[j] * hor.Master_Volume;
+ outr[j+1]=hor.buf[j+1] * hor.Master_Volume;
 }
 
 pthread_mutex_unlock(&mutex);

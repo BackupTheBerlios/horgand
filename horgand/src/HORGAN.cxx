@@ -15,7 +15,7 @@ int Drawbar::handle(int event) {
 case FL_RELEASE:
 {
 draw();
-vavi=1;
+Signal_for_Cb_Sliders=1;
 do_callback();
 return 1;
 }
@@ -47,7 +47,7 @@ int Rueda::handle(int event) {
 case FL_RELEASE:
 {
 draw();
-vavi=1;
+Signal_for_Cb_Sliders=1;
 do_callback();
 return 1;
 }
@@ -79,7 +79,7 @@ void HORGAN::cb_HORwindow(Fl_Double_Window* o, void* v) {
 }
 
 void HORGAN::cb_PANICO_i(Fl_Button*, void*) {
-  hor->panico();
+  hor->panic();
 }
 void HORGAN::cb_PANICO(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_PANICO_i(o,v);
@@ -235,8 +235,8 @@ Fl_Menu_Item HORGAN::menu_MenuPrincipal[] = {
  {gettext("&Save..."), 0,  (Fl_Callback*)HORGAN::cb_Save, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {gettext("Load Bank..."), 0,  (Fl_Callback*)HORGAN::cb_Load1, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {gettext("Save Bank..."), 0,  (Fl_Callback*)HORGAN::cb_Save1, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
- {gettext("Load Ryth..."), 0,  (Fl_Callback*)HORGAN::cb_Load2, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {gettext("Save Rhyt..."), 0,  (Fl_Callback*)HORGAN::cb_Save2, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
+ {gettext("Load Rhythm..."), 0,  (Fl_Callback*)HORGAN::cb_Load2, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {gettext("Save Rhythm..."), 0,  (Fl_Callback*)HORGAN::cb_Save2, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {gettext("&About..."), 0,  (Fl_Callback*)HORGAN::cb_About, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {gettext("E&xit"), 0,  (Fl_Callback*)HORGAN::cb_E, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
@@ -297,7 +297,7 @@ void HORGAN::cb_CL(Fl_Light_Button* o, void* v) {
 }
 
 void HORGAN::cb_VUI1_i(Fl_Slider* o, void*) {
-  o->value(vum);
+  o->value(MidiInLevel);
 }
 void HORGAN::cb_VUI1(Fl_Slider* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_VUI1_i(o,v);
@@ -320,11 +320,11 @@ void HORGAN::cb_Transpose(Fl_Counter* o, void* v) {
 }
 
 void HORGAN::cb_Master_i(Drawbar* o, void*) {
-  hor->master = (float) o->value() / 100.0;
-if (vavi == 1)
+  hor->Master_Volume = (float) o->value() / 100.0;
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_Master(Drawbar* o, void* v) {
@@ -332,8 +332,8 @@ void HORGAN::cb_Master(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_Nombre_i(Fl_Input* o, void*) {
-  hor->nombre=(char*) o->value();
-strncpy(hor->Name,hor->nombre,24);
+  hor->c_name=(char*) o->value();
+strncpy(hor->Name,hor->c_name,24);
 Actu();
 }
 void HORGAN::cb_Nombre(Fl_Input* o, void* v) {
@@ -350,10 +350,10 @@ void HORGAN::cb_MasterT(Fl_Counter* o, void* v) {
 
 void HORGAN::cb_V1_i(Drawbar* o, void*) {
   hor->Operator[1].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V1(Drawbar* o, void* v) {
@@ -362,10 +362,10 @@ void HORGAN::cb_V1(Drawbar* o, void* v) {
 
 void HORGAN::cb_V2_i(Drawbar* o, void*) {
   hor->Operator[2].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V2(Drawbar* o, void* v) {
@@ -374,10 +374,10 @@ void HORGAN::cb_V2(Drawbar* o, void* v) {
 
 void HORGAN::cb_V3_i(Drawbar* o, void*) {
   hor->Operator[3].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V3(Drawbar* o, void* v) {
@@ -386,10 +386,10 @@ void HORGAN::cb_V3(Drawbar* o, void* v) {
 
 void HORGAN::cb_Marimba_i(Drawbar* o, void*) {
   hor->attack = (float) o->value() / 100.0;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_Marimba(Drawbar* o, void* v) {
@@ -398,10 +398,10 @@ void HORGAN::cb_Marimba(Drawbar* o, void* v) {
 
 void HORGAN::cb_V4_i(Drawbar* o, void*) {
   hor->Operator[4].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V4(Drawbar* o, void* v) {
@@ -410,10 +410,10 @@ void HORGAN::cb_V4(Drawbar* o, void* v) {
 
 void HORGAN::cb_V5_i(Drawbar* o, void*) {
   hor->Operator[5].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V5(Drawbar* o, void* v) {
@@ -422,10 +422,10 @@ void HORGAN::cb_V5(Drawbar* o, void* v) {
 
 void HORGAN::cb_V6_i(Drawbar* o, void*) {
   hor->Operator[6].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V6(Drawbar* o, void* v) {
@@ -439,10 +439,10 @@ for (i=1; i<=10; i++)
 {
 hor->Operator[i].harmonic_fine = (float) ((o->value()) / ((16 -hor->Operator[i].harmonic) * i * 1000.0));
 }
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_Detune(Rueda* o, void* v) {
@@ -450,11 +450,11 @@ void HORGAN::cb_Detune(Rueda* o, void* v) {
 }
 
 void HORGAN::cb_LFOSpeed_i(Rueda* o, void*) {
-  hor->LFOspeed = (float) o->value();
-if (vavi == 1)
+  hor->Rotary_LFO_Speed = (float) o->value();
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_LFOSpeed(Rueda* o, void* v) {
@@ -463,10 +463,10 @@ void HORGAN::cb_LFOSpeed(Rueda* o, void* v) {
 
 void HORGAN::cb_LFOPitch_i(Rueda* o, void*) {
   hor->LFOpitch = (float) o->value();
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_LFOPitch(Rueda* o, void* v) {
@@ -474,11 +474,11 @@ void HORGAN::cb_LFOPitch(Rueda* o, void* v) {
 }
 
 void HORGAN::cb_PLFOSpeed_i(Rueda* o, void*) {
-  hor->PLFOspeed = (float) o->value();
-if (vavi == 1)
+  hor->Pitch_LFO_Speed = (float) o->value();
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_PLFOSpeed(Rueda* o, void* v) {
@@ -486,11 +486,11 @@ void HORGAN::cb_PLFOSpeed(Rueda* o, void* v) {
 }
 
 void HORGAN::cb_PLFODelay_i(Rueda* o, void*) {
-  hor->PLFOdelay = (float) o->value() / 10;
-if (vavi == 1)
+  hor->Pitch_LFO_Delay = (float) o->value() / 10;
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_PLFODelay(Rueda* o, void* v) {
@@ -498,7 +498,7 @@ void HORGAN::cb_PLFODelay(Rueda* o, void* v) {
 }
 
 void HORGAN::cb_EchoVol_i(Fl_Counter* o, void*) {
-  hor->echovol = (float) o->value() / 100;
+  hor->Delay_Volume = (float) o->value() / 100;
 Actu();
 }
 void HORGAN::cb_EchoVol(Fl_Counter* o, void* v) {
@@ -506,7 +506,7 @@ void HORGAN::cb_EchoVol(Fl_Counter* o, void* v) {
 }
 
 void HORGAN::cb_EchoDelay_i(Fl_Counter* o, void*) {
-  hor->echodelay = (float) o->value() * 176400;
+  hor->Delay_Delay = (float) o->value() * 176400;
 Actu();
 }
 void HORGAN::cb_EchoDelay(Fl_Counter* o, void* v) {
@@ -571,7 +571,7 @@ void HORGAN::cb_H6(Fl_Slider* o, void* v) {
 }
 
 void HORGAN::cb_Rota_i(Fl_Button*, void*) {
-  if (hor->rota == 0) hor->rota = 1; else hor->rota = 0;
+  if (hor->E_Rotary_On == 0) hor->E_Rotary_On = 1; else hor->E_Rotary_On = 0;
 Actu();
 }
 void HORGAN::cb_Rota(Fl_Button* o, void* v) {
@@ -579,11 +579,11 @@ void HORGAN::cb_Rota(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_ELFOSpeed_i(Rueda* o, void*) {
-  hor->ELFOspeed = (float) o->value();
-if (vavi == 1)
+  hor->Chorus_LFO_Speed = (float) o->value();
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_ELFOSpeed(Rueda* o, void* v) {
@@ -591,11 +591,11 @@ void HORGAN::cb_ELFOSpeed(Rueda* o, void* v) {
 }
 
 void HORGAN::cb_ELFOAmplitude_i(Drawbar* o, void*) {
-  hor->ELFOamplitude = (float) o->value();
-if (vavi == 1)
+  hor->Chorus_LFO_Amplitude = (float) o->value();
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_ELFOAmplitude(Drawbar* o, void* v) {
@@ -603,11 +603,11 @@ void HORGAN::cb_ELFOAmplitude(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_POPO_i(Drawbar* o, void*) {
-  hor->popo = (float) o->value();
-if (vavi == 1)
+  hor->Chorus_Delay = (float) o->value();
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_POPO(Drawbar* o, void* v) {
@@ -615,7 +615,7 @@ void HORGAN::cb_POPO(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_ChorVol_i(Fl_Counter* o, void*) {
-  hor->chorvol = (float) o->value() / 100;
+  hor->Chorus_Volume = (float) o->value() / 100.0;
 Actu();
 }
 void HORGAN::cb_ChorVol(Fl_Counter* o, void* v) {
@@ -649,8 +649,8 @@ void HORGAN::cb_DMIN2(Fl_Box* o, void* v) {
 }
 
 void HORGAN::cb_EchoOn_i(Fl_Button* o, void*) {
-  hor->echoon =  o->value();
-hor->procesaclean();
+  hor->E_Delay_On =  o->value();
+hor->delayclean();
 Actu();
 }
 void HORGAN::cb_EchoOn(Fl_Button* o, void* v) {
@@ -658,7 +658,7 @@ void HORGAN::cb_EchoOn(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_ChorusOn_i(Fl_Button* o, void*) {
-  hor->choron =  o->value();
+  hor->E_Chorus_On =  o->value();
 hor->chorusclean();
 Actu();
 }
@@ -667,7 +667,7 @@ void HORGAN::cb_ChorusOn(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_R1_i(Fl_Button*, void*) {
-  hor->ganmod = 1;
+  hor->Reverb_Preset = 1;
 ponreverb();
 Actu();
 }
@@ -676,7 +676,7 @@ void HORGAN::cb_R1(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_R2_i(Fl_Button*, void*) {
-  hor->ganmod = 2;
+  hor->Reverb_Preset = 2;
 ponreverb();
 Actu();
 }
@@ -685,7 +685,7 @@ void HORGAN::cb_R2(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_R3_i(Fl_Button*, void*) {
-  hor->ganmod = 3;
+  hor->Reverb_Preset = 3;
 ponreverb();
 Actu();
 }
@@ -694,7 +694,7 @@ void HORGAN::cb_R3(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_R4_i(Fl_Button*, void*) {
-  hor->ganmod = 4;
+  hor->Reverb_Preset = 4;
 ponreverb();
 Actu();
 }
@@ -703,7 +703,7 @@ void HORGAN::cb_R4(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_R5_i(Fl_Button*, void*) {
-  hor->ganmod = 5;
+  hor->Reverb_Preset = 5;
 ponreverb();
 Actu();
 }
@@ -712,7 +712,7 @@ void HORGAN::cb_R5(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_R6_i(Fl_Button*, void*) {
-  hor->ganmod = 6;
+  hor->Reverb_Preset = 6;
 ponreverb();
 Actu();
 }
@@ -721,7 +721,7 @@ void HORGAN::cb_R6(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_R7_i(Fl_Button*, void*) {
-  hor->ganmod = 7;
+  hor->Reverb_Preset = 7;
 ponreverb();
 Actu();
 }
@@ -730,7 +730,7 @@ void HORGAN::cb_R7(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_R8_i(Fl_Button*, void*) {
-  hor->ganmod = 8;
+  hor->Reverb_Preset = 8;
 ponreverb();
 Actu();
 }
@@ -741,7 +741,7 @@ void HORGAN::cb_R8(Fl_Button* o, void* v) {
 void HORGAN::cb_Rev_i(Fl_Button* o, void*) {
   if (o->value()== 0) 
 {
-hor->revon= 0;
+hor->E_Reverb_On= 0;
 R1->value(0);
 R2->value(0);
 R3->value(0);
@@ -763,7 +763,7 @@ R8->deactivate();
 }
 else
 {
-hor->revon = 1;
+hor->E_Reverb_On = 1;
 R1->activate();
 R2->activate();
 R3->activate();
@@ -772,9 +772,9 @@ R5->activate();
 R6->activate();
 R7->activate();
 R8->activate();
-if (hor->ganmod==0) hor->ganmod = 1;
+if (hor->Reverb_Preset==0) hor->Reverb_Preset = 1;
 
-switch((int) hor->ganmod)
+switch((int) hor->Reverb_Preset)
 {
 case 1:
 R1->setonly();
@@ -802,7 +802,7 @@ R8->setonly();
 break;
 }
 }
-hor->rclean();
+hor->reverbclean();
 Actu();
 }
 void HORGAN::cb_Rev(Fl_Button* o, void* v) {
@@ -810,7 +810,7 @@ void HORGAN::cb_Rev(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_RitVol_i(Fl_Slider* o, void*) {
-  hor->ritvol = o->value();
+  hor->Rhythm_Volume = o->value();
 }
 void HORGAN::cb_RitVol(Fl_Slider* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_RitVol_i(o,v);
@@ -818,15 +818,15 @@ void HORGAN::cb_RitVol(Fl_Slider* o, void* v) {
 
 void HORGAN::cb_Tempo_i(Fl_Dial* o, void*) {
   hor->tempo = (float) o->value();
-hor->frametot = (int) (hor->tempo * hor->sfinfo.frames);
-hor->fracpos = hor->frametot /(4 * hor->blackn * hor->bars);
+hor->frame_total_size = (int) (hor->tempo * hor->sfinfo.frames);
+hor->fractional_position = hor->frame_total_size /(4 * hor->quarter_note * hor->bars);
 }
 void HORGAN::cb_Tempo(Fl_Dial* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Tempo_i(o,v);
 }
 
 void HORGAN::cb_VUI2_i(Fl_Slider* o, void*) {
-  o->value(tum);
+  o->value(BarLead);
 }
 void HORGAN::cb_VUI2(Fl_Slider* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_VUI2_i(o,v);
@@ -834,8 +834,8 @@ void HORGAN::cb_VUI2(Fl_Slider* o, void* v) {
 
 void HORGAN::cb_RitOn_i(Fl_Button* o, void*) {
   StStRiton->value(o->value());
-tum = 0;
-hor->riton =  o->value();
+BarLead = 0;
+hor->Rhythm_On =  o->value();
 VUI2->value(0);
 }
 void HORGAN::cb_RitOn(Fl_Button* o, void* v) {
@@ -843,12 +843,12 @@ void HORGAN::cb_RitOn(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_StStRiton_i(Fl_Button* o, void*) {
-  if (Rit != 0)
+  if (Selected_Rhythm != 0)
 {
 // int readcounts = sf_seek (hor->infile, 0, SEEK_SET);
 RitOn->value(o->value());
-tum = 0;
-hor->riton =  o->value();
+BarLead = 0;
+hor->Rhythm_On =  o->value();
 }
 
 VUI2->value(0);
@@ -860,13 +860,13 @@ void HORGAN::cb_StStRiton(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit4_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 4;
+Selected_Rhythm = 4;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit4(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit4_i(o,v);
@@ -875,13 +875,13 @@ void HORGAN::cb_Rit4(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit1_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 1;
+Selected_Rhythm = 1;
 if (Fl::event_button()==3) 
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit1(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit1_i(o,v);
@@ -890,13 +890,13 @@ void HORGAN::cb_Rit1(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit2_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 2;
+Selected_Rhythm = 2;
 if (Fl::event_button()==3)
 {
- GetRit(Rit);
- EditRit(Rit);
+ GetRit(Selected_Rhythm);
+ EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit2(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit2_i(o,v);
@@ -905,13 +905,13 @@ void HORGAN::cb_Rit2(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit3_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 3;
+Selected_Rhythm = 3;
 if (Fl::event_button()==3)
 {
- GetRit(Rit);
- EditRit(Rit);
+ GetRit(Selected_Rhythm);
+ EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit3(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit3_i(o,v);
@@ -920,13 +920,13 @@ void HORGAN::cb_Rit3(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit5_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 5;
+Selected_Rhythm = 5;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit5(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit5_i(o,v);
@@ -935,13 +935,13 @@ void HORGAN::cb_Rit5(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit6_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 6;
+Selected_Rhythm = 6;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit6(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit6_i(o,v);
@@ -950,14 +950,14 @@ void HORGAN::cb_Rit6(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit7_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 7;
+Selected_Rhythm = 7;
 if (Fl::event_button()==3) 
 {
-EditRit(Rit);
-GetRit(Rit);
+EditRit(Selected_Rhythm);
+GetRit(Selected_Rhythm);
 }
 
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit7(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit7_i(o,v);
@@ -966,13 +966,13 @@ void HORGAN::cb_Rit7(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit8_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 8;
+Selected_Rhythm = 8;
 if (Fl::event_button()==3)
 {
-EditRit(Rit);
-GetRit(Rit);
+EditRit(Selected_Rhythm);
+GetRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit8(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit8_i(o,v);
@@ -981,13 +981,13 @@ void HORGAN::cb_Rit8(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit9_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 9;
+Selected_Rhythm = 9;
 if (Fl::event_button()==3)
 {
-EditRit(Rit);
-GetRit(Rit);
+EditRit(Selected_Rhythm);
+GetRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit9(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit9_i(o,v);
@@ -996,13 +996,13 @@ void HORGAN::cb_Rit9(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit10_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 10;
+Selected_Rhythm = 10;
 if (Fl::event_button()==3)
 {
-EditRit(Rit);
-GetRit(Rit);
+EditRit(Selected_Rhythm);
+GetRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit10(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit10_i(o,v);
@@ -1011,13 +1011,13 @@ void HORGAN::cb_Rit10(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit11_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 11;
+Selected_Rhythm = 11;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit11(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit11_i(o,v);
@@ -1026,13 +1026,13 @@ void HORGAN::cb_Rit11(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit12_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 12;
+Selected_Rhythm = 12;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit12(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit12_i(o,v);
@@ -1041,13 +1041,13 @@ void HORGAN::cb_Rit12(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit13_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 13;
+Selected_Rhythm = 13;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit13(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit13_i(o,v);
@@ -1056,13 +1056,13 @@ void HORGAN::cb_Rit13(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit14_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 14;
+Selected_Rhythm = 14;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit14(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit14_i(o,v);
@@ -1071,13 +1071,13 @@ void HORGAN::cb_Rit14(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit15_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 15;
+Selected_Rhythm = 15;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit15(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit15_i(o,v);
@@ -1086,13 +1086,13 @@ void HORGAN::cb_Rit15(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit16_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 16;
+Selected_Rhythm = 16;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit16(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit16_i(o,v);
@@ -1101,13 +1101,13 @@ void HORGAN::cb_Rit16(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit17_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 17;
+Selected_Rhythm = 17;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit17(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit17_i(o,v);
@@ -1116,13 +1116,13 @@ void HORGAN::cb_Rit17(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit18_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 18;
+Selected_Rhythm = 18;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit18(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit18_i(o,v);
@@ -1131,13 +1131,13 @@ void HORGAN::cb_Rit18(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit19_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 19;
+Selected_Rhythm = 19;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit19(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit19_i(o,v);
@@ -1146,20 +1146,20 @@ void HORGAN::cb_Rit19(Fl_Button* o, void* v) {
 void HORGAN::cb_Rit20_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
-Rit = 20;
+Selected_Rhythm = 20;
 if (Fl::event_button()==3)
 {
-GetRit(Rit);
-EditRit(Rit);
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
 }
-if (Fl::event_button()==1) GetRit(Rit);
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit20(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit20_i(o,v);
 }
 
 void HORGAN::cb_BassVol_i(Fl_Slider* o, void*) {
-  hor->bassvol = o->value();
+  hor->Bass_Volume = o->value();
 }
 void HORGAN::cb_BassVol(Fl_Slider* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_BassVol_i(o,v);
@@ -1167,10 +1167,10 @@ void HORGAN::cb_BassVol(Fl_Slider* o, void* v) {
 
 void HORGAN::cb_Basson_i(Fl_Button* o, void*) {
   //int readcounts = sf_seek (hor->infileb, 0, SEEK_SET);
-tum = 0;
+BarLead = 0;
 hor->split = o->value();
 Split->value(o->value());
-hor->basson =  o->value();
+hor->Bass_On =  o->value();
 }
 void HORGAN::cb_Basson(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Basson_i(o,v);
@@ -1179,15 +1179,15 @@ void HORGAN::cb_Basson(Fl_Button* o, void* v) {
 void HORGAN::cb_Bass1_i(Fl_Button*, void*) {
   char temp[512];
 
-if (solucion == 1)  
+if (prefix_trick == 1)  
 sprintf(temp ,"%s", "/usr/share/horgand/AcousticBass.wav");
-if (solucion == 2) 
+if (prefix_trick == 2) 
 sprintf(temp, "%s", "/usr/local/share/horgand/AcousticBass.wav");
 
 char *tmp = temp;
 
-hor->SelectBass(tmp);
-hor->framesbass = (int) (hor->sfinfob.frames / 2.0);
+hor->Select_Bass(tmp);
+hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);
 }
 void HORGAN::cb_Bass1(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Bass1_i(o,v);
@@ -1196,15 +1196,15 @@ void HORGAN::cb_Bass1(Fl_Button* o, void* v) {
 void HORGAN::cb_Bass2_i(Fl_Button*, void*) {
   char temp[512];
 
-if (solucion == 1)  
+if (prefix_trick == 1)  
 sprintf(temp ,"%s", "/usr/share/horgand/FenderBass.wav");
-if (solucion == 2) 
+if (prefix_trick == 2) 
 sprintf(temp, "%s", "/usr/local/share/horgand/FenderBass.wav");
 
 char *tmp = temp;
 
-hor->SelectBass(tmp);
-hor->framesbass = (int) (hor->sfinfob.frames / 2.0);
+hor->Select_Bass(tmp);
+hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);
 }
 void HORGAN::cb_Bass2(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Bass2_i(o,v);
@@ -1213,25 +1213,25 @@ void HORGAN::cb_Bass2(Fl_Button* o, void* v) {
 void HORGAN::cb_Bass3_i(Fl_Button*, void*) {
   char temp[512];
 
-if (solucion == 1)  
+if (prefix_trick == 1)  
 sprintf(temp ,"%s", "/usr/share/horgand/FretlessBass.wav");
-if (solucion == 2) 
+if (prefix_trick == 2) 
 sprintf(temp, "%s", "/usr/local/share/horgand/FretlessBass.wav");
 
 char *tmp = temp;
 
 
 
-hor->SelectBass(tmp);
-hor->framesbass = (int) (hor->sfinfob.frames / 2.0);
+hor->Select_Bass(tmp);
+hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);
 }
 void HORGAN::cb_Bass3(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Bass3_i(o,v);
 }
 
 void HORGAN::cb_CPrograma_i(Fl_Counter* o, void*) {
-  hor->cprograma = (int) o->value();
-PutCombi(hor->cprograma);
+  hor->cpreset = (int) o->value();
+PutCombi(hor->cpreset);
 Actu();
 }
 void HORGAN::cb_CPrograma(Fl_Counter* o, void* v) {
@@ -1240,10 +1240,10 @@ void HORGAN::cb_CPrograma(Fl_Counter* o, void* v) {
 
 void HORGAN::cb_V7_i(Drawbar* o, void*) {
   hor->Operator[7].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V7(Drawbar* o, void* v) {
@@ -1252,10 +1252,10 @@ void HORGAN::cb_V7(Drawbar* o, void* v) {
 
 void HORGAN::cb_V8_i(Drawbar* o, void*) {
   hor->Operator[8].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V8(Drawbar* o, void* v) {
@@ -1264,10 +1264,10 @@ void HORGAN::cb_V8(Drawbar* o, void* v) {
 
 void HORGAN::cb_V9_i(Drawbar* o, void*) {
   hor->Operator[9].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V9(Drawbar* o, void* v) {
@@ -1276,10 +1276,10 @@ void HORGAN::cb_V9(Drawbar* o, void* v) {
 
 void HORGAN::cb_V10_i(Drawbar* o, void*) {
   hor->Operator[10].volumen = (float) o->value() / 100;
-if (vavi == 1)
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_V10(Drawbar* o, void* v) {
@@ -1327,11 +1327,11 @@ void HORGAN::cb_H10(Fl_Slider* o, void* v) {
 void HORGAN::cb_Mar4_i(Fl_Check_Button* o, void*) {
   if ((int)o->value())
 {
-hor->Operator[10].mar = 1;
+hor->Operator[10].marimba = 1;
 }
 else
 {
-hor->Operator[10].mar = 0;
+hor->Operator[10].marimba = 0;
 };
 }
 void HORGAN::cb_Mar4(Fl_Check_Button* o, void* v) {
@@ -1341,11 +1341,11 @@ void HORGAN::cb_Mar4(Fl_Check_Button* o, void* v) {
 void HORGAN::cb_Mar3_i(Fl_Check_Button* o, void*) {
   if ((int)o->value())
 {
-hor->Operator[9].mar = 1;
+hor->Operator[9].marimba = 1;
 }
 else
 {
-hor->Operator[9].mar = 0;
+hor->Operator[9].marimba = 0;
 };
 }
 void HORGAN::cb_Mar3(Fl_Check_Button* o, void* v) {
@@ -1355,11 +1355,11 @@ void HORGAN::cb_Mar3(Fl_Check_Button* o, void* v) {
 void HORGAN::cb_Mar2_i(Fl_Check_Button* o, void*) {
   if ((int)o->value())
 {
-hor->Operator[8].mar = 1;
+hor->Operator[8].marimba = 1;
 }
 else
 {
-hor->Operator[8].mar = 0;
+hor->Operator[8].marimba = 0;
 
 };
 }
@@ -1370,12 +1370,12 @@ void HORGAN::cb_Mar2(Fl_Check_Button* o, void* v) {
 void HORGAN::cb_Mar1_i(Fl_Check_Button* o, void*) {
   if ((int)o->value())
 {
-hor->Operator[7].mar = 1;
+hor->Operator[7].marimba = 1;
 
 }
 else
 {
-hor->Operator[7].mar = 0;
+hor->Operator[7].marimba = 0;
 };
 }
 void HORGAN::cb_Mar1(Fl_Check_Button* o, void* v) {
@@ -1383,11 +1383,11 @@ void HORGAN::cb_Mar1(Fl_Check_Button* o, void* v) {
 }
 
 void HORGAN::cb_OMaster_i(Drawbar* o, void*) {
-  hor->omaster = (float) o->value() / 100.0;
-if (vavi == 1)
+  hor->Organ_Master_Volume = (float) o->value() / 100.0;
+if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
-vavi = 0;
+Signal_for_Cb_Sliders = 0;
 };
 }
 void HORGAN::cb_OMaster(Drawbar* o, void* v) {
@@ -1787,12 +1787,12 @@ fl_alert("Bars error.");
 return;
 }  
 
-if((hor->Rt[hor->ae].blackn < 2) || (hor->Rt[hor->ae].blackn > 4))
+if((hor->Rt[hor->ae].quarter_note < 2) || (hor->Rt[hor->ae].quarter_note > 4))
 {
 fl_alert("Nom. error");
 return;
 }  
-if (hor->fe == 1)
+if (hor->file_ok == 1)
 {
 GetRit(hor->ae);
 }
@@ -1824,7 +1824,7 @@ void HORGAN::cb_RtBars(Fl_Value_Input* o, void* v) {
 }
 
 void HORGAN::cb_RtDen_i(Fl_Value_Input* o, void*) {
-  hor->Rt[hor->ae].blackn = (int)o->value();
+  hor->Rt[hor->ae].quarter_note = (int)o->value();
 QuitaPon();
 }
 void HORGAN::cb_RtDen(Fl_Value_Input* o, void* v) {
@@ -1833,8 +1833,8 @@ void HORGAN::cb_RtDen(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb1_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 1;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 1;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb1(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb1_i(o,v);
@@ -1842,8 +1842,8 @@ void HORGAN::cb_lb1(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb2_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 2;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 2;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb2(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb2_i(o,v);
@@ -1851,8 +1851,8 @@ void HORGAN::cb_lb2(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb3_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 3;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 3;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb3(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb3_i(o,v);
@@ -1860,8 +1860,8 @@ void HORGAN::cb_lb3(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb4_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 4;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 4;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb4(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb4_i(o,v);
@@ -1869,8 +1869,8 @@ void HORGAN::cb_lb4(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv1_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 1;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 1;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv1(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv1_i(o,v);
@@ -1878,8 +1878,8 @@ void HORGAN::cb_lbv1(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv2_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 2;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 2;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv2(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv2_i(o,v);
@@ -1887,8 +1887,8 @@ void HORGAN::cb_lbv2(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv3_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 3;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 3;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv3(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv3_i(o,v);
@@ -1896,8 +1896,8 @@ void HORGAN::cb_lbv3(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv4_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 4;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 4;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv4(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv4_i(o,v);
@@ -1905,8 +1905,8 @@ void HORGAN::cb_lbv4(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb5_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 5;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 5;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb5(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb5_i(o,v);
@@ -1914,8 +1914,8 @@ void HORGAN::cb_lb5(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb6_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 6;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 6;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb6(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb6_i(o,v);
@@ -1923,8 +1923,8 @@ void HORGAN::cb_lb6(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb7_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 7;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 7;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb7(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb7_i(o,v);
@@ -1932,8 +1932,8 @@ void HORGAN::cb_lb7(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb8_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 8;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 8;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb8(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb8_i(o,v);
@@ -1941,8 +1941,8 @@ void HORGAN::cb_lb8(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv5_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 5;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 5;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv5(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv5_i(o,v);
@@ -1950,8 +1950,8 @@ void HORGAN::cb_lbv5(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv6_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 6;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 6;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv6(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv6_i(o,v);
@@ -1959,8 +1959,8 @@ void HORGAN::cb_lbv6(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv7_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 7;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 7;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv7(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv7_i(o,v);
@@ -1968,8 +1968,8 @@ void HORGAN::cb_lbv7(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv8_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 8;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 8;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv8(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv8_i(o,v);
@@ -1977,8 +1977,8 @@ void HORGAN::cb_lbv8(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb9_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 9;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 9;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb9(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb9_i(o,v);
@@ -1986,8 +1986,8 @@ void HORGAN::cb_lb9(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb10_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 10;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 10;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb10(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb10_i(o,v);
@@ -1995,8 +1995,8 @@ void HORGAN::cb_lb10(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb11_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 11;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 11;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb11(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb11_i(o,v);
@@ -2004,8 +2004,8 @@ void HORGAN::cb_lb11(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb12_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 12;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 12;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb12(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb12_i(o,v);
@@ -2013,8 +2013,8 @@ void HORGAN::cb_lb12(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv9_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 9;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 9;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv9(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv9_i(o,v);
@@ -2022,8 +2022,8 @@ void HORGAN::cb_lbv9(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv10_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 10;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 10;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv10(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv10_i(o,v);
@@ -2031,8 +2031,8 @@ void HORGAN::cb_lbv10(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv11_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 11;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 11;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv11(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv11_i(o,v);
@@ -2040,8 +2040,8 @@ void HORGAN::cb_lbv11(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv12_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 12;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 12;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv12(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv12_i(o,v);
@@ -2049,8 +2049,8 @@ void HORGAN::cb_lbv12(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb13_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 13;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 13;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb13(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb13_i(o,v);
@@ -2058,8 +2058,8 @@ void HORGAN::cb_lb13(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb14_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 14;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 14;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb14(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb14_i(o,v);
@@ -2067,8 +2067,8 @@ void HORGAN::cb_lb14(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb15_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 15;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 15;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb15(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb15_i(o,v);
@@ -2076,8 +2076,8 @@ void HORGAN::cb_lb15(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lb16_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 16;
-hor->Rt[hor->ae].linb[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 16;
+hor->Rt[hor->ae].Line_Bass_Note[pos] = (int) o->value();
 }
 void HORGAN::cb_lb16(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lb16_i(o,v);
@@ -2085,8 +2085,8 @@ void HORGAN::cb_lb16(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv13_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 13;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 13;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv13(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv13_i(o,v);
@@ -2094,8 +2094,8 @@ void HORGAN::cb_lbv13(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv14_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 14;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 14;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv14(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv14_i(o,v);
@@ -2103,8 +2103,8 @@ void HORGAN::cb_lbv14(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv15_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 15;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 15;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv15(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv15_i(o,v);
@@ -2112,8 +2112,8 @@ void HORGAN::cb_lbv15(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_lbv16_i(Fl_Value_Input* o, void*) {
   int pos;
-pos = ((hor->sbars - 1) * (4 * hor->Rt[hor->ae].blackn)) + 16;
-hor->Rt[hor->ae].linbv[pos] = (int) o->value();
+pos = ((hor->pattern_bars - 1) * (4 * hor->Rt[hor->ae].quarter_note)) + 16;
+hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();
 }
 void HORGAN::cb_lbv16(Fl_Value_Input* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_lbv16_i(o,v);
@@ -2121,7 +2121,7 @@ void HORGAN::cb_lbv16(Fl_Value_Input* o, void* v) {
 
 void HORGAN::cb_SBar_i(Fl_Counter* o, void*) {
   if (o->value() > hor->Rt[hor->ae].bars) o->value(hor->Rt[hor->ae].bars);
-hor->sbars = (int) o->value();
+hor->pattern_bars = (int) o->value();
 meteval();
 }
 void HORGAN::cb_SBar(Fl_Counter* o, void* v) {
@@ -2135,12 +2135,12 @@ fl_alert("Bars error.");
 return;
 }  
 
-if((hor->Rt[hor->ae].blackn < 2) || (hor->Rt[hor->ae].blackn > 4))
+if((hor->Rt[hor->ae].quarter_note < 2) || (hor->Rt[hor->ae].quarter_note > 4))
 {
 fl_alert("Nom. error");
 return;
 }  
-if (hor->fe == 1)
+if (hor->file_ok == 1)
 {
 GetRit(hor->ae);
 }
@@ -2279,9 +2279,6 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelsize(19);
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
-    }
-    { Fl_Box* o = new Fl_Box(345, 114, 30, 91);
-      o->box(FL_DOWN_FRAME);
     }
     { Fl_Box* o = new Fl_Box(115, 99, 46, 46);
       o->box(FL_OVAL_FRAME);
@@ -2486,8 +2483,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelfont(0);
       o->labelsize(14);
       o->labelcolor((Fl_Color)4);
-      o->minimum(4);
-      o->maximum(0);
+      o->minimum(24);
       o->step(0.01);
       o->callback((Fl_Callback*)cb_Marimba);
       o->align(FL_ALIGN_RIGHT);
@@ -2732,7 +2728,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(FL_ALIGN_BOTTOM);
       o->when(FL_WHEN_CHANGED);
     }
-    { Drawbar* o = ELFOAmplitude = new Drawbar(305, 115, 30, 90, gettext("D"));
+    { Drawbar* o = ELFOAmplitude = new Drawbar(310, 115, 30, 90, gettext("D"));
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2972,7 +2968,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     }
-    { Fl_Group* o = new Fl_Group(595, 95, 230, 310);
+    { Fl_Group* o = new Fl_Group(595, 83, 230, 322);
       { Fl_Button* o = Rit4 = new Fl_Button(605, 195, 95, 25);
         o->tooltip(gettext("Right Click Edit -  Left Click Select"));
         o->type(1);
@@ -4231,7 +4227,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->value(1);
       o->callback((Fl_Callback*)cb_SBar);
       o->align(FL_ALIGN_LEFT);
-      o->value(hor->sbars);
+      o->value(hor->pattern_bars);
     }
     { Fl_Button* o = CloRit = new Fl_Button(155, 70, 80, 25, gettext("Ok"));
       o->shortcut(0xff0d);
@@ -4333,8 +4329,8 @@ switch (hor->Salida)
 
 
 Rit1->value(1);
-Rit = 1;
-GetRit(Rit);
+Selected_Rhythm = 1;
+GetRit(Selected_Rhythm);
 }
 
 void HORGAN::GetCombi(int i) {
@@ -4344,73 +4340,73 @@ for (k=1; k<=10; k++)
 hor->Banco[i].Operator[k].volumen=hor->Operator[k].volumen;
 hor->Banco[i].Operator[k].harmonic_fine=hor->Operator[k].harmonic_fine;
 hor->Banco[i].Operator[k].harmonic=hor->Operator[k].harmonic;
-hor->Banco[i].Operator[k].mar=hor->Operator[k].mar;
+hor->Banco[i].Operator[k].marimba=hor->Operator[k].marimba;
 }
 
 
-hor->Banco[i].echoon=hor->echoon;
-hor->Banco[i].echodelay=hor->echodelay;
-hor->Banco[i].echovol=hor->echovol;
-hor->Banco[i].PLFOspeed=hor->PLFOspeed;
-hor->Banco[i].PLFOdelay=hor->PLFOdelay;
-hor->Banco[i].LFOspeed=hor->LFOspeed;
+hor->Banco[i].E_Delay_On=hor->E_Delay_On;
+hor->Banco[i].Delay_Delay=hor->Delay_Delay;
+hor->Banco[i].Delay_Volume=hor->Delay_Volume;
+hor->Banco[i].Pitch_LFO_Speed=hor->Pitch_LFO_Speed;
+hor->Banco[i].Pitch_LFO_Delay=hor->Pitch_LFO_Delay;
+hor->Banco[i].Rotary_LFO_Speed=hor->Rotary_LFO_Speed;
 hor->Banco[i].LFOpitch=hor->LFOpitch;
-hor->Banco[i].rota=hor->rota;
+hor->Banco[i].E_Rotary_On=hor->E_Rotary_On;
 hor->Banco[i].modulation=hor->modulation;
 hor->Banco[i].transpose=hor->transpose;
-hor->Banco[i].omaster=hor->omaster;
+hor->Banco[i].Organ_Master_Volume=hor->Organ_Master_Volume;
 
 for (k=0; k<=24; k++) hor->Banco[i].Name[k]=hor->Name[k];
 hor->Banco[i].attack=hor->attack;
 hor->Banco[i].detune=hor->detune;
-hor->Banco[i].revon=hor->revon;
+hor->Banco[i].E_Reverb_On=hor->E_Reverb_On;
 hor->Banco[i].split=hor->split;
-hor->Banco[i].ganmod =hor->ganmod;
-hor->Banco[i].choron=hor->choron;
-hor->Banco[i].ELFOamplitude=hor->ELFOamplitude;
-hor->Banco[i].popo=hor->popo;
-hor->Banco[i].ELFOspeed=hor->ELFOspeed;
-hor->Banco[i].chorvol=hor->chorvol;
+hor->Banco[i].Reverb_Preset =hor->Reverb_Preset;
+hor->Banco[i].E_Chorus_On=hor->E_Chorus_On;
+hor->Banco[i].Chorus_LFO_Amplitude=hor->Chorus_LFO_Amplitude;
+hor->Banco[i].Chorus_Delay=hor->Chorus_Delay;
+hor->Banco[i].Chorus_LFO_Speed=hor->Chorus_LFO_Speed;
+hor->Banco[i].Chorus_Volume=hor->Chorus_Volume;
 }
 
 void HORGAN::PutCombi(int i) {
   int k;
-hor->cprograma= i;
+hor->cpreset= i;
 
 for (k=1; k<=10; k++)
 {
 hor->Operator[k].volumen =hor->Banco[i].Operator[k].volumen;
 hor->Operator[k].harmonic_fine =hor->Banco[i].Operator[k].harmonic_fine;
 hor->Operator[k].harmonic =hor->Banco[i].Operator[k].harmonic;
-hor->Operator[k].mar=hor->Banco[i].Operator[k].mar;
+hor->Operator[k].marimba=hor->Banco[i].Operator[k].marimba;
 }
 
 
 
-hor->echoon = hor->Banco[i].echoon;
-hor->echovol = hor->Banco[i].echovol;
-hor->echodelay = hor->Banco[i].echodelay;
-hor->PLFOspeed = hor->Banco[i].PLFOspeed;
-hor->PLFOdelay = hor->Banco[i].PLFOdelay;
-hor->LFOspeed = hor->Banco[i].LFOspeed;
+hor->E_Delay_On = hor->Banco[i].E_Delay_On;
+hor->Delay_Volume = hor->Banco[i].Delay_Volume;
+hor->Delay_Delay = hor->Banco[i].Delay_Delay;
+hor->Pitch_LFO_Speed = hor->Banco[i].Pitch_LFO_Speed;
+hor->Pitch_LFO_Delay = hor->Banco[i].Pitch_LFO_Delay;
+hor->Rotary_LFO_Speed = hor->Banco[i].Rotary_LFO_Speed;
 hor->LFOpitch = hor->Banco[i].LFOpitch;
-hor->rota = hor->Banco[i].rota;
+hor->E_Rotary_On = hor->Banco[i].E_Rotary_On;
 hor->modulation = hor->Banco[i].modulation;
 hor->transpose = hor->Banco[i].transpose;
-hor->omaster = hor->Banco[i].omaster;
+hor->Organ_Master_Volume = hor->Banco[i].Organ_Master_Volume;
 bzero(hor->Name, sizeof(hor->Name));
 for (k=0; k<=24; k++) hor->Name[k]=hor->Banco[i].Name[k];
-hor->nombre = hor->Name;
-hor->revon = hor->Banco[i].revon;
+hor->c_name = hor->Name;
+hor->E_Reverb_On = hor->Banco[i].E_Reverb_On;
 hor->attack = hor->Banco[i].attack;
 hor->detune = hor->Banco[i].detune;
 hor->split=hor->Banco[i].split;
-hor->ganmod=hor->Banco[i].ganmod;
-hor->choron=hor->Banco[i].choron;
-hor->ELFOamplitude=hor->Banco[i].ELFOamplitude;
-hor->popo=hor->Banco[i].popo;
-hor->ELFOspeed=hor->Banco[i].ELFOspeed;
-hor->chorvol=hor->Banco[i].chorvol;
+hor->Reverb_Preset=hor->Banco[i].Reverb_Preset;
+hor->E_Chorus_On=hor->Banco[i].E_Chorus_On;
+hor->Chorus_LFO_Amplitude=hor->Banco[i].Chorus_LFO_Amplitude;
+hor->Chorus_Delay=hor->Banco[i].Chorus_Delay;
+hor->Chorus_LFO_Speed=hor->Banco[i].Chorus_LFO_Speed;
+hor->Chorus_Volume=hor->Banco[i].Chorus_Volume;
 
 hor->Prim[1] = hor->Banco[i];
 meteprog();
@@ -4454,7 +4450,7 @@ void HORGAN::MiraClientes() {
                            hor->CPOMidiS[count].Client = snd_seq_port_info_get_client(pinfo);
                            hor->CPOMidiS[count].Port = snd_seq_port_info_get_port(pinfo);
                            hor->CPOMidiS[count].CName = snd_seq_client_info_get_name(cinfo);
-      for (i=0; i<=(int)(strlen(hor->CPOMidiS[count].CName));i++) hor->CPOMidiS[count].Nombre[i]=hor->CPOMidiS[count].CName[i];
+      for (i=0; i<=(int)(strlen(hor->CPOMidiS[count].CName));i++) hor->CPOMidiS[count].Name[i]=hor->CPOMidiS[count].CName[i];
                            hor->CPOMidiS[count].CInfo = snd_seq_port_info_get_name(pinfo);
       for (i=0; i<=(int)(strlen(hor->CPOMidiS[count].CInfo));i++) hor->CPOMidiS[count].Info[i]=hor->CPOMidiS[count].CInfo[i];
                            
@@ -4468,7 +4464,7 @@ void HORGAN::MiraClientes() {
                            hor->CPIMidiS[count1].Client = snd_seq_port_info_get_client(pinfo);
                            hor->CPIMidiS[count1].Port = snd_seq_port_info_get_port(pinfo);
                            hor->CPIMidiS[count1].CName = snd_seq_client_info_get_name(cinfo);
-     for (i=0; i<=(int)(strlen(hor->CPIMidiS[count1].CName));i++) hor->CPIMidiS[count1].Nombre[i]=hor->CPIMidiS[count1].CName[i];
+     for (i=0; i<=(int)(strlen(hor->CPIMidiS[count1].CName));i++) hor->CPIMidiS[count1].Name[i]=hor->CPIMidiS[count1].CName[i];
                            hor->CPIMidiS[count1].CInfo = snd_seq_port_info_get_name(pinfo);
      for (i=0; i<=(int)(strlen(hor->CPIMidiS[count1].CInfo));i++) hor->CPIMidiS[count1].Info[i]=hor->CPIMidiS[count1].CInfo[i];
                            bzero(linea,sizeof(linea));
@@ -4612,7 +4608,7 @@ char linea[256];
 
 
 
-while ( espera == 0 ) usleep(1);
+while ( waitforGUI == 0 ) usleep(1);
 
 int k= 0,i=0;
 
@@ -4668,7 +4664,7 @@ if (strcmp(hor->MidiInPuerto[1].SetMidiIn,"Not Connected") !=0 )
 
 
 }
-else sprintf(hor->MidiInPuerto[1].pMIDIIN,"Not Conected");
+else sprintf(hor->MidiInPuerto[1].pMIDIIN,"Not Connected");
 }
 
 void HORGAN::Undo() {
@@ -4700,89 +4696,89 @@ void HORGAN::tick(void *v) {
 }
 
 void HORGAN::ponreverb() {
-  hor->rclean();
-switch((int) hor->ganmod)
+  hor->reverbclean();
+switch((int) hor->Reverb_Preset)
 {
 case 1:
-hor->rtime = 1.7;
-hor->revvol = 0.45;
-hor->diffussion = 0.14;
+hor->Reverb_Time = 1.7;
+hor->Reverb_Volume = 0.45;
+hor->Reverb_Diffussion = 0.14;
 
 break;
 
 case 2:
-hor->rtime = 1.7;
-hor->revvol = 0.65;
-hor->diffussion = 0.14;
+hor->Reverb_Time = 1.7;
+hor->Reverb_Volume = 0.65;
+hor->Reverb_Diffussion = 0.14;
 break;
 
 case 3:
-hor->rtime = 2.4;
-hor->revvol = 0.45;
-hor->diffussion = 0.16;
+hor->Reverb_Time = 2.4;
+hor->Reverb_Volume = 0.45;
+hor->Reverb_Diffussion = 0.16;
 break;
 
 case 4:
-hor->rtime = 2.4;
-hor->revvol = 0.65;
-hor->diffussion = 0.16;
+hor->Reverb_Time = 2.4;
+hor->Reverb_Volume = 0.65;
+hor->Reverb_Diffussion = 0.16;
 break;
 
 case 5:
-hor->rtime = 3.2;
-hor->revvol = 0.45;
-hor->diffussion = 0.16;
+hor->Reverb_Time = 3.2;
+hor->Reverb_Volume = 0.45;
+hor->Reverb_Diffussion = 0.16;
 break;
 
 case 6:
-hor->rtime = 3.8;
-hor->revvol = 0.65;
-hor->diffussion = 0.16;
+hor->Reverb_Time = 3.8;
+hor->Reverb_Volume = 0.65;
+hor->Reverb_Diffussion = 0.16;
 
 case 7:
-hor->rtime = 4.4;
-hor->revvol = 0.45;
-hor->diffussion = 0.16;
+hor->Reverb_Time = 4.4;
+hor->Reverb_Volume = 0.45;
+hor->Reverb_Diffussion = 0.16;
 break;
 
 case 8:
-hor->rtime = 4.4;
-hor->revvol = 0.65;
-hor->diffussion = 0.16;
+hor->Reverb_Time = 4.4;
+hor->Reverb_Volume = 0.65;
+hor->Reverb_Diffussion = 0.16;
 break;
 }
 }
 
-void HORGAN::GetRit(int Rit) {
+void HORGAN::GetRit(int Selected_Rhythm) {
   int i;
 int rula;
 
 char temp[512];
-if (solucion == 1) sprintf(temp,"%s%s","/usr/share/horgand/",hor->Rt[Rit].Nfile);
-if (solucion == 2) sprintf(temp,"%s%s","/usr/local/share/horgand/",hor->Rt[Rit].Nfile);
+if (prefix_trick == 1) sprintf(temp,"%s%s","/usr/share/horgand/",hor->Rt[Selected_Rhythm].Nfile);
+if (prefix_trick == 2) sprintf(temp,"%s%s","/usr/local/share/horgand/",hor->Rt[Selected_Rhythm].Nfile);
 
 char *tmp = temp;
 
-rula = hor->SelectRitmo(tmp);
+rula = hor->Select_Rhythm(tmp);
 if (rula != 0) 
 { 
 RitOn->value(0);
 StStRiton->value(0);
-hor->riton = 0;
+hor->Rhythm_On = 0;
 return;
 }
 Tempo->activate();
-hor->bars = hor->Rt[Rit].bars;
-hor->blackn = hor->Rt[Rit].blackn;
+hor->bars = hor->Rt[Selected_Rhythm].bars;
+hor->quarter_note = hor->Rt[Selected_Rhythm].quarter_note;
 
-for (i = 1; i<=(4 * hor->blackn * hor->bars); i++)
+for (i = 1; i<=(4 * hor->quarter_note * hor->bars); i++)
 {
- hor->linb[i] = hor->Rt[Rit].linb[i];
- hor->linbv[i] =hor->Rt[Rit].linbv[i];
+ hor->Line_Bass_Note[i] = hor->Rt[Selected_Rhythm].Line_Bass_Note[i];
+ hor->Line_Bass_Velocity[i] =hor->Rt[Selected_Rhythm].Line_Bass_Velocity[i];
 }
 
-hor->frametot = (int) (hor->tempo * hor->sfinfo.frames);
-hor->fracpos = hor->frametot / (4 * hor->blackn * hor->bars);
+hor->frame_total_size = (int) (hor->tempo * hor->sfinfo.frames);
+hor->fractional_position = hor->frame_total_size / (4 * hor->quarter_note * hor->bars);
 Tempo->activate();
 }
 
@@ -4810,10 +4806,10 @@ Rit20->label(hor->Rt[20].Nom);
 }
 
 void HORGAN::calbtrans() {
-  hor->btrans = hor->transpose;
-if ( hor->btrans > 12 ) hor->btrans = hor->btrans  % 12;
-if ( hor->btrans < -12 ) hor->btrans = hor->btrans  % 12;
-if ( hor->transpose % 12 == 0) hor->btrans = 0;
+  hor->bass_transpose = hor->transpose;
+if ( hor->bass_transpose > 12 ) hor->bass_transpose = hor->bass_transpose  % 12;
+if ( hor->bass_transpose < -12 ) hor->bass_transpose = hor->bass_transpose  % 12;
+if ( hor->transpose % 12 == 0) hor->bass_transpose = 0;
 }
 
 void HORGAN::calbtune() {
@@ -4826,9 +4822,9 @@ for(i=0; i<=11; i++)
 
   {  k = i + 1;
      if (i == 11) k = 0; 
-     hor->AB[i].bmt =  (hor->AB[k].afin - hor->AB[i].afin) * btuneval;
+     hor->AB[i].bmt =  (hor->AB[k].tune - hor->AB[i].tune) * btuneval;
 
-     if (i == 6) hor->AB[6].bmt = (2.980 - hor->AB[6].afin) * btuneval;
+     if (i == 6) hor->AB[6].bmt = (2.980 - hor->AB[6].tune) * btuneval;
 
   }
 
@@ -4838,8 +4834,8 @@ if ( MasterT->value() < 0)
 
   {  k = i - 1;
      if (i == 0) k = 11; 
-     hor->AB[i].bmt =  (hor->AB[i].afin - hor->AB[k].afin)  * btuneval;
-      if (i == 7) hor->AB[7].bmt = (hor->AB[7].afin - 1.3980 ) * btuneval;
+     hor->AB[i].bmt =  (hor->AB[i].tune - hor->AB[k].tune)  * btuneval;
+      if (i == 7) hor->AB[7].bmt = (hor->AB[7].tune - 1.3980 ) * btuneval;
 
   }
  
@@ -4852,9 +4848,9 @@ void HORGAN::EditRit(int i) {
 RtName->value(hor->Rt[i].Nom);
 RtFile->value(hor->Rt[i].Nfile);
 RtBars->value(hor->Rt[i].bars);
-RtDen->value(hor->Rt[i].blackn);
+RtDen->value(hor->Rt[i].quarter_note);
 QuitaPon();
-hor->sbars= 1;
+hor->pattern_bars= 1;
 meteval();
 char temp[512];
 sprintf(temp,"%s - Bass Line Editor",hor->Rt[i].Nom);
@@ -4864,7 +4860,7 @@ Fl::focus(CloRit);
 }
 
 void HORGAN::QuitaPon() {
-  switch(hor->Rt[hor->ae].blackn)
+  switch(hor->Rt[hor->ae].quarter_note)
 {
   case 2:
      B1G3->hide();
@@ -4931,55 +4927,55 @@ void HORGAN::QuitaPon() {
 }
 
 void HORGAN::meteval() {
-  int i = (hor->sbars- 1) * (hor->Rt[hor->ae].blackn * 4);
+  int i = (hor->pattern_bars- 1) * (hor->Rt[hor->ae].quarter_note * 4);
 
 
-lb1->value(hor->Rt[hor->ae].linb[i+1]);
-lb2->value(hor->Rt[hor->ae].linb[i+2]);
-lb3->value(hor->Rt[hor->ae].linb[i+3]);
-lb4->value(hor->Rt[hor->ae].linb[i+4]);
-lb5->value(hor->Rt[hor->ae].linb[i+5]);
-lb6->value(hor->Rt[hor->ae].linb[i+6]);
-lb7->value(hor->Rt[hor->ae].linb[i+7]);
-lb8->value(hor->Rt[hor->ae].linb[i+8]);
-lbv1->value(hor->Rt[hor->ae].linbv[i+1]);
-lbv2->value(hor->Rt[hor->ae].linbv[i+2]);
-lbv3->value(hor->Rt[hor->ae].linbv[i+3]);
-lbv4->value(hor->Rt[hor->ae].linbv[i+4]);
-lbv5->value(hor->Rt[hor->ae].linbv[i+5]);
-lbv6->value(hor->Rt[hor->ae].linbv[i+6]);
-lbv7->value(hor->Rt[hor->ae].linbv[i+7]);
-lbv8->value(hor->Rt[hor->ae].linbv[i+8]);
+lb1->value(hor->Rt[hor->ae].Line_Bass_Note[i+1]);
+lb2->value(hor->Rt[hor->ae].Line_Bass_Note[i+2]);
+lb3->value(hor->Rt[hor->ae].Line_Bass_Note[i+3]);
+lb4->value(hor->Rt[hor->ae].Line_Bass_Note[i+4]);
+lb5->value(hor->Rt[hor->ae].Line_Bass_Note[i+5]);
+lb6->value(hor->Rt[hor->ae].Line_Bass_Note[i+6]);
+lb7->value(hor->Rt[hor->ae].Line_Bass_Note[i+7]);
+lb8->value(hor->Rt[hor->ae].Line_Bass_Note[i+8]);
+lbv1->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+1]);
+lbv2->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+2]);
+lbv3->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+3]);
+lbv4->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+4]);
+lbv5->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+5]);
+lbv6->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+6]);
+lbv7->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+7]);
+lbv8->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+8]);
 
-if ( hor->Rt[hor->ae].blackn > 2)
+if ( hor->Rt[hor->ae].quarter_note > 2)
 {
 
-lb9->value(hor->Rt[hor->ae].linb[i+9]);
-lb10->value(hor->Rt[hor->ae].linb[i+10]);
-lb11->value(hor->Rt[hor->ae].linb[i+11]);
-lb12->value(hor->Rt[hor->ae].linb[i+12]);
-lbv9->value(hor->Rt[hor->ae].linbv[i+9]);
-lbv10->value(hor->Rt[hor->ae].linbv[i+10]);
-lbv11->value(hor->Rt[hor->ae].linbv[i+11]);
-lbv12->value(hor->Rt[hor->ae].linbv[i+12]);
+lb9->value(hor->Rt[hor->ae].Line_Bass_Note[i+9]);
+lb10->value(hor->Rt[hor->ae].Line_Bass_Note[i+10]);
+lb11->value(hor->Rt[hor->ae].Line_Bass_Note[i+11]);
+lb12->value(hor->Rt[hor->ae].Line_Bass_Note[i+12]);
+lbv9->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+9]);
+lbv10->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+10]);
+lbv11->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+11]);
+lbv12->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+12]);
 
 }
 
-if ( hor->Rt[hor->ae].blackn > 3)
+if ( hor->Rt[hor->ae].quarter_note > 3)
 
 {
 
-lb13->value(hor->Rt[hor->ae].linb[i+13]);
-lb14->value(hor->Rt[hor->ae].linb[i+14]);
-lb15->value(hor->Rt[hor->ae].linb[i+15]);
-lb16->value(hor->Rt[hor->ae].linb[i+16]);
-lbv13->value(hor->Rt[hor->ae].linbv[i+13]);
-lbv14->value(hor->Rt[hor->ae].linbv[i+14]);
-lbv15->value(hor->Rt[hor->ae].linbv[i+15]);
-lbv16->value(hor->Rt[hor->ae].linbv[i+16]);
+lb13->value(hor->Rt[hor->ae].Line_Bass_Note[i+13]);
+lb14->value(hor->Rt[hor->ae].Line_Bass_Note[i+14]);
+lb15->value(hor->Rt[hor->ae].Line_Bass_Note[i+15]);
+lb16->value(hor->Rt[hor->ae].Line_Bass_Note[i+16]);
+lbv13->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+13]);
+lbv14->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+14]);
+lbv15->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+15]);
+lbv16->value(hor->Rt[hor->ae].Line_Bass_Velocity[i+16]);
 }
 
-SBar->value(hor->sbars);
+SBar->value(hor->pattern_bars);
 }
 
 void HORGAN::ApagaTodo() {
@@ -5006,7 +5002,7 @@ Rit20->value(0);
 }
 
 void HORGAN::meteprog() {
-  OMaster->value(hor->omaster * 100.0);
+  OMaster->value(hor->Organ_Master_Volume * 100.0);
 
 
 V1->value(hor->Operator[1].volumen * 100);
@@ -5048,30 +5044,30 @@ NV8->value(hor->lasfreq[hor->Operator[8].harmonic]);
 NV9->value(hor->lasfreq[hor->Operator[9].harmonic]);
 NV10->value(hor->lasfreq[hor->Operator[10].harmonic]);
 
-Mar1->value(hor->Operator[7].mar);
-Mar2->value(hor->Operator[8].mar);
-Mar3->value(hor->Operator[9].mar);
-Mar4->value(hor->Operator[10].mar);
+Mar1->value(hor->Operator[7].marimba);
+Mar2->value(hor->Operator[8].marimba);
+Mar3->value(hor->Operator[9].marimba);
+Mar4->value(hor->Operator[10].marimba);
 
 
 Marimba->value(hor->attack * 100);
 Detune->value(hor->detune);
-PLFOSpeed->value(hor->PLFOspeed);
-PLFODelay->value(hor->PLFOdelay * 10);
-LFOSpeed->value(hor->LFOspeed);
+PLFOSpeed->value(hor->Pitch_LFO_Speed);
+PLFODelay->value(hor->Pitch_LFO_Delay * 10);
+LFOSpeed->value(hor->Rotary_LFO_Speed);
 LFOPitch->value(hor->LFOpitch);
-Rota->value(hor->rota);
+Rota->value(hor->E_Rotary_On);
 MasterT->value(1 - hor->mastertune);
 Transpose->value(hor->transpose);
 calbtrans();
-Nombre->value(hor->nombre);
-CPrograma->value(hor->cprograma);
-EchoVol->value(hor->echovol * 100);
-EchoDelay->value(hor->echodelay / 176400);
-EchoOn->value(hor->echoon);
-Rev->value((int)hor->revon);
+Nombre->value(hor->c_name);
+CPrograma->value(hor->cpreset);
+EchoVol->value(hor->Delay_Volume * 100);
+EchoDelay->value(hor->Delay_Delay / 176400);
+EchoOn->value(hor->E_Delay_On);
+Rev->value((int)hor->E_Reverb_On);
 
-if ((int)hor->revon == 1)
+if ((int)hor->E_Reverb_On == 1)
 {
 
 R1->activate();
@@ -5082,7 +5078,7 @@ R5->activate();
 R6->activate();
 R7->activate();
 R8->activate();
-switch((int) hor->ganmod)
+switch((int) hor->Reverb_Preset)
 {
 case 1:
 R1->setonly();
@@ -5131,13 +5127,13 @@ R8->deactivate();
 }
 ponreverb();
 Split->value(hor->split);
-ChorusOn->value(hor->choron);
-ELFOAmplitude->value(hor->ELFOamplitude);
-POPO->value(hor->popo);
-ELFOSpeed->value(hor->ELFOspeed);
-ChorVol->value(hor->chorvol * 100);
+ChorusOn->value(hor->E_Chorus_On);
+ELFOAmplitude->value(hor->Chorus_LFO_Amplitude);
+POPO->value(hor->Chorus_Delay);
+ELFOSpeed->value(hor->Chorus_LFO_Speed);
+ChorVol->value(hor->Chorus_Volume * 100);
 
-hor->procesaclean();
+hor->delayclean();
 hor->chorusclean();
-hor->rclean();
+hor->reverbclean();
 }

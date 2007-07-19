@@ -24,10 +24,11 @@
 
 #include "Holrgan.h"
 
+// Identify Chords
+
 
 void 
-
-HOR::MiraChord()
+HOR::Get_Chord()
 {
 int i,j;
 int anote[POLY];
@@ -37,7 +38,7 @@ int posi = 0;
 int baja,ubaja;
 int pafuera=0;
 int busca=0;
-int di1,di2,di3,di4;
+int dist1,dist2,dist3,dist4;
 char AName[16];
 
 
@@ -78,8 +79,8 @@ while(posi<nnotes)
 if (nnotes == 3)
    {
 
-	di1=onote[1] - onote[0];
-	di2=onote[2] - onote[1];
+	dist1=onote[1] - onote[0];
+	dist2=onote[2] - onote[1];
 
 	j =0;
 
@@ -87,11 +88,11 @@ if (nnotes == 3)
 
 	{
 	j++;
-	if ((Chord3[j].di1 == di1) && (Chord3[j].di2 == di2))
+	if ((Chord3[j].dist1 == dist1) && (Chord3[j].dist2 == dist2))
 		{ 
     			busca = 1;
     			chord = j;
-                        ctipo = Chord3[j].tipo;
+                        chord_type = Chord3[j].type;
                         break;
 		}    
  
@@ -102,13 +103,13 @@ if (nnotes == 3)
 	{
 	
    	        int elke = onote[Chord3[chord].fund-1];
-                fundi = elke % 12;
-		sprintf(AName,"%s%s",NC[fundi].Nom,Chord3[chord].Nom);
+                fundamental = elke % 12;
+		sprintf(AName,"%s%s",NC[fundamental].Nom,Chord3[chord].Nom);
                 
-                if (strcmp(AName, NombreAcorde) != 0)
+                if (strcmp(AName, NameChord) != 0)
                 { 
-                strcpy(NombreAcorde,AName);
-                cambialo = 1;
+                strcpy(NameChord,AName);
+                changeNameChord = 1;
 		}
 	}
      return;
@@ -117,20 +118,20 @@ if (nnotes == 3)
 if (nnotes == 4)
    {
 
-        di1=onote[1] - onote[0];
-        di2=onote[2] - onote[1];
-        di3=onote[3] - onote[2];
+        dist1=onote[1] - onote[0];
+        dist2=onote[2] - onote[1];
+        dist3=onote[3] - onote[2];
         j =0;
 
         while(busca==0)
 
         {
         j++;
-        if ((Chord4[j].di1 == di1) && (Chord4[j].di2 == di2) && (Chord4[j].di3 == di3))
+        if ((Chord4[j].dist1 == dist1) && (Chord4[j].dist2 == dist2) && (Chord4[j].dist3 == dist3))
                 {
                         busca = 1;
                         chord = j;
-                        ctipo = Chord4[j].tipo;
+                        chord_type = Chord4[j].type;
                         break;
                 }
 
@@ -140,12 +141,12 @@ if (nnotes == 4)
         if (chord != 0)
         {
                 int elke = onote[Chord4[chord].fund-1];
-                fundi = elke % 12;
-                sprintf(AName,"%s%s",NC[fundi].Nom,Chord4[chord].Nom);
-                if (strcmp(AName, NombreAcorde) != 0)
+                fundamental = elke % 12;
+                sprintf(AName,"%s%s",NC[fundamental].Nom,Chord4[chord].Nom);
+                if (strcmp(AName, NameChord) != 0)
                 {
-                strcpy(NombreAcorde,AName);
-                cambialo = 1;
+                strcpy(NameChord,AName);
+                changeNameChord = 1;
                 }
 
                 
@@ -157,21 +158,21 @@ if (nnotes == 4)
 if (nnotes == 5)
    {
 
-        di1=onote[1] - onote[0];
-        di2=onote[2] - onote[1];
-        di3=onote[3] - onote[2];
-        di4=onote[4] - onote[3];
+        dist1=onote[1] - onote[0];
+        dist2=onote[2] - onote[1];
+        dist3=onote[3] - onote[2];
+        dist4=onote[4] - onote[3];
         j =0;
 
         while(busca==0)
 
         {
         j++;
-        if ((Chord5[j].di1 == di1) && (Chord5[j].di2 == di2) && (Chord5[j].di3 == di3) && (Chord5[j].di4 == di4))
+        if ((Chord5[j].dist1 == dist1) && (Chord5[j].dist2 == dist2) && (Chord5[j].dist3 == dist3) && (Chord5[j].dist4 == dist4))
                 {
                         busca = 1;
                         chord = j;
-                        ctipo = Chord5[j].tipo;
+                        chord_type = Chord5[j].type;
                         break;
                 }
 
@@ -181,12 +182,12 @@ if (nnotes == 5)
         if (chord != 0)
         {
                 int elke = onote[Chord5[chord].fund-1];
-                fundi = elke % 12;
-                sprintf(AName,"%s%s",NC[fundi].Nom,Chord5[chord].Nom);
-                if (strcmp(AName, NombreAcorde) != 0)
+                fundamental = elke % 12;
+                sprintf(AName,"%s%s",NC[fundamental].Nom,Chord5[chord].Nom);
+                if (strcmp(AName, NameChord) != 0)
                 {
-                strcpy(NombreAcorde,AName);
-                cambialo = 1;
+                strcpy(NameChord,AName);
+                changeNameChord = 1;
                 }
 
                 
@@ -199,16 +200,17 @@ if (nnotes == 5)
 
 };
 
+// Init Some Vars
 
 void
-HOR::ponpe ()
+HOR::Put_Period()
 {
   PERIOD2 = PERIOD * 2;
   PERIOD4 = PERIOD * 4;
   PERIOD8 = PERIOD * 8;
 };
 
-
+// Init some Reverb Vars
 
 float
 HOR::fastabs (float f)
@@ -218,6 +220,7 @@ HOR::fastabs (float f)
 
 };
 
+// Return previous calculated Sins
 
 float
 HOR::Fsin (float x)
@@ -228,6 +231,7 @@ HOR::Fsin (float x)
 };
 
 
+// Reset vars to New Preset
 
 void
 HOR::New ()
@@ -239,7 +243,7 @@ HOR::New ()
 
       Operator[i].harmonic_fine = 0.0;
       Operator[i].volumen = 0.0;
-      Operator[i].mar = 0;
+      Operator[i].marimba = 0;
 
     }
 
@@ -257,33 +261,35 @@ HOR::New ()
 
   attack = 0.02;
   decay = 0.00;
-  echoon = 0;
-  echodelay = 0;
-  echovol = 0;
-  PLFOspeed = 0;
-  PLFOdelay = 0;
-  LFOspeed = 0;
+  E_Delay_On = 0;
+  Delay_Delay = 0;
+  Delay_Volume = 0;
+  Pitch_LFO_Speed = 0;
+  Pitch_LFO_Delay = 0;
+  Rotary_LFO_Speed = 0;
   LFOpitch = 0;
   modulation = 10;
   transpose = 0;
-  rota = 0;
+  E_Rotary_On = 0;
   pitch = 0;
   pedal = 0;
-  master = 0.70;
-  omaster = 0.70;
+  Master_Volume = 0.70;
+  Organ_Master_Volume = 0.70;
   detune = 0;
   split = 0;
-  chorvol = 0.60;
-  choron = 0;
-  ELFOspeed = 0;
-  ELFOamplitude = 0;
-  popo = 0;
-  ganmod = 1;
-  revon = 0;
+  Chorus_Volume = 0.60;
+  E_Chorus_On = 0;
+  Chorus_LFO_Speed = 0;
+  Chorus_LFO_Amplitude = 0;
+  Chorus_Delay = 0;
+  Reverb_Preset = 1;
+  E_Reverb_On=0;
   bzero (Name, sizeof (Name));
-  nombre = Name;
+  c_name = Name;
 }
 
+
+// Puts Undo
 
 void
 HOR::MUndo()
@@ -299,37 +305,39 @@ for (k=1; k<=10; k++)
 Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
 Operator[k].harmonic_fine=Undo[UndoCount].Operator[k].harmonic_fine;
 Operator[k].harmonic =Undo[UndoCount].Operator[k].harmonic;
-Operator[k].mar=Undo[UndoCount].Operator[k].mar;
+Operator[k].marimba=Undo[UndoCount].Operator[k].marimba;
 }
 
-echoon = Undo[UndoCount].echoon;
-echovol = Undo[UndoCount].echovol;
-echodelay = Undo[UndoCount].echodelay;
-PLFOspeed = Undo[UndoCount].PLFOspeed;
-PLFOdelay = Undo[UndoCount].PLFOdelay;
-LFOspeed = Undo[UndoCount].LFOspeed;
+E_Delay_On = Undo[UndoCount].E_Delay_On;
+Delay_Volume = Undo[UndoCount].Delay_Volume;
+Delay_Delay = Undo[UndoCount].Delay_Delay;
+Pitch_LFO_Speed = Undo[UndoCount].Pitch_LFO_Speed;
+Pitch_LFO_Delay = Undo[UndoCount].Pitch_LFO_Delay;
+Rotary_LFO_Speed = Undo[UndoCount].Rotary_LFO_Speed;
 LFOpitch = Undo[UndoCount].LFOpitch;
-rota = Undo[UndoCount].rota;
+E_Rotary_On = Undo[UndoCount].E_Rotary_On;
 modulation = Undo[UndoCount].modulation;
 transpose = Undo[UndoCount].transpose;
-omaster = Undo[UndoCount].omaster;
+Organ_Master_Volume = Undo[UndoCount].Organ_Master_Volume;
 
 for (k=0; k<=24; k++) Name[k]=Undo[UndoCount].Name[k];
-nombre = Name;
+c_name = Name;
 
-revon=Undo[UndoCount].revon;
+E_Reverb_On=Undo[UndoCount].E_Reverb_On;
 attack= Undo[UndoCount].attack;
 detune = Undo[UndoCount].detune;
 split=Undo[UndoCount].split;
-ganmod=Undo[UndoCount].ganmod;
-choron=Undo[UndoCount].choron;
-ELFOamplitude=Undo[UndoCount].ELFOamplitude;
-popo=Undo[UndoCount].popo;
-ELFOspeed=Undo[UndoCount].ELFOspeed;
-chorvol=Undo[UndoCount].chorvol;
+Reverb_Preset=Undo[UndoCount].Reverb_Preset;
+E_Chorus_On=Undo[UndoCount].E_Chorus_On;
+Chorus_LFO_Amplitude=Undo[UndoCount].Chorus_LFO_Amplitude;
+Chorus_Delay=Undo[UndoCount].Chorus_Delay;
+Chorus_LFO_Speed=Undo[UndoCount].Chorus_LFO_Speed;
+Chorus_Volume=Undo[UndoCount].Chorus_Volume;
 
 };
 
+
+//Puts Redo
 
 void
 HOR::MRedo()
@@ -346,42 +354,44 @@ for (k=1; k<=10; k++)
 Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
 Operator[k].harmonic_fine=Undo[UndoCount].Operator[k].harmonic_fine;
 Operator[k].harmonic =Undo[UndoCount].Operator[k].harmonic;
-Operator[k].mar=Undo[UndoCount].Operator[k].mar;
+Operator[k].marimba=Undo[UndoCount].Operator[k].marimba;
 }
 
 
 
-echoon = Undo[UndoCount].echoon;
-echovol = Undo[UndoCount].echovol;
-echodelay = Undo[UndoCount].echodelay;
+E_Delay_On = Undo[UndoCount].E_Delay_On;
+Delay_Volume = Undo[UndoCount].Delay_Volume;
+Delay_Delay = Undo[UndoCount].Delay_Delay;
 
 
-PLFOspeed = Undo[UndoCount].PLFOspeed;
-PLFOdelay = Undo[UndoCount].PLFOdelay;
-LFOspeed = Undo[UndoCount].LFOspeed;
+Pitch_LFO_Speed = Undo[UndoCount].Pitch_LFO_Speed;
+Pitch_LFO_Delay = Undo[UndoCount].Pitch_LFO_Delay;
+Rotary_LFO_Speed = Undo[UndoCount].Rotary_LFO_Speed;
 LFOpitch = Undo[UndoCount].LFOpitch;
-rota = Undo[UndoCount].rota;
+E_Rotary_On = Undo[UndoCount].E_Rotary_On;
 modulation = Undo[UndoCount].modulation;
 transpose = Undo[UndoCount].transpose;
-omaster = Undo[UndoCount].omaster;
+Organ_Master_Volume = Undo[UndoCount].Organ_Master_Volume;
 
 for (k=0; k<=24; k++) Name[k]=Undo[UndoCount].Name[k];
-nombre = Name;
+c_name = Name;
 
 attack = Undo[UndoCount].attack;
 detune = Undo[UndoCount].detune;
 
-revon=Undo[UndoCount].revon;
+E_Reverb_On=Undo[UndoCount].E_Reverb_On;
 split=Undo[UndoCount].split;
-ganmod=Undo[UndoCount].ganmod;
-choron=Undo[UndoCount].choron;
-ELFOamplitude=Undo[UndoCount].ELFOamplitude;
-popo=Undo[UndoCount].popo;
-ELFOspeed=Undo[UndoCount].ELFOspeed;
-chorvol=Undo[UndoCount].chorvol;
+Reverb_Preset=Undo[UndoCount].Reverb_Preset;
+E_Chorus_On=Undo[UndoCount].E_Chorus_On;
+Chorus_LFO_Amplitude=Undo[UndoCount].Chorus_LFO_Amplitude;
+Chorus_Delay=Undo[UndoCount].Chorus_Delay;
+Chorus_LFO_Speed=Undo[UndoCount].Chorus_LFO_Speed;
+Chorus_Volume=Undo[UndoCount].Chorus_Volume;
 
 };
 
+
+// Refresh Undo/Redo Buffer when something is edited
 
 void
 HOR::MActu()
@@ -397,38 +407,40 @@ for (k=1; k<=10; k++)
 Undo[UndoCount].Operator[k].volumen=Operator[k].volumen;
 Undo[UndoCount].Operator[k].harmonic_fine=Operator[k].harmonic_fine;
 Undo[UndoCount].Operator[k].harmonic=Operator[k].harmonic;
-Undo[UndoCount].Operator[k].mar=Operator[k].mar;
+Undo[UndoCount].Operator[k].marimba=Operator[k].marimba;
 }
 
 
-Undo[UndoCount].echoon=echoon;
-Undo[UndoCount].echovol=echovol;
-Undo[UndoCount].echodelay=echodelay;
-Undo[UndoCount].PLFOspeed=PLFOspeed;
-Undo[UndoCount].PLFOdelay=PLFOdelay;
-Undo[UndoCount].LFOspeed=LFOspeed;
+Undo[UndoCount].E_Delay_On=E_Delay_On;
+Undo[UndoCount].Delay_Volume=Delay_Volume;
+Undo[UndoCount].Delay_Delay=Delay_Delay;
+Undo[UndoCount].Pitch_LFO_Speed=Pitch_LFO_Speed;
+Undo[UndoCount].Pitch_LFO_Delay=Pitch_LFO_Delay;
+Undo[UndoCount].Rotary_LFO_Speed=Rotary_LFO_Speed;
 Undo[UndoCount].LFOpitch=LFOpitch;
-Undo[UndoCount].rota=rota;
+Undo[UndoCount].E_Rotary_On=E_Rotary_On;
 Undo[UndoCount].modulation=modulation;
 Undo[UndoCount].transpose=transpose;
-Undo[UndoCount].omaster=omaster;
+Undo[UndoCount].Organ_Master_Volume=Organ_Master_Volume;
 
 for (k=0; k<=24; k++) Undo[UndoCount].Name[k]=Name[k];
-nombre = Name;
+c_name = Name;
 Undo[UndoCount].attack=attack;
 Undo[UndoCount].detune=detune;
-Undo[UndoCount].revon=revon;
+Undo[UndoCount].E_Reverb_On=E_Reverb_On;
 Undo[UndoCount].split=split;
-Undo[UndoCount].ganmod =ganmod;
-Undo[UndoCount].choron=choron;
-Undo[UndoCount].ELFOamplitude=ELFOamplitude;
-Undo[UndoCount].popo=popo;
-Undo[UndoCount].ELFOspeed=ELFOspeed;
-Undo[UndoCount].chorvol=chorvol;
+Undo[UndoCount].Reverb_Preset =Reverb_Preset;
+Undo[UndoCount].E_Chorus_On=E_Chorus_On;
+Undo[UndoCount].Chorus_LFO_Amplitude=Chorus_LFO_Amplitude;
+Undo[UndoCount].Chorus_Delay=Chorus_Delay;
+Undo[UndoCount].Chorus_LFO_Speed=Chorus_LFO_Speed;
+Undo[UndoCount].Chorus_Volume=Chorus_Volume;
 
 
 };
 
+
+// Put Undo/Redo buffers on Loaded Preset State for Compare 
 
 void
 HOR::PutPrim()
@@ -440,39 +452,42 @@ for (k=1; k<=10; k++)
 Prim[1].Operator[k].volumen=Operator[k].volumen;
 Prim[1].Operator[k].harmonic_fine=Operator[k].harmonic_fine;
 Prim[1].Operator[k].harmonic=Operator[k].harmonic;
-Prim[1].Operator[k].mar=Operator[k].mar;
+Prim[1].Operator[k].marimba=Operator[k].marimba;
 }
 
 
 
-Prim[1].echoon=echoon;
-Prim[1].echovol=echovol;
-Prim[1].echodelay=echodelay;
+Prim[1].E_Delay_On=E_Delay_On;
+Prim[1].Delay_Volume=Delay_Volume;
+Prim[1].Delay_Delay=Delay_Delay;
 
-Prim[1].PLFOspeed=PLFOspeed;
-Prim[1].PLFOdelay=PLFOdelay;
-Prim[1].LFOspeed=LFOspeed;
+Prim[1].Pitch_LFO_Speed=Pitch_LFO_Speed;
+Prim[1].Pitch_LFO_Delay=Pitch_LFO_Delay;
+Prim[1].Rotary_LFO_Speed=Rotary_LFO_Speed;
 Prim[1].LFOpitch=LFOpitch;
-Prim[1].rota=rota;
+Prim[1].E_Rotary_On=E_Rotary_On;
 Prim[1].modulation=modulation;
 Prim[1].transpose=transpose;
-Prim[1].omaster=omaster;
+Prim[1].Organ_Master_Volume=Organ_Master_Volume;
 
 for (k=0; k<=24; k++) Prim[1].Name[k]=Name[k];
 
 Prim[1].attack=attack;
 Prim[1].detune=detune;
-Prim[1].revon=revon;
+Prim[1].E_Reverb_On=E_Reverb_On;
 
 Prim[1].split=split;
-Prim[1].ganmod =ganmod;
-Prim[1].choron=choron;
-Prim[1].ELFOamplitude=ELFOamplitude;
-Prim[1].popo=popo;
-Prim[1].ELFOspeed=ELFOspeed;
-Prim[1].chorvol=chorvol;
+Prim[1].Reverb_Preset =Reverb_Preset;
+Prim[1].E_Chorus_On=E_Chorus_On;
+Prim[1].Chorus_LFO_Amplitude=Chorus_LFO_Amplitude;
+Prim[1].Chorus_Delay=Chorus_Delay;
+Prim[1].Chorus_LFO_Speed=Chorus_LFO_Speed;
+Prim[1].Chorus_Volume=Chorus_Volume;
 
 };
+
+
+// Put the Loaded Preset for Compare
 
 
 void
@@ -485,36 +500,36 @@ for (k=1; k<=10; k++)
 Operator[k].volumen =Prim[1].Operator[k].volumen;
 Operator[k].harmonic_fine =Prim[1].Operator[k].harmonic_fine;
 Operator[k].harmonic =Prim[1].Operator[k].harmonic;
-Operator[k].mar = Prim[1].Operator[k].mar;
+Operator[k].marimba = Prim[1].Operator[k].marimba;
 }
 
 
 
 
-echoon = Prim[1].echoon;
-echovol = Prim[1].echovol;
-echodelay = Prim[1].echodelay;
-PLFOspeed = Prim[1].PLFOspeed;
-PLFOdelay = Prim[1].PLFOdelay;
-LFOspeed = Prim[1].LFOspeed;
+E_Delay_On = Prim[1].E_Delay_On;
+Delay_Volume = Prim[1].Delay_Volume;
+Delay_Delay = Prim[1].Delay_Delay;
+Pitch_LFO_Speed = Prim[1].Pitch_LFO_Speed;
+Pitch_LFO_Delay = Prim[1].Pitch_LFO_Delay;
+Rotary_LFO_Speed = Prim[1].Rotary_LFO_Speed;
 LFOpitch = Prim[1].LFOpitch;
-rota = Prim[1].rota;
+E_Rotary_On = Prim[1].E_Rotary_On;
 modulation = Prim[1].modulation;
 transpose = Prim[1].transpose;
-omaster = Prim[1].omaster;
+Organ_Master_Volume = Prim[1].Organ_Master_Volume;
 bzero(Name,sizeof(Name));
 for (k=0; k<=24; k++) Name[k]=Prim[1].Name[k];
-nombre = Name;
+c_name = Name;
 attack = Prim[1].attack;
 detune = Prim[1].detune;
-revon = Prim[1].revon;
+E_Reverb_On = Prim[1].E_Reverb_On;
 split=Prim[1].split;
-ganmod=Prim[1].ganmod;
-choron=Prim[1].choron;
-ELFOamplitude=Prim[1].ELFOamplitude;
-popo=Prim[1].popo;
-ELFOspeed=Prim[1].ELFOspeed;
-chorvol=Prim[1].chorvol;
+Reverb_Preset=Prim[1].Reverb_Preset;
+E_Chorus_On=Prim[1].E_Chorus_On;
+Chorus_LFO_Amplitude=Prim[1].Chorus_LFO_Amplitude;
+Chorus_Delay=Prim[1].Chorus_Delay;
+Chorus_LFO_Speed=Prim[1].Chorus_LFO_Speed;
+Chorus_Volume=Prim[1].Chorus_Volume;
 
 
 };

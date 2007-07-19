@@ -32,31 +32,33 @@
 
 
 pthread_mutex_t mutex;
-int l1, i, j, k, Pexitprogram, vum, vumvum, espera,
-UndoCount,programa,vavi,pr,pr1,tum,cambialo;
-char NombreAcorde[16];
-int solucion,Rit,commandline;
+int l1, i, j, k, Pexitprogram, MidiInLevel, LastMidiInLevel, waitforGUI,
+UndoCount,preset,Signal_for_Cb_Sliders,BarLead,changeNameChord;
+char NameChord[16];
+int prefix_trick,Selected_Rhythm,commandline;
 const char *FilePreset;
 
 
 HOR::HOR ()
 {
 
-  //inicio de variables
-
-  Rit = 0;
-  espera = 0;
+  //Init de vars
+  
+  Selected_Rhythm = 0;
+  waitforGUI = 0;
   perhis = 0;
   rperhis = 0;
   hrperhis = 260000;
   eperhis = 0;
   capsg=0;
-  master = 0.70;
-  omaster = 0.70;
-  sbars = 1;
+  Master_Volume = 0.70;
+  Organ_Master_Volume = 0.70;
+  pattern_bars = 1;
   ae = 1;
-  fe = 0;  
-  cprograma=1;
+  file_ok = 0;  
+  cpreset=1;
+
+// FM Operator frequencys
 
   lasfreq[1] = 0.5;
   lasfreq[2] = 0.75;
@@ -83,11 +85,13 @@ HOR::HOR ()
 
 
 
+// Init FM Operators 
+
   for (i = 1; i <= 10; i++)
     {
       Operator[i].harmonic_fine = 0.0;
       Operator[i].volumen = 0.0;
-      Operator[i].mar = 0;
+      Operator[i].marimba = 0;
     }
 
   Operator[1].harmonic = 1;
@@ -102,48 +106,50 @@ HOR::HOR ()
   Operator[10].harmonic = 22;
   
 
-  solucion = 0;
+  prefix_trick = 0;
   mastertune = 1;
   attack = 0.02;
   decay = 0.00;
   sustain = 0.99;
-  release = 2.74;
-  echoon = 0;
-  echodelay = 0;
-  echovol = 0;
-  LFOspeed = 0;
-  PLFOspeed = 0;
-  PLFOdelay = 0;
+  release = 1.04;
+  E_Delay_On = 0;
+  Delay_Delay = 0;
+  Delay_Volume = 0;
+  Rotary_LFO_Speed = 0;
+  Pitch_LFO_Speed = 0;
+  Pitch_LFO_Delay = 0;
   LFOpitch = 0;
-  LFOamplitude = 99;
+  Rotary_LFO_Amplitude = 99;
   modulation = 10;
   transpose = 0;
   pitch = 0;
   pedal = 0;
   UndoCount = 0;
   freq_note = 0;
-  lado = 0;
-  hacia = 0;
+  Stereo_Side = 0;
+  To_Stereo_Side = 0;
   partial = 0;
   sound = 0;
-  xx = 0;
-  xel = 0.0;
-  xer = 0.25;
-  ELFOspeed = 0;
-  chorvol = 0.60;
+  Rotary_X = 0;
+  Chorus_X_L = 0.0;
+  Chorus_X_L = 0.25;
+  Chorus_LFO_Speed = 0;
+  Chorus_Volume = 0.60;
   split = 0;
-  ganmod = 1;
-  revon = 0;
-  rtime = 1.0;
-  diffussion = 0.1;
-  revvol = 0.20;
+  Reverb_Preset = 1;
+  E_Reverb_On = 0;
+  Reverb_Time = 1.0;
+  Reverb_Diffussion = 0.1;
+  Reverb_Volume = 0.20;
   tempo = 2;
-  ritvol = 0.5;
-  bassvol = 0.5;
+  Rhythm_Volume = 0.5;
+  Bass_Volume = 0.5;
   basspending = 0;
   lpos = 100;
-  afina = 2.0;
-  cambialo = 0;
+  length_bass_note = 2.0;
+  changeNameChord = 0;
+
+// Init Reverb Taps 
 
 int tcombl[16]= {10586, 12340, 6400, 13100, 8004, 7200,5130,9037,12045,11237,9456,7634,5389, 8056,10120,11432};
 int tcombr[16]= {10586, 11340, 8450, 11100, 9644, 7560,9536,11507,12600,11111,8056,6048,7690,5978,8845,10056};
@@ -161,6 +167,8 @@ for (i=0; i<16; i++)
 }
 
 
+// Init Chord Names
+
 
 strcpy(NC[0].Nom,"C");
 strcpy(NC[1].Nom,"Db");
@@ -176,559 +184,563 @@ strcpy(NC[10].Nom,"Bb");
 strcpy(NC[11].Nom,"B");
 
 
-AB[0].afin = 2.0;
-AB[1].afin = 2.119;
-AB[2].afin = 2.245;
-AB[3].afin = 2.3785;
-AB[4].afin = 2.519877;
-AB[5].afin = 2.669724;
-AB[6].afin = 2.828746;
-AB[7].afin = 1.49847;
-AB[8].afin = 1.587767;
-AB[9].afin = 1.681957;
-AB[10].afin = 1.782262;
-AB[11].afin = 1.888073;
+//Init bass offsets to tune sample notes
+
+AB[0].tune = 2.0;
+AB[1].tune = 2.119;
+AB[2].tune = 2.245;
+AB[3].tune = 2.3785;
+AB[4].tune = 2.519877;
+AB[5].tune = 2.669724;
+AB[6].tune = 2.828746;
+AB[7].tune = 1.49847;
+AB[8].tune = 1.587767;
+AB[9].tune = 1.681957;
+AB[10].tune = 1.782262;
+AB[11].tune = 1.888073;
 
 
 
-// Inicia TipoChords
+// Init Chord Types
 
 
 
 //Maj7
 
-TCh[1].ter = 0;
-TCh[1].qui = 0;
-TCh[1].sep = 0;
+TCh[1].third = 0;
+TCh[1].five_th = 0;
+TCh[1].seven_th = 0;
 
 //7
 
-TCh[2].ter = 0;
-TCh[2].qui = 0;
-TCh[2].sep = -1;
+TCh[2].third = 0;
+TCh[2].five_th = 0;
+TCh[2].seven_th = -1;
 
 //-7
 
-TCh[3].ter = -1;
-TCh[3].qui = 0;
-TCh[3].sep = -1;
+TCh[3].third = -1;
+TCh[3].five_th = 0;
+TCh[3].seven_th = -1;
 
 //-7(b5)
 
-TCh[4].ter = -1;
-TCh[4].qui = -1;
-TCh[4].sep = -1;
+TCh[4].third = -1;
+TCh[4].five_th = -1;
+TCh[4].seven_th = -1;
 
 //dis
 
-TCh[5].ter = -1;
-TCh[5].qui = -1;
-TCh[5].sep = -2;
+TCh[5].third = -1;
+TCh[5].five_th = -1;
+TCh[5].seven_th = -2;
 
 //aug7
 
-TCh[6].ter = 0;
-TCh[6].qui = +1;
-TCh[6].sep = -1;
+TCh[6].third = 0;
+TCh[6].five_th = +1;
+TCh[6].seven_th = -1;
 
 
 //7Sus4
 
-TCh[7].ter = +1;
-TCh[7].qui = 0;
-TCh[7].sep = -1;
+TCh[7].third = +1;
+TCh[7].five_th = 0;
+TCh[7].seven_th = -1;
 
 
 
-// Inicia Chords
+// Init Chords (Distances between notes, type, Names)
 
-Chord3[1].tipo = 1;
+// 3 Notes Chords
+
+Chord3[1].type = 1;
 Chord3[1].fund = 1;
-Chord3[1].di1  = 4;
-Chord3[1].di2  = 3;
+Chord3[1].dist1  = 4;
+Chord3[1].dist2  = 3;
 strcpy(Chord3[1].Nom,"");
 
-Chord3[2].tipo = 1;
+Chord3[2].type = 1;
 Chord3[2].fund = 3;
-Chord3[2].di1  = 3;
-Chord3[2].di2  = 5;
+Chord3[2].dist1  = 3;
+Chord3[2].dist2  = 5;
 strcpy(Chord3[2].Nom,"");
 
-Chord3[3].tipo = 1;
+Chord3[3].type = 1;
 Chord3[3].fund = 2;
-Chord3[3].di1  = 5;
-Chord3[3].di2  = 4;
+Chord3[3].dist1  = 5;
+Chord3[3].dist2  = 4;
 strcpy(Chord3[3].Nom,"");
 
-Chord3[4].tipo = 3;
+Chord3[4].type = 3;
 Chord3[4].fund = 1;
-Chord3[4].di1  = 3;
-Chord3[4].di2  = 4;
+Chord3[4].dist1  = 3;
+Chord3[4].dist2  = 4;
 strcpy(Chord3[4].Nom,"m");
 
-Chord3[5].tipo = 3;
+Chord3[5].type = 3;
 Chord3[5].fund = 3;
-Chord3[5].di1  = 4;
-Chord3[5].di2  = 5;
+Chord3[5].dist1  = 4;
+Chord3[5].dist2  = 5;
 strcpy(Chord3[5].Nom,"m");
 
-Chord3[6].tipo = 3;
+Chord3[6].type = 3;
 Chord3[6].fund = 2;
-Chord3[6].di1  = 5;
-Chord3[6].di2  = 3;
+Chord3[6].dist1  = 5;
+Chord3[6].dist2  = 3;
 strcpy(Chord3[6].Nom,"m");
 
-Chord3[7].tipo = 5;
+Chord3[7].type = 5;
 Chord3[7].fund = 1;
-Chord3[7].di1  = 3;
-Chord3[7].di2  = 3;
+Chord3[7].dist1  = 3;
+Chord3[7].dist2  = 3;
 strcpy(Chord3[7].Nom,"°");
 
-Chord3[8].tipo = 6;
+Chord3[8].type = 6;
 Chord3[8].fund = 1;
-Chord3[8].di1  = 4;
-Chord3[8].di2  = 4;
+Chord3[8].dist1  = 4;
+Chord3[8].dist2  = 4;
 strcpy(Chord3[8].Nom,"+");
 
-Chord3[9].tipo = 1;
+Chord3[9].type = 1;
 Chord3[9].fund = 1;
-Chord3[9].di1  = 2;
-Chord3[9].di2  = 5;
+Chord3[9].dist1  = 2;
+Chord3[9].dist2  = 5;
 strcpy(Chord3[9].Nom,"2");
 
-Chord3[10].tipo = 1;
+Chord3[10].type = 1;
 Chord3[10].fund = 3;
-Chord3[10].di1  = 3;
-Chord3[10].di2  = 2;
+Chord3[10].dist1  = 3;
+Chord3[10].dist2  = 2;
 strcpy(Chord3[10].Nom,"");
 
-Chord3[11].tipo = 4;
+Chord3[11].type = 4;
 Chord3[11].fund = 2;
-Chord3[11].di1  = 6;
-Chord3[11].di2  = 3;
+Chord3[11].dist1  = 6;
+Chord3[11].dist2  = 3;
 strcpy(Chord3[11].Nom,"m(b5)");
 
 
-Chord3[12].tipo = 2;
+Chord3[12].type = 2;
 Chord3[12].fund = 1;
-Chord3[12].di1  = 4;
-Chord3[12].di2  = 6;
+Chord3[12].dist1  = 4;
+Chord3[12].dist2  = 6;
 strcpy(Chord3[12].Nom,"7");
 
-Chord3[13].tipo = 3;
+Chord3[13].type = 3;
 Chord3[13].fund = 1;
-Chord3[13].di1  = 3;
-Chord3[13].di2  = 7;
+Chord3[13].dist1  = 3;
+Chord3[13].dist2  = 7;
 strcpy(Chord3[13].Nom,"m7");
 
-Chord3[14].tipo = 3;
+Chord3[14].type = 3;
 Chord3[14].fund = 1;
-Chord3[14].di1  = 3;
-Chord3[14].di2  = 6;
+Chord3[14].dist1  = 3;
+Chord3[14].dist2  = 6;
 strcpy(Chord3[14].Nom,"m6");
 
 
 
-// Chords4
+// 4 Notes Chords
 
-Chord4[1].tipo = 1;
+Chord4[1].type = 1;
 Chord4[1].fund = 1;
-Chord4[1].di1  = 4;
-Chord4[1].di2  = 3;
-Chord4[1].di3  = 4;
+Chord4[1].dist1  = 4;
+Chord4[1].dist2  = 3;
+Chord4[1].dist3  = 4;
 strcpy(Chord4[1].Nom,"Maj7");
 
-Chord4[2].tipo = 3;
+Chord4[2].type = 3;
 Chord4[2].fund = 1;
-Chord4[2].di1  = 3;
-Chord4[2].di2  = 4;
-Chord4[2].di3  = 3;
+Chord4[2].dist1  = 3;
+Chord4[2].dist2  = 4;
+Chord4[2].dist3  = 3;
 strcpy(Chord4[2].Nom,"m7");
 
-Chord4[3].tipo = 2;
+Chord4[3].type = 2;
 Chord4[3].fund = 1;
-Chord4[3].di1  = 4;
-Chord4[3].di2  = 3;
-Chord4[3].di3  = 3;
+Chord4[3].dist1  = 4;
+Chord4[3].dist2  = 3;
+Chord4[3].dist3  = 3;
 strcpy(Chord4[3].Nom,"7");
 
-Chord4[4].tipo = 4;
+Chord4[4].type = 4;
 Chord4[4].fund = 1;
-Chord4[4].di1  = 3;
-Chord4[4].di2  = 3;
-Chord4[4].di3  = 4;
+Chord4[4].dist1  = 3;
+Chord4[4].dist2  = 3;
+Chord4[4].dist3  = 4;
 strcpy(Chord4[4].Nom,"m7(b5)");
 
-Chord4[5].tipo = 5;
+Chord4[5].type = 5;
 Chord4[5].fund = 1;
-Chord4[5].di1  = 3;
-Chord4[5].di2  = 3;
-Chord4[5].di3  = 3;
+Chord4[5].dist1  = 3;
+Chord4[5].dist2  = 3;
+Chord4[5].dist3  = 3;
 strcpy(Chord4[5].Nom,"°7");
 
-Chord4[6].tipo = 6;
+Chord4[6].type = 6;
 Chord4[6].fund = 1;
-Chord4[6].di1  = 4;
-Chord4[6].di2  = 4;
-Chord4[6].di3  = 2;
+Chord4[6].dist1  = 4;
+Chord4[6].dist2  = 4;
+Chord4[6].dist3  = 2;
 strcpy(Chord4[6].Nom,"+7");
 
-Chord4[7].tipo = 1;
+Chord4[7].type = 1;
 Chord4[7].fund = 1;
-Chord4[7].di1  = 4;
-Chord4[7].di2  = 3;
-Chord4[7].di3  = 5;
+Chord4[7].dist1  = 4;
+Chord4[7].dist2  = 3;
+Chord4[7].dist3  = 5;
 strcpy(Chord4[7].Nom,"");
 
-Chord4[8].tipo = 1;
+Chord4[8].type = 1;
 Chord4[8].fund = 1;
-Chord4[8].di1  = 4;
-Chord4[8].di2  = 3;
-Chord4[8].di3  = 2;
+Chord4[8].dist1  = 4;
+Chord4[8].dist2  = 3;
+Chord4[8].dist3  = 2;
 strcpy(Chord4[8].Nom,"6");
 
-Chord4[9].tipo = 7;
+Chord4[9].type = 7;
 Chord4[9].fund = 1;
-Chord4[9].di1  = 5;
-Chord4[9].di2  = 2;
-Chord4[9].di3  = 3;
+Chord4[9].dist1  = 5;
+Chord4[9].dist2  = 2;
+Chord4[9].dist3  = 3;
 strcpy(Chord4[9].Nom,"7(Sus4)");
 
-Chord4[10].tipo = 3;
+Chord4[10].type = 3;
 Chord4[10].fund = 1;
-Chord4[10].di1  = 3;
-Chord4[10].di2  = 4;
-Chord4[10].di3  = 4;
+Chord4[10].dist1  = 3;
+Chord4[10].dist2  = 4;
+Chord4[10].dist3  = 4;
 strcpy(Chord4[10].Nom,"m(Maj7)");
 
-Chord4[11].tipo = 3;
+Chord4[11].type = 3;
 Chord4[11].fund = 1;
-Chord4[11].di1  = 3;
-Chord4[11].di2  = 4;
-Chord4[11].di3  = 2;
+Chord4[11].dist1  = 3;
+Chord4[11].dist2  = 4;
+Chord4[11].dist3  = 2;
 strcpy(Chord4[11].Nom,"m6");
 
-Chord4[12].tipo = 6;
+Chord4[12].type = 6;
 Chord4[12].fund = 1;
-Chord4[12].di1  = 4;
-Chord4[12].di2  = 4;
-Chord4[12].di3  = 4;
+Chord4[12].dist1  = 4;
+Chord4[12].dist2  = 4;
+Chord4[12].dist3  = 4;
 strcpy(Chord4[12].Nom,"+(Maj7)");
 
-Chord4[13].tipo = 1;
+Chord4[13].type = 1;
 Chord4[13].fund = 1;
-Chord4[13].di1  = 2;
-Chord4[13].di2  = 4;
-Chord4[13].di3  = 3;
+Chord4[13].dist1  = 2;
+Chord4[13].dist2  = 4;
+Chord4[13].dist3  = 3;
 strcpy(Chord4[13].Nom,"lyd");
 
-Chord4[14].tipo = 1;
+Chord4[14].type = 1;
 Chord4[14].fund = 4;
-Chord4[14].di1  = 3;
-Chord4[14].di2  = 4;
-Chord4[14].di3  = 1;
+Chord4[14].dist1  = 3;
+Chord4[14].dist2  = 4;
+Chord4[14].dist3  = 1;
 strcpy(Chord4[14].Nom,"Maj7");
 
-Chord4[15].tipo = 1;
+Chord4[15].type = 1;
 Chord4[15].fund = 4;
-Chord4[15].di1  = 3;
-Chord4[15].di2  = 3;
-Chord4[15].di3  = 2;
+Chord4[15].dist1  = 3;
+Chord4[15].dist2  = 3;
+Chord4[15].dist3  = 2;
 strcpy(Chord4[15].Nom,"7");
 
-Chord4[16].tipo = 6;
+Chord4[16].type = 6;
 Chord4[16].fund = 4;
-Chord4[16].di1  = 4;
-Chord4[16].di2  = 2;
-Chord4[16].di3  = 2;
+Chord4[16].dist1  = 4;
+Chord4[16].dist2  = 2;
+Chord4[16].dist3  = 2;
 strcpy(Chord4[16].Nom,"+7");
 
-Chord4[17].tipo = 1;
+Chord4[17].type = 1;
 Chord4[17].fund = 3;
-Chord4[17].di1  = 3;
-Chord4[17].di2  = 5;
-Chord4[17].di3  = 4;
+Chord4[17].dist1  = 3;
+Chord4[17].dist2  = 5;
+Chord4[17].dist3  = 4;
 strcpy(Chord4[17].Nom,"");
 
-Chord4[18].tipo = 7;
+Chord4[18].type = 7;
 Chord4[18].fund = 4;
-Chord4[18].di1  = 2;
-Chord4[18].di2  = 3;
-Chord4[18].di3  = 2;
+Chord4[18].dist1  = 2;
+Chord4[18].dist2  = 3;
+Chord4[18].dist3  = 2;
 strcpy(Chord4[18].Nom,"7(Sus4)");
 
 
-Chord4[19].tipo = 3;
+Chord4[19].type = 3;
 Chord4[19].fund = 4;
-Chord4[19].di1  = 4;
-Chord4[19].di2  = 4;
-Chord4[19].di3  = 1;
+Chord4[19].dist1  = 4;
+Chord4[19].dist2  = 4;
+Chord4[19].dist3  = 1;
 strcpy(Chord4[19].Nom,"m(Maj7)");
 
-Chord4[20].tipo = 6;
+Chord4[20].type = 6;
 Chord4[20].fund = 4;
-Chord4[20].di1  = 4;
-Chord4[20].di2  = 4;
-Chord4[20].di3  = 1;
+Chord4[20].dist1  = 4;
+Chord4[20].dist2  = 4;
+Chord4[20].dist3  = 1;
 strcpy(Chord4[20].Nom,"+(Maj7)");
 
-Chord4[21].tipo = 1;
+Chord4[21].type = 1;
 Chord4[21].fund = 3;
-Chord4[21].di1  = 4;
-Chord4[21].di2  = 1;
-Chord4[21].di3  = 4;
+Chord4[21].dist1  = 4;
+Chord4[21].dist2  = 1;
+Chord4[21].dist3  = 4;
 strcpy(Chord4[21].Nom,"Maj7");
 
-Chord4[22].tipo = 3;
+Chord4[22].type = 3;
 Chord4[22].fund = 3;
-Chord4[22].di1  = 3;
-Chord4[22].di2  = 2;
-Chord4[22].di3  = 3;
+Chord4[22].dist1  = 3;
+Chord4[22].dist2  = 2;
+Chord4[22].dist3  = 3;
 strcpy(Chord4[22].Nom,"m7");
 
-Chord4[23].tipo = 2;
+Chord4[23].type = 2;
 Chord4[23].fund = 3;
-Chord4[23].di1  = 3;
-Chord4[23].di2  = 2;
-Chord4[23].di3  = 4;
+Chord4[23].dist1  = 3;
+Chord4[23].dist2  = 2;
+Chord4[23].dist3  = 4;
 strcpy(Chord4[23].Nom,"7");
 
-Chord4[24].tipo = 4;
+Chord4[24].type = 4;
 Chord4[24].fund = 3;
-Chord4[24].di1  = 4;
-Chord4[24].di2  = 2;
-Chord4[24].di3  = 3;
+Chord4[24].dist1  = 4;
+Chord4[24].dist2  = 2;
+Chord4[24].dist3  = 3;
 strcpy(Chord4[24].Nom,"m7(b5)");
 
-Chord4[26].tipo = 6;
+Chord4[26].type = 6;
 Chord4[25].fund = 3;
-Chord4[25].di1  = 2;
-Chord4[25].di2  = 2;
-Chord4[25].di3  = 4;
+Chord4[25].dist1  = 2;
+Chord4[25].dist2  = 2;
+Chord4[25].dist3  = 4;
 strcpy(Chord4[25].Nom,"+7");
 
-Chord4[26].tipo = 1;
+Chord4[26].type = 1;
 Chord4[26].fund = 2;
-Chord4[26].di1  = 5;
-Chord4[26].di2  = 4;
-Chord4[26].di3  = 3;
+Chord4[26].dist1  = 5;
+Chord4[26].dist2  = 4;
+Chord4[26].dist3  = 3;
 strcpy(Chord4[26].Nom,"");
 
-Chord4[27].tipo = 7;
+Chord4[27].type = 7;
 Chord4[27].fund = 3;
-Chord4[27].di1  = 3;
-Chord4[27].di2  = 2;
-Chord4[27].di3  = 5;
+Chord4[27].dist1  = 3;
+Chord4[27].dist2  = 2;
+Chord4[27].dist3  = 5;
 strcpy(Chord4[27].Nom,"7(Sus4)");
 
-Chord4[28].tipo = 2;
+Chord4[28].type = 2;
 Chord4[28].fund = 3;
-Chord4[28].di1  = 4;
-Chord4[28].di2  = 2;
-Chord4[28].di3  = 3;
+Chord4[28].dist1  = 4;
+Chord4[28].dist2  = 2;
+Chord4[28].dist3  = 3;
 strcpy(Chord4[28].Nom,"m(Maj7)");
 
-Chord4[29].tipo = 6;
+Chord4[29].type = 6;
 Chord4[29].fund = 3;
-Chord4[29].di1  = 3;
-Chord4[29].di2  = 1;
-Chord4[29].di3  = 4;
+Chord4[29].dist1  = 3;
+Chord4[29].dist2  = 1;
+Chord4[29].dist3  = 4;
 strcpy(Chord4[29].Nom,"+(Maj7)");
 
-Chord4[30].tipo = 1;
+Chord4[30].type = 1;
 Chord4[30].fund = 2;
-Chord4[30].di1  = 1;
-Chord4[30].di2  = 4;
-Chord4[30].di3  = 3;
+Chord4[30].dist1  = 1;
+Chord4[30].dist2  = 4;
+Chord4[30].dist3  = 3;
 strcpy(Chord4[30].Nom,"Maj7");
 
-Chord4[31].tipo = 3;
+Chord4[31].type = 3;
 Chord4[31].fund = 2;
-Chord4[31].di1  = 2;
-Chord4[31].di2  = 3;
-Chord4[31].di3  = 4;
+Chord4[31].dist1  = 2;
+Chord4[31].dist2  = 3;
+Chord4[31].dist3  = 4;
 strcpy(Chord4[31].Nom,"m7");
 
-Chord4[32].tipo = 4;
+Chord4[32].type = 4;
 Chord4[32].fund = 2;
-Chord4[32].di1  = 2;
-Chord4[32].di2  = 3;
-Chord4[32].di3  = 3;
+Chord4[32].dist1  = 2;
+Chord4[32].dist2  = 3;
+Chord4[32].dist3  = 3;
 strcpy(Chord4[32].Nom,"m7(b5)");
 
-Chord4[33].tipo = 6;
+Chord4[33].type = 6;
 Chord4[33].fund = 2;
-Chord4[33].di1  = 2;
-Chord4[33].di2  = 4;
-Chord4[33].di3  = 4;
+Chord4[33].dist1  = 2;
+Chord4[33].dist2  = 4;
+Chord4[33].dist3  = 4;
 strcpy(Chord4[33].Nom,"+7");
 
-Chord4[34].tipo = 2;
+Chord4[34].type = 2;
 Chord4[34].fund = 4;
-Chord4[34].di1  = 6;
-Chord4[34].di2  = 3;
-Chord4[34].di3  = 5;
+Chord4[34].dist1  = 6;
+Chord4[34].dist2  = 3;
+Chord4[34].dist3  = 5;
 strcpy(Chord4[34].Nom,"7");
 
-Chord4[35].tipo = 7;
+Chord4[35].type = 7;
 Chord4[35].fund = 2;
-Chord4[35].di1  = 2;
-Chord4[35].di2  = 5;
-Chord4[35].di3  = 2;
+Chord4[35].dist1  = 2;
+Chord4[35].dist2  = 5;
+Chord4[35].dist3  = 2;
 strcpy(Chord4[35].Nom,"7(Sus4");
 
-Chord4[36].tipo = 3;
+Chord4[36].type = 3;
 Chord4[36].fund = 2;
-Chord4[36].di1  = 1;
-Chord4[36].di2  = 3;
-Chord4[36].di3  = 4;
+Chord4[36].dist1  = 1;
+Chord4[36].dist2  = 3;
+Chord4[36].dist3  = 4;
 strcpy(Chord4[36].Nom,"m(Maj7)");
 
-Chord4[37].tipo = 6;
+Chord4[37].type = 6;
 Chord4[37].fund = 2;
-Chord4[37].di1  = 1;
-Chord4[37].di2  = 4;
-Chord4[37].di3  = 4;
+Chord4[37].dist1  = 1;
+Chord4[37].dist2  = 4;
+Chord4[37].dist3  = 4;
 strcpy(Chord4[37].Nom,"+(Maj7)");
 
-Chord4[38].tipo = 3;
+Chord4[38].type = 3;
 Chord4[38].fund = 1;
-Chord4[38].di1  = 3;
-Chord4[38].di2  = 4;
-Chord4[38].di3  = 5;
+Chord4[38].dist1  = 3;
+Chord4[38].dist2  = 4;
+Chord4[38].dist3  = 5;
 strcpy(Chord4[38].Nom,"m");
 
-Chord4[39].tipo = 3;
+Chord4[39].type = 3;
 Chord4[39].fund = 3;
-Chord4[39].di1  = 4;
-Chord4[39].di2  = 5;
-Chord4[39].di3  = 3;
+Chord4[39].dist1  = 4;
+Chord4[39].dist2  = 5;
+Chord4[39].dist3  = 3;
 strcpy(Chord4[39].Nom,"m");
 
-Chord4[40].tipo = 3;
+Chord4[40].type = 3;
 Chord4[40].fund = 2;
-Chord4[40].di1  = 5;
-Chord4[40].di2  = 3;
-Chord4[40].di3  = 4;
+Chord4[40].dist1  = 5;
+Chord4[40].dist2  = 3;
+Chord4[40].dist3  = 4;
 strcpy(Chord4[40].Nom,"m");
 
-Chord4[41].tipo = 1;
+Chord4[41].type = 1;
 Chord4[41].fund = 1;
-Chord4[41].di1  = 2;
-Chord4[41].di2  = 2;
-Chord4[41].di3  = 3;
+Chord4[41].dist1  = 2;
+Chord4[41].dist2  = 2;
+Chord4[41].dist3  = 3;
 strcpy(Chord4[41].Nom,"9");
 
-Chord4[42].tipo = 1;
+Chord4[42].type = 1;
 Chord4[42].fund = 4;
-Chord4[42].di1  = 2;
-Chord4[42].di2  = 3;
-Chord4[42].di3  = 5;
+Chord4[42].dist1  = 2;
+Chord4[42].dist2  = 3;
+Chord4[42].dist3  = 5;
 strcpy(Chord4[42].Nom,"9");
 
-Chord4[43].tipo = 1;
+Chord4[43].type = 1;
 Chord4[43].fund = 3;
-Chord4[43].di1  = 3;
-Chord4[43].di2  = 5;
-Chord4[43].di3  = 2;
+Chord4[43].dist1  = 3;
+Chord4[43].dist2  = 5;
+Chord4[43].dist3  = 2;
 strcpy(Chord4[43].Nom,"9");
 
 
-Chord4[44].tipo = 1;
+Chord4[44].type = 1;
 Chord4[44].fund = 2;
-Chord4[44].di1  = 5;
-Chord4[44].di2  = 2;
-Chord4[44].di3  = 2;
+Chord4[44].dist1  = 5;
+Chord4[44].dist2  = 2;
+Chord4[44].dist3  = 2;
 strcpy(Chord4[44].Nom,"9");
 
-Chord4[45].tipo = 4;
+Chord4[45].type = 4;
 Chord4[45].fund = 1;
-Chord4[45].di1  = 3;
-Chord4[45].di2  = 3;
-Chord4[45].di3  = 5;
+Chord4[45].dist1  = 3;
+Chord4[45].dist2  = 3;
+Chord4[45].dist3  = 5;
 strcpy(Chord4[45].Nom,"m(Maj7)(b5)");
 
-Chord4[46].tipo = 3;
+Chord4[46].type = 3;
 Chord4[46].fund = 1;
-Chord4[46].di1  = 2;
-Chord4[46].di2  = 1;
-Chord4[46].di3  = 4;
+Chord4[46].dist1  = 2;
+Chord4[46].dist2  = 1;
+Chord4[46].dist3  = 4;
 strcpy(Chord4[46].Nom,"m7");
 
 
 
-// Chord 5
+// 5 Notes Chords
 
-Chord5[1].tipo = 1;
+Chord5[1].type = 1;
 Chord5[1].fund = 1;
-Chord5[1].di1  = 2;
-Chord5[1].di2  = 2;
-Chord5[1].di3  = 3;
-Chord5[1].di4   = 4;
+Chord5[1].dist1  = 2;
+Chord5[1].dist2  = 2;
+Chord5[1].dist3  = 3;
+Chord5[1].dist4   = 4;
 strcpy(Chord5[1].Nom,"Maj7/9");
 
-Chord5[2].tipo = 7;
+Chord5[2].type = 7;
 Chord5[2].fund = 3;
-Chord5[2].di1  = 3;
-Chord5[2].di2  = 2;
-Chord5[2].di3  = 2;
-Chord5[2].di4   = 3;
+Chord5[2].dist1  = 3;
+Chord5[2].dist2  = 2;
+Chord5[2].dist3  = 2;
+Chord5[2].dist4   = 3;
 strcpy(Chord5[2].Nom,"7(Sus4)");
 
-Chord5[3].tipo = 7;
+Chord5[3].type = 7;
 Chord5[3].fund = 1;
-Chord5[3].di1  = 5;
-Chord5[3].di2  = 2;
-Chord5[3].di3  = 3;
-Chord5[3].di4   = 2;
+Chord5[3].dist1  = 5;
+Chord5[3].dist2  = 2;
+Chord5[3].dist3  = 3;
+Chord5[3].dist4   = 2;
 strcpy(Chord5[3].Nom,"7(Sus4)");
 
-Chord5[4].tipo = 2;
+Chord5[4].type = 2;
 Chord5[4].fund = 3;
-Chord5[4].di1  = 3;
-Chord5[4].di2  = 2;
-Chord5[4].di3  = 2;
-Chord5[4].di4   = 2;
+Chord5[4].dist1  = 3;
+Chord5[4].dist2  = 2;
+Chord5[4].dist3  = 2;
+Chord5[4].dist4   = 2;
 strcpy(Chord5[4].Nom,"7");
 
-Chord5[5].tipo = 1;
+Chord5[5].type = 1;
 Chord5[5].fund = 3;
-Chord5[5].di1  = 4;
-Chord5[5].di2  = 1;
-Chord5[5].di3  = 2;
-Chord5[5].di4   = 2;
+Chord5[5].dist1  = 4;
+Chord5[5].dist2  = 1;
+Chord5[5].dist3  = 2;
+Chord5[5].dist4   = 2;
 strcpy(Chord5[5].Nom,"Maj7");
 
-Chord5[6].tipo = 7;
+Chord5[6].type = 7;
 Chord5[6].fund = 1;
-Chord5[6].di1  = 2;
-Chord5[6].di2  = 3;
-Chord5[6].di3  = 2;
-Chord5[6].di4   = 3;
+Chord5[6].dist1  = 2;
+Chord5[6].dist2  = 3;
+Chord5[6].dist3  = 2;
+Chord5[6].dist4   = 3;
 strcpy(Chord5[6].Nom,"7(Sus4)");
 
-Chord5[7].tipo = 7;
+Chord5[7].type = 7;
 Chord5[7].fund = 1;
-Chord5[7].di1  = 2;
-Chord5[7].di2  = 3;
-Chord5[7].di3  = 2;
-Chord5[7].di4   = 5;
+Chord5[7].dist1  = 2;
+Chord5[7].dist2  = 3;
+Chord5[7].dist3  = 2;
+Chord5[7].dist4   = 5;
 strcpy(Chord5[7].Nom,"7(Sus4)");
 
-Chord5[8].tipo = 4;
+Chord5[8].type = 4;
 Chord5[8].fund = 1;
-Chord5[8].di1  = 3;
-Chord5[8].di2  = 2;
-Chord5[8].di3  = 1;
-Chord5[8].di4   = 4;
+Chord5[8].dist1  = 3;
+Chord5[8].dist2  = 2;
+Chord5[8].dist3  = 1;
+Chord5[8].dist4   = 4;
 strcpy(Chord5[8].Nom,"m7(b5)");
 
-Chord5[9].tipo = 3;
+Chord5[9].type = 3;
 Chord5[9].fund = 1;
-Chord5[9].di1  = 2;
-Chord5[9].di2  = 1;
-Chord5[9].di3  = 4;
-Chord5[9].di4   = 3;
+Chord5[9].dist1  = 2;
+Chord5[9].dist2  = 1;
+Chord5[9].dist3  = 4;
+Chord5[9].dist4   = 3;
 strcpy(Chord5[9].Nom,"m7");
 
 
@@ -736,25 +748,25 @@ strcpy(Chord5[9].Nom,"m7");
 
 
 
-//Inicia Ritmos
+//Init Rhythm
 
 
 for (j = 1; j<= 20; j++)
 
 { 
-   strcpy(Rt[j].Nom,"Emty");
-   strcpy(Rt[j].Nfile,"Emty");
+   strcpy(Rt[j].Nom,"Empty");
+   strcpy(Rt[j].Nfile,"Empty");
    Rt[j].bars = 0;
-   Rt[j].blackn = 0;
+   Rt[j].quarter_note = 0;
    for (i=0; i<=64; i++)
    {
-    Rt[j].linb[i] = 0;
-    Rt[j].linbv[i]= 0;
+    Rt[j].Line_Bass_Note[i] = 0;
+    Rt[j].Line_Bass_Velocity[i]= 0;
    }
 }
 
 
-// Inicia Banco
+// Init Bank
 
 
   for (j = 1; j <= 32; j++)
@@ -767,34 +779,35 @@ for (j = 1; j<= 20; j++)
 	}
 
 
-      Banco[j].echoon = 0;
-      Banco[j].echodelay = 0;
-      Banco[j].echovol = 0;
-      Banco[j].PLFOspeed = 0;
-      Banco[j].PLFOdelay = 0;
-      Banco[j].LFOspeed = 0;
+      Banco[j].E_Delay_On = 0;
+      Banco[j].Delay_Delay = 0;
+      Banco[j].Delay_Volume = 0;
+      Banco[j].Pitch_LFO_Speed = 0;
+      Banco[j].Pitch_LFO_Delay = 0;
+      Banco[j].Rotary_LFO_Speed = 0;
       Banco[j].LFOpitch = 0;
-      Banco[j].rota = 0;
+      Banco[j].E_Rotary_On = 0;
       Banco[j].modulation = 0;
       Banco[j].transpose = 0;
-      Banco[j].omaster = 0.70;
+      Banco[j].Organ_Master_Volume = 0.70;
       Banco[j].attack = 0.02;
       Banco[j].detune = 0;
-      Banco[j].choron = 0;
+      Banco[j].E_Chorus_On = 0;
       Banco[j].split = 0;
-      Banco[j].ELFOamplitude = 0;
-      Banco[j].ELFOspeed = 0;
-      Banco[j].popo = 0;
-      Banco[j].ganmod = 1;
-      Banco[j].revon = 0;
-      Banco[j].chorvol = 0.60;
+      Banco[j].Chorus_LFO_Amplitude = 0;
+      Banco[j].Chorus_LFO_Speed = 0;
+      Banco[j].Chorus_Delay = 0;
+      Banco[j].Reverb_Preset = 1;
+      Banco[j].E_Reverb_On = 0;
+      Banco[j].Chorus_Volume = 0.60;
 
 
     }
 
 
 
-//  Inicia Undo
+//  Init Undo/Redo
+
   for (j = 0; j <= 100; j++)
     {
 
@@ -806,33 +819,33 @@ for (j = 1; j<= 20; j++)
 
 	}
 
-      Undo[j].echoon = 0;
-      Undo[j].echodelay = 0;
-      Undo[j].echovol = 0;
-      Undo[j].PLFOspeed = 0;
-      Undo[j].PLFOdelay = 0;
-      Undo[j].LFOspeed = 0;
+      Undo[j].E_Delay_On = 0;
+      Undo[j].Delay_Delay = 0;
+      Undo[j].Delay_Volume = 0;
+      Undo[j].Pitch_LFO_Speed = 0;
+      Undo[j].Pitch_LFO_Delay = 0;
+      Undo[j].Rotary_LFO_Speed = 0;
       Undo[j].LFOpitch = 0;
-      Undo[j].rota = 0;
+      Undo[j].E_Rotary_On = 0;
       Undo[j].modulation = 0;
       Undo[j].transpose = 0;
-      Undo[j].omaster = 0.70;
+      Undo[j].Organ_Master_Volume = 0.70;
       Undo[j].attack = 0.02;
       Undo[j].detune = 0;
-      Undo[j].choron = 0;
+      Undo[j].E_Chorus_On = 0;
       Undo[j].split = 0;
-      Undo[j].ELFOamplitude = 0;
-      Undo[j].ELFOspeed = 0;
-      Undo[j].popo = 0;
-      Undo[j].ganmod = 1;
-      Undo[j].revon = 0;
-      Undo[j].chorvol = 0.60;
+      Undo[j].Chorus_LFO_Amplitude = 0;
+      Undo[j].Chorus_LFO_Speed = 0;
+      Undo[j].Chorus_Delay = 0;
+      Undo[j].Reverb_Preset = 1;
+      Undo[j].E_Reverb_On = 0;
+      Undo[j].Chorus_Volume = 0.60;
 
 
     }
 
 
-// Inicia Prim
+// Init Initial state of Undo/Redo buffer
 
   for (j = 0; j <= 3; j++)
     {
@@ -846,27 +859,27 @@ for (j = 1; j<= 20; j++)
 
 
 
-      Prim[j].echoon = 0;
-      Prim[j].echodelay = 0;
-      Prim[j].echovol = 0;
-      Prim[j].PLFOspeed = 0;
-      Prim[j].PLFOdelay = 0;
-      Prim[j].LFOspeed = 0;
+      Prim[j].E_Delay_On = 0;
+      Prim[j].Delay_Delay = 0;
+      Prim[j].Delay_Volume = 0;
+      Prim[j].Pitch_LFO_Speed = 0;
+      Prim[j].Pitch_LFO_Delay = 0;
+      Prim[j].Rotary_LFO_Speed = 0;
       Prim[j].LFOpitch = 0;
-      Prim[j].rota = 0;
+      Prim[j].E_Rotary_On = 0;
       Prim[j].modulation = 0;
       Prim[j].transpose = 0;
-      Prim[j].omaster = 0.70;
+      Prim[j].Organ_Master_Volume = 0.70;
       Prim[j].attack = 0.02;
       Prim[j].detune = 0;
-      Prim[j].choron = 0;
+      Prim[j].E_Chorus_On = 0;
       Prim[j].split = 0;
-      Prim[j].ELFOamplitude = 0;
-      Prim[j].ELFOspeed = 0;
-      Prim[j].popo = 0;
-      Prim[j].ganmod = 1;
-      Prim[j].revon = 0;
-      Prim[j].chorvol = 0.30;
+      Prim[j].Chorus_LFO_Amplitude = 0;
+      Prim[j].Chorus_LFO_Speed = 0;
+      Prim[j].Chorus_Delay = 0;
+      Prim[j].Reverb_Preset = 1;
+      Prim[j].E_Reverb_On = 0;
+      Prim[j].Chorus_Volume = 0.30;
 
 
 
@@ -877,14 +890,16 @@ for (j = 1; j<= 20; j++)
 
 
   //ALSA init
+  
+  // Open Alsa Seq 
+ 
   snd_seq_open (&MidiInPuerto[1].midi_in, "default", SND_SEQ_OPEN_INPUT, 0);
-
-
   int alsaport = 0;
   char portname[50];
 
+  // Create Alsa Seq Client
+  
   sprintf (portname, "Horgand IN");
-
   alsaport = snd_seq_create_simple_port (MidiInPuerto[1].midi_in, portname,
 					 SND_SEQ_PORT_CAP_WRITE |
 					 SND_SEQ_PORT_CAP_SUBS_WRITE,
@@ -892,6 +907,7 @@ for (j = 1; j<= 20; j++)
 
 
 
+  // Allocate memory for calculated sins
 
   lsin = (float *) malloc (sizeof (float) * 6300);
   nsin = (float *) malloc (sizeof (float) * 6300);
@@ -900,22 +916,27 @@ for (j = 1; j<= 20; j++)
 
 
 
-  float pepin;
+  // calculate sins
+
+  float x_sin;
 
   for (i = 0; i <= 6300; i++)
 
     {
-      pepin = (float) (i / 1000.0);
-      lsin[i] = sin (pepin);
-      nsin[i] = sin (-1 * pepin);
+      x_sin = (float) (i / 1000.0);
+      lsin[i] = sin (x_sin);
+      nsin[i] = sin (-1 * x_sin);
     }
 
+  // Init gated notes
 
   for (i = 0; i < POLY; i++)
     {
       note_active[i] = 0;
       env_time[i] = 0;
     }
+
+  // Init frequency Notes 
 
 
   for (i = 1; i <= 168; i++)
@@ -924,6 +945,8 @@ for (j = 1; j<= 20; j++)
       h[i].f2 = 8.1757989156 * exp ((float) (i) * log (2.0) / 12.0);
       h[i].f3 = 8.1757989156 * exp ((float) (i + 2) * log (2.0) / 12.0);
     }
+
+  // Init Sound and effect buffers
 
 
   wbuf = (short *) malloc (2 * sizeof (short) * BUFSIZE);
@@ -941,7 +964,7 @@ for (j = 1; j<= 20; j++)
   memset (ehistoryr, 0, BUFSIZE * 128);
 
 
-
+// Get config settings and init settings 
 
   FILE *fs;
   char temp[512];
@@ -951,10 +974,14 @@ for (j = 1; j<= 20; j++)
   if ((fs = fopen (nomfile, "r")) != NULL)
     {
       fgets (temp, sizeof temp, fs);
+      
+// Get MIDI IN Setting      
+      
       for (i = 0; i <= (int) strlen(temp) - 2; i++)
       MidiInPuerto[1].SetMidiIn[i] = temp[i];
       MidiInPuerto[1].SMidiIn = MidiInPuerto[1].SetMidiIn;
       
+// Get Audio Out Setting      
             
       bzero (temp, sizeof (temp));
       fgets (temp, sizeof temp, fs);
@@ -974,10 +1001,13 @@ for (j = 1; j<= 20; j++)
 	  jackaudioprepare ();
 	}
 
-       incre = 0.5 / SAMPLE_RATE;
-       lalapi = D_PI / SAMPLE_RATE;
+// Adjust some vars depend on Audio OUT
+
+       increment = 0.5 / SAMPLE_RATE;
+       D_PI_to_SAMPLE_RATE = D_PI / SAMPLE_RATE;
 
 
+// Load Preset Bank File
 
       bzero(BankFilename, sizeof (BankFilename));
       bzero (temp, sizeof (temp));
@@ -993,19 +1023,21 @@ for (j = 1; j<= 20; j++)
     }
 
 
+// Load Rhythm File
+
    bzero(nomfile, sizeof(nomfile));
-   strcpy(nomfile, "/usr/share/horgand/RithmList.txt");
+   strcpy(nomfile, "/usr/share/horgand/Rhythm_List.txt");
    bzero(nomfile1, sizeof(nomfile1));
-   strcpy(nomfile1, "/usr/local/share/horgand/RithmList.txt");
-   if ((fs = fopen (nomfile, "r")) != NULL)  solucion = 1;
-   if ((fs = fopen (nomfile1, "r")) != NULL) solucion = 2;
-   if (solucion == 2 ) strcpy(nomfile, nomfile1); 
+   strcpy(nomfile1, "/usr/local/share/horgand/Rhythm_List.txt");
+   if ((fs = fopen (nomfile, "r")) != NULL)  prefix_trick = 1;
+   if ((fs = fopen (nomfile1, "r")) != NULL) prefix_trick = 2;
+   if (prefix_trick == 2 ) strcpy(nomfile, nomfile1); 
    bzero(temp,sizeof(temp));
  
   if ((fs = fopen (nomfile, "r")) != NULL)
    {
          int linea = 0;
-         NumRit= 1;
+         Num_Rhythm= 1;
          int w;    
       while (fgets(temp, sizeof temp, fs) != NULL)
           {
@@ -1013,37 +1045,37 @@ for (j = 1; j<= 20; j++)
              switch (linea)
            { 
              case 1:
-              bzero(Rt[NumRit].Nom, sizeof(Rt[NumRit].Nom));
-              for (i=0;  i<=(int) strlen(temp) -2; i++) Rt[NumRit].Nom[i] = temp[i];                   
+              bzero(Rt[Num_Rhythm].Nom, sizeof(Rt[Num_Rhythm].Nom));
+              for (i=0;  i<=(int) strlen(temp) -2; i++) Rt[Num_Rhythm].Nom[i] = temp[i];                   
               break; 
              case 2:
-              bzero(Rt[NumRit].Nfile, sizeof(Rt[NumRit].Nfile)); 
-              for (i=0;  i<=(int) strlen(temp) -2; i++) Rt[NumRit].Nfile[i] = temp[i];
+              bzero(Rt[Num_Rhythm].Nfile, sizeof(Rt[Num_Rhythm].Nfile)); 
+              for (i=0;  i<=(int) strlen(temp) -2; i++) Rt[Num_Rhythm].Nfile[i] = temp[i];
               break;
              case 3:
-              sscanf (temp,"%d", &Rt[NumRit].bars);
+              sscanf (temp,"%d", &Rt[Num_Rhythm].bars);
               break;
              case 4:
-              sscanf (temp,"%d", &Rt[NumRit].blackn);
+              sscanf (temp,"%d", &Rt[Num_Rhythm].quarter_note);
               break;
              case 5: 
-             sscanf(temp,"%d,%d,%d,%d",&Rt[NumRit].linb[1],&Rt[NumRit].linb[2],&Rt[NumRit].linb[3],&Rt[NumRit].linb[4]);
-             for (i=1; i<Rt[NumRit].bars*Rt[NumRit].blackn; i++)
+             sscanf(temp,"%d,%d,%d,%d",&Rt[Num_Rhythm].Line_Bass_Note[1],&Rt[Num_Rhythm].Line_Bass_Note[2],&Rt[Num_Rhythm].Line_Bass_Note[3],&Rt[Num_Rhythm].Line_Bass_Note[4]);
+             for (i=1; i<Rt[Num_Rhythm].bars*Rt[Num_Rhythm].quarter_note; i++)
              {
               w = i*4;
               bzero(temp,sizeof(temp));
               fgets(temp, sizeof temp, fs);
-              sscanf(temp,"%d,%d,%d,%d",&Rt[NumRit].linb[w+1],&Rt[NumRit].linb[w+2],&Rt[NumRit].linb[w+3],&Rt[NumRit].linb[w+4]);
+              sscanf(temp,"%d,%d,%d,%d",&Rt[Num_Rhythm].Line_Bass_Note[w+1],&Rt[Num_Rhythm].Line_Bass_Note[w+2],&Rt[Num_Rhythm].Line_Bass_Note[w+3],&Rt[Num_Rhythm].Line_Bass_Note[w+4]);
              } 
              bzero(temp,sizeof(temp));
              fgets(temp, sizeof temp, fs);
-             sscanf(temp,"%d,%d,%d,%d",&Rt[NumRit].linbv[1],&Rt[NumRit].linbv[2],&Rt[NumRit].linbv[3],&Rt[NumRit].linbv[4]);
-             for (i=1; i<Rt[NumRit].bars*Rt[NumRit].blackn; i++)
+             sscanf(temp,"%d,%d,%d,%d",&Rt[Num_Rhythm].Line_Bass_Velocity[1],&Rt[Num_Rhythm].Line_Bass_Velocity[2],&Rt[Num_Rhythm].Line_Bass_Velocity[3],&Rt[Num_Rhythm].Line_Bass_Velocity[4]);
+             for (i=1; i<Rt[Num_Rhythm].bars*Rt[Num_Rhythm].quarter_note; i++)
              {
               w = i*4;
               bzero(temp,sizeof(temp));
               fgets(temp, sizeof temp, fs);
-              sscanf(temp,"%d,%d,%d,%d",&Rt[NumRit].linbv[w+1],&Rt[NumRit].linbv[w+2],&Rt[NumRit].linbv[w+3],&Rt[NumRit].linbv[w+4]);
+              sscanf(temp,"%d,%d,%d,%d",&Rt[Num_Rhythm].Line_Bass_Velocity[w+1],&Rt[Num_Rhythm].Line_Bass_Velocity[w+2],&Rt[Num_Rhythm].Line_Bass_Velocity[w+3],&Rt[Num_Rhythm].Line_Bass_Velocity[w+4]);
              }
               break;
               case 6:
@@ -1058,7 +1090,7 @@ for (j = 1; j<= 20; j++)
               break;
               case 11:
               linea = 0;
-              NumRit++;
+              Num_Rhythm++;
               break;
           }
  
@@ -1069,12 +1101,16 @@ for (j = 1; j<= 20; j++)
 
 
   
+  // Init buffers
+  
   memset (buf, 0, PERIOD8);
   memset (wbuf, 0, PERIOD8);
   memset (rbuf, 0, PERIOD8);  
   memset (bbuf, 0, PERIOD8);
+ 
+ // Send Signal to GUI  -> "All OK"
 
-  espera = 1;
+  waitforGUI = 1;
 
 };
 
@@ -1085,63 +1121,51 @@ HOR::~HOR ()
 
 };
 
-float
-HOR::ELFO (float *kx)
-{
 
-  float out;
-
-  *kx += incre * ELFOspeed;
-
-  if (*kx > 1)
-    *kx = 0;
-
-  out = Fsin (*kx * D_PI);
-
-  if (out < -1.0)
-    out = -1.0;
-  else if (out > 1.0)
-    out = 1.0;
-   out *= efreqlfo;
- return ((1+out)*.5);
-  
-};
-
+// Returns the FM Operator Pitch (Frequency + LFO)
 
 float
-HOR::pitchOp (int i, int note)
+HOR::pitch_Operator (int i, int note)
 {
-  float aplfot;
+  float LFO_Volume_Real;
   
-  if (Operator[i].mar) aplfot = .5; else aplfot = aplfo; 
-
+// Dont want LFO if Operator is type Marimba
+  
+  if (Operator[i].marimba) LFO_Volume_Real = .5; else LFO_Volume_Real = LFO_Volume;
+    
   return ((lasfreq[(int) Operator[i].harmonic] +
-	   Operator[i].harmonic_fine) * aplfot);
-
+                 Operator[i].harmonic_fine) * LFO_Volume_Real);
+                 
 }
+                 
 
+// Returns The FM Operator Volume 
 
 void
-HOR::volumeOpC (int i, int l2)
+HOR::volume_Operator (int i, int l2)
 {
   Operator[i].con1 =
-    Operator[i].volumen * envi[l2] * alfo / (lasfreq[Operator[i].harmonic]);
+    Operator[i].volumen * Envelope_Volume[l2] * Keyb_Level_Scaling / lasfreq[Operator[i].harmonic];
    
-  if (Operator[1].con1 > 1 ) Operator[1].con1 = .9;
+  while (Operator[i].con1 > 1 ) Operator[i].con1 *= .5;
 };
 
 
-void
 
-HOR::miraalfo(int nota)
+// Return Keyboard Level Scaling (High Note ...less volume)
+
+void
+HOR::Get_Keyb_Level_Scaling(int nota)
 {
-alfo = velocity[nota] * (1 -((120 - note[nota]) / 120.0));
+Keyb_Level_Scaling = velocity[nota] * (1 -((120 - note[nota]) / 120.0));
 };
 
 
+// Turn Off all the sound
+
 
 void
-HOR::panico ()
+HOR::panic()
 {
   int i;
   for (i = 0; i < POLY; i++)
@@ -1151,6 +1175,8 @@ HOR::panico ()
     }
 
 };
+
+// The fucking ADSR
 
 
 float
@@ -1163,19 +1189,19 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
 
        if (t > attack + decay)
         {
-          envi[nota]=sustain;
-          return (envi[nota]);
+          Envelope_Volume[nota]=sustain;
+          return (Envelope_Volume[nota]);
         }
       if (t > attack)
         {
-       envi[nota]=1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.01);
+       Envelope_Volume[nota]=1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.01);
 
-       return(envi[nota]);
+       return(Envelope_Volume[nota]);
         }
      
 
-    envi[nota] = (t / (attack + 0.01));
-    return(envi[nota]);
+    Envelope_Volume[nota] = (t / (attack + 0.01));
+    return(Envelope_Volume[nota]);
     
       
     }
@@ -1183,41 +1209,44 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
     {
       if ((pedal == 0) && (t < release))
 	{
-	  envi[nota] *= (1.0- (t /release));
+	  Envelope_Volume[nota] *= (1.0- (t /release));
      
-        if (envi[nota] < 0.01)
+        if (Envelope_Volume[nota] < 0.01)
               {
-              envi[nota] = 0;
+              Envelope_Volume[nota] = 0;
               *note_active = 0;
-              return(envi[nota]);
+              return(Envelope_Volume[nota]);
               }          
-          return (envi[nota]);
+          return (Envelope_Volume[nota]);
 	}
 
       if (t >= release)
         {
           *note_active = 0;
-           envi[nota]=0;
-           return(envi[nota]);
+           Envelope_Volume[nota]=0;
+           return(Envelope_Volume[nota]);
         }
      }     
 
-     return(envi[nota]);
+     return(Envelope_Volume[nota]);
 };
 
 
 
+// Returns Pitch LFO 
+
+
 float
-HOR::PLFO (float t)
+HOR::Pitch_LFO (float t)
 {
 
   float x, out;
 
-  if (t * 20 < PLFOdelay)
+  if (t * 20 < Pitch_LFO_Delay)
     return (0.5);
 
   x = (t - floor (t));
-  x *= PLFOspeed;
+  x *= Pitch_LFO_Speed;
   x -= floor (x);
 
 
@@ -1228,42 +1257,16 @@ HOR::PLFO (float t)
     out = -1.0;
   else if (out > 1.0)
     out = 1.0;
-  out *= freqplfo;
+  out *= LFO_Frequency;
   return ((1+out)*.5);
 
 }
 
 
-float
-HOR::LFO (float t)
-{
-
-  float out;
-
-
-  xx += LFOspeed * incre;
-
-  if (xx > 1)
-    xx = 0;
-
-  out = Fsin (xx * D_PI);
-
-  if (out < -1.0)
-    out = -1.0;
-  else if (out > 1.0)
-    out = 1.0;
-   out *= freqlfo;
-   return ((1+out)*.5);
-  
-};
-
-
-
-
-
+// Return Played Note Frequency
 
 void
-HOR::MiraNota (int nota)
+HOR::Get_Partial (int nota)
 {
   int l;
 
@@ -1273,10 +1276,14 @@ HOR::MiraNota (int nota)
      0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 -
 							     h[l].f1) * pitch;
 
-  partial = mastertune * freq_note * lalapi;
+  partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
+
+  Get_Keyb_Level_Scaling(nota);
 
 };
 
+
+// Main Audio thread
 
 void
 HOR::Alg1s (int nframes, void *)
@@ -1284,12 +1291,12 @@ HOR::Alg1s (int nframes, void *)
  
   int l1, l2, i, kk = 0;
   float sound = 0;
-  float enve0,enve1 = 0;
+  float envelope_type_0,envelope_type_1 = 0;
   memset (buf, 0, PERIOD8);
 
-  freqplfo = modulation * LFOpitch * lalapi;
+  LFO_Frequency = modulation * LFOpitch * D_PI_to_SAMPLE_RATE;
 
-  if (freqplfo > D_PI ) freqplfo -=D_PI;  
+  while (LFO_Frequency > D_PI ) LFO_Frequency -=D_PI;  
 
 
   for (l2 = 0; l2 < POLY; l2++)
@@ -1297,29 +1304,28 @@ HOR::Alg1s (int nframes, void *)
 
       if (note_active[l2])
 	{
-	  MiraNota (l2);
+	  Get_Partial(l2);
 
-	  aplfo = PLFO (env_time[l2]);
+	  LFO_Volume = Pitch_LFO (env_time[l2]);
           
 
           decay = 0.15;
           sustain = 0.79;          
-          enve0 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
+          envelope_type_0 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
 	  decay = 0.30;
           sustain = 0.0;        
-          enve1 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2); 
+          envelope_type_1 = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2); 
 
 
-          miraalfo(l2);
  
 
 
 	  for (i = 1; i <= 10; i++)
 	    {
               
-              if (Operator[i].mar) envi[l2]=enve1;  else  envi[l2]=enve0; 
-              volumeOpC (i, l2);
-              f[i].dphi = partial * pitchOp (i, l2);
+              if (Operator[i].marimba) Envelope_Volume[l2]=envelope_type_1;  else  Envelope_Volume[l2]=envelope_type_0; 
+              volume_Operator(i, l2);
+              f[i].dphi = partial * pitch_Operator (i, l2);
 	      if (f[i].dphi > D_PI) f[i].dphi -= D_PI;
               
 	    }
@@ -1343,10 +1349,10 @@ HOR::Alg1s (int nframes, void *)
 		 }
                 }
 
-              buf[l1] += (sound * omaster) / 2.0; 
-              buf[l1+1] += (sound * omaster) / 2.0; 
+              buf[l1] += (sound * Organ_Master_Volume) / 2.0; 
+              buf[l1+1] += (sound * Organ_Master_Volume) / 2.0; 
               
-              env_time[l2] += incre;
+              env_time[l2] += increment;
 	    }
               
 	}
@@ -1354,22 +1360,22 @@ HOR::Alg1s (int nframes, void *)
 
     }
 
-  if (choron == 1)
-    bchorus ();
-  if (rota == 1)
-    rotary ();
-  if (echoon == 1)
-    procesa ();
-  if (revon == 1)
-    reverb();
-  if (riton == 1) 
-   CogeRitmo();
+  if (E_Chorus_On == 1)
+    Effect_Chorus ();
+  if (E_Rotary_On == 1)
+    Effect_Rotary ();
+  if (E_Delay_On == 1)
+    Effect_Delay();
+  if (E_Reverb_On == 1)
+    Effect_Reverb();
+  if (Rhythm_On == 1) 
+   Get_Rhythm();
 
   
 
 
 
-Salidafinal();
+Final_Output();
 
 
 

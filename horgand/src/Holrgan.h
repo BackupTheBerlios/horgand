@@ -34,10 +34,10 @@
 #define D_PI 6.283184
 
 extern pthread_mutex_t mutex;
-extern int Pexitprogram, espera, UndoCount, programa,vum,vumvum,tum,cambialo;
-extern int vavi,pr,pr1,commandline;
-extern char NombreAcorde[16];
-extern int solucion,Rit;
+extern int Pexitprogram, waitforGUI, UndoCount, preset,MidiInLevel,LastMidiInLevel,BarLead,changeNameChord;
+extern int Signal_for_Cb_Sliders,commandline;
+extern char NameChord[16];
+extern int prefix_trick,Selected_Rhythm;
 int  Alg1sj (jack_nframes_t nframes,void *arg);
 int  jackprocess (jack_nframes_t nframes,void *arg);
 
@@ -53,43 +53,42 @@ public:
   ~HOR ();
 
   void midievents (int i);
-  void panico ();
-  void ponpe();
+  void panic();
+  void Put_Period();
   void Alg1s (int frames, void*);
   float Jenvelope(int *note_active, int gate, float t, int nota);
-  void MiraNota(int note);
-  float ELFO(float *kx);
-  float LFO(float t);  
-  float PLFO(float t);
-  void miraalfo(int note);
+  void Get_Partial(int note);
+  float Chorus_LFO(float *t);
+  float Rotary_LFO(float t);  
+  float Pitch_LFO(float t);
+  void Get_Keyb_Level_Scaling(int note);
   void savefile(char *filename);
   void loadfile(char *filename);
   void savebank(char *filename);
   void loadbank(char *filename);
   void New();
-  float pitchOp(int i, int note);      
-  void volumeOpC(int i, int note);
-  void procesa();
-  void reverb();
-  void procesaclean();
+  float pitch_Operator(int i, int note);      
+  void volume_Operator(int i, int note);
+  void Effect_Delay();
+  void Effect_Reverb();
+  void delayclean();
   void chorusclean();
-  void rclean();
+  void reverbclean();
   float Fsin(float x);
   float fastabs(float f);
-  void Salidafinal();
-  void rotary();
-  void bchorus();
+  void Final_Output();
+  void Effect_Rotary();
+  void Effect_Chorus();
   void ossaudioprepare();
   void alsaaudioprepare();
   void jackaudioprepare();
-  void SalidaJack();
-  int SelectRitmo(char *nomrit);
-  void CogeRitmo();
-  void SelectBass(char *nomrit);
-  void CogeBass();
-  void MiraLinea();
-  void MiraChord();  
-  void MiraTempo();
+  int Select_Rhythm(char *nomrit);
+  void Get_Rhythm();
+  void Select_Bass(char *nomrit);
+  void Get_Bass();
+  void Get_Bass_Line();
+  void Get_Chord();  
+  void Get_Tempo();
   void loadrhyt(char *filename);
   void saverhyt(char *filename);
   void MUndo();
@@ -100,12 +99,9 @@ public:
   
   SNDFILE *infile;
   SF_INFO sfinfo;
-  int readcount;
   SNDFILE *infileb;
   SF_INFO sfinfob;
-  int readcountb;
-  float asound;           
-  int cprograma;
+  int cpreset;
   int PERIOD;
   unsigned int SAMPLE_RATE;
   int PERIOD2;
@@ -128,114 +124,111 @@ public:
   float modulation;
   float freq_note;
   float env_time[POLY];
-  float LFOspeed;
-  float PLFOspeed;
-  float PLFOdelay;
-  float LFOamplitude;
+  float Rotary_LFO_Speed;
+  float Pitch_LFO_Speed;
+  float Pitch_LFO_Delay;
+  float Rotary_LFO_Amplitude;
   float LFOpitch;
   int  note[POLY];
   int rnote[POLY];
   int  gate[POLY];
-  float envi[POLY];
+  float Envelope_Volume[POLY];
   int  note_active[POLY];
   float  mastertune;
   float lasfreq[64];
-  int rota;
-  float  master;
-  float omaster;
+  int E_Rotary_On;
+  float  Master_Volume;
+  float Organ_Master_Volume;
   int pedal;
   long perhis;
   long rperhis;
   long hrperhis;
   long eperhis;
-  char *nombre;  
+  char *c_name;  
   char Name[36];  
-  int echoon;
+  int E_Delay_On;
   int transpose;
-  float echovol;
-  float echodelay;
-  float lado; 
-  int hacia;
+  float Delay_Volume;
+  float Delay_Delay;
+  float Stereo_Side; 
+  int To_Stereo_Side;
   float attack;
   float decay;
   float sustain;
   float release;
-  float con1;       
-  float aplfo;
-  float alfo; 
+  float LFO_Volume;
+  float Keyb_Level_Scaling; 
   float detune;
-  float freqlfo;
-  float freqplfo;
-  float xx;
-  float xr;  
-  float xer;
-  float xel;
-  float ELFOspeed;
-  float ELFOamplitude;
-  float efreqlfo;
-  float chorvol;  
-  int choron;            
-  float popo;
+  float LFO_Frequency;
+  float Rotary_LFO_Frequency;
+  float Rotary_X;
+  float Chorus_X_R;
+  float Chorus_X_L;
+  float Chorus_LFO_Speed;
+  float Chorus_LFO_Amplitude;
+  float Chorus_LFO_Frequency;
+  float Chorus_Volume;  
+  int E_Chorus_On;            
+  float Chorus_Delay;
   int split;
   float ldelay,ldelay1;
   float rdelay,rdelay1;
-  float ganmod;  
+  float Reverb_Preset;  
   int Salida;
-  float incre;
-  float lalapi; 
-  float revon;
-  float rtime;
-  float diffussion;
-  float revvol;
+  float increment;
+  float D_PI_to_SAMPLE_RATE; 
+  float E_Reverb_On;
+  float Reverb_Time;
+  float Reverb_Diffussion;
+  float Reverb_Volume;
   int combl[16];
   int combr[16];
   int apsg[16];
   int capsg;         
   int apss;
-  int basson;
-  int riton;
-  float bassvol;
-  float ritvol;
+  int Bass_On;
+  int Rhythm_On;
+  float Bass_Volume;
+  float Rhythm_Volume;
   float tempo;                  
-  int cuenta;
-  int linb[66];
-  int linbv[66];
-  int frametot;
-  int fracpos;
+  int Samples_Readed;
+  int Line_Bass_Note[66];
+  int Line_Bass_Velocity[66];
+  int frame_total_size;
+  int fractional_position;
   int basspending;
+  // pos means musical subdivision 1/16 position
   int pos;
+  // lpos meas last musical subdivision 1/16 checked for bass line
   int lpos;    
-  int bnote;
-  float bvnote;
-  int framesbass;
-  float afina;
+  int bass_note;
+  float length_bass_note;
+  float frames_bass;
   int chord;  
-  int fundi;
-  float velobass;
+  int fundamental;
+  float bass_velocity;
   int bars;
-  int blackn;
-  int tercera;
-  int quinta;
-  int septima; 
-  int ctipo;
-  int NumRit;  
-  int btrans;
+  int quarter_note;
+  int chord_type;
+  int Num_Rhythm;  
+  int bass_transpose;
   int bmt;
+//ae means the selected rhythm
   int ae;
-  int sbars;
-  int fe;
+  int pattern_bars;
+  int file_ok;
   char BankFilename[128];
 
 
   
-struct Ritmo
+struct Rhythm
 {
  char Nom[30];
  char Nfile[256];
  int bars;
- int blackn;
- int linb[68];
- int linbv[68];
+ int quarter_note;
+ int Line_Bass_Note[68];
+ int Line_Bass_Velocity[68];
 
 } Rt[22];
 
@@ -250,7 +243,7 @@ struct NomChord
 struct AfinaBass
 
 {
-float afin;
+float tune;
 float bmt;
 } AB[13];
 
@@ -258,9 +251,9 @@ float bmt;
 struct TipoCh
 
 {
-int ter;
-int qui;
-int sep;
+int third;
+int five_th;
+int seven_th;
 
 } TCh[12];
 
@@ -268,33 +261,33 @@ int sep;
 struct Ch3
 
 {
- int tipo;  
+ int type;  
  int fund;
- int di1;
- int di2;
+ int dist1;
+ int dist2;
  char Nom[10];
 } Chord3[15];
 
 struct Ch4
 
 {
-  int tipo;
+  int type;
   int fund;
-  int di1;
-  int di2;
-  int di3;
+  int dist1;
+  int dist2;
+  int dist3;
   char Nom[10];
 } Chord4[50];
      
 struct Ch5
 
 {
-  int tipo;
+  int type;
   int fund;
-  int di1;
-  int di2;
-  int di3;
-  int di4;
+  int dist1;
+  int dist2;
+  int dist3;
+  int dist4;
   char Nom[10];
 } Chord5[12];
      
@@ -309,7 +302,7 @@ struct OperatorPar
  float harmonic_fine;
  float volumen;
  float con1;
- int mar; 
+ int marimba; 
  }    
    Operator[11];
 
@@ -318,26 +311,26 @@ struct Todolo
   { OperatorPar Operator[11];
 
    float modulation;
-   float echovol;
-   float PLFOspeed;
-   float PLFOdelay;
-   float LFOspeed;
+   float Delay_Volume;
+   float Pitch_LFO_Speed;
+   float Pitch_LFO_Delay;
+   float Rotary_LFO_Speed;
    float LFOpitch;
    float attack;
-   float revon;
+   float E_Reverb_On;
    float detune;
    int transpose;
-   int rota;
-   float omaster;
-   int echoon;
-   float echodelay;
+   int E_Rotary_On;
+   float Organ_Master_Volume;
+   int E_Delay_On;
+   float Delay_Delay;
    int split;
-   int choron;
-   float popo;
-   float ELFOamplitude;
-   float ELFOspeed;
-   float ganmod;
-   float chorvol;
+   int E_Chorus_On;
+   float Chorus_Delay;
+   float Chorus_LFO_Amplitude;
+   float Chorus_LFO_Speed;
+   float Reverb_Preset;
+   float Chorus_Volume;
    char *nombre;
    char Name[36];
 
@@ -408,7 +401,7 @@ jack_port_t *outport_left,*outport_right;
 struct PMidiOut
   {
    int Client, Port;
-   char Nombre[40], Info[40];
+   char Name[40], Info[40];
    const char *CName, *CInfo;
             
    } CPOMidiS[50];
@@ -417,7 +410,7 @@ struct PMidiOut
   struct PMidiIn
   {
     int Client, Port;
-    char Nombre[40], Info[40];
+    char Name[40], Info[40];
     const char *CName, *CInfo;
 
   } CPIMidiS[50];

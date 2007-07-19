@@ -972,7 +972,7 @@ private:
   HOR *hor;
 public:
   void ponreverb();
-  void GetRit(int Rit);
+  void GetRit(int Selected_Rhythm);
   void meteritmos();
   void calbtrans();
   void calbtune();

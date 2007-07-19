@@ -23,7 +23,7 @@
 
 #include "Holrgan.h"
 
-
+// Read MIDI Events
 
 void
 HOR::midievents (int keIN)
@@ -49,7 +49,7 @@ HOR::midievents (int keIN)
 
       if ((midievent->data.control.value > 0)
 	  && (midievent->data.control.value < 33))
-	programa = midievent->data.control.value;
+	preset = midievent->data.control.value;
 
 
       break;
@@ -61,13 +61,13 @@ HOR::midievents (int keIN)
 	modulation = (float) midievent->data.control.value / 12.7;
  
       if (midievent->data.control.param == 91)
-              revvol = (float) midievent->data.control.value / 256.0;
+              Reverb_Volume = (float) midievent->data.control.value / 256.0;
 
       if (midievent->data.control.param == 93)
-              chorvol = (float) midievent->data.control.value / 127.0;
+              Chorus_Volume = (float) midievent->data.control.value / 127.0;
             
       if (midievent->data.control.param == 7)
-	master = (float) midievent->data.control.value / 127.0;
+	Master_Volume = (float) midievent->data.control.value / 127.0;
 
       if (midievent->data.control.param == 64)
 	{
@@ -94,8 +94,8 @@ HOR::midievents (int keIN)
 		{
 		  rnote[l1] = midievent->data.note.note;
 		  note[l1] = rnote[l1];
-		  vumvum = vum;
-		  vum = midievent->data.note.velocity;
+		  LastMidiInLevel = MidiInLevel;
+		  MidiInLevel = midievent->data.note.velocity;
 		  velocity[l1] = midievent->data.note.velocity / 192.0;
 
 		  if ((split == 1) && (rnote[l1] < 60))
@@ -108,7 +108,7 @@ HOR::midievents (int keIN)
 		  env_time[l1] = 0;
 		  gate[l1] = 1;
 		  note_active[l1] = 1;
-                  MiraChord();
+                  Get_Chord();
                   break;
 		}
 	    }
@@ -116,8 +116,8 @@ HOR::midievents (int keIN)
 	}
       else
 	{
-	  vumvum = vum;
-	  vum = 0;
+	  LastMidiInLevel = MidiInLevel;
+	  MidiInLevel = 0;
 	  for (l1 = 0; l1 < POLY; l1++)
 	    {
 
@@ -126,7 +126,7 @@ HOR::midievents (int keIN)
 		{
 		/*  env_time[l1] = 0; */
 		  gate[l1] = 0;
-                  MiraChord();
+                  Get_Chord();
 		}
 
 	    }
@@ -135,8 +135,8 @@ HOR::midievents (int keIN)
 
     case SND_SEQ_EVENT_NOTEOFF:
 
-      vumvum = vum;
-      vum = 0;
+      LastMidiInLevel = MidiInLevel;
+      MidiInLevel = 0;
       for (l1 = 0; l1 < POLY; l1++)
 	{
 
@@ -145,7 +145,7 @@ HOR::midievents (int keIN)
 	    {
 	    /*  env_time[l1] =0; */ 
 	      gate[l1] = 0;
-              MiraChord();
+              Get_Chord();
 	    }
 
 	}
