@@ -89,7 +89,8 @@ return 1;
   }
 } 
 
-class HORGAN {} {
+class HORGAN {open
+} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
       label {Horgand v1.08}
@@ -143,7 +144,7 @@ exit(0);}
         Submenu MFile {
           label {&File}
           callback {Fl::focus(PANICO);} open
-          xywh {0 0 100 20} labelsize 14
+          xywh {0 0 100 20}
         } {
           MenuItem {} {
             label {&New...}
@@ -155,7 +156,7 @@ hor->PutPrim();
 sprintf(hor->temporal, "--"); 
 DispNumber->label(hor->temporal);
 CPrograma->value(0);}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {&Load...}
@@ -170,7 +171,7 @@ Actu();
 hor->PutPrim();
 sprintf(hor->temporal,"--");
 DispNumber->label(hor->temporal);}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
           MenuItem {} {
             label {&Save...}
@@ -182,17 +183,17 @@ filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->savefile(filename);
 hor->PutPrim();}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {Load Bank...}
             callback {BLoad->do_callback(o);}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
           MenuItem {} {
             label {Save Bank...}
             callback {BSave->do_callback(o);}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {Load Rhythm...}
@@ -203,7 +204,7 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,".hrt");
 hor->loadrhyt(filename);
 meteritmos();}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
           MenuItem {} {
             label {Save Rhythm...}
@@ -214,35 +215,35 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->saverhyt(filename);}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {&About...}
             callback {aboutwindow->position(200,200);
 aboutwindow->show();}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {E&xit}
             callback {Pexitprogram=1;
 o->hide();
 exit(0);}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
         }
         Submenu MEdit {
           label {&Edit} open
-          xywh {0 0 100 20} labelsize 14
+          xywh {0 0 100 20}
         } {
           MenuItem {} {
             label {&Undo}
             callback {Undo();}
-            xywh {0 0 100 20} shortcut 0x4007a labelsize 14
+            xywh {0 0 100 20} shortcut 0x4007a
           }
           MenuItem {} {
             label {&Redo}
             callback {Redo();}
-            xywh {0 0 100 20} shortcut 0x40072 labelsize 14
+            xywh {0 0 100 20} shortcut 0x40072
           }
         }
         MenuItem MBank {
@@ -250,7 +251,7 @@ exit(0);}
           callback {HORBank->position(1,1);
 HORBank->show();
 Fl::focus(BClose);}
-          xywh {0 0 100 20} shortcut 0x80062 labelsize 14
+          xywh {0 0 100 20} shortcut 0x80062
         }
         MenuItem {} {
           label {&Settings}
@@ -259,7 +260,7 @@ MiraConfig();
 Settingswindow->position(1,1);
 Settingswindow->show();
 Fl::focus(SClose);}
-          xywh {0 0 100 20} shortcut 0x80073 labelsize 14
+          xywh {0 0 100 20} shortcut 0x80073
         }
       }
       Fl_Box {} {
@@ -1117,49 +1118,17 @@ hor->Bass_On =  o->value();}
       } {
         Fl_Button Bass1 {
           label Acoustic
-          callback {char temp[512];
-
-if (prefix_trick == 1)  
-sprintf(temp ,"%s", "/usr/share/horgand/AcousticBass.wav");
-if (prefix_trick == 2) 
-sprintf(temp, "%s", "/usr/local/share/horgand/AcousticBass.wav");
-
-char *tmp = temp;
-
-hor->Select_Bass(tmp);
-hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);}
+          callback {SetBassType(0);}
           xywh {755 470 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
         }
         Fl_Button Bass2 {
           label Electric
-          callback {char temp[512];
-
-if (prefix_trick == 1)  
-sprintf(temp ,"%s", "/usr/share/horgand/FenderBass.wav");
-if (prefix_trick == 2) 
-sprintf(temp, "%s", "/usr/local/share/horgand/FenderBass.wav");
-
-char *tmp = temp;
-
-hor->Select_Bass(tmp);
-hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);}
+          callback {SetBassType(1);}
           xywh {755 500 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
         }
         Fl_Button Bass3 {
           label Fretless
-          callback {char temp[512];
-
-if (prefix_trick == 1)  
-sprintf(temp ,"%s", "/usr/share/horgand/FretlessBass.wav");
-if (prefix_trick == 2) 
-sprintf(temp, "%s", "/usr/local/share/horgand/FretlessBass.wav");
-
-char *tmp = temp;
-
-
-
-hor->Select_Bass(tmp);
-hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);}
+          callback {SetBassType(2);}
           xywh {755 530 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
         }
       }
@@ -1432,7 +1401,7 @@ Fl::focus(PANICO);}
       } {
         Submenu BFile {
           label {&File} open
-          xywh {0 0 100 20} labelsize 14
+          xywh {0 0 100 20}
         } {
           MenuItem BLoad {
             label {&Load Bank}
@@ -1442,7 +1411,7 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,".horeb");
 hor->loadbank(filename);
 metebanco()}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
           MenuItem BSave {
             label {&Save Bank}
@@ -1453,13 +1422,13 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->savebank(filename);}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {&Close}
             callback {HORBank->hide();
 Fl::focus(PANICO);}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
         }
       }
@@ -2057,7 +2026,7 @@ if (hor->file_ok == 1)
 {
 GetRit(hor->ae);
 }
-RitEdit->hide();} selected
+RitEdit->hide();}
         xywh {155 70 80 25} shortcut 0xff0d labeltype ENGRAVED_LABEL
       }
       Fl_Box {} {
@@ -2125,7 +2094,8 @@ RitEdit->hide();} selected
       }
     }
   }
-  Function {metelo()} {} {
+  Function {metelo()} {open
+  } {
     code {meteprog();
 
 switch (hor->Salida)
@@ -2144,12 +2114,16 @@ switch (hor->Salida)
 
 Rit1->value(1);
 Selected_Rhythm = 1;
-GetRit(Selected_Rhythm);} {
+GetRit(Selected_Rhythm);
+SetBassType(0);
+Bass1->value(1);} {
       callback {hor->Operator[1].harmonic = (int) o->value();
 char tmp[64];
 sprintf(tmp, "%2.1f", hor->lasfreq[(int) o->value()]);
 V1->label(tmp);
-Actu();}
+Actu();
+Bass1->value(1);
+SetBassType(0);} selected
     }
   }
   Function {GetCombi(int i)} {} {
@@ -2945,5 +2919,18 @@ ChorVol->value(hor->Chorus_Volume * 100);
 hor->delayclean();
 hor->chorusclean();
 hor->reverbclean();} {}
+  }
+  Function {SetBassType(int type)} {open return_type void
+  } {
+    code {char temp[512];
+const char *bassfiles[] = {"AcousticBass.wav", "FenderBass.wav", "FretlessBass.wav"};
+
+if (prefix_trick == 1)
+sprintf(temp ,"%s%s", "/usr/share/horgand/", bassfiles[type]);
+if (prefix_trick == 2)
+sprintf(temp, "%s%s", "/usr/local/share/horgand/", bassfiles[type]);
+
+hor->Select_Bass(temp);
+hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);} {}
   }
 } 

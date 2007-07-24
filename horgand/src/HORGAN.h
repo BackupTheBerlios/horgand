@@ -981,5 +981,6 @@ public:
   void meteval();
   void ApagaTodo();
   void meteprog();
+  void SetBassType(int type);
 };
 #endif

@@ -1177,53 +1177,21 @@ void HORGAN::cb_Basson(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_Bass1_i(Fl_Button*, void*) {
-  char temp[512];
-
-if (prefix_trick == 1)  
-sprintf(temp ,"%s", "/usr/share/horgand/AcousticBass.wav");
-if (prefix_trick == 2) 
-sprintf(temp, "%s", "/usr/local/share/horgand/AcousticBass.wav");
-
-char *tmp = temp;
-
-hor->Select_Bass(tmp);
-hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);
+  SetBassType(0);
 }
 void HORGAN::cb_Bass1(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Bass1_i(o,v);
 }
 
 void HORGAN::cb_Bass2_i(Fl_Button*, void*) {
-  char temp[512];
-
-if (prefix_trick == 1)  
-sprintf(temp ,"%s", "/usr/share/horgand/FenderBass.wav");
-if (prefix_trick == 2) 
-sprintf(temp, "%s", "/usr/local/share/horgand/FenderBass.wav");
-
-char *tmp = temp;
-
-hor->Select_Bass(tmp);
-hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);
+  SetBassType(1);
 }
 void HORGAN::cb_Bass2(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Bass2_i(o,v);
 }
 
 void HORGAN::cb_Bass3_i(Fl_Button*, void*) {
-  char temp[512];
-
-if (prefix_trick == 1)  
-sprintf(temp ,"%s", "/usr/share/horgand/FretlessBass.wav");
-if (prefix_trick == 2) 
-sprintf(temp, "%s", "/usr/local/share/horgand/FretlessBass.wav");
-
-char *tmp = temp;
-
-
-
-hor->Select_Bass(tmp);
-hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);
+  SetBassType(2);
 }
 void HORGAN::cb_Bass3(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Bass3_i(o,v);
@@ -4331,6 +4299,8 @@ switch (hor->Salida)
 Rit1->value(1);
 Selected_Rhythm = 1;
 GetRit(Selected_Rhythm);
+SetBassType(0);
+Bass1->value(1);
 }
 
 void HORGAN::GetCombi(int i) {
@@ -5136,4 +5106,17 @@ ChorVol->value(hor->Chorus_Volume * 100);
 hor->delayclean();
 hor->chorusclean();
 hor->reverbclean();
+}
+
+void HORGAN::SetBassType(int type) {
+  char temp[512];
+const char *bassfiles[] = {"AcousticBass.wav", "FenderBass.wav", "FretlessBass.wav"};
+
+if (prefix_trick == 1)
+sprintf(temp ,"%s%s", "/usr/share/horgand/", bassfiles[type]);
+if (prefix_trick == 2)
+sprintf(temp, "%s%s", "/usr/local/share/horgand/", bassfiles[type]);
+
+hor->Select_Bass(temp);
+hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);
 }
