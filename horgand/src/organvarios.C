@@ -42,6 +42,9 @@ int dist1,dist2,dist3,dist4;
 char AName[16];
 
 
+
+
+
 chord = 0;
 for (i=0; i<=POLY; i++) 
 	{

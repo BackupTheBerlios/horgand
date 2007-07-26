@@ -2120,7 +2120,7 @@ void HORGAN::cb_CloRit(Fl_Button* o, void* v) {
 
 Fl_Double_Window* HORGAN::make_window() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(825, 595, gettext("Horgand v1.08"));
+  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(825, 595, gettext("Horgand v1.09"));
     w = o;
     o->color(FL_LIGHT1);
     o->labelcolor((Fl_Color)208);
@@ -2452,7 +2452,8 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelsize(14);
       o->labelcolor((Fl_Color)4);
       o->minimum(24);
-      o->step(0.01);
+      o->step(0.1);
+      o->value(1);
       o->callback((Fl_Callback*)cb_Marimba);
       o->align(FL_ALIGN_RIGHT);
       o->when(FL_WHEN_CHANGED);
@@ -3492,7 +3493,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelsize(24);
       o->align(FL_ALIGN_CLIP);
     }
-    { Fl_Box* o = new Fl_Box(10, 45, 345, 70, gettext("Copyright (C) 2003-2004 by Josep Andreu\n     (Holborn) \n      holborn@@tele\
+    { Fl_Box* o = new Fl_Box(10, 45, 345, 70, gettext("Copyright (C) 2003-2007 by Josep Andreu\n     (Holborn) \n      holborn@@tele\
 fonica.net "));
       o->labelfont(1);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
@@ -4274,6 +4275,8 @@ e version 2 of the \n GNU General Public License for details."));
     { Fl_Box* o = new Fl_Box(325, 65, 50, 25, gettext("Notes:"));
       o->labeltype(FL_ENGRAVED_LABEL);
     }
+    new Fl_Button(235, 70, 80, 25);
+    new Fl_Button(315, 70, 80, 25);
     o->end();
   }
   return w;
@@ -4662,7 +4665,7 @@ meteprog();
 }
 
 void HORGAN::tick(void *v) {
-  Fl::add_timeout(1.0/100,tick);
+  Fl::add_timeout(1.0/25,tick);
 }
 
 void HORGAN::ponreverb() {

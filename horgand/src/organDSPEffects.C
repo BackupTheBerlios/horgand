@@ -102,8 +102,8 @@ HOR::Effect_Chorus()
       rdelay = PERIOD2 + (dlr1 * Chorus_Delay);
       
 
-      dell = (ldelay1 * (PERIOD - i) + ldelay * i) / PERIOD;
-      delr = (rdelay1 * (PERIOD - i) + rdelay * i) / PERIOD;
+      dell = (ldelay1 * (PERIOD2 - i) + ldelay * i) / PERIOD2;
+      delr = (rdelay1 * (PERIOD2 - i) + rdelay * i) / PERIOD2;
 
 
 
@@ -125,10 +125,10 @@ HOR::Effect_Chorus()
       
 
       valorl = ehistoryl[elkel] * dllo + ehistoryl[elkel2] * (1 - dllo);
-      valorl += (buf[j] * dllo) + (buf[j] * (1 - dllo));      
+      valorl += (buf[j] * dllo) + (buf[j] * (1 - dllo));     
       
       buf[j] = (buf[j] * (1 - Chorus_Volume)) + (valorl * Chorus_Volume );
-
+      
 
 
 
@@ -250,11 +250,11 @@ HOR::Effect_Reverb ()
     {
     
       
-      elke = rperhis - ((long) (combl[j] * Reverb_Time))+10000;
+      elke = rperhis - ((long) (combl[j] * Reverb_Time))+8000;
       if (elke % 2 != 0) elke = elke + 1;
       if (elke < 0) elke = 524800 + elke;
 
-      elke1 = rperhis  - ((long) (combr[j] * Reverb_Time))+10000;
+      elke1 = rperhis  - ((long) (combr[j] * Reverb_Time))+8000;
       if (elke1 % 2 == 0) elke1 = elke1 + 1; 
       if (elke1 < 0) elke1 = 524800 + elke1;
  

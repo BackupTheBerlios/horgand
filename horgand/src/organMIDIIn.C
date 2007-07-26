@@ -26,17 +26,37 @@
 // Read MIDI Events
 
 void
+HOR::miramidi(int keIN)
+{
+
+if (snd_seq_event_input_pending (MidiInPuerto[keIN].midi_in, 1))
+{
+    do
+        {
+         midievents(keIN);
+         }
+         while (snd_seq_event_input_pending (MidiInPuerto[keIN].midi_in, 0));
+}
+                        
+};
+                        
+
+
+
+
+
+
+
+void
 HOR::midievents (int keIN)
 {
 
   int l1;
   snd_seq_event_t *midievent;
-
   midievent = NULL;
   snd_seq_event_input (MidiInPuerto[keIN].midi_in, &midievent);
-  if (midievent == NULL)
-    return;
-
+  if (midievent == NULL) return;
+  if(midievent->type == 42) return;
 
   switch (midievent->type)
     {
@@ -105,7 +125,7 @@ HOR::midievents (int keIN)
 		      velocity[l1] /= 2;
 		    }
 
-		  env_time[l1] = 0.01;
+		  env_time[l1] = 0;
 		  gate[l1] = 1;
 		  note_active[l1] = 1;
                   Get_Chord();
@@ -124,7 +144,7 @@ HOR::midievents (int keIN)
 	      if (gate[l1] && note_active[l1]
 		  && (rnote[l1] == midievent->data.note.note))
 		{
-		  env_time[l1] = 0.01;
+		  env_time[l1] = 0;
 		  gate[l1] = 0;
                   Get_Chord();
 		}

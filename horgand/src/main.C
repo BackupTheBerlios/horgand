@@ -33,13 +33,16 @@
 #include "HORGAN.h"
 #include <math.h>
 
+
 pthread_t thr1, thr2;
 HOR hor;
+
 
 
 // Put Kernel RT priority to a thread
 
 void pon_realtime()
+
 {
     sched_param scprior;
 
@@ -54,8 +57,9 @@ void pon_realtime()
 void *
 thread1 (void *arg)
 {
-  pon_realtime();
-  while (Pexitprogram ==0)  hor.midievents(1);
+//pon_realtime();
+  while (Pexitprogram ==0)  hor.miramidi(1);
+
   return (0);
 };
 
@@ -65,8 +69,9 @@ thread1 (void *arg)
 void *
 thread2 (void *arg)
 {
-    pon_realtime();
+//    pon_realtime();
     while (Pexitprogram ==0)  hor.Alg1s(hor.PERIOD,0);
+
     return(0);
 
 };
@@ -79,7 +84,7 @@ int main(int argc, char *argv[])
 // Read command Line
 
   fprintf (stderr,
-	   "horgand v1.08 - Copyright (c) 2003-2004 Josep Andreu (Holborn)\n");
+	   "horgand v1.09 - Copyright (c) 2003-2007 Josep Andreu (Holborn)\n");
   if (argc == 1)
     fprintf (stderr, "Try 'horgand --help' for command-line options.\n");
 

@@ -93,11 +93,11 @@ class HORGAN {open
 } {
   Function {make_window()} {} {
     Fl_Window HORwindow {
-      label {Horgand v1.08}
+      label {Horgand v1.09}
       callback {Pexitprogram=1;
 o->hide();
-exit(0);}
-      xywh {18 80 825 595} type Double color 50 labelcolor 208 resizable hotspot visible
+exit(0);} open selected
+      xywh {79 88 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -449,7 +449,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {10 315 165 15} type {Horz Knob} box PLASTIC_DOWN_BOX color 24 selection_color 5 labeltype ENGRAVED_LABEL labelcolor 4 align 8 minimum 24 step 0.01
+        xywh {10 315 165 15} type {Horz Knob} box PLASTIC_DOWN_BOX color 24 selection_color 5 labeltype ENGRAVED_LABEL labelcolor 4 align 8 minimum 24 step 0.1 value 1
         class Drawbar
       }
       Fl_Slider V4 {
@@ -1308,7 +1308,7 @@ Signal_for_Cb_Sliders = 0;
         xywh {35 5 260 40} labelfont 1 labelsize 24 align 64
       }
       Fl_Box {} {
-        label {Copyright (C) 2003-2004 by Josep Andreu
+        label {Copyright (C) 2003-2007 by Josep Andreu
      (Holborn) 
       holborn@@telefonica.net }
         xywh {10 45 345 70} labelfont 1 align 80
@@ -2092,6 +2092,12 @@ RitEdit->hide();}
         label {Notes:}
         xywh {325 65 50 25} labeltype ENGRAVED_LABEL
       }
+      Fl_Button {} {
+        xywh {235 70 80 25}
+      }
+      Fl_Button {} {
+        xywh {315 70 80 25}
+      }
     }
   }
   Function {metelo()} {open
@@ -2478,7 +2484,7 @@ meteprog();} {}
   }
   Function {tick(void *v)} {return_type {static void}
   } {
-    code {Fl::add_timeout(1.0/100,tick);} {}
+    code {Fl::add_timeout(1.0/25,tick);} {}
   }
   decl {HOR *hor;} {
     callback {->Operator[1].frequency_type = (int) o->value();
@@ -2539,8 +2545,7 @@ hor->Reverb_Diffussion = 0.16;
 break;
 }} {}
   }
-  Function {GetRit(int Selected_Rhythm)} {open
-  } {
+  Function {GetRit(int Selected_Rhythm)} {} {
     code {int i;
 int rula;
 

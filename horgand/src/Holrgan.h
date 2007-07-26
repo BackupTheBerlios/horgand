@@ -52,6 +52,7 @@ public:
    HOR ();
   ~HOR ();
 
+  void miramidi(int i);
   void midievents (int i);
   void panic();
   void Put_Period();
@@ -102,6 +103,7 @@ public:
   SNDFILE *infileb;
   SF_INFO sfinfob;
   int cpreset;
+  int marimba;
   int PERIOD;
   unsigned int SAMPLE_RATE;
   int PERIOD2;
@@ -383,7 +385,7 @@ jack_port_t *outport_left,*outport_right;
   
   { 
     float f1,f2,f3;
-  }  h[170];
+  }  h[193];
 
   
   struct PuertoMidiIn

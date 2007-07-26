@@ -214,6 +214,8 @@ readcountr = sf_readf_float (infile, rbuf, falta);
 }
 
 
+
+
  for (i = 0; i < PERIOD2; i += 2)
     {
 
@@ -246,8 +248,8 @@ readcountr = sf_readf_float (infile, rbuf, falta);
         rr = 1.0;
      
 
-     buf[i] =  (l  + (rl * Rhythm_Volume)) * 0.5;
-     buf[i+1] =  (r + (rr * Rhythm_Volume)) * 0.5;
+     buf[i] =    ((l * Rhythm_Volume) + (rl * Rhythm_Volume ) * .5);
+     buf[i+1] =  ((r * Rhythm_Volume) + (rr * Rhythm_Volume ) * .5);
 
       }
 

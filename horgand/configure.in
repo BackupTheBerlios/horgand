@@ -5,7 +5,7 @@ define([AC_CACHE_SAVE], )dnl
 
 
 AC_INIT(src/main.C) 
-AM_INIT_AUTOMAKE(horgand,1.08)
+AM_INIT_AUTOMAKE(horgand,1.09)
 
 # Checks for programs.
 AC_PROG_CXX
