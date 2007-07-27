@@ -927,17 +927,18 @@ for (j = 1; j<= 20; j++)
   for (i = 0; i <= sizesin; i++)
 
     {
-      x_sin = (float) (i * D_PI * (2.0 / sizesin));
+      x_sin = (float) (i * 2.0 * D_PI  / sizesin);
+
       lsin[i] = sin (x_sin);
       nsin[i] = -1.0 * lsin[i];
     }
 
 
-for (i = 0; i <= sizesin; i++)
+for (i = 0; i < sizesin; i++)
 
     {
       lsin[i] = lsin[i] + (lsin[i+1] - lsin[i]) * .5;
-      nsin[i] = nsin[i] + (nsin[i-1] - nsin[i]) * .5; 
+      nsin[i] = -1.0 * lsin[i]; 
     }
 
   // Init gated notes
@@ -1160,7 +1161,6 @@ HOR::volume_Operator (int i, int l2)
   Operator[i].con1 =
   Operator[i].volumen * Envelope_Volume[l2] * Keyb_Level_Scaling / lasfreq[Operator[i].harmonic];
    
-//  while (Operator[i].con1 > 1 ) Operator[i].con1 *= .5;
 };
 
 

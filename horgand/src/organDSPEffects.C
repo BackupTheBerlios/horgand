@@ -33,12 +33,10 @@ HOR::Chorus_LFO (float *Chorus_X)
 
   float out;
 
+ 
   *Chorus_X += increment * Chorus_LFO_Speed;
 
-  if (*Chorus_X > 1)
-   *Chorus_X = 0;
-
-  ;
+ if (*Chorus_X > 1) *Chorus_X = 0;
 
   out = Fsin (*Chorus_X * D_PI);
 
@@ -106,8 +104,6 @@ HOR::Effect_Chorus()
       delr = (rdelay1 * (PERIOD2 - i) + rdelay * i) / PERIOD2;
 
 
-
-
       dllo = 1.0 - fmod (dell, 1.0);
       
       elkel = (long) (aeperhis + i - dell);
@@ -129,8 +125,6 @@ HOR::Effect_Chorus()
       
       buf[j] = (buf[j] * (1 - Chorus_Volume)) + (valorl * Chorus_Volume );
       
-
-
 
 
       dllo = 1.0 - fmod (delr, 1.0);
