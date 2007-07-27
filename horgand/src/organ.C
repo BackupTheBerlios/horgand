@@ -929,8 +929,9 @@ for (j = 1; j<= 20; j++)
     {
       x_sin = (float) (i * D_PI * (2.0 / sizesin));
       lsin[i] = sin (x_sin);
-      nsin[i] = sin (-1 * x_sin);
+      nsin[i] = -1.0 * lsin[i];
     }
+
 
 for (i = 0; i <= sizesin; i++)
 
@@ -1157,7 +1158,7 @@ void
 HOR::volume_Operator (int i, int l2)
 {
   Operator[i].con1 =
-    Operator[i].volumen * Envelope_Volume[l2] * Keyb_Level_Scaling / lasfreq[Operator[i].harmonic];
+  Operator[i].volumen * Envelope_Volume[l2] * Keyb_Level_Scaling / lasfreq[Operator[i].harmonic];
    
 //  while (Operator[i].con1 > 1 ) Operator[i].con1 *= .5;
 };
@@ -1312,9 +1313,11 @@ HOR::Get_Partial (int nota)
 void
 HOR::Alg1s (int nframes, void *)
 {
- 
+
+  pthread_mutex_lock(&mutex); 
   int l1, l2, i, kk = 0;
   float sound = 0;
+  int output_yes = 0;
 
 
   memset (buf, 0, PERIOD8);
@@ -1326,15 +1329,16 @@ HOR::Alg1s (int nframes, void *)
 
       if (note_active[l2])
 	{
+	  output_yes=1;
 	  Get_Partial(l2);
 
 	  LFO_Volume = Pitch_LFO (env_time[l2]);
-          
+          Envelope_Volume[l2]=1.0;
          
            
 	  for (i = 1; i <= 10; i++)
 	    {
-              
+              /*
               if (Operator[i].marimba)
               {
               decay = 0.30;
@@ -1349,7 +1353,7 @@ HOR::Alg1s (int nframes, void *)
               marimba=0;
               Envelope_Volume[l2]=Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
               }              
-              
+              */
               volume_Operator(i, l2);
               f[i].dphi = partial * pitch_Operator (i, l2);
               while (f[i].dphi > D_PI) f[i].dphi -= D_PI;	      
@@ -1374,7 +1378,7 @@ HOR::Alg1s (int nframes, void *)
                 }
 
               buf[l1] += (sound * Organ_Master_Volume * .5); 
-              buf[l1+1] += (sound * Organ_Master_Volume * .5); 
+              buf[l1+1] =buf[l1]; 
             
               if (buf[l1]<-1.0) buf[l1]=-1.0; else if (buf[l1]>1.0) buf[l1]=1.0;
               if (buf[l1+1]<-1.0) buf[l1+1]=-1.0; else if (buf[l1+1]>1.0) buf[l1+1]=1.0;
@@ -1389,13 +1393,16 @@ HOR::Alg1s (int nframes, void *)
     }
 
 
-
+if(output_yes)
+  {
   if (E_Chorus_On == 1)
     Effect_Chorus ();
   if (E_Rotary_On == 1)
     Effect_Rotary ();
   if (E_Delay_On == 1)
     Effect_Delay();
+  }  
+ 
   if (E_Reverb_On == 1)
     Effect_Reverb();
   if (Rhythm_On == 1) 
@@ -1420,7 +1427,7 @@ Final_Output();
 	snd_pcm_prepare (playback_handle);
       break;
     }
-
+   pthread_mutex_unlock(&mutex);
    return;
 };
 

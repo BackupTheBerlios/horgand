@@ -227,11 +227,9 @@ HOR::Effect_Reverb ()
   long elke, elke1;
   float tmp=0;
   float tmprvol=0;
-  float bufl;
-  float bufr;
   float efxoutl;
   float efxoutr;
-  float stmp; 
+  float stmp=0; 
   
     
   
@@ -239,45 +237,44 @@ HOR::Effect_Reverb ()
 
     {
 
-  bufl = buf[i];
-  bufr = buf[i+1];
   efxoutl = 0;
   efxoutr = 0;
   stmp = 0;
   
     
-  for (j = 0; j<=15; j++)
+    
+  for (j = 0; j<=10; j++)
     {
     
       
-      elke = rperhis - ((long) (combl[j] * Reverb_Time))+8000;
+      elke = rperhis - ((long) (combl[j] * Reverb_Time));
       if (elke % 2 != 0) elke = elke + 1;
       if (elke < 0) elke = 524800 + elke;
 
-      elke1 = rperhis  - ((long) (combr[j] * Reverb_Time))+8000;
+      elke1 = 1 + rperhis  - ((long) (combr[j] * Reverb_Time));
       if (elke1 % 2 == 0) elke1 = elke1 + 1; 
       if (elke1 < 0) elke1 = 524800 + elke1;
  
       tmp = Reverb_Diffussion * apsg[capsg] / apss;
       stmp += tmp;
-      if (++capsg > 15 ) capsg = 0;
-      efxoutl += rhistory[elke] * stmp;
+      if (++capsg > 10 ) capsg = 0;
+      efxoutl += rhistory[elke] *  stmp * 2;
                   
       tmp = Reverb_Diffussion * apsg[capsg] / apss;
       stmp += tmp;
-      if (++capsg > 15 ) capsg = 0;
-      efxoutr += rhistory[elke1] * stmp;
+      if (++capsg > 10 ) capsg = 0;
+      efxoutr += rhistory[elke1] *  stmp * 2;
              
      }
-       
-        
+
+
       tmprvol =  stmp * Reverb_Volume;
        
     
-      buf[i] = bufl + ((efxoutl * tmprvol));
+      buf[i] +=  ((efxoutl * tmprvol));
       rhistory[rperhis] = buf[i];
       if (++rperhis > 524800) rperhis = 0;
-      buf[i + 1] = bufr + ((efxoutr * tmprvol));
+      buf[i + 1] += ((efxoutr * tmprvol));
       rhistory[rperhis] = buf[i+1];
       if (++rperhis > 524800) rperhis = 0;
                                                    

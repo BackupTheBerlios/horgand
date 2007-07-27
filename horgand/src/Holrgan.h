@@ -27,9 +27,9 @@
 #include <alsa/asoundlib.h>
 #include <jack/jack.h>
 #include <sndfile.h>
-#define MPERIOD  256
+#define MPERIOD  128
 #define BUFSIZE 1024
-#define POLY 32
+#define POLY 16
 #define DSAMPLE_RATE 44100
 #define D_PI 6.283184
 
@@ -52,7 +52,6 @@ public:
    HOR ();
   ~HOR ();
 
-  void miramidi(int i);
   void midievents (int i);
   void panic();
   void Put_Period();

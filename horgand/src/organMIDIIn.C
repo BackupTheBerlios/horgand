@@ -25,25 +25,6 @@
 
 // Read MIDI Events
 
-void
-HOR::miramidi(int keIN)
-{
-
-if (snd_seq_event_input_pending (MidiInPuerto[keIN].midi_in, 1))
-{
-    do
-        {
-         midievents(keIN);
-         }
-         while (snd_seq_event_input_pending (MidiInPuerto[keIN].midi_in, 0));
-}
-                        
-};
-                        
-
-
-
-
 
 
 
@@ -144,6 +125,7 @@ HOR::midievents (int keIN)
 	      if (gate[l1] && note_active[l1]
 		  && (rnote[l1] == midievent->data.note.note))
 		{
+                  note_active[l1]=0;
 		  env_time[l1] = 0;
 		  gate[l1] = 0;
                   Get_Chord();
@@ -163,7 +145,7 @@ HOR::midievents (int keIN)
 	  if (gate[l1] && note_active[l1]
 	      && (rnote[l1] == midievent->data.note.note))
 	    {
-	    
+              note_active[l1]=0;	    
 	      gate[l1] = 0;
               Get_Chord();
 	    }
