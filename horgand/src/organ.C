@@ -925,6 +925,36 @@ for (j = 1; j<= 20; j++)
       h[i].f3 = 8.1757989156 * exp ((float) (i + 2) * log (2.0) / 12.0);
     }
 
+
+  // Allocate memory for calculated sins
+
+  size_t sizesin = (size_t) (D_PI * 1000); 
+
+  lsin = (float *) malloc (sizeof (float) * sizesin );
+
+  memset (lsin, 0, sizesin);
+
+
+   float x_sin;
+
+   for (i = 0; i < (int) sizesin; i++)
+
+    {
+      x_sin = (float) ( i * D_PI  / sizesin);
+      lsin[i] = sin (x_sin);
+    }
+
+
+    for (i = 0; i < (int) (sizesin-1); i++)
+
+    {
+      lsin[i] = lsin[i] + (lsin[i+1] - lsin[i]) * .5;
+    }
+
+
+
+
+
   // Init Sound and effect buffers
 
 
@@ -984,33 +1014,6 @@ for (j = 1; j<= 20; j++)
 
        increment = .5 / SAMPLE_RATE;
        D_PI_to_SAMPLE_RATE = D_PI / SAMPLE_RATE;
-
-
-  // Allocate memory for calculated sins
-
-  size_t sizesin = (size_t) (D_PI * 1000); 
-
-  lsin = (float *) malloc (sizeof (float) * sizesin );
-
-  memset (lsin, 0, sizesin);
-
-
-
-
-  float x_sin;
-
-  for (i = 0; i < sizesin; i++)
-
-    {
-      x_sin = (float) ( i * D_PI  / sizesin);
-      lsin[i] = sin (x_sin);
-    }
-
-    for (i = 0; i < (sizesin-1); i++)
-
-    {
-      lsin[i] = lsin[i] + (lsin[i+1] - lsin[i]) * .5;
-    }
 
 
 // Load Preset Bank File
@@ -1113,8 +1116,7 @@ for (j = 1; j<= 20; j++)
   memset (wbuf, 0, PERIOD8);
   memset (rbuf, 0, PERIOD8);  
   memset (bbuf, 0, PERIOD8);
-  memset (f,0,20);
- 
+   
  // Send Signal to GUI  -> "All OK"
 
   waitforGUI = 1;
@@ -1272,7 +1274,7 @@ HOR::Get_Partial (int nota)
 							     h[l].f1) * pitch;
 
   partial = 2 * mastertune * freq_note * D_PI_to_SAMPLE_RATE;
-  partial=fmod(partial,D_PI);
+  if (partial > D_PI) partial=fmod(partial,D_PI);
   Get_Keyb_Level_Scaling(nota);
 
 };
@@ -1285,6 +1287,7 @@ HOR::Alg1s (int nframes, void *)
 {
 
   pthread_mutex_lock(&mutex); 
+
   int l1, l2, i, kk = 0;
   float sound = 0;
   int output_yes = 0;
@@ -1376,7 +1379,7 @@ Final_Output();
       break;
     case 2:
       kk = snd_pcm_writei (playback_handle, wbuf, PERIOD2);
-      if (kk < (PERIOD2))
+      if (kk < PERIOD2)
 	snd_pcm_prepare (playback_handle);
       break;
     }
