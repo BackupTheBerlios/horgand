@@ -220,7 +220,6 @@ if (hor.Salida == 1)  close(hor.snd_handle);
 
     // free memory etc.
 
-  free(hor.nsin);
   free(hor.lsin);    
   free(hor.history);
   free(hor.buf);

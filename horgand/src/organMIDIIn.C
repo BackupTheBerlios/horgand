@@ -97,7 +97,7 @@ HOR::midievents (int keIN)
 		  note[l1] = rnote[l1];
 		  LastMidiInLevel = MidiInLevel;
 		  MidiInLevel = midievent->data.note.velocity;
-		  velocity[l1] = midievent->data.note.velocity / 256.0;
+		  velocity[l1] = midievent->data.note.velocity / 254.0;
 
 		  if ((split == 1) && (rnote[l1] < 60))
 		    {
@@ -125,15 +125,25 @@ HOR::midievents (int keIN)
 	      if (gate[l1] && note_active[l1]
 		  && (rnote[l1] == midievent->data.note.note))
 		{
-                  note_active[l1]=0;
-		  env_time[l1] = 0;
-		  gate[l1] = 0;
+                  gate[l1] = 0;
+                  env_time[l1] = 0;
                   Get_Chord();
 		}
 
 	    }
 	}
       break;
+
+
+
+
+
+
+
+
+
+
+
 
     case SND_SEQ_EVENT_NOTEOFF:
 
@@ -145,8 +155,8 @@ HOR::midievents (int keIN)
 	  if (gate[l1] && note_active[l1]
 	      && (rnote[l1] == midievent->data.note.note))
 	    {
-              note_active[l1]=0;	    
-	      gate[l1] = 0;
+              gate[l1] = 0;
+              env_time[l1] = 0;
               Get_Chord();
 	    }
 

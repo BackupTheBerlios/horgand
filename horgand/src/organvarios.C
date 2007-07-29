@@ -23,7 +23,7 @@
 
 
 #include "Holrgan.h"
-
+#include <math.h>
 // Identify Chords
 
 
@@ -229,7 +229,8 @@ float
 HOR::Fsin (float x)
 {
 
-  if (x >= 0) return (lsin[(int) (x * 1000)]); else return (nsin[(int) (x * 1000)]);
+  x = fmod(x,D_PI);  
+  if (x >= 0) return (lsin[(int) (x * 1000)]); else return (-1 * lsin[(int) (x * 1000)]);
 
 };
 

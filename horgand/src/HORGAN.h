@@ -30,8 +30,8 @@ public:
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Dial.H>
 #include <FL/Fl_Value_Output.H>
-#include <FL/Fl_Check_Button.H>
 #include <FL/Fl_Browser.H>
+#include <FL/Fl_Check_Button.H>
 #include <FL/Fl_File_Input.H>
 #include <FL/Fl_Value_Input.H>
 
@@ -142,11 +142,6 @@ public:
 private:
   void cb_V3_i(Drawbar*, void*);
   static void cb_V3(Drawbar*, void*);
-public:
-  Drawbar *Marimba;
-private:
-  void cb_Marimba_i(Drawbar*, void*);
-  static void cb_Marimba(Drawbar*, void*);
 public:
   Drawbar *V4;
 private:
@@ -524,26 +519,6 @@ public:
   Fl_Value_Output *NV8;
   Fl_Value_Output *NV9;
   Fl_Value_Output *NV10;
-  Fl_Check_Button *Mar4;
-private:
-  void cb_Mar4_i(Fl_Check_Button*, void*);
-  static void cb_Mar4(Fl_Check_Button*, void*);
-public:
-  Fl_Check_Button *Mar3;
-private:
-  void cb_Mar3_i(Fl_Check_Button*, void*);
-  static void cb_Mar3(Fl_Check_Button*, void*);
-public:
-  Fl_Check_Button *Mar2;
-private:
-  void cb_Mar2_i(Fl_Check_Button*, void*);
-  static void cb_Mar2(Fl_Check_Button*, void*);
-public:
-  Fl_Check_Button *Mar1;
-private:
-  void cb_Mar1_i(Fl_Check_Button*, void*);
-  static void cb_Mar1(Fl_Check_Button*, void*);
-public:
   Drawbar *OMaster;
 private:
   void cb_OMaster_i(Drawbar*, void*);

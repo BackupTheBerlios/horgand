@@ -89,14 +89,13 @@ return 1;
   }
 } 
 
-class HORGAN {open
-} {
+class HORGAN {} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
       label {Horgand v1.09}
       callback {Pexitprogram=1;
 o->hide();
-exit(0);} open selected
+exit(0);} open
       xywh {79 88 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
@@ -144,7 +143,7 @@ exit(0);} open selected
         Submenu MFile {
           label {&File}
           callback {Fl::focus(PANICO);} open
-          xywh {0 0 100 20}
+          xywh {0 0 100 20} labelsize 14
         } {
           MenuItem {} {
             label {&New...}
@@ -156,7 +155,7 @@ hor->PutPrim();
 sprintf(hor->temporal, "--"); 
 DispNumber->label(hor->temporal);
 CPrograma->value(0);}
-            xywh {0 0 100 20} divider
+            xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
             label {&Load...}
@@ -171,7 +170,7 @@ Actu();
 hor->PutPrim();
 sprintf(hor->temporal,"--");
 DispNumber->label(hor->temporal);}
-            xywh {0 0 100 20}
+            xywh {0 0 100 20} labelsize 14
           }
           MenuItem {} {
             label {&Save...}
@@ -183,17 +182,17 @@ filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->savefile(filename);
 hor->PutPrim();}
-            xywh {0 0 100 20} divider
+            xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
             label {Load Bank...}
             callback {BLoad->do_callback(o);}
-            xywh {0 0 100 20}
+            xywh {0 0 100 20} labelsize 14
           }
           MenuItem {} {
             label {Save Bank...}
             callback {BSave->do_callback(o);}
-            xywh {0 0 100 20} divider
+            xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
             label {Load Rhythm...}
@@ -204,7 +203,7 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,".hrt");
 hor->loadrhyt(filename);
 meteritmos();}
-            xywh {0 0 100 20}
+            xywh {0 0 100 20} labelsize 14
           }
           MenuItem {} {
             label {Save Rhythm...}
@@ -215,35 +214,35 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->saverhyt(filename);}
-            xywh {0 0 100 20} divider
+            xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
             label {&About...}
             callback {aboutwindow->position(200,200);
 aboutwindow->show();}
-            xywh {0 0 100 20} divider
+            xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
             label {E&xit}
             callback {Pexitprogram=1;
 o->hide();
 exit(0);}
-            xywh {0 0 100 20}
+            xywh {0 0 100 20} labelsize 14
           }
         }
         Submenu MEdit {
           label {&Edit} open
-          xywh {0 0 100 20}
+          xywh {0 0 100 20} labelsize 14
         } {
           MenuItem {} {
             label {&Undo}
             callback {Undo();}
-            xywh {0 0 100 20} shortcut 0x4007a
+            xywh {0 0 100 20} shortcut 0x4007a labelsize 14
           }
           MenuItem {} {
             label {&Redo}
             callback {Redo();}
-            xywh {0 0 100 20} shortcut 0x40072
+            xywh {0 0 100 20} shortcut 0x40072 labelsize 14
           }
         }
         MenuItem MBank {
@@ -251,7 +250,7 @@ exit(0);}
           callback {HORBank->position(1,1);
 HORBank->show();
 Fl::focus(BClose);}
-          xywh {0 0 100 20} shortcut 0x80062
+          xywh {0 0 100 20} shortcut 0x80062 labelsize 14
         }
         MenuItem {} {
           label {&Settings}
@@ -260,7 +259,7 @@ MiraConfig();
 Settingswindow->position(1,1);
 Settingswindow->show();
 Fl::focus(SClose);}
-          xywh {0 0 100 20} shortcut 0x80073
+          xywh {0 0 100 20} shortcut 0x80073 labelsize 14
         }
       }
       Fl_Box {} {
@@ -439,17 +438,6 @@ Actu();
 Signal_for_Cb_Sliders = 0;
 }}
         xywh {120 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
-        class Drawbar
-      }
-      Fl_Slider Marimba {
-        label Attack
-        callback {hor->attack = (float) o->value() / 100.0;
-if (Signal_for_Cb_Sliders == 1)
-{ 
-Actu();
-Signal_for_Cb_Sliders = 0;
-}}
-        xywh {10 315 165 15} type {Horz Knob} box PLASTIC_DOWN_BOX color 24 selection_color 5 labeltype ENGRAVED_LABEL labelcolor 4 align 8 minimum 24 step 0.1 value 1
         class Drawbar
       }
       Fl_Slider V4 {
@@ -1237,56 +1225,6 @@ Actu();}
       Fl_Value_Output NV10 {
         xywh {533 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
       }
-      Fl_Check_Button Mar4 {
-        label Marimba
-        callback {if ((int)o->value())
-{
-hor->Operator[10].marimba = 1;
-}
-else
-{
-hor->Operator[10].marimba = 0;
-}}
-        xywh {535 315 60 20} down_box DOWN_BOX labelsize 9
-      }
-      Fl_Check_Button Mar3 {
-        label Marimba
-        callback {if ((int)o->value())
-{
-hor->Operator[9].marimba = 1;
-}
-else
-{
-hor->Operator[9].marimba = 0;
-}}
-        xywh {475 315 55 20} down_box DOWN_BOX labelsize 9
-      }
-      Fl_Check_Button Mar2 {
-        label Marimba
-        callback {if ((int)o->value())
-{
-hor->Operator[8].marimba = 1;
-}
-else
-{
-hor->Operator[8].marimba = 0;
-
-}}
-        xywh {415 315 55 20} down_box DOWN_BOX labelsize 9
-      }
-      Fl_Check_Button Mar1 {
-        label Marimba
-        callback {if ((int)o->value())
-{
-hor->Operator[7].marimba = 1;
-
-}
-else
-{
-hor->Operator[7].marimba = 0;
-}}
-        xywh {355 315 55 20} down_box DOWN_BOX labelsize 9
-      }
       Fl_Slider OMaster {
         label Volume
         callback {hor->Organ_Master_Volume = (float) o->value() / 100.0;
@@ -1401,7 +1339,7 @@ Fl::focus(PANICO);}
       } {
         Submenu BFile {
           label {&File} open
-          xywh {0 0 100 20}
+          xywh {0 0 100 20} labelsize 14
         } {
           MenuItem BLoad {
             label {&Load Bank}
@@ -1411,7 +1349,7 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,".horeb");
 hor->loadbank(filename);
 metebanco()}
-            xywh {0 0 100 20}
+            xywh {0 0 100 20} labelsize 14
           }
           MenuItem BSave {
             label {&Save Bank}
@@ -1422,13 +1360,13 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->savebank(filename);}
-            xywh {0 0 100 20} divider
+            xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
             label {&Close}
             callback {HORBank->hide();
 Fl::focus(PANICO);}
-            xywh {0 0 100 20}
+            xywh {0 0 100 20} labelsize 14
           }
         }
       }
@@ -2100,8 +2038,7 @@ RitEdit->hide();}
       }
     }
   }
-  Function {metelo()} {open
-  } {
+  Function {metelo()} {} {
     code {meteprog();
 
 switch (hor->Salida)
@@ -2129,7 +2066,7 @@ sprintf(tmp, "%2.1f", hor->lasfreq[(int) o->value()]);
 V1->label(tmp);
 Actu();
 Bass1->value(1);
-SetBassType(0);} selected
+SetBassType(0);}
     }
   }
   Function {GetCombi(int i)} {} {
@@ -2832,13 +2769,8 @@ NV8->value(hor->lasfreq[hor->Operator[8].harmonic]);
 NV9->value(hor->lasfreq[hor->Operator[9].harmonic]);
 NV10->value(hor->lasfreq[hor->Operator[10].harmonic]);
 
-Mar1->value(hor->Operator[7].marimba);
-Mar2->value(hor->Operator[8].marimba);
-Mar3->value(hor->Operator[9].marimba);
-Mar4->value(hor->Operator[10].marimba);
 
 
-Marimba->value(hor->attack * 100);
 Detune->value(hor->detune);
 PLFOSpeed->value(hor->Pitch_LFO_Speed);
 PLFODelay->value(hor->Pitch_LFO_Delay * 10);
@@ -2923,9 +2855,10 @@ ChorVol->value(hor->Chorus_Volume * 100);
 
 hor->delayclean();
 hor->chorusclean();
-hor->reverbclean();} {}
+hor->reverbclean();} {selected
+    }
   }
-  Function {SetBassType(int type)} {open return_type void
+  Function {SetBassType(int type)} {return_type void
   } {
     code {char temp[512];
 const char *bassfiles[] = {"AcousticBass.wav", "FenderBass.wav", "FretlessBass.wav"};

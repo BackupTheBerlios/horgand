@@ -109,9 +109,9 @@ HOR::HOR ()
   prefix_trick = 0;
   mastertune = 1;
   attack = 0.02;
-  decay = 0.00;
+  decay = 0.30;
   sustain = 0.99;
-  release = 0.02;
+  release = 0.22;
   E_Delay_On = 0;
   Delay_Delay = 0;
   Delay_Volume = 0;
@@ -909,37 +909,11 @@ for (j = 1; j<= 20; j++)
 
   // Allocate memory for calculated sins
 
-  size_t sizesin = (size_t) (D_PI * 2 * 1000); 
+  size_t sizesin = (size_t) (D_PI * 1000); 
 
   lsin = (float *) malloc (sizeof (float) * sizesin );
-  nsin = (float *) malloc (sizeof (float) * sizesin );
-
-  
-
 
   memset (lsin, 0, sizesin);
-  memset (nsin, 0, sizesin);
-
-  // calculate sins
-
-  float x_sin;
-
-  for (i = 0; i <= sizesin; i++)
-
-    {
-      x_sin = (float) (i * 2.0 * D_PI  / sizesin);
-
-      lsin[i] = sin (x_sin);
-      nsin[i] = -1.0 * lsin[i];
-    }
-
-
-for (i = 0; i < sizesin; i++)
-
-    {
-      lsin[i] = lsin[i] + (lsin[i+1] - lsin[i]) * .5;
-      nsin[i] = -1.0 * lsin[i]; 
-    }
 
   // Init gated notes
 
@@ -1016,8 +990,32 @@ for (i = 0; i < sizesin; i++)
 
 // Adjust some vars depend on Audio OUT
 
-       increment = 0.5 / SAMPLE_RATE;
+       increment = .5 / SAMPLE_RATE;
        D_PI_to_SAMPLE_RATE = D_PI / SAMPLE_RATE;
+
+
+  float x_sin;
+
+  for (i = 0; i < sizesin; i++)
+
+    {
+      x_sin = (float) ( D_PI_to_SAMPLE_RATE + (i * D_PI /sizesin));
+      lsin[i] = sin (x_sin);
+    }
+    for (i = 0; i < (sizesin-1); i++)
+
+    {
+      lsin[i] = lsin[i] + (lsin[i+1] - lsin[i]) * .5;
+    }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1121,6 +1119,7 @@ for (i = 0; i < sizesin; i++)
   memset (wbuf, 0, PERIOD8);
   memset (rbuf, 0, PERIOD8);  
   memset (bbuf, 0, PERIOD8);
+  memset (f,0,20);
  
  // Send Signal to GUI  -> "All OK"
 
@@ -1141,15 +1140,9 @@ HOR::~HOR ()
 float
 HOR::pitch_Operator (int i, int note)
 {
-  float LFO_Volume_Real;
   
-// Dont want LFO if Operator is type Marimba
-  
-  if (Operator[i].marimba) LFO_Volume_Real = .5; else LFO_Volume_Real = LFO_Volume;
-    
-  return ((lasfreq[(int) Operator[i].harmonic] +
-                 Operator[i].harmonic_fine) * LFO_Volume_Real);
-                 
+return ((lasfreq[(int) Operator[i].harmonic] + Operator[i].harmonic_fine) * LFO_Volume);
+
 }
                  
 
@@ -1170,7 +1163,7 @@ HOR::volume_Operator (int i, int l2)
 void
 HOR::Get_Keyb_Level_Scaling(int nota)
 {
-Keyb_Level_Scaling = .5 * velocity[nota] * (1 -((120 - note[nota]) / 120.0));
+Keyb_Level_Scaling = velocity[nota] * (1 -((120 - note[nota]) / 120.0));
 };
 
 
@@ -1203,12 +1196,7 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
        if (t > attack + decay)
         {
           Envelope_Volume[nota]=sustain;
-          
-                if (marimba)
-                    {    
-                     Envelope_Volume[nota] = 0;
-                    }
-                 return (Envelope_Volume[nota]);
+          return (Envelope_Volume[nota]);
          }
   
   
@@ -1219,7 +1207,6 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
         }
        
      Envelope_Volume[nota] = sustain * t  / (attack + 0.01);
-
      return(Envelope_Volume[nota]);
     
       
@@ -1227,29 +1214,35 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
   else
     {
 
-      if(marimba)
-      {
-      *note_active = 0;
-      Envelope_Volume[nota]=0;
-      return(Envelope_Volume[nota]);
-      }
-
-      if (pedal == 0) 
-	{
-	  Envelope_Volume[nota] *= (1.0 - ( t / release));
-        if (Envelope_Volume[nota] < 0.01)
-              {
-              Envelope_Volume[nota] = 0;
-              *note_active = 0;
-              return(Envelope_Volume[nota]);
-              }          
-          return (Envelope_Volume[nota]);
-	}
-
-      if (pedal == 1 )
+      if (pedal == 0)
+      {  
+          if ( release > t)
+          {
+          Envelope_Volume[nota] *= (1.0 -  t / release);
+          if (Envelope_Volume[nota] < 0.000005)
+             {
+               if (*note_active) *note_active=0;
+                env_time[nota] = 0;
+                Envelope_Volume[nota]=0;
+                return(Envelope_Volume[nota]);
+              }
+              
+             else                           
+             return (Envelope_Volume[nota]);
+          }
+          else
+          {
+          if (*note_active) *note_active=0;
+          env_time[nota] = 0;
+          Envelope_Volume[nota]=0;
+          return(Envelope_Volume[nota]);
+          }
+       }
+       
+      else
         {
         Envelope_Volume[nota]=sustain;
-        return(2 * Envelope_Volume[nota]);
+        return( Envelope_Volume[nota]);
         }
      }     
 
@@ -1266,15 +1259,13 @@ HOR::Pitch_LFO (float t)
 {
 
   float x, out;
-
+  
   if (t * 20 < Pitch_LFO_Delay)
-    return (0.5);
+    return (1);
 
   x = (t - floor (t));
-  x *= Pitch_LFO_Speed;
+  x += (Pitch_LFO_Speed * t);
   x -= floor (x);
-
-
   out = Fsin (x * D_PI);
 
 
@@ -1283,7 +1274,7 @@ HOR::Pitch_LFO (float t)
   else if (out > 1.0)
     out = 1.0;
   out *= LFO_Frequency;
-  return ((1+out)*.5);
+  return (1.0 + out);
 
 }
 
@@ -1295,14 +1286,14 @@ HOR::Get_Partial (int nota)
 {
   int l;
 
-  l = note[nota] + transpose + 24;
+  l = note[nota] + transpose;
   freq_note =
     (pitch >
      0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 -
 							     h[l].f1) * pitch;
 
-  partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
-
+  partial = 2 * mastertune * freq_note * D_PI_to_SAMPLE_RATE;
+  partial=fmod(partial,D_PI);
   Get_Keyb_Level_Scaling(nota);
 
 };
@@ -1318,11 +1309,11 @@ HOR::Alg1s (int nframes, void *)
   int l1, l2, i, kk = 0;
   float sound = 0;
   int output_yes = 0;
-
-
   memset (buf, 0, PERIOD8);
+  
+
   LFO_Frequency = modulation * LFOpitch * D_PI_to_SAMPLE_RATE;
-  while (LFO_Frequency > D_PI ) LFO_Frequency -=D_PI;
+  if (LFO_Frequency > D_PI ) LFO_Frequency=fmod(LFO_Frequency,D_PI);
   
   for (l2 = 0; l2 < POLY; l2++)
     {
@@ -1331,55 +1322,36 @@ HOR::Alg1s (int nframes, void *)
 	{
 	  output_yes=1;
 	  Get_Partial(l2);
-
 	  LFO_Volume = Pitch_LFO (env_time[l2]);
-          Envelope_Volume[l2]=1.0;
-         
-           
-	  for (i = 1; i <= 10; i++)
+          Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
+     	  for (i = 1; i <= 10; i++)
 	    {
-              /*
-              if (Operator[i].marimba)
-              {
-              decay = 0.30;
-              sustain = 0.0;
-              marimba=1;
-              Envelope_Volume[l2]=Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
-              }
-              else                    
-              {
-              decay = 0.15;
-              sustain = 0.99;
-              marimba=0;
-              Envelope_Volume[l2]=Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
-              }              
-              */
               volume_Operator(i, l2);
               f[i].dphi = partial * pitch_Operator (i, l2);
-              while (f[i].dphi > D_PI) f[i].dphi -= D_PI;	      
+              if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);	      
 	      
               
 	    }
 
-           
+                           
 
 	  for (l1 = 0; l1 < PERIOD2; l1+= 2)
 	    {
 
 	      sound=0;
+	       
 	      for (i = 1; i <= 10; i++)
 		{
-
+                  
                   f[i].phi[l2] += f[i].dphi;
-                  while (f[i].phi[l2] > D_PI) f[i].phi[l2] -= D_PI;
-                  sound += Operator[i].con1 * Fsin (f[i].phi[l2]);
-                          
+                  if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
+                  sound +=  Operator[i].con1 * Fsin(f[i].phi[l2]);
+         
 		
                 }
 
-              buf[l1] += (sound * Organ_Master_Volume * .5); 
+              buf[l1] += sound * Organ_Master_Volume * .5; 
               buf[l1+1] =buf[l1]; 
-            
               if (buf[l1]<-1.0) buf[l1]=-1.0; else if (buf[l1]>1.0) buf[l1]=1.0;
               if (buf[l1+1]<-1.0) buf[l1+1]=-1.0; else if (buf[l1+1]>1.0) buf[l1+1]=1.0;
                 
@@ -1391,6 +1363,7 @@ HOR::Alg1s (int nframes, void *)
 
 
     }
+
 
 
 if(output_yes)

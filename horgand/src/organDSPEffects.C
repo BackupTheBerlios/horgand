@@ -65,7 +65,7 @@ HOR::Effect_Chorus()
   int i,j;
 
   Chorus_LFO_Frequency = 8 * modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE ;
-  while (Chorus_LFO_Frequency > D_PI ) Chorus_LFO_Frequency -=D_PI;
+  if (Chorus_LFO_Frequency > D_PI ) Chorus_LFO_Frequency=fmod(Chorus_LFO_Frequency,D_PI);
   
   
 
@@ -190,7 +190,7 @@ HOR::Effect_Rotary ()
   int i;
   float a ,l, r;
   Rotary_LFO_Frequency = 8 * modulation * Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
-  while (Rotary_LFO_Frequency > D_PI ) Rotary_LFO_Frequency -=D_PI;
+  if (Rotary_LFO_Frequency > D_PI ) Rotary_LFO_Frequency=fmod(Rotary_LFO_Frequency,D_PI);
 
 
   for (i = 0; i <PERIOD2; i +=2)

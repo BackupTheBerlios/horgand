@@ -384,18 +384,6 @@ void HORGAN::cb_V3(Drawbar* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_V3_i(o,v);
 }
 
-void HORGAN::cb_Marimba_i(Drawbar* o, void*) {
-  hor->attack = (float) o->value() / 100.0;
-if (Signal_for_Cb_Sliders == 1)
-{ 
-Actu();
-Signal_for_Cb_Sliders = 0;
-};
-}
-void HORGAN::cb_Marimba(Drawbar* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Marimba_i(o,v);
-}
-
 void HORGAN::cb_V4_i(Drawbar* o, void*) {
   hor->Operator[4].volumen = (float) o->value() / 100;
 if (Signal_for_Cb_Sliders == 1)
@@ -1290,64 +1278,6 @@ Actu();
 }
 void HORGAN::cb_H10(Fl_Slider* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_H10_i(o,v);
-}
-
-void HORGAN::cb_Mar4_i(Fl_Check_Button* o, void*) {
-  if ((int)o->value())
-{
-hor->Operator[10].marimba = 1;
-}
-else
-{
-hor->Operator[10].marimba = 0;
-};
-}
-void HORGAN::cb_Mar4(Fl_Check_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Mar4_i(o,v);
-}
-
-void HORGAN::cb_Mar3_i(Fl_Check_Button* o, void*) {
-  if ((int)o->value())
-{
-hor->Operator[9].marimba = 1;
-}
-else
-{
-hor->Operator[9].marimba = 0;
-};
-}
-void HORGAN::cb_Mar3(Fl_Check_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Mar3_i(o,v);
-}
-
-void HORGAN::cb_Mar2_i(Fl_Check_Button* o, void*) {
-  if ((int)o->value())
-{
-hor->Operator[8].marimba = 1;
-}
-else
-{
-hor->Operator[8].marimba = 0;
-
-};
-}
-void HORGAN::cb_Mar2(Fl_Check_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Mar2_i(o,v);
-}
-
-void HORGAN::cb_Mar1_i(Fl_Check_Button* o, void*) {
-  if ((int)o->value())
-{
-hor->Operator[7].marimba = 1;
-
-}
-else
-{
-hor->Operator[7].marimba = 0;
-};
-}
-void HORGAN::cb_Mar1(Fl_Check_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Mar1_i(o,v);
 }
 
 void HORGAN::cb_OMaster_i(Drawbar* o, void*) {
@@ -2442,22 +2372,6 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(66);
       o->when(FL_WHEN_CHANGED);
     }
-    { Drawbar* o = Marimba = new Drawbar(10, 315, 165, 15, gettext("Attack"));
-      o->type(5);
-      o->box(FL_PLASTIC_DOWN_BOX);
-      o->color((Fl_Color)24);
-      o->selection_color((Fl_Color)5);
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->labelfont(0);
-      o->labelsize(14);
-      o->labelcolor((Fl_Color)4);
-      o->minimum(24);
-      o->step(0.1);
-      o->value(1);
-      o->callback((Fl_Callback*)cb_Marimba);
-      o->align(FL_ALIGN_RIGHT);
-      o->when(FL_WHEN_CHANGED);
-    }
     { Drawbar* o = V4 = new Drawbar(180, 335, 55, 205);
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
@@ -3444,26 +3358,6 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textfont(1);
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
-    }
-    { Fl_Check_Button* o = Mar4 = new Fl_Check_Button(535, 315, 60, 20, gettext("Marimba"));
-      o->down_box(FL_DOWN_BOX);
-      o->labelsize(9);
-      o->callback((Fl_Callback*)cb_Mar4);
-    }
-    { Fl_Check_Button* o = Mar3 = new Fl_Check_Button(475, 315, 55, 20, gettext("Marimba"));
-      o->down_box(FL_DOWN_BOX);
-      o->labelsize(9);
-      o->callback((Fl_Callback*)cb_Mar3);
-    }
-    { Fl_Check_Button* o = Mar2 = new Fl_Check_Button(415, 315, 55, 20, gettext("Marimba"));
-      o->down_box(FL_DOWN_BOX);
-      o->labelsize(9);
-      o->callback((Fl_Callback*)cb_Mar2);
-    }
-    { Fl_Check_Button* o = Mar1 = new Fl_Check_Button(355, 315, 55, 20, gettext("Marimba"));
-      o->down_box(FL_DOWN_BOX);
-      o->labelsize(9);
-      o->callback((Fl_Callback*)cb_Mar1);
     }
     { Drawbar* o = OMaster = new Drawbar(470, 100, 55, 190, gettext("Volume"));
       o->type(4);
@@ -5017,13 +4911,8 @@ NV8->value(hor->lasfreq[hor->Operator[8].harmonic]);
 NV9->value(hor->lasfreq[hor->Operator[9].harmonic]);
 NV10->value(hor->lasfreq[hor->Operator[10].harmonic]);
 
-Mar1->value(hor->Operator[7].marimba);
-Mar2->value(hor->Operator[8].marimba);
-Mar3->value(hor->Operator[9].marimba);
-Mar4->value(hor->Operator[10].marimba);
 
 
-Marimba->value(hor->attack * 100);
 Detune->value(hor->detune);
 PLFOSpeed->value(hor->Pitch_LFO_Speed);
 PLFODelay->value(hor->Pitch_LFO_Delay * 10);

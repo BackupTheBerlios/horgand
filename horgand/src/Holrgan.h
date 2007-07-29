@@ -108,7 +108,6 @@ public:
   int PERIOD2;
   int PERIOD4;
   int PERIOD8;
-  float *nsin;  
   float *lsin;
   float *buf;
   short *wbuf;
