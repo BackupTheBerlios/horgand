@@ -108,8 +108,8 @@ HOR::HOR ()
 
   prefix_trick = 0;
   mastertune = 1;
-  attack = 0.02;
-  decay = 0.30;
+  attack = 0.0001;
+  decay = 0.20;
   sustain = 0.99;
   release = 0.22;
   E_Delay_On = 0;
@@ -907,14 +907,6 @@ for (j = 1; j<= 20; j++)
 
 
 
-  // Allocate memory for calculated sins
-
-  size_t sizesin = (size_t) (D_PI * 1000); 
-
-  lsin = (float *) malloc (sizeof (float) * sizesin );
-
-  memset (lsin, 0, sizesin);
-
   // Init gated notes
 
   for (i = 0; i < POLY; i++)
@@ -994,29 +986,31 @@ for (j = 1; j<= 20; j++)
        D_PI_to_SAMPLE_RATE = D_PI / SAMPLE_RATE;
 
 
+  // Allocate memory for calculated sins
+
+  size_t sizesin = (size_t) (D_PI * 1000); 
+
+  lsin = (float *) malloc (sizeof (float) * sizesin );
+
+  memset (lsin, 0, sizesin);
+
+
+
+
   float x_sin;
 
   for (i = 0; i < sizesin; i++)
 
     {
-      x_sin = (float) ( D_PI_to_SAMPLE_RATE + (i * D_PI /sizesin));
+      x_sin = (float) ( i * D_PI  / sizesin);
       lsin[i] = sin (x_sin);
     }
+
     for (i = 0; i < (sizesin-1); i++)
 
     {
       lsin[i] = lsin[i] + (lsin[i+1] - lsin[i]) * .5;
     }
-
-
-
-
-
-
-
-
-
-
 
 
 // Load Preset Bank File
@@ -1189,64 +1183,49 @@ float
 HOR::Jenvelope (int *note_active, int gate, float t, int nota)
 {
 
+  float Env = 0;
+
     
     if (gate)
     {
-
-       if (t > attack + decay)
-        {
-          Envelope_Volume[nota]=sustain;
-          return (Envelope_Volume[nota]);
-         }
-  
-  
-      if (t > attack)
-        {
-          Envelope_Volume[nota]=1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.01);
-          return(Envelope_Volume[nota]);
-        }
+       if (t > attack + decay )  return (sustain);
+       if (t > attack) return(1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.001));
        
-     Envelope_Volume[nota] = sustain * t  / (attack + 0.01);
-     return(Envelope_Volume[nota]);
-    
-      
+       return(sustain * t  / (attack + 0.001));
     }
   else
     {
 
       if (pedal == 0)
       {  
-          if ( release > t)
+          if (release>t)
           {
-          Envelope_Volume[nota] *= (1.0 -  t / release);
-          if (Envelope_Volume[nota] < 0.000005)
+          Env = Envelope_Volume[nota] * (1.0 -  t / release);
+          if (Env < 0.000015)
              {
                if (*note_active) *note_active=0;
                 env_time[nota] = 0;
-                Envelope_Volume[nota]=0;
-                return(Envelope_Volume[nota]);
+                return(0);
               }
               
              else                           
-             return (Envelope_Volume[nota]);
+             return (Env);
           }
           else
           {
           if (*note_active) *note_active=0;
           env_time[nota] = 0;
-          Envelope_Volume[nota]=0;
-          return(Envelope_Volume[nota]);
+          return(0);
           }
        }
        
       else
         {
-        Envelope_Volume[nota]=sustain;
-        return( Envelope_Volume[nota]);
+        return(sustain);
         }
      }     
 
-     return(Envelope_Volume[nota]);
+     return(Env);
 };
 
 
@@ -1323,18 +1302,20 @@ HOR::Alg1s (int nframes, void *)
 	  output_yes=1;
 	  Get_Partial(l2);
 	  LFO_Volume = Pitch_LFO (env_time[l2]);
-          Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
+          Envelope_Volume[l2]=Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
+
      	  for (i = 1; i <= 10; i++)
 	    {
               volume_Operator(i, l2);
-              f[i].dphi = partial * pitch_Operator (i, l2);
-              if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);	      
-	      
-              
+              if (Operator[i].con1 > 0)
+                   {
+                    f[i].dphi = partial * pitch_Operator (i, l2);
+                    if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
+                   } 	      
+	                   
 	    }
 
                            
-
 	  for (l1 = 0; l1 < PERIOD2; l1+= 2)
 	    {
 
@@ -1343,20 +1324,19 @@ HOR::Alg1s (int nframes, void *)
 	      for (i = 1; i <= 10; i++)
 		{
                   
+                if (Operator[i].con1 > 0)
+                 {
                   f[i].phi[l2] += f[i].dphi;
                   if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
                   sound +=  Operator[i].con1 * Fsin(f[i].phi[l2]);
-         
+                 }
 		
                 }
 
-              buf[l1] += sound * Organ_Master_Volume * .5; 
+              buf[l1] += (sound * Organ_Master_Volume * .5); 
               buf[l1+1] =buf[l1]; 
-              if (buf[l1]<-1.0) buf[l1]=-1.0; else if (buf[l1]>1.0) buf[l1]=1.0;
-              if (buf[l1+1]<-1.0) buf[l1+1]=-1.0; else if (buf[l1+1]>1.0) buf[l1+1]=1.0;
-                
-              env_time[l2] += increment;
               
+              env_time[l2] += increment;              
 	    }
               
 	}

@@ -4224,7 +4224,7 @@ hor->Banco[i].transpose=hor->transpose;
 hor->Banco[i].Organ_Master_Volume=hor->Organ_Master_Volume;
 
 for (k=0; k<=24; k++) hor->Banco[i].Name[k]=hor->Name[k];
-hor->Banco[i].attack=hor->attack;
+
 hor->Banco[i].detune=hor->detune;
 hor->Banco[i].E_Reverb_On=hor->E_Reverb_On;
 hor->Banco[i].split=hor->split;
@@ -4265,7 +4265,6 @@ bzero(hor->Name, sizeof(hor->Name));
 for (k=0; k<=24; k++) hor->Name[k]=hor->Banco[i].Name[k];
 hor->c_name = hor->Name;
 hor->E_Reverb_On = hor->Banco[i].E_Reverb_On;
-hor->attack = hor->Banco[i].attack;
 hor->detune = hor->Banco[i].detune;
 hor->split=hor->Banco[i].split;
 hor->Reverb_Preset=hor->Banco[i].Reverb_Preset;
