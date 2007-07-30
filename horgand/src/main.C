@@ -241,7 +241,7 @@ pthread_mutex_lock(&mutex);
 
   int l1, l2, i,j;
   float sound = 0;
-  float enve0, enve1 = 0;
+  int output_yes=0;
 
    jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
    jack_port_get_buffer(hor.outport_left, nframes);
@@ -254,7 +254,7 @@ pthread_mutex_lock(&mutex);
    memset (hor.buf, 0, hor.PERIOD8);
 
    hor.LFO_Frequency =  hor.modulation * hor.LFOpitch * hor.D_PI_to_SAMPLE_RATE;
-
+   if (hor.LFO_Frequency > D_PI ) hor.LFO_Frequency=fmod(hor.LFO_Frequency,D_PI);
 
 
 
@@ -263,27 +263,25 @@ pthread_mutex_lock(&mutex);
 
       if (hor.note_active[l2])
         {
+          output_yes=1;
+      
           hor.Get_Partial(l2);
 
-          hor.LFO_Volume = hor.Pitch_LFO(hor.env_time[l2]);
+          if (hor.LFOpitch > 0 ) hor.LFO_Volume = hor.Pitch_LFO(hor.env_time[l2]);
           
-          hor.decay = 0.0;
-          hor.sustain = 0.99;          
-          enve0 = hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2);
-          hor.decay = 0.30;
-          hor.sustain = 0.0;        
-          enve1 = hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2); 
+          hor.Envelope_Volume[l2]=hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2);
 
                     
 
           for (i=1; i<=10; i++)
             {
-             if (hor.Operator[i].marimba) hor.Envelope_Volume[l2]=enve1; else hor.Envelope_Volume[l2]=enve0;
              hor.volume_Operator(i,l2);
              
-             hor.f[i].dphi =  hor.partial * hor.pitch_Operator(i,l2);
-             if (hor.f[i].dphi > D_PI) hor.f[i].dphi -= D_PI;
-             
+                  if (hor.Operator[i].con1 > 0)
+                       {
+                         hor.f[i].dphi =  hor.partial * hor.pitch_Operator(i,l2);
+                         if (hor.f[i].dphi > D_PI) hor.f[i].dphi = fmod(hor.f[i].dphi,D_PI);
+                       }
              }
 
 
@@ -298,12 +296,12 @@ pthread_mutex_lock(&mutex);
               if (hor.Operator[i].con1 > 0 )
               {
               hor.f[i].phi[l2] += hor.f[i].dphi;
-              if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] -= D_PI;
+              if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] = fmod(hor.f[i].phi[l2],D_PI);
               sound += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
               }
               }
               hor.buf[l1] += sound * hor.Organ_Master_Volume / 2.0;
-              hor.buf[l1+1] += sound * hor.Organ_Master_Volume / 2.0;
+              hor.buf[l1+1] = hor.buf[l1];
               hor.env_time[l2] += hor.increment;
            }  
 
@@ -312,8 +310,11 @@ pthread_mutex_lock(&mutex);
 
     }
 
+if(output_yes)
+{
 if (hor.E_Chorus_On == 1 ) hor.Effect_Chorus();
 if (hor.E_Rotary_On == 1 )  hor.Effect_Rotary();
+}
 if (hor.E_Delay_On == 1) hor.Effect_Delay();
 if (hor.E_Reverb_On == 1)  hor.Effect_Reverb();
 if (hor.Rhythm_On == 1)  hor.Get_Rhythm();
