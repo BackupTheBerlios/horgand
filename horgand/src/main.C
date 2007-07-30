@@ -57,7 +57,7 @@ void pon_realtime()
 void *
 thread1 (void *arg)
 {
-//pon_realtime();
+  pon_realtime();
   while (Pexitprogram ==0)  hor.midievents(1);
 
   return (0);
@@ -69,7 +69,7 @@ thread1 (void *arg)
 void *
 thread2 (void *arg)
 {
-//    pon_realtime();
+    pon_realtime();
     while (Pexitprogram ==0)  hor.Alg1s(hor.PERIOD,0);
 
     return(0);
@@ -292,18 +292,19 @@ pthread_mutex_lock(&mutex);
               sound=0;
               
               for (i=1; i<=10; i++)
-              {
-              if (hor.Operator[i].con1 > 0 )
-              {
-              hor.f[i].phi[l2] += hor.f[i].dphi;
-              if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] = fmod(hor.f[i].phi[l2],D_PI);
-              sound += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
-              }
-              }
-              hor.buf[l1] += sound * hor.Organ_Master_Volume / 2.0;
+                   {
+                      if (hor.Operator[i].con1>0)
+                        {
+                          hor.f[i].phi[l2] += hor.f[i].dphi;
+                          if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] = fmod(hor.f[i].phi[l2],D_PI);
+                          sound += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
+                        }
+                    }
+              
+              hor.buf[l1] += sound * hor.Organ_Master_Volume * .5;
               hor.buf[l1+1] = hor.buf[l1];
               hor.env_time[l2] += hor.increment;
-           }  
+             }  
 
         }
 
