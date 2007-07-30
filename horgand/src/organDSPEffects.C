@@ -36,16 +36,11 @@ HOR::Chorus_LFO (float *Chorus_X)
  
   *Chorus_X += increment * Chorus_LFO_Speed;
 
- if (*Chorus_X > 1) *Chorus_X = 0;
+  if (*Chorus_X > 1) *Chorus_X = 0;
 
-  out = Fsin (*Chorus_X * D_PI);
-
-  if (out < -1.0)
-    out = -1.0;
-  else if (out > 1.0)
-    out = 1.0;
-   out *= Chorus_LFO_Frequency;
- return (out);
+  out = Fsin (*Chorus_X * D_PI) * Chorus_LFO_Frequency;
+  
+  return (out);
   
 };
 
@@ -166,16 +161,11 @@ HOR::Rotary_LFO (float t)
 
   Rotary_X += Rotary_LFO_Speed * increment;
 
-  if (Rotary_X > 1)
-    Rotary_X = 0;
+  if (Rotary_X > 1) Rotary_X = 0;
 
-  out = Fsin (Rotary_X * D_PI);
+  out = Fsin (Rotary_X * D_PI) * Rotary_LFO_Frequency;
 
-  if (out < -1.0)
-    out = -1.0;
-  else if (out > 1.0)
-    out = 1.0;
-   out *= Rotary_LFO_Frequency;
+
    return (out);
   
 };
@@ -191,6 +181,7 @@ HOR::Effect_Rotary ()
   float a ,l, r;
   Rotary_LFO_Frequency = 8 * modulation * Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
   if (Rotary_LFO_Frequency > D_PI ) Rotary_LFO_Frequency=fmod(Rotary_LFO_Frequency,D_PI);
+
 
 
   for (i = 0; i <PERIOD2; i +=2)
