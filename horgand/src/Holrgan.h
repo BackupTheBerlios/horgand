@@ -139,10 +139,10 @@ public:
   float  Master_Volume;
   float Organ_Master_Volume;
   int pedal;
-  long perhis;
-  long rperhis;
-  long hrperhis;
-  long eperhis;
+  int perhis;
+  int rperhis;
+  int hrperhis;
+  int eperhis;
   char *c_name;  
   char Name[36];  
   int E_Delay_On;

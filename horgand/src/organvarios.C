@@ -225,19 +225,6 @@ HOR::fastabs (float f)
 
 // Return previous calculated Sins
 
-float
-HOR::Fsin (float x)
-{
-
-int i=0;
-
-if ( x > D_PI) x = fmod(x,D_PI);  
-
-i = (int) (x * 1000);
-
-if (i >= 0 ) return(lsin[i]); else return ( -1.0 * lsin[i]);
-
-};
 
 
 // Reset vars to New Preset

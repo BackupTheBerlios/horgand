@@ -930,7 +930,7 @@ for (j = 1; j<= 20; j++)
 
   size_t sizesin = (size_t) (D_PI * 1000); 
 
-  lsin = (float *) malloc (sizeof (float) * sizesin );
+  lsin = (float *) malloc (sizeof (float) * (sizesin + 4));
 
   memset (lsin, 0, sizesin);
 
@@ -948,7 +948,6 @@ for (j = 1; j<= 20; j++)
     for (i = 0; i < (int) (sizesin-1); i++)
 
     {
-      lsin[i] = lsin[i] + (lsin[i+1] - lsin[i]) * .5;
       lsin[i] = (lsin[i] *  ( 1.0 +  lsin[i+1] - lsin[i]));
     }
 
@@ -1188,9 +1187,9 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
     if (gate)
     {
        if (t > attack + decay )  return (sustain);
-       if (t > attack) return(1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.001));
+       if (t > attack) return(1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.0001));
        
-       return(sustain * t  / (attack + 0.001));
+       return(sustain * t  / (attack + 0.0001));
     }
   else
     {
@@ -1271,6 +1270,19 @@ HOR::Get_Partial (int nota)
 };
 
 
+float
+HOR::Fsin (float x)
+{
+
+if ( x > D_PI) x = fmod(x,D_PI);  
+
+return(lsin[(int)(x * 1000)]);
+
+};
+
+
+
+
 // Main Audio thread
 
 void
@@ -1295,7 +1307,7 @@ HOR::Alg1s (int nframes, void *)
 	{
 	  output_yes=1;
 	  Get_Partial(l2);
-	  LFO_Volume = Pitch_LFO (env_time[l2]);
+	  if (LFOpitch > 0) LFO_Volume = Pitch_LFO (env_time[l2]); else LFO_Volume=1.0;
           Envelope_Volume[l2]=Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
 
      	  for (i = 1; i <= 10; i++)

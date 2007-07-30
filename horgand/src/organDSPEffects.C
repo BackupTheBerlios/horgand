@@ -51,12 +51,12 @@ void
 HOR::Effect_Chorus()
 {
 
-  long elkel, elker, elkel2, elker2;
+  int elkel, elker, elkel2, elker2;
   float valorl, valorr;
   float dll1, dlr1;
   float dell, delr;
   float dllo;
-  long aeperhis;
+  int aeperhis;
   int i,j;
 
   Chorus_LFO_Frequency = 8 * modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE ;
@@ -101,7 +101,7 @@ HOR::Effect_Chorus()
 
       dllo = 1.0 - fmod (dell, 1.0);
       
-      elkel = (long) (aeperhis + i - dell);
+      elkel = (int) (aeperhis + i - dell);
       
       if (elkel < 0)
 	elkel += 32800;
@@ -115,7 +115,7 @@ HOR::Effect_Chorus()
 
       
 
-      valorl = ehistoryl[elkel] * dllo + ehistoryl[elkel2] * (1 - dllo);
+      valorl = (ehistoryl[elkel] * dllo) + (ehistoryl[elkel2] * (1 - dllo));
       valorl += (buf[j] * dllo) + (buf[j] * (1 - dllo));     
       
       buf[j] = (buf[j] * (1 - Chorus_Volume)) + (valorl * Chorus_Volume );
@@ -124,7 +124,7 @@ HOR::Effect_Chorus()
 
       dllo = 1.0 - fmod (delr, 1.0);
       
-      elker = (long) (1 + aeperhis + i - delr);
+      elker = (int) (1 + aeperhis + i - delr);
 
       if (elker < 0)
 	elker += 32800;
@@ -138,7 +138,7 @@ HOR::Effect_Chorus()
 	
 	
 
-      valorr = ehistoryr[elker] * dllo + ehistoryr[elker2] * (1 - dllo);
+      valorr = (ehistoryr[elker] * dllo) + (ehistoryr[elker2] * (1 - dllo));
 
       valorr += (buf[j+1] * dllo) + (buf[j+1] * (1 - dllo));      
       
@@ -203,12 +203,12 @@ HOR::Effect_Reverb ()
 
 {
   int i,j;
-  long elke, elke1;
-  float tmp=0;
-  float tmprvol=0;
+  int elke, elke1;
+  float tmp;
+  float tmprvol;
   float efxoutl;
   float efxoutr;
-  float stmp=0; 
+  float stmp; 
   
     
   for (i = 0; i <PERIOD2; i +=2)
@@ -272,8 +272,8 @@ void
 HOR::Effect_Delay()
 {
   int i;  
-  long elke, elke1;
-  long delay = (long) Delay_Delay;
+  int elke, elke1;
+  int delay = (int) Delay_Delay;
   float voll, volr;
   float Delay_Volumer, Delay_Volumel;
 
