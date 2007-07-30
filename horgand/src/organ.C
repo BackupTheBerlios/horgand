@@ -48,7 +48,7 @@ HOR::HOR ()
   waitforGUI = 0;
   perhis = 0;
   rperhis = 0;
-  hrperhis = 260000;
+  hrperhis = 130000;
   eperhis = 0;
   capsg=0;
   Master_Volume = 0.70;
@@ -940,7 +940,7 @@ for (j = 1; j<= 20; j++)
    for (i = 0; i < (int) sizesin; i++)
 
     {
-      x_sin = (float) ( i * D_PI  / sizesin);
+      x_sin = (float) ( i * D_PI / sizesin);
       lsin[i] = sin (x_sin);
     }
 
@@ -949,9 +949,8 @@ for (j = 1; j<= 20; j++)
 
     {
       lsin[i] = lsin[i] + (lsin[i+1] - lsin[i]) * .5;
+      lsin[i] = (lsin[i] *  ( 1.0 +  lsin[i+1] - lsin[i]));
     }
-
-
 
 
 
@@ -962,13 +961,11 @@ for (j = 1; j<= 20; j++)
   rbuf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   bbuf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   buf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
-  history = (float *) malloc (2 * sizeof (float) * BUFSIZE * 1024);
-  rhistory = (float *) malloc (2 * sizeof (float) * BUFSIZE * 1024);
+  history = (float *) malloc (2 * sizeof (float) * BUFSIZE * 512);
   ehistoryl = (float *) malloc (2 * sizeof (float) * BUFSIZE * 128);
   ehistoryr = (float *) malloc (2 * sizeof (float) * BUFSIZE * 128);
 
   memset (history, 0, BUFSIZE * 1024);
-  memset (rhistory, 0, BUFSIZE * 1024);
   memset (ehistoryl, 0, BUFSIZE * 128);
   memset (ehistoryr, 0, BUFSIZE * 128);
 
@@ -1159,7 +1156,7 @@ HOR::volume_Operator (int i, int l2)
 void
 HOR::Get_Keyb_Level_Scaling(int nota)
 {
-Keyb_Level_Scaling = velocity[nota] * (1 -((120 - note[nota]) / 120.0));
+Keyb_Level_Scaling = velocity[nota] * (1 - ((120 - note[nota]+transpose) / 240.0));
 };
 
 
@@ -1247,14 +1244,8 @@ HOR::Pitch_LFO (float t)
   x = (t - floor (t));
   x += (Pitch_LFO_Speed * t);
   x -= floor (x);
-  out = Fsin (x * D_PI);
-
-
-  if (out < -1.0)
-    out = -1.0;
-  else if (out > 1.0)
-    out = 1.0;
-  out *= LFO_Frequency;
+  out = Fsin (x * D_PI) * LFO_Frequency;
+   
   return (1.0 + out);
 
 }
@@ -1273,7 +1264,7 @@ HOR::Get_Partial (int nota)
      0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 -
 							     h[l].f1) * pitch;
 
-  partial = 2 * mastertune * freq_note * D_PI_to_SAMPLE_RATE;
+  partial = 2.0 * mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if (partial > D_PI) partial=fmod(partial,D_PI);
   Get_Keyb_Level_Scaling(nota);
 
@@ -1355,10 +1346,10 @@ if(output_yes)
     Effect_Chorus ();
   if (E_Rotary_On == 1)
     Effect_Rotary ();
+  }
+
   if (E_Delay_On == 1)
     Effect_Delay();
-  }  
- 
   if (E_Reverb_On == 1)
     Effect_Reverb();
   if (Rhythm_On == 1) 

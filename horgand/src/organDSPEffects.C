@@ -158,15 +158,13 @@ HOR::Rotary_LFO (float t)
 
   float out;
 
-
   Rotary_X += Rotary_LFO_Speed * increment;
 
   if (Rotary_X > 1) Rotary_X = 0;
 
   out = Fsin (Rotary_X * D_PI) * Rotary_LFO_Frequency;
 
-
-   return (out);
+  return (out);
   
 };
 
@@ -183,7 +181,6 @@ HOR::Effect_Rotary ()
   if (Rotary_LFO_Frequency > D_PI ) Rotary_LFO_Frequency=fmod(Rotary_LFO_Frequency,D_PI);
 
 
-
   for (i = 0; i <PERIOD2; i +=2)
     {
 
@@ -195,9 +192,6 @@ HOR::Effect_Rotary ()
       buf[i] -= (l * a *.5);
       buf[i + 1] += (r * a *.5);
       
-                         
-
-
     }
 };
 
@@ -217,7 +211,6 @@ HOR::Effect_Reverb ()
   float stmp=0; 
   
     
-  
   for (i = 0; i <PERIOD2; i +=2)
 
     {
@@ -234,21 +227,21 @@ HOR::Effect_Reverb ()
       
       elke = rperhis - ((long) (combl[j] * Reverb_Time));
       if (elke % 2 != 0) elke = elke + 1;
-      if (elke < 0) elke = 524800 + elke;
+      if (elke < 0) elke = 262400 + elke;
 
       elke1 = 1 + rperhis  - ((long) (combr[j] * Reverb_Time));
       if (elke1 % 2 == 0) elke1 = elke1 + 1; 
-      if (elke1 < 0) elke1 = 524800 + elke1;
+      if (elke1 < 0) elke1 = 262400 + elke1;
  
       tmp = Reverb_Diffussion * apsg[capsg] / apss;
       stmp += tmp;
       if (++capsg > 10 ) capsg = 0;
-      efxoutl += rhistory[elke] *  stmp * 2;
+      efxoutl += history[elke] *  stmp * 2;
                   
       tmp = Reverb_Diffussion * apsg[capsg] / apss;
       stmp += tmp;
       if (++capsg > 10 ) capsg = 0;
-      efxoutr += rhistory[elke1] *  stmp * 2;
+      efxoutr += history[elke1] *  stmp * 2;
              
      }
 
@@ -256,17 +249,17 @@ HOR::Effect_Reverb ()
       tmprvol =  stmp * Reverb_Volume;
        
     
-      buf[i] +=  ((efxoutl * tmprvol));
-      rhistory[rperhis] = buf[i];
-      if (++rperhis > 524800) rperhis = 0;
-      buf[i + 1] += ((efxoutr * tmprvol));
-      rhistory[rperhis] = buf[i+1];
-      if (++rperhis > 524800) rperhis = 0;
+      buf[i] +=  (efxoutl * tmprvol);
+      history[rperhis] = buf[i];
+      if (++rperhis > 262400) rperhis = 0;
+      buf[i + 1] += (efxoutr * tmprvol);
+      history[rperhis] = buf[i+1];
+      if (++rperhis > 262400) rperhis = 0;
                                                    
-      if (++hrperhis > 524800) hrperhis = 0;
-      rhistory[hrperhis] = 0;
-      if (++hrperhis > 524800) hrperhis = 0;
-      rhistory[hrperhis] = 0;
+      if (++hrperhis > 262400) hrperhis = 0;
+      history[hrperhis] = 0;
+      if (++hrperhis > 262400) hrperhis = 0;
+      history[hrperhis] = 0;
             
 
     }
@@ -297,20 +290,20 @@ HOR::Effect_Delay()
       elke = perhis - delay;
       if (elke % 2 != 0) elke = elke + 1;
       if (elke < 0)
-	elke = 524800 + elke;
+	elke = 262400 + elke;
       elke1 = elke + 1;
       if (elke1 < 0)
-	elke1 = 524800 + elke1;
+	elke1 = 262400 + elke1;
 
       buf[i] = (buf[i] * (1 - Delay_Volumel)) + (history[elke] * Delay_Volumel);
       history[perhis] = buf[i];
-      if (++perhis > 524800)
+      if (++perhis > 262400)
 	perhis = 0;
 
       buf[i + 1] =
 	(buf[i + 1] * (1 - Delay_Volumer)) + (history[elke1] * Delay_Volumer);
       history[perhis] = buf[i+1];
-      if (++perhis > 524800)
+      if (++perhis > 262400)
 	perhis = 0;
     }
 
@@ -337,7 +330,7 @@ void
 HOR::reverbclean()
 {
 
-memset (rhistory, 0, 2 * sizeof (float) * BUFSIZE * 1024);
+memset (history, 0, BUFSIZE * 512);
 
 };
 
@@ -346,7 +339,7 @@ memset (rhistory, 0, 2 * sizeof (float) * BUFSIZE * 1024);
 void
 HOR::delayclean ()
 {
-  memset (history, 0, BUFSIZE * 1024);
+  memset (history, 0, BUFSIZE * 512);
 
 };
 

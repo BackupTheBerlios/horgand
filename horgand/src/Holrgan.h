@@ -114,7 +114,6 @@ public:
   float *rbuf;
   float *bbuf;
   float *history;
-  float *rhistory;
   float *ehistoryl;
   float *ehistoryr;
   float sound;

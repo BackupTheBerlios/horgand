@@ -229,9 +229,13 @@ float
 HOR::Fsin (float x)
 {
 
+int i=0;
+
 if ( x > D_PI) x = fmod(x,D_PI);  
 
-if (x >= 0 ) return(lsin[(int) (x * 1000)]); else return ( -1.0 * lsin[(int) (x * 1000)]);
+i = (int) (x * 1000);
+
+if (i >= 0 ) return(lsin[i]); else return ( -1.0 * lsin[i]);
 
 };
 
