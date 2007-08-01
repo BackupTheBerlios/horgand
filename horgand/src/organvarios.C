@@ -255,8 +255,8 @@ HOR::New ()
   Operator[10].harmonic = 22;
 
 
-  attack = 0.02;
-  decay = 0.00;
+  attack = attack;
+  decay = decay;
   E_Delay_On = 0;
   Delay_Delay = 0;
   Delay_Volume = 0;

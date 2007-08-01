@@ -89,15 +89,13 @@ return 1;
   }
 } 
 
-class HORGAN {open
-} {
-  Function {make_window()} {open
-  } {
+class HORGAN {} {
+  Function {make_window()} {} {
     Fl_Window HORwindow {
       label {Horgand v1.09}
       callback {Pexitprogram=1;
 o->hide();
-exit(0);} open
+exit(0);}
       xywh {79 88 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
@@ -502,6 +500,7 @@ Signal_for_Cb_Sliders = 0;
       Fl_Dial LFOPitch {
         label Tremolo
         callback {hor->LFOpitch = (float) o->value();
+hor->Calc_LFO_Frequency();
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -539,7 +538,7 @@ Actu();}
       }
       Fl_Counter EchoDelay {
         callback {hor->Delay_Delay = (float) o->value() * 131200;
-Actu();} selected
+Actu();}
         xywh {310 250 65 25} type Simple labelcolor 208 when 4 minimum 0 maximum 1 step 0.01
       }
       Fl_Slider H1 {
@@ -604,6 +603,7 @@ Signal_for_Cb_Sliders = 0;
       Fl_Slider ELFOAmplitude {
         label D
         callback {hor->Chorus_LFO_Amplitude = (float) o->value();
+hor->Calc_Chorus_LFO_Frequency();
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -2777,6 +2777,7 @@ PLFOSpeed->value(hor->Pitch_LFO_Speed);
 PLFODelay->value(hor->Pitch_LFO_Delay * 10);
 LFOSpeed->value(hor->Rotary_LFO_Speed);
 LFOPitch->value(hor->LFOpitch);
+hor->Calc_LFO_Frequency();
 Rota->value(hor->E_Rotary_On);
 MasterT->value(1 - hor->mastertune);
 Transpose->value(hor->transpose);
@@ -2850,13 +2851,15 @@ ponreverb();
 Split->value(hor->split);
 ChorusOn->value(hor->E_Chorus_On);
 ELFOAmplitude->value(hor->Chorus_LFO_Amplitude);
+hor->Calc_Chorus_LFO_Frequency();
 POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
 
 hor->delayclean();
 hor->chorusclean();
-hor->reverbclean();} {}
+hor->reverbclean();} {selected
+    }
   }
   Function {SetBassType(int type)} {return_type void
   } {

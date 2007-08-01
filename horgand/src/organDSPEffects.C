@@ -39,7 +39,8 @@ HOR::Chorus_LFO (float *Chorus_X)
   if (*Chorus_X > 1) *Chorus_X = 0;
 
   out = Fsin (*Chorus_X * D_PI) * Chorus_LFO_Frequency;
-  
+
+
   return (out);
   
 };
@@ -47,21 +48,29 @@ HOR::Chorus_LFO (float *Chorus_X)
 
 // Chorus Effect
 
+void 
+HOR::Calc_Chorus_LFO_Frequency()
+
+{
+Chorus_LFO_Frequency = 8 * modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE ;
+if (Chorus_LFO_Frequency > D_PI ) Chorus_LFO_Frequency=fmod(Chorus_LFO_Frequency,D_PI);
+};
+
+
+
 void
 HOR::Effect_Chorus()
 {
 
   int elkel, elker, elkel2, elker2;
   float valorl, valorr;
+  float val1;
   float dll1, dlr1;
   float dell, delr;
   float dllo;
   int aeperhis;
   int i,j;
 
-  Chorus_LFO_Frequency = 8 * modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE ;
-  if (Chorus_LFO_Frequency > D_PI ) Chorus_LFO_Frequency=fmod(Chorus_LFO_Frequency,D_PI);
-  
   
 
   for (i = 0; i < PERIOD2; i +=2)
@@ -71,7 +80,9 @@ HOR::Effect_Chorus()
       if (++eperhis >= 32800) eperhis = 0;
     }
 
-  aeperhis = eperhis - PERIOD;
+  aeperhis = 1 + eperhis - PERIOD;
+ 
+
   
   if (aeperhis < 0) aeperhis += 32800;
   if (aeperhis > 32800) aeperhis -= 32800;
@@ -91,17 +102,24 @@ HOR::Effect_Chorus()
 
 
 
-      ldelay = PERIOD2 + (dll1 * Chorus_Delay);
-      rdelay = PERIOD2 + (dlr1 * Chorus_Delay);
+        ldelay = PERIOD2 + (dll1 * Chorus_Delay);
+        rdelay = PERIOD2 + (dlr1 * Chorus_Delay);
+
+
       
 
       dell = (ldelay1 * (PERIOD2 - i) + ldelay * i) / PERIOD2;
       delr = (rdelay1 * (PERIOD2 - i) + rdelay * i) / PERIOD2;
 
+            
 
       dllo = 1.0 - fmod (dell, 1.0);
+       
       
-      elkel = (int) (aeperhis + i - dell);
+
+      elkel = (int) (eperhis + i - dell);
+      
+      
       
       if (elkel < 0)
 	elkel += 32800;
@@ -115,16 +133,18 @@ HOR::Effect_Chorus()
 
       
 
-      valorl = (ehistoryl[elkel] * dllo) + (ehistoryl[elkel2] * (1 - dllo));
-      valorl += (buf[j] * dllo) + (buf[j] * (1 - dllo));     
+      valorl = (ehistoryl[elkel] * dllo) + (ehistoryl[elkel2] * (1.0 - dllo));
+      valorl += (buf[j] * dllo) + (buf[j] * (1.0 - dllo));     
       
-      buf[j] = (buf[j] * (1 - Chorus_Volume)) + (valorl * Chorus_Volume );
-      
+      buf[j] = (buf[j] * (1.0 - Chorus_Volume)) + (valorl * Chorus_Volume );
 
 
       dllo = 1.0 - fmod (delr, 1.0);
       
-      elker = (int) (1 + aeperhis + i - delr);
+          
+      elker = (int) ( eperhis + i - delr);
+
+       
 
       if (elker < 0)
 	elker += 32800;
@@ -138,14 +158,17 @@ HOR::Effect_Chorus()
 	
 	
 
-      valorr = (ehistoryr[elker] * dllo) + (ehistoryr[elker2] * (1 - dllo));
+      valorr = (ehistoryr[elker] * dllo) + (ehistoryr[elker2] * (1.0 - dllo));
 
-      valorr += (buf[j+1] * dllo) + (buf[j+1] * (1 - dllo));      
-      
-      buf[j + 1] = (buf[j + 1] * (1 - Chorus_Volume)) + (valorr * Chorus_Volume );
+      valorr += (buf[j+1] * dllo) + (buf[j+1] * (1.0 - dllo));      
+       
+            
+      buf[j + 1] = (buf[j + 1] * (1.0 - Chorus_Volume)) + (valorr * Chorus_Volume );
 
 
     }
+
+
 };
 
 

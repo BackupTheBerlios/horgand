@@ -108,10 +108,10 @@ HOR::HOR ()
 
   prefix_trick = 0;
   mastertune = 1;
-  attack = 0.0001;
+  attack = 0.001;
   decay = 0.20;
-  sustain = 0.99;
-  release = 0.22;
+  sustain = 0.8;
+  release = 0.12;
   E_Delay_On = 0;
   Delay_Delay = 0;
   Delay_Volume = 0;
@@ -790,7 +790,7 @@ for (j = 1; j<= 20; j++)
       Banco[j].modulation = 0;
       Banco[j].transpose = 0;
       Banco[j].Organ_Master_Volume = 0.70;
-      Banco[j].attack = 0.02;
+      Banco[j].attack = attack;
       Banco[j].detune = 0;
       Banco[j].E_Chorus_On = 0;
       Banco[j].split = 0;
@@ -830,7 +830,7 @@ for (j = 1; j<= 20; j++)
       Undo[j].modulation = 0;
       Undo[j].transpose = 0;
       Undo[j].Organ_Master_Volume = 0.70;
-      Undo[j].attack = 0.02;
+      Undo[j].attack = attack;
       Undo[j].detune = 0;
       Undo[j].E_Chorus_On = 0;
       Undo[j].split = 0;
@@ -870,7 +870,7 @@ for (j = 1; j<= 20; j++)
       Prim[j].modulation = 0;
       Prim[j].transpose = 0;
       Prim[j].Organ_Master_Volume = 0.70;
-      Prim[j].attack = 0.02;
+      Prim[j].attack = attack;
       Prim[j].detune = 0;
       Prim[j].E_Chorus_On = 0;
       Prim[j].split = 0;
@@ -942,15 +942,17 @@ for (j = 1; j<= 20; j++)
     {
       x_sin = (float) ( i * D_PI / sizesin);
       lsin[i] = sin (x_sin);
+      if( i > 0) lsin[i-1] = (lsin[i-1] *  ( 1.0 +  lsin[i] - lsin[i-1]));
+      if( i > 1) lsin[i-2] = (lsin[i-2] *  ( 1.0 +  lsin[i-1] - lsin[i-2]));
+      if( i > 2) lsin[i-3] = (lsin[i-3] *  ( 1.0 +  lsin[i-2] - lsin[i-3]));
+      if( i > 3) lsin[i-4] = (lsin[i-4] *  ( 1.0 +  lsin[i-3] - lsin[i-4]));
+      if( i > 4) lsin[i-5] = (lsin[i-5] *  ( 1.0 +  lsin[i-4] - lsin[i-5]));
+      if( i > 5) lsin[i-6] = (lsin[i-6] *  ( 1.0 +  lsin[i-5] - lsin[i-6]));
+      if( i > 6) lsin[i-7] = (lsin[i-7] *  ( 1.0 +  lsin[i-6] - lsin[i-7]));
+      if( i > 7) lsin[i-8] = (lsin[i-8] *  ( 1.0 +  lsin[i-7] - lsin[i-8]));
+
+
     }
-
-
-    for (i = 0; i < (int) (sizesin-1); i++)
-
-    {
-      lsin[i] = (lsin[i] *  ( 1.0 +  lsin[i+1] - lsin[i]));
-    }
-
 
 
   // Init Sound and effect buffers
@@ -1187,9 +1189,9 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
     if (gate)
     {
        if (t > attack + decay )  return (sustain);
-       if (t > attack) return(1.0 - (1.0 - sustain) * (t - attack) / (decay + 0.0001));
+       if (t > attack) return(1.0 - (1.0 - sustain) * (t - attack) / decay);
        
-       return(sustain * t  / (attack + 0.0001));
+       return(t / attack);
     }
   else
     {
@@ -1282,6 +1284,17 @@ return(lsin[(int)(x * 1000)]);
 
 
 
+void
+HOR::Calc_LFO_Frequency()
+{
+LFO_Frequency = modulation * LFOpitch * D_PI_to_SAMPLE_RATE;
+if (LFO_Frequency > D_PI ) LFO_Frequency=fmod(LFO_Frequency,D_PI);
+
+};  
+
+
+
+
 
 // Main Audio thread
 
@@ -1297,58 +1310,50 @@ HOR::Alg1s (int nframes, void *)
   memset (buf, 0, PERIOD8);
   
 
-  LFO_Frequency = modulation * LFOpitch * D_PI_to_SAMPLE_RATE;
-  if (LFO_Frequency > D_PI ) LFO_Frequency=fmod(LFO_Frequency,D_PI);
-  
-  for (l2 = 0; l2 < POLY; l2++)
+
+    for (l2 = 0; l2 < POLY; l2++)
     {
 
       if (note_active[l2])
 	{
 	  output_yes=1;
 	  Get_Partial(l2);
-	  if (LFOpitch > 0) LFO_Volume = Pitch_LFO (env_time[l2]); else LFO_Volume=1.0;
-          Envelope_Volume[l2]=Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
+        
+          
+          for (l1 = 0; l1 < PERIOD2; l1+= 2)
+          {
+     	    sound=0;
+            if (LFOpitch > 0) LFO_Volume = Pitch_LFO (env_time[l2]); else LFO_Volume=1.0;
+            Envelope_Volume[l2]=Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
 
-     	  for (i = 1; i <= 10; i++)
-	    {
-              volume_Operator(i, l2);
-              if (Operator[i].con1 > 0)
-                   {
-                    f[i].dphi = partial * pitch_Operator (i, l2);
-                    if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
-                   } 	      
-	                   
-	    }
 
-                           
-	  for (l1 = 0; l1 < PERIOD2; l1+= 2)
-	    {
 
-	      sound=0;
-	       
-	      for (i = 1; i <= 10; i++)
-		{
-                  
+     	    for (i = 1; i <= 10; i++)
+	      {
+                volume_Operator(i, l2);
                 if (Operator[i].con1 > 0)
-                 {
-                  f[i].phi[l2] += f[i].dphi;
-                  if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
-                  sound +=  Operator[i].con1 * Fsin(f[i].phi[l2]);
-                 }
-		
-                }
+                   {
+                     f[i].dphi = partial * pitch_Operator (i, l2);
+                     if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
+                     f[i].phi[l2] += f[i].dphi;
+                     if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
+                     sound +=  Operator[i].con1 * Fsin(f[i].phi[l2]);
 
-              buf[l1] += (sound * Organ_Master_Volume * .5); 
-              buf[l1+1] =buf[l1]; 
+                   }                
+ 
+              }  
+ 
+                buf[l1] += (sound * Organ_Master_Volume * .5); 
+                buf[l1+1] =buf[l1]; 
+                env_time[l2] +=increment;                
               
-              env_time[l2] += increment;              
-	    }
+                      
+           }
               
 	}
 
-
     }
+     
 
 
 

@@ -61,6 +61,8 @@ public:
   float Chorus_LFO(float *t);
   float Rotary_LFO(float t);  
   float Pitch_LFO(float t);
+  void Calc_LFO_Frequency();
+  void Calc_Chorus_LFO_Frequency();
   void Get_Keyb_Level_Scaling(int note);
   void savefile(char *filename);
   void loadfile(char *filename);

@@ -59,7 +59,11 @@ HOR::midievents (int keIN)
     case SND_SEQ_EVENT_CONTROLLER:
 
       if (midievent->data.control.param == 1)
+	{
 	modulation = (float) midievent->data.control.value / 12.7;
+        Calc_LFO_Frequency();
+        Calc_Chorus_LFO_Frequency();
+        }
  
       if (midievent->data.control.param == 91)
               Reverb_Volume = (float) midievent->data.control.value / 256.0;
@@ -103,7 +107,7 @@ HOR::midievents (int keIN)
 		    {
                      
 		      note[l1] += 24;
-		      velocity[l1] /= 2;
+		      velocity[l1] *= .3;
 		    }
 
 		  env_time[l1] = 0;

@@ -451,6 +451,7 @@ void HORGAN::cb_LFOSpeed(Rueda* o, void* v) {
 
 void HORGAN::cb_LFOPitch_i(Rueda* o, void*) {
   hor->LFOpitch = (float) o->value();
+hor->Calc_LFO_Frequency();
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -580,6 +581,7 @@ void HORGAN::cb_ELFOSpeed(Rueda* o, void* v) {
 
 void HORGAN::cb_ELFOAmplitude_i(Drawbar* o, void*) {
   hor->Chorus_LFO_Amplitude = (float) o->value();
+hor->Calc_Chorus_LFO_Frequency();
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -4917,6 +4919,7 @@ PLFOSpeed->value(hor->Pitch_LFO_Speed);
 PLFODelay->value(hor->Pitch_LFO_Delay * 10);
 LFOSpeed->value(hor->Rotary_LFO_Speed);
 LFOPitch->value(hor->LFOpitch);
+hor->Calc_LFO_Frequency();
 Rota->value(hor->E_Rotary_On);
 MasterT->value(1 - hor->mastertune);
 Transpose->value(hor->transpose);
@@ -4990,6 +4993,7 @@ ponreverb();
 Split->value(hor->split);
 ChorusOn->value(hor->E_Chorus_On);
 ELFOAmplitude->value(hor->Chorus_LFO_Amplitude);
+hor->Calc_Chorus_LFO_Frequency();
 POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
