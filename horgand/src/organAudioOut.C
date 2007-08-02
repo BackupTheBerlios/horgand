@@ -35,28 +35,21 @@ void
 HOR::Final_Output ()
 {
   int i,j;
-  short sl, sr;
-  memset (wbuf, 0, PERIOD8);
+  short sl,sr;
+  memset (wbuf, 0, PERIOD4);
   
   
-  for (i = 0; i < PERIOD2; i += 2)
-    {
-
-      j = i * 2;          
-            
+  for (i = 0; i < PERIOD; i +=2)
+    { 
+    
+      j = i*2;            
       // 32767.0      
 
-            
-            
-      sl = (short) (buf[i] * Master_Volume * 16385.0);
-      sr = (short) (buf[i+1] * Master_Volume * 16385.0);
-
-          
-
+      sl = (short) (buf[i] * Master_Volume * 16383.0);
+      sr = (short) (buf[i+1] * Master_Volume * 16383.0);
       wbuf[j] = sl;
-      wbuf[j + 1] = sr;
-      wbuf[j + 2] = sl;
-      wbuf[j + 3] = sr;
+      wbuf[j+1]=sr;
+     
       
     }
 };
@@ -124,11 +117,11 @@ HOR::alsaaudioprepare ()
   snd_pcm_hw_params_set_channels (playback_handle, hw_params, 2);
 
   snd_pcm_hw_params_set_periods (playback_handle, hw_params, 2, 0);
-  snd_pcm_hw_params_set_period_size (playback_handle, hw_params, PERIOD2, 0);
+  snd_pcm_hw_params_set_period_size (playback_handle, hw_params, PERIOD, 0);
   snd_pcm_hw_params (playback_handle, hw_params);
   snd_pcm_sw_params_alloca (&sw_params);
   snd_pcm_sw_params_current (playback_handle, sw_params);
-  snd_pcm_sw_params_set_avail_min (playback_handle, sw_params, PERIOD2);
+  snd_pcm_sw_params_set_avail_min (playback_handle, sw_params, PERIOD);
   snd_pcm_sw_params (playback_handle, sw_params);
 
 
@@ -158,7 +151,6 @@ HOR::jackaudioprepare ()
   SAMPLE_RATE = jack_get_sample_rate(jackclient);
   jack_set_process_callback (jackclient, jackprocess, 0);
   PERIOD = jack_get_buffer_size (jackclient);
-  PERIOD /= 2;
   Put_Period ();
   outport_left = jack_port_register (jackclient, "out_1",
 				     JACK_DEFAULT_AUDIO_TYPE,

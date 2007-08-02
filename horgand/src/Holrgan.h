@@ -29,7 +29,7 @@
 #include <sndfile.h>
 #define MPERIOD  128
 #define BUFSIZE 1024
-#define POLY 16
+#define POLY 32
 #define DSAMPLE_RATE 44100
 #define D_PI 6.283184
 

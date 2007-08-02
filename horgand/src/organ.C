@@ -50,6 +50,8 @@ HOR::HOR ()
   rperhis = 0;
   hrperhis = 130000;
   eperhis = 0;
+  ldelay=0;
+  rdelay=0;
   capsg=0;
   Master_Volume = 0.70;
   Organ_Master_Volume = 0.70;
@@ -1013,7 +1015,6 @@ for (j = 1; j<= 20; j++)
        increment = .5 / SAMPLE_RATE;
        D_PI_to_SAMPLE_RATE = D_PI / SAMPLE_RATE;
 
-
 // Load Preset Bank File
 
       bzero(BankFilename, sizeof (BankFilename));
@@ -1110,10 +1111,10 @@ for (j = 1; j<= 20; j++)
   
   // Init buffers
   
-  memset (buf, 0, PERIOD8);
-  memset (wbuf, 0, PERIOD8);
-  memset (rbuf, 0, PERIOD8);  
-  memset (bbuf, 0, PERIOD8);
+  memset (buf, 0, PERIOD4);
+  memset (wbuf, 0, PERIOD4);
+  memset (rbuf, 0, PERIOD4);  
+  memset (bbuf, 0, PERIOD4);
    
  // Send Signal to GUI  -> "All OK"
 
@@ -1135,7 +1136,7 @@ float
 HOR::pitch_Operator (int i, int note)
 {
   
-return ((lasfreq[(int) Operator[i].harmonic] + Operator[i].harmonic_fine) * LFO_Volume);
+return ((lasfreq[(int) Operator[i].harmonic] + Operator[i].harmonic_fine) + LFO_Volume);
 
 }
                  
@@ -1145,8 +1146,7 @@ return ((lasfreq[(int) Operator[i].harmonic] + Operator[i].harmonic_fine) * LFO_
 void
 HOR::volume_Operator (int i, int l2)
 {
-  Operator[i].con1 =
-  Operator[i].volumen * Envelope_Volume[l2] * Keyb_Level_Scaling / lasfreq[Operator[i].harmonic];
+  Operator[i].con1 = Operator[i].volumen * Envelope_Volume[l2] * Keyb_Level_Scaling / lasfreq[Operator[i].harmonic];
    
 };
 
@@ -1240,14 +1240,15 @@ HOR::Pitch_LFO (float t)
   float x, out;
   
   if (t * 20 < Pitch_LFO_Delay)
-    return (1);
+    return (0);
 
-  x = (t - floor (t));
-  x += (Pitch_LFO_Speed * t);
-  x -= floor (x);
+  
+
+  x = fmod(Pitch_LFO_Speed * t, 1.0);
+
   out = Fsin (x * D_PI) * LFO_Frequency;
-   
-  return (1.0 + out);
+     
+  return (out);
 
 }
 
@@ -1265,7 +1266,7 @@ HOR::Get_Partial (int nota)
      0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 -
 							     h[l].f1) * pitch;
 
-  partial = 2.0 * mastertune * freq_note * D_PI_to_SAMPLE_RATE;
+  partial = 2 * mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if (partial > D_PI) partial=fmod(partial,D_PI);
   Get_Keyb_Level_Scaling(nota);
 
@@ -1287,8 +1288,7 @@ return(lsin[(int)(x * 1000)]);
 void
 HOR::Calc_LFO_Frequency()
 {
-LFO_Frequency = modulation * LFOpitch * D_PI_to_SAMPLE_RATE;
-if (LFO_Frequency > D_PI ) LFO_Frequency=fmod(LFO_Frequency,D_PI);
+LFO_Frequency =  modulation * LFOpitch * D_PI_to_SAMPLE_RATE;
 
 };  
 
@@ -1307,7 +1307,7 @@ HOR::Alg1s (int nframes, void *)
   int l1, l2, i, kk = 0;
   float sound = 0;
   int output_yes = 0;
-  memset (buf, 0, PERIOD8);
+  memset (buf, 0, PERIOD4);
   
 
 
@@ -1318,18 +1318,19 @@ HOR::Alg1s (int nframes, void *)
 	{
 	  output_yes=1;
 	  Get_Partial(l2);
-        
+          LFO_Volume = Pitch_LFO (env_time[l2]);
+
           
-          for (l1 = 0; l1 < PERIOD2; l1+= 2)
+          for (l1 = 0; l1 < PERIOD; l1 +=2)
           {
      	    sound=0;
-            if (LFOpitch > 0) LFO_Volume = Pitch_LFO (env_time[l2]); else LFO_Volume=1.0;
-            Envelope_Volume[l2]=Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);
-
-
+            Envelope_Volume[l2] = (Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2));        
+      
+            
 
      	    for (i = 1; i <= 10; i++)
 	      {
+                
                 volume_Operator(i, l2);
                 if (Operator[i].con1 > 0)
                    {
@@ -1343,8 +1344,8 @@ HOR::Alg1s (int nframes, void *)
  
               }  
  
-                buf[l1] += (sound * Organ_Master_Volume * .5); 
-                buf[l1+1] =buf[l1]; 
+                buf[l1] += (sound * Organ_Master_Volume * .5);
+                buf[l1+1] =buf[l1];
                 env_time[l2] +=increment;                
               
                       
@@ -1383,12 +1384,15 @@ Final_Output();
   switch (Salida)
     {
     case 1:
-      write (snd_handle, wbuf, PERIOD8);
+      write (snd_handle, wbuf, PERIOD4);
       break;
     case 2:
-      kk = snd_pcm_writei (playback_handle, wbuf, PERIOD2);
-      if (kk < PERIOD2)
+      kk = snd_pcm_writei (playback_handle, wbuf, PERIOD);
+      if (kk < PERIOD)
+        {
+        printf("xrun!\n");
 	snd_pcm_prepare (playback_handle);
+	}
       break;
     }
    pthread_mutex_unlock(&mutex);

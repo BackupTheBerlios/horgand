@@ -69,10 +69,10 @@ HOR::midievents (int keIN)
               Reverb_Volume = (float) midievent->data.control.value / 256.0;
 
       if (midievent->data.control.param == 93)
-              Chorus_Volume = (float) midievent->data.control.value / 127.0;
+              Chorus_Volume = (float) midievent->data.control.value / 128.0;
             
       if (midievent->data.control.param == 7)
-	Master_Volume = (float) midievent->data.control.value / 127.0;
+	Master_Volume = (float) midievent->data.control.value / 128.0;
 
       if (midievent->data.control.param == 64)
 	{

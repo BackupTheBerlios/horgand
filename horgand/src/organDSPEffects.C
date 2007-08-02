@@ -39,8 +39,7 @@ HOR::Chorus_LFO (float *Chorus_X)
   if (*Chorus_X > 1) *Chorus_X = 0;
 
   out = Fsin (*Chorus_X * D_PI) * Chorus_LFO_Frequency;
-
-
+  
   return (out);
   
 };
@@ -52,8 +51,8 @@ void
 HOR::Calc_Chorus_LFO_Frequency()
 
 {
-Chorus_LFO_Frequency = 8 * modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE ;
-if (Chorus_LFO_Frequency > D_PI ) Chorus_LFO_Frequency=fmod(Chorus_LFO_Frequency,D_PI);
+Chorus_LFO_Frequency =  2.0 * D_PI * modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE ;
+
 };
 
 
@@ -73,14 +72,14 @@ HOR::Effect_Chorus()
 
   
 
-  for (i = 0; i < PERIOD2; i +=2)
+  for (i = 0; i < PERIOD; i +=2)
     {
       ehistoryl[eperhis] = buf[i];
       ehistoryr[eperhis] = buf[i + 1];
       if (++eperhis >= 32800) eperhis = 0;
     }
 
-  aeperhis = 1 + eperhis - PERIOD;
+  aeperhis = eperhis - PERIOD;
  
 
   
@@ -89,7 +88,7 @@ HOR::Effect_Chorus()
     
 
   
-  for (i = 0; i < PERIOD; i++)
+  for (i = 0; i < PERIOD/2; i++)
 
     {
       j = 2 * i;
@@ -102,14 +101,12 @@ HOR::Effect_Chorus()
 
 
 
-        ldelay = PERIOD2 + (dll1 * Chorus_Delay);
-        rdelay = PERIOD2 + (dlr1 * Chorus_Delay);
+        ldelay = PERIOD + (dll1 * Chorus_Delay);
+        rdelay = PERIOD + (dlr1 * Chorus_Delay);
 
 
-      
-
-      dell = (ldelay1 * (PERIOD2 - i) + ldelay * i) / PERIOD2;
-      delr = (rdelay1 * (PERIOD2 - i) + rdelay * i) / PERIOD2;
+      dell = (ldelay1 * (PERIOD - i) + ldelay * i) / PERIOD;
+      delr = (rdelay1 * (PERIOD - i) + rdelay * i) / PERIOD;
 
             
 
@@ -117,9 +114,9 @@ HOR::Effect_Chorus()
        
       
 
-      elkel = (int) (eperhis + i - dell);
+      elkel = (int) (aeperhis + i - dell);
       
-      
+            
       
       if (elkel < 0)
 	elkel += 32800;
@@ -136,13 +133,13 @@ HOR::Effect_Chorus()
       valorl = (ehistoryl[elkel] * dllo) + (ehistoryl[elkel2] * (1.0 - dllo));
       valorl += (buf[j] * dllo) + (buf[j] * (1.0 - dllo));     
       
-      buf[j] = (buf[j] * (1.0 - Chorus_Volume)) + (valorl * Chorus_Volume );
+      buf[j] = (buf[j] + (valorl * Chorus_Volume)) * .5;
 
 
       dllo = 1.0 - fmod (delr, 1.0);
       
           
-      elker = (int) ( eperhis + i - delr);
+      elker = (int) ( aeperhis + i - delr);
 
        
 
@@ -158,12 +155,13 @@ HOR::Effect_Chorus()
 	
 	
 
+
+
       valorr = (ehistoryr[elker] * dllo) + (ehistoryr[elker2] * (1.0 - dllo));
 
       valorr += (buf[j+1] * dllo) + (buf[j+1] * (1.0 - dllo));      
-       
-            
-      buf[j + 1] = (buf[j + 1] * (1.0 - Chorus_Volume)) + (valorr * Chorus_Volume );
+
+      buf[j + 1] = (buf[j + 1] + (valorr * Chorus_Volume)) * .5 ;
 
 
     }
@@ -200,21 +198,19 @@ HOR::Effect_Rotary ()
 {
   int i;
   float a ,l, r;
-  Rotary_LFO_Frequency = 8 * modulation * Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
-  if (Rotary_LFO_Frequency > D_PI ) Rotary_LFO_Frequency=fmod(Rotary_LFO_Frequency,D_PI);
+  Rotary_LFO_Frequency =  D_PI * modulation * Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
 
 
-  for (i = 0; i <PERIOD2; i +=2)
+  for (i = 0; i <PERIOD; i +=2)
     {
 
       a = Rotary_LFO (Rotary_X);
       l =  buf[i];
       r =  buf[i + 1];
-
-
+       
       buf[i] -= (l * a *.5);
       buf[i + 1] += (r * a *.5);
-      
+       
     }
 };
 
@@ -234,7 +230,7 @@ HOR::Effect_Reverb ()
   float stmp; 
   
     
-  for (i = 0; i <PERIOD2; i +=2)
+  for (i = 0; i <PERIOD; i +=2)
 
     {
 
@@ -306,7 +302,7 @@ HOR::Effect_Delay()
   Delay_Volumer = volr * Delay_Volume;
 
 
-  for (i = 0; i <PERIOD2; i +=2)
+  for (i = 0; i <PERIOD; i +=2)
 
     {
       

@@ -4989,7 +4989,7 @@ R6->deactivate();
 R7->deactivate();
 R8->deactivate();
 }
-ponreverb();
+
 Split->value(hor->split);
 ChorusOn->value(hor->E_Chorus_On);
 ELFOAmplitude->value(hor->Chorus_LFO_Amplitude);
@@ -4997,10 +4997,11 @@ hor->Calc_Chorus_LFO_Frequency();
 POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
-
+memset(hor->f, 0 ,20);
 hor->delayclean();
 hor->chorusclean();
 hor->reverbclean();
+ponreverb();
 }
 
 void HORGAN::SetBassType(int type) {

@@ -249,13 +249,9 @@ pthread_mutex_lock(&mutex);
    jack_port_get_buffer(hor.outport_right, nframes);
 
 
-   memset(outl, 0, hor.PERIOD2 * sizeof(jack_default_audio_sample_t));
-   memset(outr, 0, hor.PERIOD2 * sizeof(jack_default_audio_sample_t));
-   memset (hor.buf, 0, hor.PERIOD8);
-
-   hor.LFO_Frequency =  hor.modulation * hor.LFOpitch * hor.D_PI_to_SAMPLE_RATE;
-   if (hor.LFO_Frequency > D_PI ) hor.LFO_Frequency=fmod(hor.LFO_Frequency,D_PI);
-
+   memset(outl, 0, hor.PERIOD * sizeof(jack_default_audio_sample_t));
+   memset(outr, 0, hor.PERIOD * sizeof(jack_default_audio_sample_t));
+   memset (hor.buf, 0, hor.PERIOD4);
 
 
   for (l2 = 0; l2 < POLY; l2++)
@@ -266,35 +262,23 @@ pthread_mutex_lock(&mutex);
           output_yes=1;
       
           hor.Get_Partial(l2);
-
-          if (hor.LFOpitch > 0 ) hor.LFO_Volume = hor.Pitch_LFO(hor.env_time[l2]);
+          hor.LFO_Volume = hor.Pitch_LFO(hor.env_time[l2]);
           
-          hor.Envelope_Volume[l2]=hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2);
 
-                    
-
-          for (i=1; i<=10; i++)
-            {
-             hor.volume_Operator(i,l2);
-             
-                  if (hor.Operator[i].con1 > 0)
-                       {
-                         hor.f[i].dphi =  hor.partial * hor.pitch_Operator(i,l2);
-                         if (hor.f[i].dphi > D_PI) hor.f[i].dphi = fmod(hor.f[i].dphi,D_PI);
-                       }
-             }
-
-
-
-          for (l1 = 0; l1 <hor.PERIOD2; l1 += 2)
+          for (l1 = 0; l1 <hor.PERIOD; l1 += 2)
             {
 
               sound=0;
+              hor.Envelope_Volume[l2]=hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2);
+
               
               for (i=1; i<=10; i++)
                    {
+                      hor.volume_Operator(i,l2);
                       if (hor.Operator[i].con1>0)
                         {
+                          hor.f[i].dphi =  hor.partial * hor.pitch_Operator(i,l2);
+                          if (hor.f[i].dphi > D_PI) hor.f[i].dphi = fmod(hor.f[i].dphi,D_PI);
                           hor.f[i].phi[l2] += hor.f[i].dphi;
                           if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] = fmod(hor.f[i].phi[l2],D_PI);
                           sound += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
@@ -323,11 +307,9 @@ if (hor.Rhythm_On == 1)  hor.Get_Rhythm();
 
 for (i=0; i<hor.PERIOD; i++)
 {
- j = 2 * i;
+ j = 2*i;
  outl[j]=hor.buf[j] * hor.Master_Volume;
  outr[j]=hor.buf[j+1] * hor.Master_Volume;
- outl[j+1]=hor.buf[j] * hor.Master_Volume;
- outr[j+1]=hor.buf[j+1] * hor.Master_Volume;
 }
 
 pthread_mutex_unlock(&mutex);
