@@ -640,7 +640,7 @@ void HORGAN::cb_DMIN2(Fl_Box* o, void* v) {
 
 void HORGAN::cb_EchoOn_i(Fl_Button* o, void*) {
   hor->E_Delay_On =  o->value();
-hor->delayclean();
+hor->Clean_Buffer_Effects();
 Actu();
 }
 void HORGAN::cb_EchoOn(Fl_Button* o, void* v) {
@@ -649,7 +649,7 @@ void HORGAN::cb_EchoOn(Fl_Button* o, void* v) {
 
 void HORGAN::cb_ChorusOn_i(Fl_Button* o, void*) {
   hor->E_Chorus_On =  o->value();
-hor->chorusclean();
+hor->Clean_Buffer_Effects();
 Actu();
 }
 void HORGAN::cb_ChorusOn(Fl_Button* o, void* v) {
@@ -792,7 +792,7 @@ R8->setonly();
 break;
 }
 }
-hor->reverbclean();
+hor->Clean_Buffer_Effects();
 Actu();
 }
 void HORGAN::cb_Rev(Fl_Button* o, void* v) {
@@ -4456,7 +4456,7 @@ Actu();
 hor->PutPrim();
 meteritmos();
 HORwindow->show();
-Fl::add_timeout(1.0/100,tick);
+Fl::add_timeout(1.0 * 0.04,tick);
 }
 
 void HORGAN::Conecta() {
@@ -4560,11 +4560,11 @@ meteprog();
 }
 
 void HORGAN::tick(void *v) {
-  Fl::add_timeout(1.0/25,tick);
+  Fl::add_timeout(1.0 * 0.04,tick);
 }
 
 void HORGAN::ponreverb() {
-  hor->reverbclean();
+  hor->Clean_Buffer_Effects();
 switch((int) hor->Reverb_Preset)
 {
 case 1:
@@ -4998,9 +4998,6 @@ POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
 memset(hor->f, 0 ,20);
-hor->delayclean();
-hor->chorusclean();
-hor->reverbclean();
 ponreverb();
 }
 

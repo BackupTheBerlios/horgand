@@ -5609,7 +5609,7 @@ _ACEOF
 fi
 done
 
-CXXFLAGS="-O6 `fltk-config --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
+CXXFLAGS="-O3 -ffast-math -Wall `fltk-config --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
 LIBS="`fltk-config --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile`"
 
 

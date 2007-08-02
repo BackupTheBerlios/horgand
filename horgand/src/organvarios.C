@@ -57,7 +57,7 @@ for (i=0; i<=POLY; i++)
 
 
 
-if ((nnotes < 3) || (nnotes > 5) ) return;
+if ((nnotes > 5) || (nnotes < 3)) return;
 
 while(posi<nnotes)
 {

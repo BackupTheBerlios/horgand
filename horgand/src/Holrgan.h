@@ -27,7 +27,7 @@
 #include <alsa/asoundlib.h>
 #include <jack/jack.h>
 #include <sndfile.h>
-#define MPERIOD  128
+#define MPERIOD  256
 #define BUFSIZE 1024
 #define POLY 32
 #define DSAMPLE_RATE 44100
@@ -57,13 +57,14 @@ public:
   void Put_Period();
   void Alg1s (int frames, void*);
   float Jenvelope(int *note_active, int gate, float t, int nota);
-  void Get_Partial(int note);
+  float Get_Partial(int note);
   float Chorus_LFO(float *t);
   float Rotary_LFO(float t);  
   float Pitch_LFO(float t);
   void Calc_LFO_Frequency();
   void Calc_Chorus_LFO_Frequency();
-  void Get_Keyb_Level_Scaling(int note);
+  void Write_Buffer_Effects();
+  float Get_Keyb_Level_Scaling(int note);
   void savefile(char *filename);
   void loadfile(char *filename);
   void savebank(char *filename);
@@ -73,9 +74,7 @@ public:
   void volume_Operator(int i, int note);
   void Effect_Delay();
   void Effect_Reverb();
-  void delayclean();
-  void chorusclean();
-  void reverbclean();
+  void Clean_Buffer_Effects();
   float Fsin(float x);
   float fastabs(float f);
   void Final_Output();
@@ -107,6 +106,7 @@ public:
   int marimba;
   int PERIOD;
   unsigned int SAMPLE_RATE;
+  
   int PERIOD2;
   int PERIOD4;
   int PERIOD8;
@@ -116,20 +116,16 @@ public:
   float *rbuf;
   float *bbuf;
   float *history;
-  float *ehistoryl;
-  float *ehistoryr;
-  float sound;
-  float partial;
   float velocity[POLY];
   float pitch;
   float modulation;
-  float freq_note;
   float env_time[POLY];
   float Rotary_LFO_Speed;
   float Pitch_LFO_Speed;
   float Pitch_LFO_Delay;
   float Rotary_LFO_Amplitude;
   float LFOpitch;
+  float Keyb_Level_Scaling;
   int  note[POLY];
   int rnote[POLY];
   int  gate[POLY];
@@ -141,10 +137,7 @@ public:
   float  Master_Volume;
   float Organ_Master_Volume;
   int pedal;
-  int perhis;
   int rperhis;
-  int hrperhis;
-  int eperhis;
   char *c_name;  
   char Name[36];  
   int E_Delay_On;
@@ -158,7 +151,6 @@ public:
   float sustain;
   float release;
   float LFO_Volume;
-  float Keyb_Level_Scaling; 
   float detune;
   float LFO_Frequency;
   float Rotary_LFO_Frequency;
@@ -172,8 +164,8 @@ public:
   int E_Chorus_On;            
   float Chorus_Delay;
   int split;
-  float ldelay,ldelay1;
-  float rdelay,rdelay1;
+  float ldelay;
+  float rdelay;
   float Reverb_Preset;  
   int Salida;
   float increment;
@@ -371,11 +363,7 @@ jack_port_t *outport_left,*outport_right;
 
   {   
     float phi[POLY];
-    float phi_mod[POLY];
     float dphi;
-    float dphi_mod;
-    float sphi[POLY];
-    float sphi_mod[POLY];
   } f[21];
   
 

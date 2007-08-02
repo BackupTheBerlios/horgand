@@ -57,7 +57,7 @@ void pon_realtime()
 void *
 thread1 (void *arg)
 {
-  pon_realtime();
+//  pon_realtime();
   while (Pexitprogram ==0)  hor.midievents(1);
 
   return (0);
@@ -69,7 +69,7 @@ thread1 (void *arg)
 void *
 thread2 (void *arg)
 {
-    pon_realtime();
+//    pon_realtime();
     while (Pexitprogram ==0)  hor.Alg1s(hor.PERIOD,0);
 
     return(0);
@@ -241,6 +241,7 @@ pthread_mutex_lock(&mutex);
 
   int l1, l2, i,j;
   float sound = 0;
+  float m_partial;
   int output_yes=0;
 
    jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
@@ -261,7 +262,7 @@ pthread_mutex_lock(&mutex);
         {
           output_yes=1;
       
-          hor.Get_Partial(l2);
+          m_partial=hor.Get_Partial(l2);
           hor.LFO_Volume = hor.Pitch_LFO(hor.env_time[l2]);
           
 
@@ -277,7 +278,7 @@ pthread_mutex_lock(&mutex);
                       hor.volume_Operator(i,l2);
                       if (hor.Operator[i].con1>0)
                         {
-                          hor.f[i].dphi =  hor.partial * hor.pitch_Operator(i,l2);
+                          hor.f[i].dphi =  m_partial * hor.pitch_Operator(i,l2);
                           if (hor.f[i].dphi > D_PI) hor.f[i].dphi = fmod(hor.f[i].dphi,D_PI);
                           hor.f[i].phi[l2] += hor.f[i].dphi;
                           if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] = fmod(hor.f[i].phi[l2],D_PI);

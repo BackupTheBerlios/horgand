@@ -89,8 +89,7 @@ return 1;
   }
 } 
 
-class HORGAN {open
-} {
+class HORGAN {} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
       label {Horgand v1.09}
@@ -653,14 +652,14 @@ Actu();}
       Fl_Button EchoOn {
         label Delay
         callback {hor->E_Delay_On =  o->value();
-hor->delayclean();
-Actu();}
+hor->Clean_Buffer_Effects();
+Actu();} selected
         xywh {240 245 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
       Fl_Button ChorusOn {
         label Chorus
         callback {hor->E_Chorus_On =  o->value();
-hor->chorusclean();
+hor->Clean_Buffer_Effects();
 Actu();}
         xywh {240 100 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
@@ -792,7 +791,7 @@ R8->setonly();
 break;
 }
 }
-hor->reverbclean();
+hor->Clean_Buffer_Effects();
 Actu();}
         xywh {390 100 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
@@ -2321,7 +2320,7 @@ Actu();
 hor->PutPrim();
 meteritmos();
 HORwindow->show();
-Fl::add_timeout(1.0/100,tick);} {}
+Fl::add_timeout(1.0 * 0.04,tick);} {}
   }
   Function {Conecta()} {} {
     code {char  t1[40], t2[40];
@@ -2423,7 +2422,7 @@ meteprog();} {}
   }
   Function {tick(void *v)} {return_type {static void}
   } {
-    code {Fl::add_timeout(1.0/25,tick);} {}
+    code {Fl::add_timeout(1.0 * 0.04,tick);} {}
   }
   decl {HOR *hor;} {
     callback {->Operator[1].frequency_type = (int) o->value();
@@ -2432,7 +2431,7 @@ if (o->value() == 1)  o->label("Fixed");
 Actu();}
   }
   Function {ponreverb()} {} {
-    code {hor->reverbclean();
+    code {hor->Clean_Buffer_Effects();
 switch((int) hor->Reverb_Preset)
 {
 case 1:
@@ -2728,7 +2727,8 @@ Rit18->value(0);
 Rit19->value(0);
 Rit20->value(0);} {}
   }
-  Function {meteprog()} {} {
+  Function {meteprog()} {open
+  } {
     code {OMaster->value(hor->Organ_Master_Volume * 100.0);
 
 
@@ -2857,11 +2857,7 @@ POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
 memset(hor->f, 0 ,20);
-hor->delayclean();
-hor->chorusclean();
-hor->reverbclean();
-ponreverb();} {selected
-    }
+ponreverb();} {}
   }
   Function {SetBassType(int type)} {return_type void
   } {

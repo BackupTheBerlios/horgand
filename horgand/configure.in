@@ -41,7 +41,7 @@ AC_C_CONST
 # Checks for library functions.
 AC_PROG_GCC_TRADITIONAL
 AC_CHECK_FUNCS([bzero floor memset])
-CXXFLAGS="-O2 -Wall `fltk-config --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
+CXXFLAGS="-O3 -ffast-math -Wall `fltk-config --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
 LIBS="`fltk-config --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile`"
 
 

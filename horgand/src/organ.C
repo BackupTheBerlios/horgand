@@ -46,10 +46,7 @@ HOR::HOR ()
   
   Selected_Rhythm = 0;
   waitforGUI = 0;
-  perhis = 0;
-  rperhis = 0;
-  hrperhis = 130000;
-  eperhis = 0;
+  rperhis = 130000;
   ldelay=0;
   rdelay=0;
   capsg=0;
@@ -122,16 +119,14 @@ HOR::HOR ()
   Pitch_LFO_Delay = 0;
   LFOpitch = 0;
   Rotary_LFO_Amplitude = 99;
+  Keyb_Level_Scaling=1;
   modulation = 10;
   transpose = 0;
   pitch = 0;
   pedal = 0;
   UndoCount = 0;
-  freq_note = 0;
   Stereo_Side = 0;
   To_Stereo_Side = 0;
-  partial = 0;
-  sound = 0;
   Rotary_X = 0;
   Chorus_X_L = 0.0;
   Chorus_X_L = 0.25;
@@ -160,12 +155,10 @@ int tapsg[16]= {36,33,29,27,24,21,17,15,13,16,21,24,27,31,33,36};
 for (i=0; i<16; i++)
 
 {
-
   combl[i] = tcombl[i];
   combr[i] = tcombr[i];
   apsg[i] = tapsg[i];
   apss += apsg[i];
-
 }
 
 
@@ -965,12 +958,8 @@ for (j = 1; j<= 20; j++)
   bbuf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   buf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   history = (float *) malloc (2 * sizeof (float) * BUFSIZE * 512);
-  ehistoryl = (float *) malloc (2 * sizeof (float) * BUFSIZE * 128);
-  ehistoryr = (float *) malloc (2 * sizeof (float) * BUFSIZE * 128);
 
   memset (history, 0, BUFSIZE * 1024);
-  memset (ehistoryl, 0, BUFSIZE * 128);
-  memset (ehistoryr, 0, BUFSIZE * 128);
 
 
 // Get config settings and init settings 
@@ -1154,10 +1143,10 @@ HOR::volume_Operator (int i, int l2)
 
 // Return Keyboard Level Scaling (High Note ...less volume)
 
-void
+float
 HOR::Get_Keyb_Level_Scaling(int nota)
 {
-Keyb_Level_Scaling = velocity[nota] * (1 - ((120 - note[nota]+transpose) / 240.0));
+return(velocity[nota] * (1 - ((120 - note[nota]+transpose) / 240.0)));
 };
 
 
@@ -1255,20 +1244,19 @@ HOR::Pitch_LFO (float t)
 
 // Return Played Note Frequency
 
-void
+float
 HOR::Get_Partial (int nota)
 {
   int l;
-
-  l = note[nota] + transpose;
-  freq_note =
-    (pitch >
-     0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 -
-							     h[l].f1) * pitch;
-
-  partial = 2 * mastertune * freq_note * D_PI_to_SAMPLE_RATE;
+  float partial=0;
+  float freq_note=0; 
+  
+  l = note[nota] + transpose + 12;
+  freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
+  partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if (partial > D_PI) partial=fmod(partial,D_PI);
-  Get_Keyb_Level_Scaling(nota);
+  return(partial);
+  
 
 };
 
@@ -1278,7 +1266,6 @@ HOR::Fsin (float x)
 {
 
 if ( x > D_PI) x = fmod(x,D_PI);  
-
 return(lsin[(int)(x * 1000)]);
 
 };
@@ -1306,6 +1293,7 @@ HOR::Alg1s (int nframes, void *)
 
   int l1, l2, i, kk = 0;
   float sound = 0;
+  float m_partial;
   int output_yes = 0;
   memset (buf, 0, PERIOD4);
   
@@ -1317,13 +1305,15 @@ HOR::Alg1s (int nframes, void *)
       if (note_active[l2])
 	{
 	  output_yes=1;
-	  Get_Partial(l2);
+	  m_partial=Get_Partial(l2);
+          Keyb_Level_Scaling=Get_Keyb_Level_Scaling(l2);
           LFO_Volume = Pitch_LFO (env_time[l2]);
 
           
           for (l1 = 0; l1 < PERIOD; l1 +=2)
           {
      	    sound=0;
+
             Envelope_Volume[l2] = (Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2));        
       
             
@@ -1334,7 +1324,7 @@ HOR::Alg1s (int nframes, void *)
                 volume_Operator(i, l2);
                 if (Operator[i].con1 > 0)
                    {
-                     f[i].dphi = partial * pitch_Operator (i, l2);
+                     f[i].dphi = m_partial * pitch_Operator (i, l2);
                      if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
                      f[i].phi[l2] += f[i].dphi;
                      if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
@@ -1370,11 +1360,14 @@ if(output_yes)
     Effect_Delay();
   if (E_Reverb_On == 1)
     Effect_Reverb();
+
+Write_Buffer_Effects();
+
   if (Rhythm_On == 1) 
    Get_Rhythm();
 
-  
 
+  
 
 
 Final_Output();
