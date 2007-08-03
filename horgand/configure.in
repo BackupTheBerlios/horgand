@@ -4,13 +4,21 @@ define([AC_CACHE_SAVE], )dnl
 
 
 
-AC_INIT(src/main.C) 
+AC_INIT(horgand,1.09) 
 AM_INIT_AUTOMAKE(horgand,1.09)
+
+AC_CONFIG_SRCDIR(src/Holrgan.h)
+AC_CONFIG_HEADERS(src/config.h)
+
 
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_MAKE_SET
+AC_CHECK_PROG([FLTKCONFIG], [fltk-config], [fltk-config])
+if test -z "$FLTKCONFIG"; then
+  AC_MSG_ERROR([fltk not installed!])
+fi
 
 # Checks for libraries.
 AC_CHECK_LIB([Xft], [main])
@@ -29,7 +37,6 @@ AC_CHECK_LIB([sndfile],sf_open)
 
 
 
-
 # Checks for header files.
 
 AC_HEADER_STDC
@@ -41,9 +48,7 @@ AC_C_CONST
 # Checks for library functions.
 AC_PROG_GCC_TRADITIONAL
 AC_CHECK_FUNCS([bzero floor memset])
-CXXFLAGS="-O3 -ffast-math -Wall `fltk-config --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
-LIBS="`fltk-config --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile`"
-
-
+CXXFLAGS="-O3 -ffast-math -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
+LIBS="`$FLTKCONFIG --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile`"
 
 AC_OUTPUT(Makefile src/Makefile data/Makefile)
