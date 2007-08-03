@@ -239,17 +239,16 @@ int jackprocess(jack_nframes_t nframes,void *arg)
 pthread_mutex_lock(&mutex);
 
 
-  int l1, l2, i,j;
+  int l1, l2, i;
   float sound = 0;
   float m_partial;
-  int output_yes=0;
 
    jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
    jack_port_get_buffer(hor.outport_left, nframes);
    jack_default_audio_sample_t *outr = (jack_default_audio_sample_t*)
    jack_port_get_buffer(hor.outport_right, nframes);
 
-
+   
    memset(outl, 0, hor.PERIOD * sizeof(jack_default_audio_sample_t));
    memset(outr, 0, hor.PERIOD * sizeof(jack_default_audio_sample_t));
    memset (hor.buf, 0, hor.PERIOD4);
@@ -260,18 +259,17 @@ pthread_mutex_lock(&mutex);
 
       if (hor.note_active[l2])
         {
-          output_yes=1;
-      
+     
           m_partial=hor.Get_Partial(l2);
-          hor.LFO_Volume = hor.Pitch_LFO(hor.env_time[l2]);
-          
+          hor.Keyb_Level_Scaling=hor.Get_Keyb_Level_Scaling(l2);          
 
           for (l1 = 0; l1 <hor.PERIOD; l1 += 2)
             {
 
               sound=0;
               hor.Envelope_Volume[l2]=hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2);
-
+              hor.LFO_Volume = hor.Pitch_LFO(hor.env_time[l2]);
+          
               
               for (i=1; i<=10; i++)
                    {
@@ -296,21 +294,23 @@ pthread_mutex_lock(&mutex);
 
     }
 
-if(output_yes)
-{
-if (hor.E_Chorus_On == 1 ) hor.Effect_Chorus();
 if (hor.E_Rotary_On == 1 )  hor.Effect_Rotary();
-}
+if (hor.E_Chorus_On == 1 ) hor.Effect_Chorus();
 if (hor.E_Delay_On == 1) hor.Effect_Delay();
 if (hor.E_Reverb_On == 1)  hor.Effect_Reverb();
+
+hor.Write_Buffer_Effects();
+
 if (hor.Rhythm_On == 1)  hor.Get_Rhythm();
 
 
-for (i=0; i<hor.PERIOD; i++)
+for (i=0; i<hor.PERIOD; i +=2)
 {
- j = 2*i;
- outl[j]=hor.buf[j] * hor.Master_Volume;
- outr[j]=hor.buf[j+1] * hor.Master_Volume;
+ 
+ outl[i]=hor.buf[i] * hor.Master_Volume;
+ outl[i+1]=hor.buf[i] * hor.Master_Volume;
+ outr[i]=hor.buf[i+1] * hor.Master_Volume;
+ outr[i+1]=hor.buf[i+1] * hor.Master_Volume;
 }
 
 pthread_mutex_unlock(&mutex);

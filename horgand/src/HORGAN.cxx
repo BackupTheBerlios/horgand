@@ -3206,7 +3206,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->type(1);
       o->labeltype(FL_EMBOSSED_LABEL);
       o->labelcolor((Fl_Color)208);
-      o->minimum(0);
+      o->minimum(1);
       o->maximum(32);
       o->step(1);
       o->callback((Fl_Callback*)cb_CPrograma);

@@ -1146,8 +1146,8 @@ hor->Bass_On =  o->value();}
       Fl_Counter CPrograma {
         callback {hor->cpreset = (int) o->value();
 PutCombi(hor->cpreset);
-Actu();}
-        xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum 0 maximum 32 step 1
+Actu();} selected
+        xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum 1 maximum 32 step 1
       }
       Fl_Slider V7 {
         callback {hor->Operator[7].volumen = (float) o->value() / 100;
@@ -2481,8 +2481,7 @@ hor->Reverb_Time = 4.4;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
-}} {selected
-    }
+}} {}
   }
   Function {GetRit(int Selected_Rhythm)} {} {
     code {int i;

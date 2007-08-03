@@ -1297,7 +1297,6 @@ HOR::Alg1s (int nframes, void *)
   int l1, l2, i, kk = 0;
   float sound = 0;
   float m_partial;
-  int output_yes = 0;
   memset (buf, 0, PERIOD4);
   
 
@@ -1307,7 +1306,6 @@ HOR::Alg1s (int nframes, void *)
 
       if (note_active[l2])
 	{
-	  output_yes=1;
 	  m_partial=Get_Partial(l2);
           Keyb_Level_Scaling=Get_Keyb_Level_Scaling(l2);
                     
@@ -1349,26 +1347,15 @@ HOR::Alg1s (int nframes, void *)
 
 
 
-if(output_yes)
-  {
- if (E_Chorus_On == 1) Effect_Chorus ();
-  if (E_Rotary_On == 1) Effect_Rotary ();
 
-  }
-
-  if (E_Delay_On == 1)
-    Effect_Delay();
-  if (E_Reverb_On == 1)
-    Effect_Reverb();
+if (E_Rotary_On == 1) Effect_Rotary ();
+if (E_Chorus_On == 1) Effect_Chorus ();
+if (E_Delay_On == 1)  Effect_Delay();
+if (E_Reverb_On == 1) Effect_Reverb();
 
 Write_Buffer_Effects();
 
-  if (Rhythm_On == 1) 
-   Get_Rhythm();
-
-
-  
-
+if (Rhythm_On == 1) Get_Rhythm();
 
 Final_Output();
 
