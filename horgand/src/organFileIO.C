@@ -52,11 +52,11 @@ HOR::savefile (char *filename)
 	   modulation);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
-  sprintf (buf, "%f,%f,%f,%d,%f,%f\n", attack, E_Reverb_On, detune, E_Delay_On,
+  sprintf (buf, "%f,%d,%f,%d,%f,%f\n", attack, E_Reverb_On, detune, E_Delay_On,
 	   Delay_Delay, Delay_Volume);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
-  sprintf (buf, "%d,%d,%f,%f,%f,%f,%f\n", split, E_Chorus_On, Chorus_Delay, Reverb_Preset,
+  sprintf (buf, "%d,%d,%f,%d,%f,%f,%f\n", split, E_Chorus_On, Chorus_Delay, Reverb_Preset,
 	   Chorus_LFO_Speed, Chorus_LFO_Amplitude, Chorus_Volume);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
@@ -99,13 +99,13 @@ HOR::loadfile (char *filename)
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%f,%f,%f,%d,%f,%f", &attack, &E_Reverb_On, &detune, &E_Delay_On,
+  sscanf (buf, "%f,%d,%f,%d,%f,%f", &attack, &E_Reverb_On, &detune, &E_Delay_On,
 	  &Delay_Delay, &Delay_Volume);
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf
-    (buf, "%d,%d,%f,%f,%f,%f,%f\n", &split, &E_Chorus_On, &Chorus_Delay, &Reverb_Preset,
+    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &split, &E_Chorus_On, &Chorus_Delay, &Reverb_Preset,
      &Chorus_LFO_Speed, &Chorus_LFO_Amplitude, &Chorus_Volume);
 
   bzero (buf, sizeof (buf));
@@ -153,13 +153,13 @@ HOR::savebank (char *filename)
 
       fputs (buf, fn);
       bzero (buf, sizeof (buf));
-      sprintf (buf, "%f,%f,%f,%d,%f,%f\n", Banco[j].attack, Banco[j].E_Reverb_On,
+      sprintf (buf, "%f,%d,%f,%d,%f,%f\n", Banco[j].attack, Banco[j].E_Reverb_On,
 	       Banco[j].detune, Banco[j].E_Delay_On, Banco[j].Delay_Delay,
 	       Banco[j].Delay_Volume);
       fputs (buf, fn);
       bzero (buf, sizeof (buf));
       sprintf
-	(buf, "%d,%d,%f,%f,%f,%f,%f\n", Banco[j].split, Banco[j].E_Chorus_On,
+	(buf, "%d,%d,%f,%d,%f,%f,%f\n", Banco[j].split, Banco[j].E_Chorus_On,
 	 Banco[j].Chorus_Delay, Banco[j].Reverb_Preset, Banco[j].Chorus_LFO_Speed,
 	 Banco[j].Chorus_LFO_Amplitude, Banco[j].Chorus_Volume);
       fputs (buf, fn);
@@ -214,14 +214,14 @@ HOR::loadbank (char *filename)
       bzero (buf, sizeof (buf));
       fgets (buf, sizeof buf, fn);
       sscanf (buf,
-	      "%f,%f,%f,%d,%f,%f", &Banco[j].attack, &Banco[j].E_Reverb_On,
+	      "%f,%d,%f,%d,%f,%f", &Banco[j].attack, &Banco[j].E_Reverb_On,
 	      &Banco[j].detune, &Banco[j].E_Delay_On, &Banco[j].Delay_Delay,
 	      &Banco[j].Delay_Volume);
 
       bzero (buf, sizeof (buf));
       fgets (buf, sizeof buf, fn);
       sscanf
-	(buf, "%d,%d,%f,%f,%f,%f,%f\n", &Banco[j].split, &Banco[j].E_Chorus_On,
+	(buf, "%d,%d,%f,%d,%f,%f,%f\n", &Banco[j].split, &Banco[j].E_Chorus_On,
 	 &Banco[j].Chorus_Delay, &Banco[j].Reverb_Preset, &Banco[j].Chorus_LFO_Speed,
 	 &Banco[j].Chorus_LFO_Amplitude, &Banco[j].Chorus_Volume);
 

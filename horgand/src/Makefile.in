@@ -119,12 +119,12 @@ target_alias = @target_alias@
 bin_PROGRAMS = horgand
 horgand_SOURCES = main.C \
         organ.C \
-	organvarios.C \
+	organDSPEffects.C \
 	organAudioOut.C \
 	organMIDIIn.C \
-	organFileIO.C \
 	organAccompaniment.C \
-	organDSPEffects.C \
+	organvarios.C \
+	organFileIO.C \
         HORGAN.cxx \
         Holrgan.h \
         HORGAN.h
@@ -137,10 +137,9 @@ bin_PROGRAMS = horgand$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
 
 am_horgand_OBJECTS = main.$(OBJEXT) organ.$(OBJEXT) \
-	organvarios.$(OBJEXT) organAudioOut.$(OBJEXT) \
-	organMIDIIn.$(OBJEXT) organFileIO.$(OBJEXT) \
-	organAccompaniment.$(OBJEXT) organDSPEffects.$(OBJEXT) \
-	HORGAN.$(OBJEXT)
+	organDSPEffects.$(OBJEXT) organAudioOut.$(OBJEXT) \
+	organMIDIIn.$(OBJEXT) organAccompaniment.$(OBJEXT) \
+	organvarios.$(OBJEXT) organFileIO.$(OBJEXT) HORGAN.$(OBJEXT)
 horgand_OBJECTS = $(am_horgand_OBJECTS)
 horgand_LDADD = $(LDADD)
 horgand_DEPENDENCIES =

@@ -51,7 +51,7 @@ void
 HOR::Calc_Chorus_LFO_Frequency()
 
 {
-Chorus_LFO_Frequency =  2.0 * D_PI * modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE ;
+Chorus_LFO_Frequency =  modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE ;
 
 };
 
@@ -61,50 +61,24 @@ void
 HOR::Effect_Chorus()
 {
 
-  int elkel, elker, elkel2, elker2;
-  float valorl, valorr;
-  float dll1, dlr1;
-  float dell=0, delr=0;
-  float ldelay1,rdelay1;
+  int elkel, elkel2;
+  float valorl;
+  float dll1;
   float dllo;
   int aeperhis=rperhis-PERIOD;
   int i;
-
-
-
 
   if (aeperhis < 0) aeperhis += 262400;
   if (aeperhis > 262400) aeperhis -= 262400;
     
 
-
   for (i = 0; i < PERIOD; i +=2)
 
     {
       
-      ldelay1 = ldelay;
-      rdelay1 = rdelay;
-
-  
-    if (i%2==0)
-      {
-      dll1 = Chorus_LFO (&Chorus_X_L);
-      dlr1 = Chorus_LFO (&Chorus_X_R);
-      
-      ldelay = PERIOD + (dll1 * Chorus_Delay);
-      rdelay = PERIOD + (dlr1 * Chorus_Delay);
-      }
-      
-      dell = (ldelay1 * (PERIOD - i) + ldelay * i) / PERIOD;
-      delr = (rdelay1 * (PERIOD - i) + rdelay * i) / PERIOD;
-      
-      
-      
-      dllo = 1.0 - fmod (dell, 1.0);
-      
-      
-       
-      elkel = (int) (aeperhis - dell);
+      dll1 =  SAMPLE_RATE / 1000.0 * 25 +(Chorus_LFO (&Chorus_X_L) * Chorus_Delay);
+      dllo = 1.0 - fmod (dll1, 1.0);
+      elkel =  aeperhis - (int) dll1;
       
       if (elkel < 0)
 	elkel += 262400;
@@ -116,29 +90,32 @@ HOR::Effect_Chorus()
       if (elkel2 > 262400)
 	elkel2 -= 262400;
 
+      
        
-
       valorl = (history[elkel] * dllo) + (history[elkel2] * (1.0 - dllo));
-      buf[i] += (valorl * Chorus_Volume * .5);
+      buf[i] += (valorl * Chorus_Volume) *.5;
+      
+ 
+      dll1 = SAMPLE_RATE / 1000.0 * 25 +(Chorus_LFO (&Chorus_X_R) * Chorus_Delay);
+      dllo = 1.0 - fmod (dll1, 1.0);
+      elkel =  aeperhis - (int) dll1;
 
+      
+      if (elkel < 0)
+	elkel += 262400;
+      if (elkel > 262400)
+	elkel -= 262400;
+      elkel2 = elkel - 1;
+      if (elkel2 < 0)
+	elkel2 += 262400;
+      if (elkel2 > 262400)
+	elkel2 -= 262400;
 
-      dllo = 1.0 - fmod (delr, 1.0);
-      elker = (int) ( aeperhis - delr);
-
-      if (elker < 0)
-	elker += 262400;
-      if (elker > 262400)
-	elker -= 262400;
-      elker2 = elker - 1;
-      if (elker2 < 0)
-	elker2 += 262400;
-      if (elker2 > 262400)
-	elker2 -= 262400;
-	
-	
-      valorr = (history[elker] * dllo) + (history[elker2] * (1.0 - dllo));
-      buf[i + 1] +=  (valorr * Chorus_Volume * .5) ;
-
+      
+      
+      valorl = (history[elkel] * dllo) + (history[elkel2] * (1.0 - dllo));
+      buf[i+1] += (valorl * Chorus_Volume) *.5;
+      
       aeperhis +=2;
       if (aeperhis > 262400) aeperhis -= 262400;
  
@@ -230,7 +207,7 @@ HOR::Effect_Reverb ()
       if (elke % 2 != 0) elke = elke + 1;
       if (elke < 0) elke = 262400 + elke;
 
-      elke1 = 1 + a_rperhis  - ((long) (combr[j] * Reverb_Time));
+      elke1 =  a_rperhis  - ((long) (combr[j] * Reverb_Time));
       if (elke1 % 2 == 0) elke1 = elke1 + 1; 
       if (elke1 < 0) elke1 = 262400 + elke1;
  

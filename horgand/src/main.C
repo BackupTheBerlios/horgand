@@ -57,7 +57,7 @@ void pon_realtime()
 void *
 thread1 (void *arg)
 {
-//  pon_realtime();
+  pon_realtime();
   while (Pexitprogram ==0)  hor.midievents(1);
 
   return (0);
@@ -69,7 +69,7 @@ thread1 (void *arg)
 void *
 thread2 (void *arg)
 {
-//    pon_realtime();
+    pon_realtime();
     while (Pexitprogram ==0)  hor.Alg1s(hor.PERIOD,0);
 
     return(0);

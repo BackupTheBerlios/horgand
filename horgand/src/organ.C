@@ -155,8 +155,8 @@ int tapsg[16]= {36,33,29,27,24,21,17,15,13,16,21,24,27,31,33,36};
 for (i=0; i<16; i++)
 
 {
-  combl[i] = tcombl[i];
-  combr[i] = tcombr[i];
+  combl[i] = tcombl[i] /2;
+  combr[i] = tcombr[i] /2;
   apsg[i] = tapsg[i];
   apss += apsg[i];
 }
@@ -1135,7 +1135,7 @@ return ((lasfreq[(int) Operator[i].harmonic] + Operator[i].harmonic_fine) + LFO_
 void
 HOR::volume_Operator (int i, int l2)
 {
-  Operator[i].con1 = Operator[i].volumen * Envelope_Volume[l2] * Keyb_Level_Scaling / lasfreq[Operator[i].harmonic];
+  Operator[i].con1 = Operator[i].volumen * Envelope_Volume[l2] * Keyb_Level_Scaling / (2 * lasfreq[Operator[i].harmonic]);
    
 };
 
@@ -1266,7 +1266,10 @@ HOR::Fsin (float x)
 {
 
 if ( x > D_PI) x = fmod(x,D_PI);  
+
+
 return(lsin[(int)(x * 1000)]);
+
 
 };
 
@@ -1307,15 +1310,13 @@ HOR::Alg1s (int nframes, void *)
 	  output_yes=1;
 	  m_partial=Get_Partial(l2);
           Keyb_Level_Scaling=Get_Keyb_Level_Scaling(l2);
-          LFO_Volume = Pitch_LFO (env_time[l2]);
-
-          
+                    
           for (l1 = 0; l1 < PERIOD; l1 +=2)
           {
      	    sound=0;
 
             Envelope_Volume[l2] = (Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2));        
-      
+            LFO_Volume =Pitch_LFO (env_time[l2]); 
             
 
      	    for (i = 1; i <= 10; i++)
@@ -1350,10 +1351,9 @@ HOR::Alg1s (int nframes, void *)
 
 if(output_yes)
   {
-  if (E_Chorus_On == 1)
-    Effect_Chorus ();
-  if (E_Rotary_On == 1)
-    Effect_Rotary ();
+ if (E_Chorus_On == 1) Effect_Chorus ();
+  if (E_Rotary_On == 1) Effect_Rotary ();
+
   }
 
   if (E_Delay_On == 1)

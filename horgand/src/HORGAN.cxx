@@ -4565,7 +4565,7 @@ void HORGAN::tick(void *v) {
 
 void HORGAN::ponreverb() {
   hor->Clean_Buffer_Effects();
-switch((int) hor->Reverb_Preset)
+switch(hor->Reverb_Preset)
 {
 case 1:
 hor->Reverb_Time = 1.7;
@@ -4929,9 +4929,9 @@ CPrograma->value(hor->cpreset);
 EchoVol->value(hor->Delay_Volume * 100);
 EchoDelay->value(hor->Delay_Delay / 176400);
 EchoOn->value(hor->E_Delay_On);
-Rev->value((int)hor->E_Reverb_On);
+Rev->value(hor->E_Reverb_On);
 
-if ((int)hor->E_Reverb_On == 1)
+if (hor->E_Reverb_On == 1)
 {
 
 R1->activate();
@@ -4942,7 +4942,7 @@ R5->activate();
 R6->activate();
 R7->activate();
 R8->activate();
-switch((int) hor->Reverb_Preset)
+switch(hor->Reverb_Preset)
 {
 case 1:
 R1->setonly();

@@ -52,9 +52,7 @@ public:
    HOR ();
   ~HOR ();
 
-  void midievents (int i);
-  void panic();
-  void Put_Period();
+  float Fsin(float x);
   void Alg1s (int frames, void*);
   float Jenvelope(int *note_active, int gate, float t, int nota);
   float Get_Partial(int note);
@@ -65,24 +63,15 @@ public:
   void Calc_Chorus_LFO_Frequency();
   void Write_Buffer_Effects();
   float Get_Keyb_Level_Scaling(int note);
-  void savefile(char *filename);
-  void loadfile(char *filename);
-  void savebank(char *filename);
-  void loadbank(char *filename);
-  void New();
+  void midievents (int i);
   float pitch_Operator(int i, int note);      
   void volume_Operator(int i, int note);
   void Effect_Delay();
   void Effect_Reverb();
   void Clean_Buffer_Effects();
-  float Fsin(float x);
-  float fastabs(float f);
   void Final_Output();
   void Effect_Rotary();
   void Effect_Chorus();
-  void ossaudioprepare();
-  void alsaaudioprepare();
-  void jackaudioprepare();
   int Select_Rhythm(char *nomrit);
   void Get_Rhythm();
   void Select_Bass(char *nomrit);
@@ -90,32 +79,41 @@ public:
   void Get_Bass_Line();
   void Get_Chord();  
   void Get_Tempo();
-  void loadrhyt(char *filename);
-  void saverhyt(char *filename);
+  void New();
   void MUndo();
   void MRedo();
   void MActu();
   void PutPrim();
   void MGetPrim();
-  
-  SNDFILE *infile;
-  SF_INFO sfinfo;
-  SNDFILE *infileb;
-  SF_INFO sfinfob;
-  int cpreset;
-  int marimba;
-  int PERIOD;
-  unsigned int SAMPLE_RATE;
-  
-  int PERIOD2;
-  int PERIOD4;
-  int PERIOD8;
+  void panic();
+  void loadbank(char *filename);
+  void loadrhyt(char *filename);
+  void Put_Period();
+  void ossaudioprepare();
+  void alsaaudioprepare();
+  void jackaudioprepare();
+  void savefile(char *filename);
+  void loadfile(char *filename);
+  void savebank(char *filename);
+  void saverhyt(char *filename);
+
+  float fastabs(float f);
+
   float *lsin;
   float *buf;
   short *wbuf;
   float *rbuf;
   float *bbuf;
   float *history;
+  float attack;
+  float decay;
+  float sustain;
+  float release;
+  int PERIOD;
+  unsigned int SAMPLE_RATE;
+  int PERIOD2;
+  int PERIOD4;
+  int PERIOD8;
   float velocity[POLY];
   float pitch;
   float modulation;
@@ -139,17 +137,13 @@ public:
   int pedal;
   int rperhis;
   char *c_name;  
-  char Name[36];  
+  char Name[64];  
   int E_Delay_On;
   int transpose;
   float Delay_Volume;
   float Delay_Delay;
   float Stereo_Side; 
   int To_Stereo_Side;
-  float attack;
-  float decay;
-  float sustain;
-  float release;
   float LFO_Volume;
   float detune;
   float LFO_Frequency;
@@ -166,11 +160,11 @@ public:
   int split;
   float ldelay;
   float rdelay;
-  float Reverb_Preset;  
+  int Reverb_Preset;  
   int Salida;
   float increment;
   float D_PI_to_SAMPLE_RATE; 
-  float E_Reverb_On;
+  int E_Reverb_On;
   float Reverb_Time;
   float Reverb_Diffussion;
   float Reverb_Volume;
@@ -206,11 +200,17 @@ public:
   int Num_Rhythm;  
   int bass_transpose;
   int bmt;
+  int cpreset;
+  int marimba;
 //ae means the selected rhythm
   int ae;
   int pattern_bars;
   int file_ok;
   char BankFilename[128];
+  SNDFILE *infile;
+  SF_INFO sfinfo;
+  SNDFILE *infileb;
+  SF_INFO sfinfob;
 
 
   
@@ -310,7 +310,7 @@ struct Todolo
    float Rotary_LFO_Speed;
    float LFOpitch;
    float attack;
-   float E_Reverb_On;
+   int E_Reverb_On;
    float detune;
    int transpose;
    int E_Rotary_On;
@@ -322,7 +322,7 @@ struct Todolo
    float Chorus_Delay;
    float Chorus_LFO_Amplitude;
    float Chorus_LFO_Speed;
-   float Reverb_Preset;
+   int Reverb_Preset;
    float Chorus_Volume;
    char *nombre;
    char Name[36];
@@ -372,7 +372,7 @@ jack_port_t *outport_left,*outport_right;
   
   { 
     float f1,f2,f3;
-  }  h[193];
+  }  h[192];
 
   
   struct PuertoMidiIn
