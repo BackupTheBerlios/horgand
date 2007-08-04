@@ -298,8 +298,8 @@ pthread_mutex_lock(&mutex);
 if (put_eff)
 {
 if (hor.E_Rotary_On == 1 )  hor.Effect_Rotary();
-if (hor.E_Chorus_On == 1 ) hor.Effect_Chorus();
 }
+if (hor.E_Chorus_On == 1 ) hor.Effect_Chorus();
 if (hor.E_Delay_On == 1) hor.Effect_Delay();
 if (hor.E_Reverb_On == 1)  hor.Effect_Reverb();
 

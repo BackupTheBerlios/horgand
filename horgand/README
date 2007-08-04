@@ -1,6 +1,18 @@
 Horgand v1.09
 ---------------------
+
 Sorry for the english :-)
+
+Note about v1.09
+----------------
+
+This version is released because horgand will change a lot in the future
+thanks to Krzysztof Foltman <krzysztof@foltman.com> incorporation to the
+project, at least we have a DSP guru in the project and sure will we good. 
+New version will be complete rewrited, and promise a lot.
+
+------------------------------------------------------------------------
+
 This is my fist DSP program attempt, my first jack client, and my first
 attempt to produce any sound, and i'm not programmer. 
 THIS PROGRAM COMES WITH NO WARRANTY, and sure have tones of
@@ -19,7 +31,7 @@ I'm not a DSP "guru" and belive me, i will never be. Sure Horgand has many
 Requirements:
 ------------    
 
-* Linux (Tested on a PIII 933 Debian sid and PII 300 Gentoo).
+* Linux (Tested on a PIII 933 Debian sid).
 * ALSA (with sequencer).
 * JACK
 * FLTK (tested and compiled with v1.1.1)
@@ -70,7 +82,7 @@ I think the best way is start Horgand is:
 - Restart horgand
 
 
-The hi try's to connect to your devices, loads sounds bank and is ready to
+Then horgand try's to connect to your devices, loads sounds bank and is ready to
 play.
 
 NOTE about auto-connection
@@ -111,11 +123,6 @@ Rigth Click to get the organ sound of the main window.
 
 -----------------------------------------------------------------------------------------
 
-
-
-If you need support subscribe to:
-
-http://groups.yahoo.com/group/hlsu/
 
 
 

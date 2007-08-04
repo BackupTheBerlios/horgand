@@ -3,11 +3,26 @@ horgand ChangeLog
 
 
 
-== v1.09 (  /  /2004) ==
+== v1.09 (05/08/2007) ==
 --------------------------------------------------------------------------------------------
-- Small DSP Changes
+- Code optimized.
+- Presets modified.
+- Improved some compile options.
+- Upgraded to Make Tools 1.7
+- Maintain split status on program change.
+- Bass type is selected when program starts ( Krzysztof Foltman).
+- Fixed FLTK search on Make Tools scripts (Krzysztof Foltman).
+- Fixed crash on RT-Kernels.
+- Less memory ( 8 Mb) usage.
+- DSP Effects Improved.
+- New ADSR.
+- Attack removed.
+- Marimba removed.
+- Sound engine improved. 
+- Krzysztof Foltman <krzysztof@foltman.com> involved into the project.   
+- Small DSP Changes.
 - Small changes in envelope.
-- Fixed Rotary Clicks
+- Fixed Rotary Clicks.
 - Changed Reverb Presets
 
 
@@ -76,14 +91,14 @@ horgand ChangeLog
 - Fixed Bug in Start/Stop
 - Fixed bug in bar led.
 - Select Rhythm 1 at start.
-- Load Bank 1 at start if ni command line provided.
+- Load Bank 1 at start if command line provides.
 - Optimized code to fix format strings.
 - Drastically reduced the amount of memory needed.
 - Main window re-sizable.
 - Added memory lock.
 - Added FIFO real-time priority.
 - Improved Graphic Speed.
- 
+
 
 
 == v1.04 (20/12/2003) ==
