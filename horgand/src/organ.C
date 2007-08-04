@@ -48,7 +48,7 @@ HOR::HOR ()
   waitforGUI = 0;
   rperhis = 130000;
   ldelay=0;
-  rdelay=0;
+  rdelay=800;
   capsg=0;
   Master_Volume = 0.70;
   Organ_Master_Volume = 0.70;
@@ -118,7 +118,7 @@ HOR::HOR ()
   Pitch_LFO_Speed = 0;
   Pitch_LFO_Delay = 0;
   LFOpitch = 0;
-  Rotary_LFO_Amplitude = 99;
+  Rotary_LFO_Amplitude = 1280;
   Keyb_Level_Scaling=1;
   modulation = 10;
   transpose = 0;
@@ -129,7 +129,7 @@ HOR::HOR ()
   To_Stereo_Side = 0;
   Rotary_X = 0;
   Chorus_X_L = 0.0;
-  Chorus_X_L = 0.25;
+  Chorus_X_L = 0.5;
   Chorus_LFO_Speed = 0;
   Chorus_Volume = 0.60;
   split = 0;
@@ -149,15 +149,15 @@ HOR::HOR ()
 // Init Reverb Taps 
 
 int tcombl[16]= {10586, 12340, 6400, 13100, 8004, 7200,5130,9037,12045,11237,9456,7634,5389, 8056,10120,11432};
-int tcombr[16]= {10586, 11340, 8450, 11100, 9644, 7560,9536,11507,12600,11111,8056,6048,7690,5978,8845,10056};
+int tcombr[16]= {10518, 11340, 8450, 11100, 9644, 7560,9536,11507,12600,11111,8056,6048,7690,5978,8845,10056};
 int tapsg[16]= {36,33,29,27,24,21,17,15,13,16,21,24,27,31,33,36};
 
 for (i=0; i<16; i++)
 
 {
-  combl[i] = tcombl[i] /2;
-  combr[i] = tcombr[i] /2;
-  apsg[i] = tapsg[i];
+  combl[i] = tcombl[i];
+  combr[i] = tcombr[i];
+  apsg[i] = tapsg[i] * 2;
   apss += apsg[i];
 }
 
@@ -1295,6 +1295,7 @@ HOR::Alg1s (int nframes, void *)
   pthread_mutex_lock(&mutex); 
 
   int l1, l2, i, kk = 0;
+  int put_eff=0;
   float sound = 0;
   float m_partial;
   memset (buf, 0, PERIOD4);
@@ -1306,6 +1307,7 @@ HOR::Alg1s (int nframes, void *)
 
       if (note_active[l2])
 	{
+	  put_eff=1;
 	  m_partial=Get_Partial(l2);
           Keyb_Level_Scaling=Get_Keyb_Level_Scaling(l2);
                     
@@ -1348,14 +1350,17 @@ HOR::Alg1s (int nframes, void *)
 
 
 
-if (E_Rotary_On == 1) Effect_Rotary ();
-if (E_Chorus_On == 1) Effect_Chorus ();
-if (E_Delay_On == 1)  Effect_Delay();
-if (E_Reverb_On == 1) Effect_Reverb();
+if (put_eff)
+{
+if (E_Rotary_On) Effect_Rotary();
+}
+if (E_Chorus_On) Effect_Chorus();
+if (E_Delay_On)  Effect_Delay();
+if (E_Reverb_On) Effect_Reverb();
 
 Write_Buffer_Effects();
 
-if (Rhythm_On == 1) Get_Rhythm();
+if (Rhythm_On) Get_Rhythm();
 
 Final_Output();
 

@@ -240,6 +240,7 @@ pthread_mutex_lock(&mutex);
 
 
   int l1, l2, i;
+  int put_eff=0;
   float sound = 0;
   float m_partial;
 
@@ -259,7 +260,7 @@ pthread_mutex_lock(&mutex);
 
       if (hor.note_active[l2])
         {
-     
+          put_eff=1;
           m_partial=hor.Get_Partial(l2);
           hor.Keyb_Level_Scaling=hor.Get_Keyb_Level_Scaling(l2);          
 
@@ -294,8 +295,11 @@ pthread_mutex_lock(&mutex);
 
     }
 
+if (put_eff)
+{
 if (hor.E_Rotary_On == 1 )  hor.Effect_Rotary();
 if (hor.E_Chorus_On == 1 ) hor.Effect_Chorus();
+}
 if (hor.E_Delay_On == 1) hor.Effect_Delay();
 if (hor.E_Reverb_On == 1)  hor.Effect_Reverb();
 

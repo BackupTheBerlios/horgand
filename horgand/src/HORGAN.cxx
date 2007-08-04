@@ -4268,7 +4268,7 @@ for (k=0; k<=24; k++) hor->Name[k]=hor->Banco[i].Name[k];
 hor->c_name = hor->Name;
 hor->E_Reverb_On = hor->Banco[i].E_Reverb_On;
 hor->detune = hor->Banco[i].detune;
-hor->split=hor->Banco[i].split;
+if (hor->Rhythm_On != 1) hor->split=hor->Banco[i].split;
 hor->Reverb_Preset=hor->Banco[i].Reverb_Preset;
 hor->E_Chorus_On=hor->Banco[i].E_Chorus_On;
 hor->Chorus_LFO_Amplitude=hor->Banco[i].Chorus_LFO_Amplitude;
@@ -4990,7 +4990,7 @@ R7->deactivate();
 R8->deactivate();
 }
 
-Split->value(hor->split);
+if(hor->Rhythm_On != 1) Split->value(hor->split);
 ChorusOn->value(hor->E_Chorus_On);
 ELFOAmplitude->value(hor->Chorus_LFO_Amplitude);
 hor->Calc_Chorus_LFO_Frequency();

@@ -1146,7 +1146,7 @@ hor->Bass_On =  o->value();}
       Fl_Counter CPrograma {
         callback {hor->cpreset = (int) o->value();
 PutCombi(hor->cpreset);
-Actu();} selected
+Actu();}
         xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum 1 maximum 32 step 1
       }
       Fl_Slider V7 {
@@ -2136,7 +2136,7 @@ for (k=0; k<=24; k++) hor->Name[k]=hor->Banco[i].Name[k];
 hor->c_name = hor->Name;
 hor->E_Reverb_On = hor->Banco[i].E_Reverb_On;
 hor->detune = hor->Banco[i].detune;
-hor->split=hor->Banco[i].split;
+if (hor->Rhythm_On != 1) hor->split=hor->Banco[i].split;
 hor->Reverb_Preset=hor->Banco[i].Reverb_Preset;
 hor->E_Chorus_On=hor->Banco[i].E_Chorus_On;
 hor->Chorus_LFO_Amplitude=hor->Banco[i].Chorus_LFO_Amplitude;
@@ -2149,7 +2149,8 @@ meteprog();
 Actu();
 sprintf(hor->temporal, "%02d",i);
 DispNumber->label(hor->temporal);
-CPrograma->value(i);} {}
+CPrograma->value(i);} {selected
+    }
   }
   Function {MiraClientes()} {} {
     code {snd_seq_client_info_t *cinfo;
@@ -2848,7 +2849,7 @@ R7->deactivate();
 R8->deactivate();
 }
 
-Split->value(hor->split);
+if(hor->Rhythm_On != 1) Split->value(hor->split);
 ChorusOn->value(hor->E_Chorus_On);
 ELFOAmplitude->value(hor->Chorus_LFO_Amplitude);
 hor->Calc_Chorus_LFO_Frequency();
