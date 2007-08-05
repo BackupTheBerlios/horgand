@@ -97,7 +97,6 @@ public:
   void savebank(char *filename);
   void saverhyt(char *filename);
 
-  float fastabs(float f);
 
   float *lsin;
   float *buf;
@@ -171,6 +170,7 @@ public:
   int combl[16];
   int combr[16];
   int apsg[16];
+  float ready_apsg[16];
   int capsg;         
   int apss;
   int Bass_On;

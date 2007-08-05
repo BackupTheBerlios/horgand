@@ -213,19 +213,6 @@ HOR::Put_Period()
   PERIOD8 = PERIOD * 8;
 };
 
-// Init some Reverb Vars
-
-float
-HOR::fastabs (float f)
-{
-  int i = ((*(int *) &f) & 0x7fffffff);
-  return (*(float *) &i);
-
-};
-
-// Return previous calculated Sins
-
-
 
 // Reset vars to New Preset
 

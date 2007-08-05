@@ -64,7 +64,6 @@ HOR::Effect_Chorus()
 
   int elkel, elkel2;
   float valorl,ldelay1,rdelay1;
-  float dll1;
   float dllo;
   int aeperhis=rperhis-PERIOD;
   int i;
@@ -83,11 +82,11 @@ HOR::Effect_Chorus()
       rdelay1=rdelay;
             
       ldelay=ms + (Chorus_LFO (&Chorus_X_L) * Chorus_Delay);
-      dll1=(ldelay1 * (PERIOD - i) + ldelay * i) / PERIOD;
+      ldelay=(ldelay1 * (PERIOD - i) + ldelay * i) / PERIOD;
 
 
-      dllo = 1.0 - fmod (dll1, 1.0);
-      elkel =aeperhis - (int)dll1;
+      dllo = 1.0 - fmod (ldelay, 1.0);
+      elkel =aeperhis - (int)ldelay;
       
       if (elkel < 0)
 	elkel += 262400;
@@ -108,9 +107,9 @@ HOR::Effect_Chorus()
       rdelay = ms + (Chorus_LFO (&Chorus_X_R) * Chorus_Delay);
   
        
-      dll1=(rdelay1 * (PERIOD - i) + rdelay * i) / PERIOD;
-      dllo = 1.0 - fmod (dll1, 1.0);
-      elkel = aeperhis - (int) dll1;
+      rdelay=(rdelay1 * (PERIOD - i) + rdelay * i) / PERIOD;
+      dllo = 1.0 - fmod (rdelay, 1.0);
+      elkel = aeperhis - (int) ldelay;
 
       
       if (elkel < 0)
@@ -221,29 +220,30 @@ HOR::Effect_Reverb ()
       elke = a_rperhis - ((long) (combl[j] * Reverb_Time));
       if (elke % 2 != 0) elke = elke + 1;
       if (elke < 0) elke = 262400 + elke;
-
+  
+                
       elke1 =  a_rperhis  - ((long) (combr[j] * Reverb_Time));
       if (elke1 % 2 == 0) elke1 = elke1 + 1; 
       if (elke1 < 0) elke1 = 262400 + elke1;
  
-      tmp = Reverb_Diffussion * apsg[capsg] / apss;
+      tmp = Reverb_Diffussion * ready_apsg[capsg];
       stmp += tmp;
       if (++capsg > 10 ) capsg = 0;
-      efxoutl += history[elke] *  stmp;
+      efxoutl += history[elke]*stmp;
                   
-      tmp = Reverb_Diffussion * apsg[capsg] / apss;
+      tmp = Reverb_Diffussion * ready_apsg[capsg];
       stmp += tmp;
       if (++capsg > 10 ) capsg = 0;
-      efxoutr += history[elke1] *  stmp;
+      efxoutr += history[elke1]*stmp;
              
      }
 
 
-      tmprvol =  stmp * Reverb_Volume;
+      tmprvol =  stmp * Reverb_Volume *.5;
        
     
-      buf[i] +=  (efxoutl * tmprvol * .5);
-      buf[i + 1] += (efxoutr * tmprvol * .5);
+      buf[i] +=  (efxoutl * tmprvol);
+      buf[i + 1] += (efxoutr * tmprvol);
                                                    
       a_rperhis +=2;
       if (a_rperhis > 262400) a_rperhis -= 262400;

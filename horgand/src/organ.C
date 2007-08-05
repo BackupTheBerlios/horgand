@@ -161,6 +161,9 @@ for (i=0; i<16; i++)
   apss += apsg[i];
 }
 
+for (i=0; i<16; i++)  ready_apsg[i]=(float) apsg[i] / (float) apss;
+
+
 
 // Init Chord Names
 
@@ -1125,7 +1128,7 @@ float
 HOR::pitch_Operator (int i, int note)
 {
   
-return ((lasfreq[(int) Operator[i].harmonic] + Operator[i].harmonic_fine) + LFO_Volume);
+return (lasfreq[Operator[i].harmonic] + Operator[i].harmonic_fine + LFO_Volume);
 
 }
                  
@@ -1135,7 +1138,7 @@ return ((lasfreq[(int) Operator[i].harmonic] + Operator[i].harmonic_fine) + LFO_
 void
 HOR::volume_Operator (int i, int l2)
 {
-  Operator[i].con1 = Operator[i].volumen * Envelope_Volume[l2] * Keyb_Level_Scaling / (2 * lasfreq[Operator[i].harmonic]);
+  Operator[i].con1 = Operator[i].volumen * Keyb_Level_Scaling / (2 * lasfreq[Operator[i].harmonic]);
    
 };
 
@@ -1310,6 +1313,7 @@ HOR::Alg1s (int nframes, void *)
 	  put_eff=1;
 	  m_partial=Get_Partial(l2);
           Keyb_Level_Scaling=Get_Keyb_Level_Scaling(l2);
+          for (i=1;i<=10;i++) volume_Operator(i, l2);
                     
           for (l1 = 0; l1 < PERIOD; l1 +=2)
           {
@@ -1321,16 +1325,14 @@ HOR::Alg1s (int nframes, void *)
 
      	    for (i = 1; i <= 10; i++)
 	      {
-                
-                volume_Operator(i, l2);
+                              
                 if (Operator[i].con1 > 0)
                    {
                      f[i].dphi = m_partial * pitch_Operator (i, l2);
                      if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
                      f[i].phi[l2] += f[i].dphi;
                      if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
-                     sound +=  Operator[i].con1 * Fsin(f[i].phi[l2]);
-
+                     sound +=  Envelope_Volume[l2] * Operator[i].con1 * Fsin(f[i].phi[l2]);
                    }                
  
               }  

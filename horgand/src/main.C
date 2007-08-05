@@ -263,7 +263,7 @@ pthread_mutex_lock(&mutex);
           put_eff=1;
           m_partial=hor.Get_Partial(l2);
           hor.Keyb_Level_Scaling=hor.Get_Keyb_Level_Scaling(l2);          
-
+          for(i=1;i<=10;i++) hor.volume_Operator(i,l2);
           for (l1 = 0; l1 <hor.PERIOD; l1 += 2)
             {
 
@@ -274,14 +274,13 @@ pthread_mutex_lock(&mutex);
               
               for (i=1; i<=10; i++)
                    {
-                      hor.volume_Operator(i,l2);
                       if (hor.Operator[i].con1>0)
                         {
                           hor.f[i].dphi =  m_partial * hor.pitch_Operator(i,l2);
                           if (hor.f[i].dphi > D_PI) hor.f[i].dphi = fmod(hor.f[i].dphi,D_PI);
                           hor.f[i].phi[l2] += hor.f[i].dphi;
                           if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] = fmod(hor.f[i].phi[l2],D_PI);
-                          sound += hor.Operator[i].con1 * hor.Fsin(hor.f[i].phi[l2]);
+                          sound += hor.Envelope_Volume[l2]*hor.Operator[i].con1*hor.Fsin(hor.f[i].phi[l2]);
                         }
                     }
               
