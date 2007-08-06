@@ -27,7 +27,7 @@
 #include <alsa/asoundlib.h>
 #include <jack/jack.h>
 #include <sndfile.h>
-#define MPERIOD  256
+#define MPERIOD  128
 #define BUFSIZE 1024
 #define POLY 32
 #define DSAMPLE_RATE 44100
@@ -216,12 +216,12 @@ public:
   
 struct Rhythm
 {
- char Nom[30];
  char Nfile[256];
- int bars;
- int quarter_note;
  int Line_Bass_Note[68];
  int Line_Bass_Velocity[68];
+ char Nom[30];
+ int bars;
+ int quarter_note;
 
 } Rt[22];
 
@@ -254,34 +254,34 @@ int seven_th;
 struct Ch3
 
 {
+ char Nom[10];
  int type;  
  int fund;
  int dist1;
  int dist2;
- char Nom[10];
 } Chord3[15];
 
 struct Ch4
 
 {
+  char Nom[10];
   int type;
   int fund;
   int dist1;
   int dist2;
   int dist3;
-  char Nom[10];
 } Chord4[50];
      
 struct Ch5
 
 {
+  char Nom[10];
   int type;
   int fund;
   int dist1;
   int dist2;
   int dist3;
   int dist4;
-  char Nom[10];
 } Chord5[12];
      
 
@@ -291,10 +291,10 @@ struct Ch5
 struct OperatorPar
 
  {
- int harmonic;
  float harmonic_fine;
  float volumen;
  float con1;
+ int harmonic;
  int marimba; 
  }    
    Operator[11];
@@ -303,6 +303,8 @@ struct Todolo
 
   { OperatorPar Operator[11];
 
+   char Name[36];
+
    float modulation;
    float Delay_Volume;
    float Pitch_LFO_Speed;
@@ -310,26 +312,21 @@ struct Todolo
    float Rotary_LFO_Speed;
    float LFOpitch;
    float attack;
-   int E_Reverb_On;
    float detune;
-   int transpose;
-   int E_Rotary_On;
    float Organ_Master_Volume;
-   int E_Delay_On;
    float Delay_Delay;
-   int split;
-   int E_Chorus_On;
    float Chorus_Delay;
    float Chorus_LFO_Amplitude;
    float Chorus_LFO_Speed;
-   int Reverb_Preset;
    float Chorus_Volume;
+   int E_Reverb_On;
+   int transpose;
+   int E_Rotary_On;
+   int E_Delay_On;
+   int split;
+   int E_Chorus_On;
+   int Reverb_Preset;
    char *nombre;
-   char Name[36];
-
-
-
-
 
 } Banco[35], Undo[100], Prim[2];
     
@@ -377,20 +374,20 @@ jack_port_t *outport_left,*outport_right;
   
   struct PuertoMidiIn
   {
-    int YOIN, SettingsIN;
-    char *SMidiIn;
     char pMIDIIN[256];
     char SetMidiIn[40];
+    unsigned char IN[16];
+    int YOIN, SettingsIN;
+    char *SMidiIn;
     int Ports;
     snd_seq_t *midi_in;
-    unsigned char IN[16];
   }
   MidiInPuerto[3];
 
 struct PMidiOut
   {
-   int Client, Port;
    char Name[40], Info[40];
+   int Client, Port;
    const char *CName, *CInfo;
             
    } CPOMidiS[50];
@@ -398,8 +395,8 @@ struct PMidiOut
 
   struct PMidiIn
   {
-    int Client, Port;
     char Name[40], Info[40];
+    int Client, Port;
     const char *CName, *CInfo;
 
   } CPIMidiS[50];

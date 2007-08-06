@@ -5666,7 +5666,7 @@ _ACEOF
 fi
 done
 
-CXXFLAGS="-O3 -ffast-math -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
+CXXFLAGS="-O3 -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer -msse -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
 LIBS="`$FLTKCONFIG --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile`"
 
 ac_config_files="$ac_config_files Makefile src/Makefile data/Makefile"

@@ -36,7 +36,7 @@
 
 pthread_t thr1, thr2;
 HOR hor;
-
+pthread_mutex_t jmutex;
 
 
 // Put Kernel RT priority to a thread
@@ -226,27 +226,19 @@ if (hor.Salida == 1)  close(hor.snd_handle);
   free(hor.buf);
   free(hor.wbuf);
   pthread_mutex_destroy (&mutex);
-//  delete horUI;
+  delete horUI;
 
 };
 
-
-// JACK Audio thread
 
 int jackprocess(jack_nframes_t nframes,void *arg)
 
 {
 
-pthread_mutex_lock(&mutex);
+int i;
 
+pthread_mutex_lock(&jmutex);
 
-  int l1, l2, i;
-  int put_eff=0;
-  float sound = 0;
-  float m_partial;
-  float soundl,soundr;
-  float p_op[11];
-  for (i=1;i<=10;i++) p_op[i]=hor.pitch_Operator (i, 0);
 
    jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
    jack_port_get_buffer(hor.outport_left, nframes);
@@ -256,73 +248,29 @@ pthread_mutex_lock(&mutex);
    
    memset(outl, 0, hor.PERIOD * sizeof(jack_default_audio_sample_t));
    memset(outr, 0, hor.PERIOD * sizeof(jack_default_audio_sample_t));
-   memset (hor.buf, 0, hor.PERIOD4);
 
 
-  for (l2 = 0; l2 < POLY; l2++)
-    {
-
-      if (hor.note_active[l2])
-        {
-          put_eff=1;
-          m_partial=hor.Get_Partial(l2);
-          hor.Keyb_Level_Scaling=hor.Get_Keyb_Level_Scaling(l2);          
-          for(i=1;i<=10;i++) hor.volume_Operator(i,l2);
-          for (l1 = 0; l1 <hor.PERIOD; l1 += 2)
-            {
-
-              sound=0;
-              hor.Envelope_Volume[l2]=hor.Jenvelope (&hor.note_active[l2], hor.gate[l2], hor.env_time[l2], l2);
-              hor.LFO_Volume = hor.Pitch_LFO(hor.env_time[l2]);
-          
-              
-              for (i=1; i<=10; i++)
-                   {
-                      if (hor.Operator[i].con1>0)
-                        {
-                          hor.f[i].dphi =  m_partial * (p_op[i] + hor.LFO_Volume);
-                          if (hor.f[i].dphi > D_PI) hor.f[i].dphi = fmod(hor.f[i].dphi,D_PI);
-                          hor.f[i].phi[l2] += hor.f[i].dphi;
-                          if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] = fmod(hor.f[i].phi[l2],D_PI);
-                          sound += hor.Envelope_Volume[l2]*hor.Operator[i].con1*hor.Fsin(hor.f[i].phi[l2]);
-                        }
-                    }
-              
-              hor.buf[l1] += sound * hor.Organ_Master_Volume * .5;
-              hor.buf[l1+1] = hor.buf[l1];
-              hor.env_time[l2] += hor.increment;
-             }  
-
-        }
-
-
-    }
-
-if (put_eff)
-{
-if (hor.E_Rotary_On == 1 )  hor.Effect_Rotary();
-}
-if (hor.E_Chorus_On == 1 ) hor.Effect_Chorus();
-if (hor.E_Delay_On == 1) hor.Effect_Delay();
-if (hor.E_Reverb_On == 1)  hor.Effect_Reverb();
-
-hor.Write_Buffer_Effects();
-
-if (hor.Rhythm_On == 1)  hor.Get_Rhythm();
+  hor.Alg1s(hor.PERIOD,0);
 
 
 for (i=0; i<hor.PERIOD; i +=2)
 {
  
- soundl=hor.buf[i] * hor.Master_Volume;
- soundr=hor.buf[i+1] * hor.Master_Volume;
- 
- outl[i]=soundl;
- outr[i]=soundr;
+ outl[i]=hor.buf[i] * hor.Master_Volume;
+ outr[i]=hor.buf[i+1] * hor.Master_Volume;
 }
 
-pthread_mutex_unlock(&mutex);
+pthread_mutex_unlock(&jmutex);
 return(0);
 
 };
+
+
+
+
+
+
+
+
+
 

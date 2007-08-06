@@ -1320,7 +1320,7 @@ HOR::Alg1s (int nframes, void *)
      	    sound=0;
 
             Envelope_Volume[l2] = (Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2));        
-            LFO_Volume =Pitch_LFO (env_time[l2]); 
+            LFO_Volume = Pitch_LFO (env_time[l2]); 
             
 
      	    for (i = 1; i <= 10; i++)
@@ -1381,6 +1381,7 @@ Final_Output();
 	snd_pcm_prepare (playback_handle);
 	}
       break;
+    
     }
    pthread_mutex_unlock(&mutex);
    return;
