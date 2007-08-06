@@ -43,13 +43,10 @@ HOR::Final_Output ()
     { 
     
       j = i*2;            
-      // 32767.0      
-
       sl = (short) (buf[i]  * Master_Volume * 32767.0);
       sr = (short) (buf[i+1] * Master_Volume * 32767.0);
       wbuf[j] = sl;
       wbuf[j+1]=sr;
-     
       
     }
 };

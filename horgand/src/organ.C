@@ -1128,7 +1128,7 @@ float
 HOR::pitch_Operator (int i, int note)
 {
   
-return (lasfreq[Operator[i].harmonic] + Operator[i].harmonic_fine + LFO_Volume);
+return (lasfreq[Operator[i].harmonic] + Operator[i].harmonic_fine);
 
 }
                  
@@ -1234,8 +1234,6 @@ HOR::Pitch_LFO (float t)
   if (t * 20 < Pitch_LFO_Delay)
     return (0);
 
-  
-
   x = fmod(Pitch_LFO_Speed * t, 1.0);
 
   out = Fsin (x * D_PI) * LFO_Frequency;
@@ -1301,9 +1299,11 @@ HOR::Alg1s (int nframes, void *)
   int put_eff=0;
   float sound = 0;
   float m_partial;
+  float p_op[11];
   memset (buf, 0, PERIOD4);
+  for (i=1;i<=10;i++) p_op[i]=pitch_Operator (i, 0);
   
-
+  
 
     for (l2 = 0; l2 < POLY; l2++)
     {
@@ -1328,7 +1328,7 @@ HOR::Alg1s (int nframes, void *)
                               
                 if (Operator[i].con1 > 0)
                    {
-                     f[i].dphi = m_partial * pitch_Operator (i, l2);
+                     f[i].dphi = m_partial * (p_op[i]+LFO_Volume);
                      if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
                      f[i].phi[l2] += f[i].dphi;
                      if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);

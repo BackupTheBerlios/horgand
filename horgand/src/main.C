@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
   // Launch GUI
 
   HORGAN *horUI = new HORGAN(&hor);
-
+ 
 
   pthread_mutex_init (&mutex, NULL);
 
@@ -181,16 +181,17 @@ int main(int argc, char *argv[])
   // Main  
 
   while (Pexitprogram == 0)
-    { 
+ { 
+
  
       // Refresh GUI
-      Fl::wait();
+     Fl::wait(0.01);
       
       // Refresh MIDI Input Level on GUI
-      if (LastMidiInLevel != MidiInLevel) horUI->VUI1->value(MidiInLevel);
+     if (LastMidiInLevel != MidiInLevel) horUI->VUI1->value(MidiInLevel);
       
       // Refresh Bar Lead of Drum Loops
-      if (hor.Rhythm_On != 0) if (BarLead != horUI->VUI2->value()) horUI->VUI2->value(BarLead);
+     if (hor.Rhythm_On != 0) if (BarLead != horUI->VUI2->value()) horUI->VUI2->value(BarLead);
 
       // Refresh Chord Names
 
@@ -201,15 +202,15 @@ int main(int argc, char *argv[])
       }
       // If MIDI Program Change Message arrives change preset
 
-      if (preset != 0)
-	{ 
-          
+       if (preset != 0)
+        {
+
  	  horUI->PutCombi (preset);
 	  preset = 0;
 	}
 
          
-    }
+ }
 
 
     // Exit  Close Audio devices
@@ -225,7 +226,7 @@ if (hor.Salida == 1)  close(hor.snd_handle);
   free(hor.buf);
   free(hor.wbuf);
   pthread_mutex_destroy (&mutex);
-  delete horUI;
+//  delete horUI;
 
 };
 
@@ -243,6 +244,9 @@ pthread_mutex_lock(&mutex);
   int put_eff=0;
   float sound = 0;
   float m_partial;
+  float soundl,soundr;
+  float p_op[11];
+  for (i=1;i<=10;i++) p_op[i]=hor.pitch_Operator (i, 0);
 
    jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
    jack_port_get_buffer(hor.outport_left, nframes);
@@ -276,7 +280,7 @@ pthread_mutex_lock(&mutex);
                    {
                       if (hor.Operator[i].con1>0)
                         {
-                          hor.f[i].dphi =  m_partial * hor.pitch_Operator(i,l2);
+                          hor.f[i].dphi =  m_partial * (p_op[i] + hor.LFO_Volume);
                           if (hor.f[i].dphi > D_PI) hor.f[i].dphi = fmod(hor.f[i].dphi,D_PI);
                           hor.f[i].phi[l2] += hor.f[i].dphi;
                           if (hor.f[i].phi[l2] > D_PI) hor.f[i].phi[l2] = fmod(hor.f[i].phi[l2],D_PI);
@@ -310,10 +314,11 @@ if (hor.Rhythm_On == 1)  hor.Get_Rhythm();
 for (i=0; i<hor.PERIOD; i +=2)
 {
  
- outl[i]=hor.buf[i] * hor.Master_Volume;
- outl[i+1]=hor.buf[i] * hor.Master_Volume;
- outr[i]=hor.buf[i+1] * hor.Master_Volume;
- outr[i+1]=hor.buf[i+1] * hor.Master_Volume;
+ soundl=hor.buf[i] * hor.Master_Volume;
+ soundr=hor.buf[i+1] * hor.Master_Volume;
+ 
+ outl[i]=soundl;
+ outr[i]=soundr;
 }
 
 pthread_mutex_unlock(&mutex);

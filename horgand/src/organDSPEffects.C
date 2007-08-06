@@ -194,7 +194,6 @@ HOR::Effect_Reverb ()
 {
   int i,j;
   int elke, elke1;
-  float tmp;
   float tmprvol;
   float efxoutl;
   float efxoutr;
@@ -226,13 +225,11 @@ HOR::Effect_Reverb ()
       if (elke1 % 2 == 0) elke1 = elke1 + 1; 
       if (elke1 < 0) elke1 = 262400 + elke1;
  
-      tmp = Reverb_Diffussion * ready_apsg[capsg];
-      stmp += tmp;
+      stmp += Reverb_Diffussion * ready_apsg[capsg];
       if (++capsg > 10 ) capsg = 0;
       efxoutl += history[elke]*stmp;
                   
-      tmp = Reverb_Diffussion * ready_apsg[capsg];
-      stmp += tmp;
+      stmp += Reverb_Diffussion * ready_apsg[capsg];
       if (++capsg > 10 ) capsg = 0;
       efxoutr += history[elke1]*stmp;
              
