@@ -1149,7 +1149,7 @@ HOR::volume_Operator (int i, int l2)
 float
 HOR::Get_Keyb_Level_Scaling(int nota)
 {
-return(velocity[nota] * (1 - ((120 - note[nota]+transpose) / 240.0)));
+return(velocity[nota] * (1 - ((120 - note[nota]+transpose) / 180.0)));
 };
 
 
