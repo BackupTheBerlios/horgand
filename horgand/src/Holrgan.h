@@ -33,7 +33,7 @@
 #define DSAMPLE_RATE 44100
 #define D_PI 6.283184
 
-extern pthread_mutex_t mutex;
+extern pthread_mutex_t mutex, m_mutex;
 extern int Pexitprogram, waitforGUI, UndoCount, preset,MidiInLevel,LastMidiInLevel,BarLead,changeNameChord;
 extern int Signal_for_Cb_Sliders,commandline;
 extern char NameChord[16];
@@ -157,8 +157,6 @@ public:
   int E_Chorus_On;            
   float Chorus_Delay;
   int split;
-  float ldelay;
-  float rdelay;
   int Reverb_Preset;  
   int Salida;
   float increment;

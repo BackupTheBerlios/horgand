@@ -31,7 +31,7 @@
 #include <unistd.h>
 
 
-pthread_mutex_t mutex;
+pthread_mutex_t mutex, m_mutex;
 int l1, i, j, k, Pexitprogram, MidiInLevel, LastMidiInLevel, waitforGUI,
 UndoCount,preset,Signal_for_Cb_Sliders,BarLead,changeNameChord;
 char NameChord[16];
@@ -47,8 +47,6 @@ HOR::HOR ()
   Selected_Rhythm = 0;
   waitforGUI = 0;
   rperhis = 130000;
-  ldelay=0;
-  rdelay=800;
   capsg=0;
   Master_Volume = 0.70;
   Organ_Master_Volume = 0.70;
@@ -1149,7 +1147,7 @@ HOR::volume_Operator (int i, int l2)
 float
 HOR::Get_Keyb_Level_Scaling(int nota)
 {
-return(velocity[nota] * (1 - ((120 - note[nota]+transpose) / 180.0)));
+return(velocity[nota] * (1 - ((120 - note[nota]+transpose) / 240.0)));
 };
 
 

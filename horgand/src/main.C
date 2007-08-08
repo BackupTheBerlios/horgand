@@ -58,8 +58,12 @@ void *
 thread1 (void *arg)
 {
   pon_realtime();
-  while (Pexitprogram ==0)  hor.midievents(1);
-
+  while (Pexitprogram ==0) 
+   {
+   pthread_mutex_lock(&m_mutex);
+   hor.midievents(1);
+   pthread_mutex_unlock(&m_mutex);
+   }
   return (0);
 };
 

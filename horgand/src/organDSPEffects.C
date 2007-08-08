@@ -34,7 +34,7 @@ HOR::Chorus_LFO (float *Chorus_X)
   float out;
 
  
-  *Chorus_X += increment * Chorus_LFO_Speed * 8.0;
+  *Chorus_X += Chorus_LFO_Speed * increment;
 
   if (*Chorus_X > 1) *Chorus_X = 0;
 
@@ -53,7 +53,7 @@ void
 HOR::Calc_Chorus_LFO_Frequency()
 
 {
-Chorus_LFO_Frequency =modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
+Chorus_LFO_Frequency = modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
 };
 
 
@@ -63,9 +63,9 @@ HOR::Effect_Chorus()
 {
 
   int elkel, elkel2;
-  float valorl,ldelay1,rdelay1;
+  float valorl,delay;
   float dllo;
-  int aeperhis=rperhis-PERIOD;
+  int aeperhis=rperhis;
   int i;
   float ms=SAMPLE_RATE/1000.0*20.0;
 
@@ -77,14 +77,11 @@ HOR::Effect_Chorus()
 
     {
 
-      ldelay1=ldelay;
-      rdelay1=rdelay;
             
-      ldelay=ms + (Chorus_LFO (&Chorus_X_L) * Chorus_Delay);
-      ldelay=(ldelay1 * (PERIOD - i) + ldelay * i) / PERIOD;
-      dllo = 1.0 - fmod (ldelay, 1.0);
+      delay=ms + (Chorus_LFO (&Chorus_X_L) * Chorus_Delay);
+      dllo = 1.0 - fmod (delay, 1.0);
 
-      elkel =aeperhis - (int)ldelay;
+      elkel =aeperhis - (int)delay;
       
       if (elkel < 0)
 	elkel += 262400;
@@ -101,11 +98,10 @@ HOR::Effect_Chorus()
       buf[i] += (valorl*Chorus_Volume)*.5;
       
 
-      rdelay = ms + (Chorus_LFO (&Chorus_X_R) * Chorus_Delay);
-      rdelay=(rdelay1 * (PERIOD - i) + rdelay * i) / PERIOD;
-      dllo = 1.0 - fmod (rdelay, 1.0);
+      delay = ms + (Chorus_LFO (&Chorus_X_R) * Chorus_Delay);
+      dllo = 1.0 - fmod (delay, 1.0);
 
-      elkel = aeperhis - (int) rdelay;
+      elkel = aeperhis - (int)delay;
 
       if (elkel < 0)
 	elkel += 262400;
@@ -163,7 +159,7 @@ HOR::Effect_Rotary ()
   float a ,l, r;
   if (E_Chorus_On) return;
 
-  Rotary_LFO_Frequency =  modulation * Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
+  Rotary_LFO_Frequency = modulation * Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
 
 
   for (i = 0; i <PERIOD; i +=2)

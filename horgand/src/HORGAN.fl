@@ -90,7 +90,8 @@ return 1;
 } 
 
 class HORGAN {} {
-  Function {make_window()} {} {
+  Function {make_window()} {open
+  } {
     Fl_Window HORwindow {
       label {Horgand v1.09}
       callback {Pexitprogram=1;
@@ -135,7 +136,7 @@ exit(0);}
       Fl_Button PANICO {
         label {Panic!!}
         callback {hor->panic();}
-        xywh {5 275 95 30} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labeltype ENGRAVED_LABEL labelfont 1 labelsize 15 labelcolor 7
+        xywh {5 275 95 30} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labelfont 1 labelsize 15 labelcolor 7
       }
       Fl_Menu_Bar MenuPrincipal {
         xywh {0 0 1030 25} box THIN_UP_BOX
@@ -691,7 +692,7 @@ Actu();}
           label 4
           callback {hor->Reverb_Preset = 4;
 ponreverb();
-Actu();}
+Actu();} selected
           xywh {425 160 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R5 {
@@ -2149,8 +2150,7 @@ meteprog();
 Actu();
 sprintf(hor->temporal, "%02d",i);
 DispNumber->label(hor->temporal);
-CPrograma->value(i);} {selected
-    }
+CPrograma->value(i);} {}
   }
   Function {MiraClientes()} {} {
     code {snd_seq_client_info_t *cinfo;

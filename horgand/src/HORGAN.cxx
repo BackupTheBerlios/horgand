@@ -2144,7 +2144,6 @@ Fl_Double_Window* HORGAN::make_window() {
       o->box(FL_PLASTIC_UP_BOX);
       o->shortcut(0xff0d);
       o->color((Fl_Color)1);
-      o->labeltype(FL_ENGRAVED_LABEL);
       o->labelfont(1);
       o->labelsize(15);
       o->labelcolor(FL_BACKGROUND2_COLOR);
