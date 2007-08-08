@@ -34,7 +34,7 @@ HOR::Chorus_LFO (float *Chorus_X)
   float out;
 
  
-  *Chorus_X += Chorus_LFO_Speed * increment;
+  *Chorus_X += Chorus_LFO_Speed * increment * 8.0;
 
   if (*Chorus_X > 1) *Chorus_X = 0;
 
@@ -63,11 +63,12 @@ HOR::Effect_Chorus()
 {
 
   int elkel, elkel2;
+  float ch_delay=Chorus_Delay * .25;
   float valorl,delay;
-  float dllo;
   int aeperhis=rperhis;
+  float chorus_vol=Chorus_Volume * .5;
   int i;
-  float ms=SAMPLE_RATE/1000.0*20.0;
+  float ms=SAMPLE_RATE/1000.0*25.0;
 
   if (aeperhis < 0) aeperhis += 262400;
   if (aeperhis > 262400) aeperhis -= 262400;
@@ -78,45 +79,40 @@ HOR::Effect_Chorus()
     {
 
             
-      delay=ms + (Chorus_LFO (&Chorus_X_L) * Chorus_Delay);
-      dllo = 1.0 - fmod (delay, 1.0);
-
+      delay=ms + (Chorus_LFO (&Chorus_X_L) * ch_delay);
       elkel =aeperhis - (int)delay;
+      if (elkel % 2 != 0) elkel--; 
       
       if (elkel < 0)
 	elkel += 262400;
       if (elkel > 262400)
 	elkel -= 262400;
-      elkel2 = elkel - 1;
+      elkel2 = elkel - 2;
       if (elkel2 < 0)
 	elkel2 += 262400;
       if (elkel2 > 262400)
 	elkel2 -= 262400;
 
-      
-      valorl = (history[elkel]*dllo)+(history[elkel2]*(1.0-dllo));
-      buf[i] += (valorl*Chorus_Volume)*.5;
+      valorl = (history[elkel2] * ( 1.0 + history[elkel] - history[elkel2]));     
+      buf[i] += (valorl*chorus_vol);
       
 
-      delay = ms + (Chorus_LFO (&Chorus_X_R) * Chorus_Delay);
-      dllo = 1.0 - fmod (delay, 1.0);
-
+      delay = ms + (Chorus_LFO (&Chorus_X_R) * ch_delay);
       elkel = aeperhis - (int)delay;
-
+      if (elkel % 2 == 0) elkel--;
+      
       if (elkel < 0)
 	elkel += 262400;
       if (elkel > 262400)
 	elkel -= 262400;
-      elkel2 = elkel - 1;
+      elkel2 = elkel - 2;
       if (elkel2 < 0)
 	elkel2 += 262400;
       if (elkel2 > 262400)
 	elkel2 -= 262400;
 
-      
-      
-      valorl = (history[elkel]*dllo)+(history[elkel2]*(1.0-dllo));
-      buf[i+1] += (valorl*Chorus_Volume)*.5;
+      valorl = (history[elkel2] * ( 1.0 + history[elkel] - history[elkel2]));
+      buf[i+1] += (valorl*chorus_vol);
       
       aeperhis +=2;
       if (aeperhis > 262400) aeperhis -= 262400;
@@ -165,13 +161,13 @@ HOR::Effect_Rotary ()
   for (i = 0; i <PERIOD; i +=2)
     {
 
-      a = Rotary_LFO (Rotary_X);
+      a = Rotary_LFO (Rotary_X)*.5;
 
       l =  buf[i];
       r =  buf[i + 1];
        
-      buf[i] -= (l * a *.5);
-      buf[i + 1] += (r * a *.5);
+      buf[i] -= (l * a);
+      buf[i + 1] += (r * a);
        
     }
 };
@@ -190,7 +186,7 @@ HOR::Effect_Reverb ()
   float efxoutr;
   float stmp; 
   int a_rperhis=rperhis;
-  
+  float reverb_vol = Reverb_Volume * .5;
    
     
   for (i = 0; i <PERIOD; i +=2)
@@ -207,12 +203,12 @@ HOR::Effect_Reverb ()
         {
     
          elke = a_rperhis - ((long) (combl[j] * Reverb_Time));
-         if (elke % 2 != 0) elke = elke + 1;
+//         if (elke % 2 != 0) elke++;
          if (elke < 0) elke = 262400 + elke;
   
                 
          elke1 =  a_rperhis  - ((long) (combr[j] * Reverb_Time));
-         if (elke1 % 2 == 0) elke1 = elke1 + 1; 
+//         if (elke1 % 2 == 0) elke1++; 
          if (elke1 < 0) elke1 = 262400 + elke1;
  
          stmp += Reverb_Diffussion * ready_apsg[capsg];
@@ -226,7 +222,7 @@ HOR::Effect_Reverb ()
          }
 
 
-      tmprvol =  stmp * Reverb_Volume *.5;
+      tmprvol =  stmp * reverb_vol;
        
     
       buf[i] +=  (efxoutl * tmprvol);
@@ -262,7 +258,7 @@ HOR::Effect_Delay()
 
     {
       elke = a_rperhis - delay;    
-      if (elke % 2 != 0) elke = elke + 1;
+      if (elke % 2 != 0) elke++;
       if (elke < 0)
 	elke = 262400 + elke;
       elke1 = elke + 1;

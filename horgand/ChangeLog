@@ -3,6 +3,18 @@ horgand ChangeLog
 
 
 
+
+== v1.10 (  /08/2007) ==
+--------------------------------------------------------------------------------------------
+
+- small code optimization.
+- rewrited Chorus Effect.
+- More code changes to prevent crashes with RT-Kernels.
+- Better Jack support.
+
+
+
+
 == v1.09 (05/08/2007) ==
 --------------------------------------------------------------------------------------------
 - Code optimized.

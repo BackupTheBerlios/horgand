@@ -359,7 +359,7 @@ jack_port_t *outport_left,*outport_right;
   {   
     float phi[POLY];
     float dphi;
-  } f[21];
+  } f[11];
   
 
 

@@ -1166,8 +1166,6 @@ HOR::panic()
 
 };
 
-// The fucking ADSR
-
 
 float
 HOR::Jenvelope (int *note_active, int gate, float t, int nota)
@@ -1295,9 +1293,10 @@ HOR::Alg1s (int nframes, void *)
 
   int l1, l2, i, kk = 0;
   int put_eff=0;
-  float sound = 0;
+  float sound;
   float m_partial;
   float p_op[11];
+  float organ_master = Organ_Master_Volume * .5;
   memset (buf, 0, PERIOD4);
   for (i=1;i<=10;i++) p_op[i]=pitch_Operator (i, 0);
   
@@ -1316,10 +1315,9 @@ HOR::Alg1s (int nframes, void *)
           for (l1 = 0; l1 < PERIOD; l1 +=2)
           {
      	    sound=0;
-
+  
             Envelope_Volume[l2] = (Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2));        
             LFO_Volume = Pitch_LFO (env_time[l2]); 
-            
 
      	    for (i = 1; i <= 10; i++)
 	      {
@@ -1330,13 +1328,15 @@ HOR::Alg1s (int nframes, void *)
                      if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
                      f[i].phi[l2] += f[i].dphi;
                      if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
-                     sound +=  Envelope_Volume[l2] * Operator[i].con1 * Fsin(f[i].phi[l2]);
+                     sound += Envelope_Volume[l2]*Operator[i].con1*Fsin(f[i].phi[l2]);
+                   
                    }                
  
               }  
  
-                buf[l1] += (sound * Organ_Master_Volume * .5);
-                buf[l1+1] =buf[l1];
+                buf[l1] += (sound * organ_master);
+                buf[l1+1] = buf[l1];
+                
                 env_time[l2] +=increment;                
               
                       
