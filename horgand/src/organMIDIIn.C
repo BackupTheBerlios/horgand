@@ -60,7 +60,7 @@ HOR::midievents (int keIN)
 
       if (midievent->data.control.param == 1)
 	{
-	modulation = (float) midievent->data.control.value / 12.7;
+	modulation = (float) midievent->data.control.value / 128;
         Calc_LFO_Frequency();
         Calc_Chorus_LFO_Frequency();
         }
@@ -101,8 +101,9 @@ HOR::midievents (int keIN)
 		  note[l1] = rnote[l1];
 		  LastMidiInLevel = MidiInLevel;
 		  MidiInLevel = midievent->data.note.velocity;
-		  velocity[l1] = midievent->data.note.velocity / 254.0;
-
+		  velocity[l1] = midievent->data.note.velocity / 128.0;
+                  velocity[l1] = Get_Keyb_Level_Scaling(l1);
+                  
 		  if ((split) && (rnote[l1] < 60))
 		    {
                      

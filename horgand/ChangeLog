@@ -6,9 +6,10 @@ horgand ChangeLog
 
 == v1.10 (  /08/2007) ==
 --------------------------------------------------------------------------------------------
-
+- New Tremolo
+- Rottary and Chorus now can coexist.
+- New Chorus and buffer for variable delay Effects
 - small code optimization.
-- rewrited Chorus Effect.
 - More code changes to prevent crashes with RT-Kernels.
 - Better Jack support.
 

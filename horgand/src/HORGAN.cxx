@@ -349,7 +349,7 @@ void HORGAN::cb_MasterT(Fl_Counter* o, void* v) {
 }
 
 void HORGAN::cb_V1_i(Drawbar* o, void*) {
-  hor->Operator[1].volumen = (float) o->value() / 100;
+  hor->Operator[1].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -361,7 +361,7 @@ void HORGAN::cb_V1(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_V2_i(Drawbar* o, void*) {
-  hor->Operator[2].volumen = (float) o->value() / 100;
+  hor->Operator[2].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -373,7 +373,7 @@ void HORGAN::cb_V2(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_V3_i(Drawbar* o, void*) {
-  hor->Operator[3].volumen = (float) o->value() / 100;
+  hor->Operator[3].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -385,7 +385,7 @@ void HORGAN::cb_V3(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_V4_i(Drawbar* o, void*) {
-  hor->Operator[4].volumen = (float) o->value() / 100;
+  hor->Operator[4].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -397,7 +397,7 @@ void HORGAN::cb_V4(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_V5_i(Drawbar* o, void*) {
-  hor->Operator[5].volumen = (float) o->value() / 100;
+  hor->Operator[5].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -409,7 +409,7 @@ void HORGAN::cb_V5(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_V6_i(Drawbar* o, void*) {
-  hor->Operator[6].volumen = (float) o->value() / 100;
+  hor->Operator[6].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -1197,7 +1197,7 @@ void HORGAN::cb_CPrograma(Fl_Counter* o, void* v) {
 }
 
 void HORGAN::cb_V7_i(Drawbar* o, void*) {
-  hor->Operator[7].volumen = (float) o->value() / 100;
+  hor->Operator[7].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -1209,7 +1209,7 @@ void HORGAN::cb_V7(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_V8_i(Drawbar* o, void*) {
-  hor->Operator[8].volumen = (float) o->value() / 100;
+  hor->Operator[8].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -1221,7 +1221,7 @@ void HORGAN::cb_V8(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_V9_i(Drawbar* o, void*) {
-  hor->Operator[9].volumen = (float) o->value() / 100;
+  hor->Operator[9].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -1233,7 +1233,7 @@ void HORGAN::cb_V9(Drawbar* o, void* v) {
 }
 
 void HORGAN::cb_V10_i(Drawbar* o, void*) {
-  hor->Operator[10].volumen = (float) o->value() / 100;
+  hor->Operator[10].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -2454,7 +2454,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelfont(0);
       o->labelsize(12);
       o->labelcolor((Fl_Color)4);
-      o->maximum(20);
+      o->maximum(100);
       o->step(0.01);
       o->callback((Fl_Callback*)cb_LFOPitch);
       o->align(FL_ALIGN_BOTTOM);
@@ -2771,11 +2771,11 @@ Fl_Double_Window* HORGAN::make_window() {
       }
       o->end();
     }
-    { Fl_Box* o = new Fl_Box(390, 99, 46, 31);
+    { Fl_Box* o = new Fl_Box(400, 99, 46, 31);
       o->box(FL_DOWN_FRAME);
       o->align(FL_ALIGN_CLIP);
     }
-    { Fl_Button* o = Rev = new Fl_Button(390, 100, 45, 30, gettext("Reverb"));
+    { Fl_Button* o = Rev = new Fl_Button(400, 100, 45, 30, gettext("Reverb"));
       o->type(1);
       o->box(FL_PLASTIC_UP_BOX);
       o->color((Fl_Color)31);
@@ -4567,49 +4567,49 @@ void HORGAN::ponreverb() {
 switch(hor->Reverb_Preset)
 {
 case 1:
-hor->Reverb_Time = 1.7;
-hor->Reverb_Volume = 0.45;
+hor->Reverb_Time = 17;
+hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.14;
 
 break;
 
 case 2:
-hor->Reverb_Time = 1.7;
+hor->Reverb_Time = 19;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.14;
 break;
 
 case 3:
-hor->Reverb_Time = 2.4;
-hor->Reverb_Volume = 0.45;
+hor->Reverb_Time = 21;
+hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 4:
-hor->Reverb_Time = 2.4;
+hor->Reverb_Time = 27;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 5:
-hor->Reverb_Time = 3.2;
-hor->Reverb_Volume = 0.45;
+hor->Reverb_Time = 32;
+hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 6:
-hor->Reverb_Time = 3.8;
+hor->Reverb_Time = 38;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 
 case 7:
-hor->Reverb_Time = 4.4;
-hor->Reverb_Volume = 0.45;
+hor->Reverb_Time = 44;
+hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 8:
-hor->Reverb_Time = 4.4;
+hor->Reverb_Time = 54;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;

@@ -90,8 +90,7 @@ return 1;
 } 
 
 class HORGAN {} {
-  Function {make_window()} {open
-  } {
+  Function {make_window()} {} {
     Fl_Window HORwindow {
       label {Horgand v1.09}
       callback {Pexitprogram=1;
@@ -412,7 +411,7 @@ calbtune();}
         xywh {395 255 55 20} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 minimum -99 maximum 99 step 1
       }
       Fl_Slider V1 {
-        callback {hor->Operator[1].volumen = (float) o->value() / 100;
+        callback {hor->Operator[1].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -422,7 +421,7 @@ Signal_for_Cb_Sliders = 0;
         class Drawbar
       }
       Fl_Slider V2 {
-        callback {hor->Operator[2].volumen = (float) o->value() / 100;
+        callback {hor->Operator[2].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -432,7 +431,7 @@ Signal_for_Cb_Sliders = 0;
         class Drawbar
       }
       Fl_Slider V3 {
-        callback {hor->Operator[3].volumen = (float) o->value() / 100;
+        callback {hor->Operator[3].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -442,7 +441,7 @@ Signal_for_Cb_Sliders = 0;
         class Drawbar
       }
       Fl_Slider V4 {
-        callback {hor->Operator[4].volumen = (float) o->value() / 100;
+        callback {hor->Operator[4].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -452,7 +451,7 @@ Signal_for_Cb_Sliders = 0;
         class Drawbar
       }
       Fl_Slider V5 {
-        callback {hor->Operator[5].volumen = (float) o->value() / 100;
+        callback {hor->Operator[5].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -462,7 +461,7 @@ Signal_for_Cb_Sliders = 0;
         class Drawbar
       }
       Fl_Slider V6 {
-        callback {hor->Operator[6].volumen = (float) o->value() / 100;
+        callback {hor->Operator[6].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -507,7 +506,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {115 245 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 20 step 0.01
+        xywh {115 245 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 100 step 0.01
         class Rueda
       }
       Fl_Dial PLFOSpeed {
@@ -692,7 +691,7 @@ Actu();}
           label 4
           callback {hor->Reverb_Preset = 4;
 ponreverb();
-Actu();} selected
+Actu();}
           xywh {425 160 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R5 {
@@ -725,7 +724,7 @@ Actu();}
         }
       }
       Fl_Box {} {
-        xywh {390 99 46 31} box DOWN_FRAME align 64
+        xywh {400 99 46 31} box DOWN_FRAME align 64
       }
       Fl_Button Rev {
         label Reverb
@@ -793,8 +792,8 @@ break;
 }
 }
 hor->Clean_Buffer_Effects();
-Actu();}
-        xywh {390 100 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labeltype ENGRAVED_LABEL labelsize 10 align 64
+Actu();} selected
+        xywh {400 100 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
       Fl_Slider RitVol {
         label Volume
@@ -1151,7 +1150,7 @@ Actu();}
         xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum 1 maximum 32 step 1
       }
       Fl_Slider V7 {
-        callback {hor->Operator[7].volumen = (float) o->value() / 100;
+        callback {hor->Operator[7].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -1161,7 +1160,7 @@ Signal_for_Cb_Sliders = 0;
         class Drawbar
       }
       Fl_Slider V8 {
-        callback {hor->Operator[8].volumen = (float) o->value() / 100;
+        callback {hor->Operator[8].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -1171,7 +1170,7 @@ Signal_for_Cb_Sliders = 0;
         class Drawbar
       }
       Fl_Slider V9 {
-        callback {hor->Operator[9].volumen = (float) o->value() / 100;
+        callback {hor->Operator[9].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -1181,7 +1180,7 @@ Signal_for_Cb_Sliders = 0;
         class Drawbar
       }
       Fl_Slider V10 {
-        callback {hor->Operator[10].volumen = (float) o->value() / 100;
+        callback {hor->Operator[10].volumen = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -2436,49 +2435,49 @@ Actu();}
 switch(hor->Reverb_Preset)
 {
 case 1:
-hor->Reverb_Time = 1.7;
-hor->Reverb_Volume = 0.45;
+hor->Reverb_Time = 17;
+hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.14;
 
 break;
 
 case 2:
-hor->Reverb_Time = 1.7;
+hor->Reverb_Time = 19;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.14;
 break;
 
 case 3:
-hor->Reverb_Time = 2.4;
-hor->Reverb_Volume = 0.45;
+hor->Reverb_Time = 21;
+hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 4:
-hor->Reverb_Time = 2.4;
+hor->Reverb_Time = 27;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 5:
-hor->Reverb_Time = 3.2;
-hor->Reverb_Volume = 0.45;
+hor->Reverb_Time = 32;
+hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 6:
-hor->Reverb_Time = 3.8;
+hor->Reverb_Time = 38;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 
 case 7:
-hor->Reverb_Time = 4.4;
-hor->Reverb_Volume = 0.45;
+hor->Reverb_Time = 44;
+hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 8:
-hor->Reverb_Time = 4.4;
+hor->Reverb_Time = 54;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;

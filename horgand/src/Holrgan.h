@@ -98,12 +98,16 @@ public:
   void saverhyt(char *filename);
 
 
+
+  float ldelay,rdelay;
   float *lsin;
   float *buf;
   short *wbuf;
   float *rbuf;
   float *bbuf;
   float *history;
+  float *cldelay;
+  float *crdelay;
   float attack;
   float decay;
   float sustain;
@@ -144,6 +148,7 @@ public:
   float Stereo_Side; 
   int To_Stereo_Side;
   float LFO_Volume;
+  float LFO_X;
   float detune;
   float LFO_Frequency;
   float Rotary_LFO_Frequency;
@@ -155,6 +160,7 @@ public:
   float Chorus_LFO_Frequency;
   float Chorus_Volume;  
   int E_Chorus_On;            
+  int cl_counter;
   float Chorus_Delay;
   int split;
   int Reverb_Preset;  
@@ -162,7 +168,7 @@ public:
   float increment;
   float D_PI_to_SAMPLE_RATE; 
   int E_Reverb_On;
-  float Reverb_Time;
+  int Reverb_Time;
   float Reverb_Diffussion;
   float Reverb_Volume;
   int combl[16];

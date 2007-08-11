@@ -242,8 +242,6 @@ HOR::New ()
   Operator[10].harmonic = 22;
 
 
-  attack = attack;
-  decay = decay;
   E_Delay_On = 0;
   Delay_Delay = 0;
   Delay_Volume = 0;
@@ -251,7 +249,7 @@ HOR::New ()
   Pitch_LFO_Delay = 0;
   Rotary_LFO_Speed = 0;
   LFOpitch = 0;
-  modulation = 10;
+  modulation = .99;
   transpose = 0;
   E_Rotary_On = 0;
   pitch = 0;

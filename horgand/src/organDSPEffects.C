@@ -34,13 +34,12 @@ HOR::Chorus_LFO (float *Chorus_X)
   float out;
 
  
-  *Chorus_X += Chorus_LFO_Speed * increment * 8.0;
+  *Chorus_X += Chorus_LFO_Speed * increment;
 
   if (*Chorus_X > 1) *Chorus_X = 0;
 
   out=Fsin(*Chorus_X*D_PI ) * Chorus_LFO_Frequency;
   
-
   return (out);
   
   
@@ -53,7 +52,8 @@ void
 HOR::Calc_Chorus_LFO_Frequency()
 
 {
-Chorus_LFO_Frequency = modulation * Chorus_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
+Chorus_LFO_Frequency = modulation * Chorus_LFO_Amplitude;
+
 };
 
 
@@ -62,63 +62,48 @@ void
 HOR::Effect_Chorus()
 {
 
-  int elkel, elkel2;
-  float ch_delay=Chorus_Delay * .25;
-  float valorl,delay;
-  int aeperhis=rperhis;
-  float chorus_vol=Chorus_Volume * .5;
+  int elkel,elkel2;
+  float ch_delay= Chorus_Delay * 4.4;
+  float ldelay1,rdelay1,dell,valorl;
   int i;
-  float ms=SAMPLE_RATE/1000.0*25.0;
-
-  if (aeperhis < 0) aeperhis += 262400;
-  if (aeperhis > 262400) aeperhis -= 262400;
-    
+  float chor_vol=Chorus_Volume*.5;
+  float ms=SAMPLE_RATE/1000.0*20.0;
+  float dllo;
 
   for (i = 0; i < PERIOD; i +=2)
 
     {
-
-            
-      delay=ms + (Chorus_LFO (&Chorus_X_L) * ch_delay);
-      elkel =aeperhis - (int)delay;
-      if (elkel % 2 != 0) elkel--; 
+    
       
-      if (elkel < 0)
-	elkel += 262400;
-      if (elkel > 262400)
-	elkel -= 262400;
-      elkel2 = elkel - 2;
-      if (elkel2 < 0)
-	elkel2 += 262400;
-      if (elkel2 > 262400)
-	elkel2 -= 262400;
+      ldelay1=ldelay;
+      rdelay1=rdelay;
+     
+      // L Channel
+      ldelay=ms+ch_delay+Chorus_LFO(&Chorus_X_L);
+      dell=(ldelay1*(PERIOD-i)+ldelay*i)/PERIOD;
+      dllo=1.0-fmod(dell,1.0);
+      elkel=cl_counter-(int)dell;
+      elkel=(elkel+8192)%8192;
+      elkel2=(elkel-1+8192)%8192;
 
-      valorl = (history[elkel2] * ( 1.0 + history[elkel] - history[elkel2]));     
-      buf[i] += (valorl*chorus_vol);
+      valorl=(dllo*cldelay[elkel])+(cldelay[elkel2]*(1-dllo));
+      buf[i] +=valorl*chor_vol;
+      cldelay[cl_counter]=buf[i];
       
+      // R Channel
+      rdelay=ms+ch_delay+Chorus_LFO(&Chorus_X_R);
+      dell=(rdelay1*(PERIOD-i)+rdelay*i)/PERIOD;
+      dllo=1.0- fmod(dell,1.0);
+      elkel=cl_counter-(int)dell;
+      elkel=(elkel+8192)%8192;
+      elkel2=(elkel-1+8192)%8192;      
 
-      delay = ms + (Chorus_LFO (&Chorus_X_R) * ch_delay);
-      elkel = aeperhis - (int)delay;
-      if (elkel % 2 == 0) elkel--;
+      valorl = (dllo*crdelay[elkel])+(crdelay[elkel2]*(1-dllo));
+      buf[i+1] += valorl*chor_vol;
+      crdelay[cl_counter]=buf[i+1];      
+      if (++cl_counter>=8192) cl_counter=0;
       
-      if (elkel < 0)
-	elkel += 262400;
-      if (elkel > 262400)
-	elkel -= 262400;
-      elkel2 = elkel - 2;
-      if (elkel2 < 0)
-	elkel2 += 262400;
-      if (elkel2 > 262400)
-	elkel2 -= 262400;
-
-      valorl = (history[elkel2] * ( 1.0 + history[elkel] - history[elkel2]));
-      buf[i+1] += (valorl*chorus_vol);
-      
-      aeperhis +=2;
-      if (aeperhis > 262400) aeperhis -= 262400;
  
-
-
     }
 
 
@@ -153,7 +138,6 @@ HOR::Effect_Rotary ()
 {
   int i;
   float a ,l, r;
-  if (E_Chorus_On) return;
 
   Rotary_LFO_Frequency = modulation * Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
 
@@ -185,8 +169,16 @@ HOR::Effect_Reverb ()
   float efxoutl;
   float efxoutr;
   float stmp; 
+  int rev_time=Reverb_Time;
   int a_rperhis=rperhis;
-  float reverb_vol = Reverb_Volume * .5;
+  float rev_vol = Reverb_Volume *.25;
+  int a_combl[16],a_combr[16];
+  
+  for (j=0; j<16; j++)
+  {
+   a_combl[j]=combl[j]*rev_time;
+   a_combr[j]=combr[j]*rev_time;
+  }
    
     
   for (i = 0; i <PERIOD; i +=2)
@@ -199,30 +191,28 @@ HOR::Effect_Reverb ()
   
     
     
-     for (j = 0; j<=15; j++)
+     for (j = 0; j<16; j++)
         {
     
-         elke = a_rperhis - ((long) (combl[j] * Reverb_Time));
-//         if (elke % 2 != 0) elke++;
-         if (elke < 0) elke = 262400 + elke;
-  
-                
-         elke1 =  a_rperhis  - ((long) (combr[j] * Reverb_Time));
-//         if (elke1 % 2 == 0) elke1++; 
+         elke = a_rperhis-a_combl[j];
+         if (elke % 2 != 0) elke++;
+         if (elke < 0) elke = 262400 + elke;                
+         elke1 =  a_rperhis-a_combr[j];
+         if (elke1 % 2 == 0) elke1++; 
          if (elke1 < 0) elke1 = 262400 + elke1;
  
          stmp += Reverb_Diffussion * ready_apsg[capsg];
-         if (++capsg > 10 ) capsg = 0;
+         if (++capsg > 15 ) capsg = 0;
          efxoutl += history[elke]*stmp;
                   
          stmp += Reverb_Diffussion * ready_apsg[capsg];
-         if (++capsg > 10 ) capsg = 0;
+         if (++capsg > 15 ) capsg = 0;
          efxoutr += history[elke1]*stmp;
              
          }
 
-
-      tmprvol =  stmp * reverb_vol;
+                 
+      tmprvol =  stmp * rev_vol;
        
     
       buf[i] +=  (efxoutl * tmprvol);
@@ -296,6 +286,8 @@ void
 HOR::Clean_Buffer_Effects()
 {
 memset (history, 0, BUFSIZE * 1024);
+memset (cldelay,0,BUFSIZE * 8);
+memset (crdelay,0,BUFSIZE * 8);
 };
 
 

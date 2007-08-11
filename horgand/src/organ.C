@@ -48,6 +48,7 @@ HOR::HOR ()
   waitforGUI = 0;
   rperhis = 130000;
   capsg=0;
+  cl_counter=0;
   Master_Volume = 0.70;
   Organ_Master_Volume = 0.70;
   pattern_bars = 1;
@@ -116,9 +117,10 @@ HOR::HOR ()
   Pitch_LFO_Speed = 0;
   Pitch_LFO_Delay = 0;
   LFOpitch = 0;
-  Rotary_LFO_Amplitude = 1280;
+  LFO_X = 0;
+  Rotary_LFO_Amplitude = 12800;
   Keyb_Level_Scaling=1;
-  modulation = 10;
+  modulation = .99;
   transpose = 0;
   pitch = 0;
   pedal = 0;
@@ -127,13 +129,13 @@ HOR::HOR ()
   To_Stereo_Side = 0;
   Rotary_X = 0;
   Chorus_X_L = 0.0;
-  Chorus_X_L = 0.5;
+  Chorus_X_R = 0.5;
   Chorus_LFO_Speed = 0;
   Chorus_Volume = 0.60;
   split = 0;
   Reverb_Preset = 1;
   E_Reverb_On = 0;
-  Reverb_Time = 1.0;
+  Reverb_Time = 10;
   Reverb_Diffussion = 0.1;
   Reverb_Volume = 0.20;
   tempo = 2;
@@ -153,9 +155,9 @@ int tapsg[16]= {36,33,29,27,24,21,17,15,13,16,21,24,27,31,33,36};
 for (i=0; i<16; i++)
 
 {
-  combl[i] = tcombl[i];
-  combr[i] = tcombr[i];
-  apsg[i] = tapsg[i] * 2;
+  combl[i] = tcombl[i]/10;
+  combr[i] = tcombr[i]/10;
+  apsg[i] = tapsg[i];
   apss += apsg[i];
 }
 
@@ -937,7 +939,10 @@ for (j = 1; j<= 20; j++)
 
     {
       x_sin = (float) ( i * D_PI / sizesin);
-      lsin[i] = sin (x_sin);
+      lsin[i] =sin (x_sin);
+      
+      
+      
       if( i > 0) lsin[i-1] = (lsin[i-1] *  ( 1.0 +  lsin[i] - lsin[i-1]));
       if( i > 1) lsin[i-2] = (lsin[i-2] *  ( 1.0 +  lsin[i-1] - lsin[i-2]));
       if( i > 2) lsin[i-3] = (lsin[i-3] *  ( 1.0 +  lsin[i-2] - lsin[i-3]));
@@ -959,9 +964,11 @@ for (j = 1; j<= 20; j++)
   bbuf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   buf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   history = (float *) malloc (2 * sizeof (float) * BUFSIZE * 512);
-
+  cldelay = (float *) malloc (sizeof (float) * BUFSIZE * 8);
+  crdelay = (float *) malloc (sizeof (float) * BUFSIZE * 8); 
   memset (history, 0, BUFSIZE * 1024);
-
+  memset (cldelay, 0, BUFSIZE * 8);
+  memset (crdelay, 0, BUFSIZE * 8);
 
 // Get config settings and init settings 
 
@@ -1136,8 +1143,8 @@ return (lasfreq[Operator[i].harmonic] + Operator[i].harmonic_fine);
 void
 HOR::volume_Operator (int i, int l2)
 {
-  Operator[i].con1 = Operator[i].volumen * Keyb_Level_Scaling / (2 * lasfreq[Operator[i].harmonic]);
-   
+  Operator[i].con1 = Operator[i].volumen * velocity[l2] / lasfreq[Operator[i].harmonic];
+  
 };
 
 
@@ -1147,7 +1154,7 @@ HOR::volume_Operator (int i, int l2)
 float
 HOR::Get_Keyb_Level_Scaling(int nota)
 {
-return(velocity[nota] * (1 - ((120 - note[nota]+transpose) / 240.0)));
+ return(velocity[nota] * (1 - ((note[nota]+transpose) / 120.0)));
 };
 
 
@@ -1225,12 +1232,12 @@ float
 HOR::Pitch_LFO (float t)
 {
 
-  float x, out;
-  
+  float x,out;
+
   if (t * 20 < Pitch_LFO_Delay)
     return (0);
 
-  x = fmod(Pitch_LFO_Speed * t, 1.0);
+  x = fmod(Pitch_LFO_Speed * t,1.0); 
 
   out = Fsin (x * D_PI) * LFO_Frequency;
      
@@ -1248,7 +1255,7 @@ HOR::Get_Partial (int nota)
   float partial=0;
   float freq_note=0; 
   
-  l = note[nota] + transpose + 12;
+  l = note[nota] + transpose +12 ;
   freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
   partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if (partial > D_PI) partial=fmod(partial,D_PI);
@@ -1275,6 +1282,7 @@ return(lsin[(int)(x * 1000)]);
 void
 HOR::Calc_LFO_Frequency()
 {
+
 LFO_Frequency =  modulation * LFOpitch * D_PI_to_SAMPLE_RATE;
 
 };  
@@ -1299,8 +1307,7 @@ HOR::Alg1s (int nframes, void *)
   float organ_master = Organ_Master_Volume * .5;
   memset (buf, 0, PERIOD4);
   for (i=1;i<=10;i++) p_op[i]=pitch_Operator (i, 0);
-  
-  
+    
 
     for (l2 = 0; l2 < POLY; l2++)
     {
@@ -1309,22 +1316,21 @@ HOR::Alg1s (int nframes, void *)
 	{
 	  put_eff=1;
 	  m_partial=Get_Partial(l2);
-          Keyb_Level_Scaling=Get_Keyb_Level_Scaling(l2);
           for (i=1;i<=10;i++) volume_Operator(i, l2);
-                    
+                              
           for (l1 = 0; l1 < PERIOD; l1 +=2)
           {
      	    sound=0;
-  
-            Envelope_Volume[l2] = (Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2));        
-            LFO_Volume = Pitch_LFO (env_time[l2]); 
-
-     	    for (i = 1; i <= 10; i++)
+             
+            Envelope_Volume[l2] = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
+     	    LFO_Volume=Pitch_LFO(env_time[l2]);
+     	   
+             for(i = 1; i <= 10; i++)
 	      {
                               
                 if (Operator[i].con1 > 0)
                    {
-                     f[i].dphi = m_partial * (p_op[i]+LFO_Volume);
+                     f[i].dphi = m_partial * (p_op[i] + LFO_Volume);
                      if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
                      f[i].phi[l2] += f[i].dphi;
                      if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
@@ -1334,21 +1340,19 @@ HOR::Alg1s (int nframes, void *)
  
               }  
  
-                buf[l1] += (sound * organ_master);
+                buf[l1] += sound * organ_master;
                 buf[l1+1] = buf[l1];
-                
                 env_time[l2] +=increment;                
-              
                       
            }
-              
+             
 	}
 
     }
      
 
 
-
+ 
 
 if (put_eff)
 {
