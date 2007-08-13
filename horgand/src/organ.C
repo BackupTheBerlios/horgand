@@ -22,30 +22,31 @@
 */
 
 
-#include "Holrgan.h"
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#include <Fl/Fl_Preferences.H>
+#include "Holrgan.h"
 
 pthread_mutex_t mutex, m_mutex;
-int l1, i, j, k, Pexitprogram, MidiInLevel, LastMidiInLevel, waitforGUI,
-UndoCount,preset,Signal_for_Cb_Sliders,BarLead,changeNameChord;
+int i,j,l1,k,Pexitprogram, MidiInLevel, LastMidiInLevel,UndoCount,preset,Signal_for_Cb_Sliders,BarLead,changeNameChord;
 char NameChord[16];
-int prefix_trick,Selected_Rhythm,commandline;
+int Selected_Rhythm,commandline;
 const char *FilePreset;
 
 
-HOR::HOR ()
+
+HOR::HOR()
 {
 
   //Init de vars
   
+  Bass_Type=0;
+  TypeRecChord=0;
   Selected_Rhythm = 0;
-  waitforGUI = 0;
   rperhis = 130000;
   capsg=0;
   cl_counter=0;
@@ -55,6 +56,12 @@ HOR::HOR ()
   ae = 1;
   file_ok = 0;  
   cpreset=1;
+  IsCoIn=0;
+  Cyoin=0;
+  Pyoin=0;
+  Ccin=0;
+  Pcin=0;
+
 
 // FM Operator frequencys
 
@@ -104,7 +111,6 @@ HOR::HOR ()
   Operator[10].harmonic = 22;
   
 
-  prefix_trick = 0;
   mastertune = 1;
   attack = 0.001;
   decay = 0.20;
@@ -117,7 +123,6 @@ HOR::HOR ()
   Pitch_LFO_Speed = 0;
   Pitch_LFO_Delay = 0;
   LFOpitch = 0;
-  LFO_X = 0;
   Rotary_LFO_Amplitude = 12800;
   Keyb_Level_Scaling=1;
   modulation = .99;
@@ -155,8 +160,8 @@ int tapsg[16]= {36,33,29,27,24,21,17,15,13,16,21,24,27,31,33,36};
 for (i=0; i<16; i++)
 
 {
-  combl[i] = tcombl[i]/10;
-  combr[i] = tcombr[i]/10;
+  combl[i] = tcombl[i]/8;
+  combr[i] = tcombr[i]/8;
   apsg[i] = tapsg[i];
   apss += apsg[i];
 }
@@ -879,29 +884,7 @@ for (j = 1; j<= 20; j++)
       Prim[j].E_Reverb_On = 0;
       Prim[j].Chorus_Volume = 0.30;
 
-
-
-
-
     }
-
-
-
-  //ALSA init
-  
-  // Open Alsa Seq 
- 
-  snd_seq_open (&MidiInPuerto[1].midi_in, "default", SND_SEQ_OPEN_INPUT, 0);
-  int alsaport = 0;
-  char portname[50];
-
-  // Create Alsa Seq Client
-  
-  sprintf (portname, "Horgand IN");
-  alsaport = snd_seq_create_simple_port (MidiInPuerto[1].midi_in, portname,
-					 SND_SEQ_PORT_CAP_WRITE |
-					 SND_SEQ_PORT_CAP_SUBS_WRITE,
-					 SND_SEQ_PORT_TYPE_SYNTH);
 
 
 
@@ -941,7 +924,7 @@ for (j = 1; j<= 20; j++)
       x_sin = (float) ( i * D_PI / sizesin);
       lsin[i] =sin (x_sin);
       
-      
+            
       
       if( i > 0) lsin[i-1] = (lsin[i-1] *  ( 1.0 +  lsin[i] - lsin[i-1]));
       if( i > 1) lsin[i-2] = (lsin[i-2] *  ( 1.0 +  lsin[i-1] - lsin[i-2]));
@@ -966,165 +949,132 @@ for (j = 1; j<= 20; j++)
   history = (float *) malloc (2 * sizeof (float) * BUFSIZE * 512);
   cldelay = (float *) malloc (sizeof (float) * BUFSIZE * 8);
   crdelay = (float *) malloc (sizeof (float) * BUFSIZE * 8); 
+
+// Init Buffers
+
+
   memset (history, 0, BUFSIZE * 1024);
   memset (cldelay, 0, BUFSIZE * 8);
   memset (crdelay, 0, BUFSIZE * 8);
 
-// Get config settings and init settings 
-
-  FILE *fs;
-  char temp[512];
-  char nomfile[256];
-  char nomfile1[256];
-  sprintf (nomfile, "%s%s", getenv ("HOME"), "/.Horgand");
-  if ((fs = fopen (nomfile, "r")) != NULL)
-    {
-      fgets (temp, sizeof temp, fs);
-      
-// Get MIDI IN Setting      
-      
-      for (i = 0; i <= (int) strlen(temp) - 2; i++)
-      MidiInPuerto[1].SetMidiIn[i] = temp[i];
-      MidiInPuerto[1].SMidiIn = MidiInPuerto[1].SetMidiIn;
-      
-// Get Audio Out Setting      
-            
-      bzero (temp, sizeof (temp));
-      fgets (temp, sizeof temp, fs);
-      if (strstr (temp, "OSS") != NULL)
-	{
-	  Salida = 1;
-	  ossaudioprepare ();
-	}
-      if (strstr (temp, "Alsa") != NULL)
-	{
-	  Salida = 2;
-	  alsaaudioprepare ();
-	}
-      if (strstr (temp, "Jack") != NULL)
-	{
-	  Salida = 3;
-	  jackaudioprepare ();
-	}
-
-// Adjust some vars depend on Audio OUT
-
-       increment = .5 / SAMPLE_RATE;
-       D_PI_to_SAMPLE_RATE = D_PI / SAMPLE_RATE;
-
-// Load Preset Bank File
-
-      bzero(BankFilename, sizeof (BankFilename));
-      bzero (temp, sizeof (temp));
-      fgets (temp, sizeof temp, fs);
-      if (strlen(temp)>2)
-               {
-                for (i = 0; i <= (int) strlen(temp) - 2; i++) BankFilename[i] = temp[i];
-                loadbank(BankFilename);
-               } 
-
-
-
-    }
-
-
-// Load Rhythm File
-
-   bzero(nomfile, sizeof(nomfile));
-   strcpy(nomfile, "/usr/share/horgand/Rhythm_List.txt");
-   bzero(nomfile1, sizeof(nomfile1));
-   strcpy(nomfile1, "/usr/local/share/horgand/Rhythm_List.txt");
-   if ((fs = fopen (nomfile, "r")) != NULL)  prefix_trick = 1;
-   if ((fs = fopen (nomfile1, "r")) != NULL) prefix_trick = 2;
-   if (prefix_trick == 2 ) strcpy(nomfile, nomfile1); 
-   bzero(temp,sizeof(temp));
- 
-  if ((fs = fopen (nomfile, "r")) != NULL)
-   {
-         int linea = 0;
-         Num_Rhythm= 1;
-         int w;    
-      while (fgets(temp, sizeof temp, fs) != NULL)
-          {
-             linea++;
-             switch (linea)
-           { 
-             case 1:
-              bzero(Rt[Num_Rhythm].Nom, sizeof(Rt[Num_Rhythm].Nom));
-              for (i=0;  i<=(int) strlen(temp) -2; i++) Rt[Num_Rhythm].Nom[i] = temp[i];                   
-              break; 
-             case 2:
-              bzero(Rt[Num_Rhythm].Nfile, sizeof(Rt[Num_Rhythm].Nfile)); 
-              for (i=0;  i<=(int) strlen(temp) -2; i++) Rt[Num_Rhythm].Nfile[i] = temp[i];
-              break;
-             case 3:
-              sscanf (temp,"%d", &Rt[Num_Rhythm].bars);
-              break;
-             case 4:
-              sscanf (temp,"%d", &Rt[Num_Rhythm].quarter_note);
-              break;
-             case 5: 
-             sscanf(temp,"%d,%d,%d,%d",&Rt[Num_Rhythm].Line_Bass_Note[1],&Rt[Num_Rhythm].Line_Bass_Note[2],&Rt[Num_Rhythm].Line_Bass_Note[3],&Rt[Num_Rhythm].Line_Bass_Note[4]);
-             for (i=1; i<Rt[Num_Rhythm].bars*Rt[Num_Rhythm].quarter_note; i++)
-             {
-              w = i*4;
-              bzero(temp,sizeof(temp));
-              fgets(temp, sizeof temp, fs);
-              sscanf(temp,"%d,%d,%d,%d",&Rt[Num_Rhythm].Line_Bass_Note[w+1],&Rt[Num_Rhythm].Line_Bass_Note[w+2],&Rt[Num_Rhythm].Line_Bass_Note[w+3],&Rt[Num_Rhythm].Line_Bass_Note[w+4]);
-             } 
-             bzero(temp,sizeof(temp));
-             fgets(temp, sizeof temp, fs);
-             sscanf(temp,"%d,%d,%d,%d",&Rt[Num_Rhythm].Line_Bass_Velocity[1],&Rt[Num_Rhythm].Line_Bass_Velocity[2],&Rt[Num_Rhythm].Line_Bass_Velocity[3],&Rt[Num_Rhythm].Line_Bass_Velocity[4]);
-             for (i=1; i<Rt[Num_Rhythm].bars*Rt[Num_Rhythm].quarter_note; i++)
-             {
-              w = i*4;
-              bzero(temp,sizeof(temp));
-              fgets(temp, sizeof temp, fs);
-              sscanf(temp,"%d,%d,%d,%d",&Rt[Num_Rhythm].Line_Bass_Velocity[w+1],&Rt[Num_Rhythm].Line_Bass_Velocity[w+2],&Rt[Num_Rhythm].Line_Bass_Velocity[w+3],&Rt[Num_Rhythm].Line_Bass_Velocity[w+4]);
-             }
-              break;
-              case 6:
-              break;
-              case 7:
-              break;
-              case 8:
-              break;
-              case 9:
-              break;
-              case 10:
-              break;
-              case 11:
-              linea = 0;
-              Num_Rhythm++;
-              break;
-          }
- 
-
-
-         }
-       }
-
-
-  
-  // Init buffers
   
   memset (buf, 0, PERIOD4);
   memset (wbuf, 0, PERIOD4);
   memset (rbuf, 0, PERIOD4);  
   memset (bbuf, 0, PERIOD4);
+
    
- // Send Signal to GUI  -> "All OK"
-
-  waitforGUI = 1;
-
 };
 
 
 HOR::~HOR ()
 {
-  snd_seq_close (MidiInPuerto[1].midi_in);
+  snd_seq_close (midi_in);
 
 };
+
+void
+HOR::init_hor()
+{
+
+int val=0;
+char nomfile[128];
+char orden[256];
+
+  //ALSA init
+  
+  // Open Alsa Seq 
+ 
+  snd_seq_open (&midi_in, "default", SND_SEQ_OPEN_INPUT, 0);
+  int alsaport = 0;
+  char portname[50];
+
+  // Create Alsa Seq Client
+  
+  sprintf (portname, "Horgand IN");
+  alsaport = snd_seq_create_simple_port (midi_in, portname,
+					 SND_SEQ_PORT_CAP_WRITE |
+					 SND_SEQ_PORT_CAP_SUBS_WRITE,
+					 SND_SEQ_PORT_TYPE_SYNTH);
+
+
+
+Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
+
+horgand.get("FirstTime",val,0);
+
+if (val==0)
+{
+
+ bzero(nomfile,sizeof(nomfile));
+ bzero(orden,sizeof(orden));
+ sprintf (nomfile, "%s%s", getenv ("HOME"), "/.horgand");
+ sprintf (orden, "mkdir %s",nomfile);
+ system(orden);
+ bzero(orden,sizeof(orden));
+ sprintf(orden, "cp %s/* %s",DATADIR,nomfile);
+ system(orden);
+ horgand.set("FirstTime",1);
+ sprintf(BankFilename,"%s/Default.horeb",nomfile);
+ sprintf(RhythmFilename,"%s/Rhythm_List.txt",nomfile);
+ horgand.set("Bank Filename", BankFilename);
+ horgand.set("Rhythm Filename", RhythmFilename);
+ bzero(orden,sizeof(orden));
+ sprintf(orden,"%s","Not Connected");
+ horgand.set("MIDI IN Device",orden);
+ bzero(orden,sizeof(orden));
+ sprintf(orden,"%s","Alsa");
+ horgand.set("Audio Out device",orden);
+                    
+}
+
+
+// Get config settings and init settings 
+// Get MIDI IN Setting      
+
+    horgand.get("MIDI IN Device", MID,"Not Connected",40);
+    Conecta();          
+
+// Get Audio Out Setting      
+            
+      char temp[512];
+
+      horgand.get("Audio Out device",temp,"Alsa",127);
+
+
+      if (strstr (temp, "OSS") != NULL)  Salida = 1;
+      if (strstr (temp, "Alsa") != NULL) Salida = 2;
+      if (strstr (temp, "Jack") != NULL) Salida = 3;
+ 
+      if (Salida==1) ossaudioprepare();      
+      if (Salida==2) alsaaudioprepare();
+   
+// Load Preset Bank File
+    
+       horgand.get("Bank Filename",BankFilename,"",127);                     
+       loadbank(BankFilename);
+                
+
+// Load Rhythm File
+
+       horgand.get("Rhythm Filename",RhythmFilename,"",127);
+       loadrhyt(RhythmFilename);
+
+
+};
+
+
+void
+HOR::Adjust_Audio()
+{
+
+      increment = .5 / SAMPLE_RATE;
+      D_PI_to_SAMPLE_RATE = D_PI / SAMPLE_RATE;
+   
+}
+
+
+
 
 
 // Returns the FM Operator Pitch (Frequency + LFO)
@@ -1268,12 +1218,8 @@ HOR::Get_Partial (int nota)
 float
 HOR::Fsin (float x)
 {
-
 if ( x > D_PI) x = fmod(x,D_PI);  
-
-
 return(lsin[(int)(x * 1000)]);
-
 
 };
 
@@ -1297,16 +1243,17 @@ void
 HOR::Alg1s (int nframes, void *)
 {
 
-  pthread_mutex_lock(&mutex); 
-
-  int l1, l2, i, kk = 0;
+ pthread_mutex_lock(&mutex);
+  int l1, l2, i;
   int put_eff=0;
   float sound;
   float m_partial;
   float p_op[11];
   float organ_master = Organ_Master_Volume * .5;
+
   memset (buf, 0, PERIOD4);
-  for (i=1;i<=10;i++) p_op[i]=pitch_Operator (i, 0);
+ 
+    for (i=1;i<=10;i++) p_op[i]=pitch_Operator (i, 0);
     
 
     for (l2 = 0; l2 < POLY; l2++)
@@ -1314,6 +1261,7 @@ HOR::Alg1s (int nframes, void *)
 
       if (note_active[l2])
 	{
+          
 	  put_eff=1;
 	  m_partial=Get_Partial(l2);
           for (i=1;i<=10;i++) volume_Operator(i, l2);
@@ -1321,7 +1269,7 @@ HOR::Alg1s (int nframes, void *)
           for (l1 = 0; l1 < PERIOD; l1 +=2)
           {
      	    sound=0;
-             
+                       
             Envelope_Volume[l2] = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
      	    LFO_Volume=Pitch_LFO(env_time[l2]);
      	   
@@ -1335,11 +1283,11 @@ HOR::Alg1s (int nframes, void *)
                      f[i].phi[l2] += f[i].dphi;
                      if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
                      sound += Envelope_Volume[l2]*Operator[i].con1*Fsin(f[i].phi[l2]);
-                   
+                        
                    }                
  
               }  
- 
+                
                 buf[l1] += sound * organ_master;
                 buf[l1+1] = buf[l1];
                 env_time[l2] +=increment;                
@@ -1366,27 +1314,10 @@ Write_Buffer_Effects();
 
 if (Rhythm_On) Get_Rhythm();
 
-Final_Output();
+if (Salida < 3) Final_Output(Salida);
 
-
-
-  switch (Salida)
-    {
-    case 1:
-      write (snd_handle, wbuf, PERIOD4);
-      break;
-    case 2:
-      kk = snd_pcm_writei (playback_handle, wbuf, PERIOD);
-      if (kk < PERIOD)
-        {
-        printf("xrun!\n");
-	snd_pcm_prepare (playback_handle);
-	}
-      break;
-    
-    }
-   pthread_mutex_unlock(&mutex);
-   return;
+ pthread_mutex_unlock(&mutex);
+ return;
 };
 
   

@@ -29,14 +29,14 @@
 #include <sched.h>
 #include <sys/mman.h>
 #include <pthread.h>
+#include <math.h>
 #include "Holrgan.h"
 #include "HORGAN.h"
-#include <math.h>
+#include "jackoutput.h"
 
-
-pthread_t thr1, thr2;
 HOR hor;
-pthread_mutex_t jmutex;
+pthread_t thr1, thr2;
+
 
 
 // Put Kernel RT priority to a thread
@@ -81,6 +81,7 @@ thread2 (void *arg)
 };
 
 
+
 int main(int argc, char *argv[])
 
 {
@@ -88,7 +89,7 @@ int main(int argc, char *argv[])
 // Read command Line
 
   fprintf (stderr,
-	   "horgand v1.09 - Copyright (c) 2003-2007 Josep Andreu (Holborn)\n");
+	   "\n%s %s - Copyright (c) 2003-2007 Josep Andreu (Holborn)\n",PACKAGE,VERSION);
   if (argc == 1)
     fprintf (stderr, "Try 'horgand --help' for command-line options.\n");
 
@@ -164,23 +165,35 @@ int main(int argc, char *argv[])
     
   //Locks memory
 
-  mlockall(MCL_CURRENT | MCL_FUTURE);
+
+   mlockall(MCL_CURRENT | MCL_FUTURE);
+  
+
+  hor.init_hor();
   
   // Launch GUI
-
+  
   HORGAN *horUI = new HORGAN(&hor);
  
+  
+  // Launch MIDI thread
 
   pthread_mutex_init (&mutex, NULL);
-
-  // Launch MIDI thread
 
   pthread_create (&thr1, NULL, thread1, NULL);
 
   // Launch AUDIO thread for ALSA and OSS, not for JACK
   
-  if (hor.Salida < 3)  pthread_create (&thr2, NULL, thread2, NULL);
- 
+  if (hor.Salida < 3)  pthread_create (&thr2, NULL, thread2, NULL); 
+
+  if (hor.Salida==3)
+  {
+     JACKstart(&hor);
+  }   
+  
+  
+  
+  hor.Adjust_Audio();  
   
   // Main  
 
@@ -219,9 +232,7 @@ int main(int argc, char *argv[])
 
     // Exit  Close Audio devices
 
-if (hor.Salida == 3)  jack_client_close(hor.jackclient);
-if (hor.Salida == 2)  snd_pcm_close (hor.playback_handle);
-if (hor.Salida == 1)  close(hor.snd_handle);
+  hor.CloseAudio(hor.Salida);
 
     // free memory etc.
 
@@ -235,39 +246,6 @@ if (hor.Salida == 1)  close(hor.snd_handle);
 };
 
 
-int jackprocess(jack_nframes_t nframes,void *arg)
-
-{
-
-int i;
-
-pthread_mutex_lock(&jmutex);
-
-
-   jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
-   jack_port_get_buffer(hor.outport_left, nframes);
-   jack_default_audio_sample_t *outr = (jack_default_audio_sample_t*)
-   jack_port_get_buffer(hor.outport_right, nframes);
-
-   
-   memset(outl, 0, hor.PERIOD * sizeof(jack_default_audio_sample_t));
-   memset(outr, 0, hor.PERIOD * sizeof(jack_default_audio_sample_t));
-
-
-  hor.Alg1s(hor.PERIOD,0);
-
-
-for (i=0; i<hor.PERIOD; i +=2)
-{
- 
- outl[i]=hor.buf[i] * hor.Master_Volume;
- outr[i]=hor.buf[i+1] * hor.Master_Volume;
-}
-
-pthread_mutex_unlock(&jmutex);
-return(0);
-
-};
 
 
 

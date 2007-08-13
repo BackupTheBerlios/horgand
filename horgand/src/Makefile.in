@@ -52,7 +52,7 @@ CXX = @CXX@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
-DEFS = @DEFS@
+DEFS = -DPACKAGE=\"$(package)\" -DVERSION=\"$(version)\" -DHELPDIR=\"$(helpdir)\" -DDATADIR=\"$(datadir)\" -DWEBSITE=\"$(website)\"  @DEFS@
 DEPDIR = @DEPDIR@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
@@ -93,7 +93,7 @@ am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
 bindir = @bindir@
 build_alias = @build_alias@
-datadir = @datadir@
+datadir = $(prefix)/share/${PACKAGE}
 datarootdir = @datarootdir@
 docdir = @docdir@
 dvidir = @dvidir@
@@ -117,6 +117,10 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
+helpdir = $(prefix)/share/doc/${PACKAGE}
+website = "horgand.berlios.de"
+package = "horgand"
+version = "1.09"
 bin_PROGRAMS = horgand
 horgand_SOURCES = main.C \
         organ.C \
@@ -126,9 +130,11 @@ horgand_SOURCES = main.C \
 	organAccompaniment.C \
 	organvarios.C \
 	organFileIO.C \
+	jackoutput.C \
         HORGAN.cxx \
         Holrgan.h \
-        HORGAN.h
+        jackoutput.h \
+        HORGAN.h 
 
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -141,7 +147,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am_horgand_OBJECTS = main.$(OBJEXT) organ.$(OBJEXT) \
 	organDSPEffects.$(OBJEXT) organAudioOut.$(OBJEXT) \
 	organMIDIIn.$(OBJEXT) organAccompaniment.$(OBJEXT) \
-	organvarios.$(OBJEXT) organFileIO.$(OBJEXT) HORGAN.$(OBJEXT)
+	organvarios.$(OBJEXT) organFileIO.$(OBJEXT) \
+	jackoutput.$(OBJEXT) HORGAN.$(OBJEXT)
 horgand_OBJECTS = $(am_horgand_OBJECTS)
 horgand_LDADD = $(LDADD)
 horgand_DEPENDENCIES =
@@ -150,8 +157,8 @@ horgand_LDFLAGS =
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
-@AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/HORGAN.Po ./$(DEPDIR)/main.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/organ.Po \
+@AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/HORGAN.Po ./$(DEPDIR)/jackoutput.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/main.Po ./$(DEPDIR)/organ.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/organAccompaniment.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/organAudioOut.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/organDSPEffects.Po \
@@ -233,6 +240,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/HORGAN.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jackoutput.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/organ.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/organAccompaniment.Po@am__quote@

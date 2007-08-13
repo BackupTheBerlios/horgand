@@ -171,13 +171,14 @@ HOR::Effect_Reverb ()
   float stmp; 
   int rev_time=Reverb_Time;
   int a_rperhis=rperhis;
-  float rev_vol = Reverb_Volume *.25;
+  float rev_vol = Reverb_Volume*.25;
   int a_combl[16],a_combr[16];
   
   for (j=0; j<16; j++)
   {
-   a_combl[j]=combl[j]*rev_time;
-   a_combr[j]=combr[j]*rev_time;
+   a_combl[j]=(rev_time * combl[j]);
+   a_combr[j]=(rev_time * combr[j]);
+  
   }
    
     
@@ -190,23 +191,22 @@ HOR::Effect_Reverb ()
      stmp = 0;
   
     
-    
      for (j = 0; j<16; j++)
         {
-    
          elke = a_rperhis-a_combl[j];
          if (elke % 2 != 0) elke++;
-         if (elke < 0) elke = 262400 + elke;                
+         if (elke < 0) elke += 262400; 
+                        
          elke1 =  a_rperhis-a_combr[j];
-         if (elke1 % 2 == 0) elke1++; 
-         if (elke1 < 0) elke1 = 262400 + elke1;
+         if (elke1 %2==0) elke1++;
+         if (elke1<0) elke1 +=262400;
  
-         stmp += Reverb_Diffussion * ready_apsg[capsg];
-         if (++capsg > 15 ) capsg = 0;
+         stmp += Reverb_Diffussion*ready_apsg[capsg];
+         if (++capsg >15) capsg =0;
          efxoutl += history[elke]*stmp;
                   
-         stmp += Reverb_Diffussion * ready_apsg[capsg];
-         if (++capsg > 15 ) capsg = 0;
+         stmp += Reverb_Diffussion*ready_apsg[capsg];
+         if (++capsg >15) capsg =0;
          efxoutr += history[elke1]*stmp;
              
          }
@@ -219,7 +219,7 @@ HOR::Effect_Reverb ()
       buf[i + 1] += (efxoutr * tmprvol);
                                                    
       a_rperhis +=2;
-      if (a_rperhis > 262400) a_rperhis -= 262400;
+      if (a_rperhis >262400) a_rperhis -=262400;
     }
 };
 

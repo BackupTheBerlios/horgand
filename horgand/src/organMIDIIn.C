@@ -35,7 +35,7 @@ HOR::midievents (int keIN)
   int l1;
   snd_seq_event_t *midievent;
   midievent = NULL;
-  snd_seq_event_input (MidiInPuerto[keIN].midi_in, &midievent);
+  snd_seq_event_input (midi_in, &midievent);
   if (midievent == NULL) return;
   if(midievent->type == 42) return;
 
@@ -171,3 +171,97 @@ HOR::midievents (int keIN)
 
 };
 
+
+void
+HOR::Conecta()
+{
+
+     FILE *fp;
+
+     int client=0;
+     int puerto=0;
+     char temp[128];
+     char temp1[128];
+     char temp2[128];
+     char *nume;
+
+    if (IsCoIn) disconectaaconnect();
+
+
+    if ((fp = fopen ("/proc/asound/seq/clients", "r")) != NULL)
+        {
+              bzero (temp, sizeof (temp));
+
+                    while (fgets (temp, sizeof temp, fp) != NULL)
+                      {
+
+                            if (strstr(temp,"Client") != NULL)
+
+                              {
+
+                               strcpy(temp1,temp);
+                               strtok(temp1," ");
+                               nume=strtok(NULL,"\"");
+                               sscanf(nume,"%d",&client);
+
+                              }
+
+                           if (strstr(temp,"Port") != NULL)
+                              {
+                                  strcpy(temp2,temp);
+                                  strtok(temp2," ");
+                                  nume=strtok(NULL,"  ");
+                                  sscanf(nume,"%d",&puerto);
+                                  if (strstr(temp,"Horgand IN") != 0 )
+                                     {
+                                      Cyoin=client;
+                                      Pyoin=puerto;
+                                     }
+                                  if (strstr(temp,MID) != 0 )
+                                     {
+                                      Ccin=client;
+                                      Pcin=puerto;
+                                     }
+
+                               } 
+                      } 
+           }
+
+       fclose(fp);
+       if (strcmp(MID,"Not Connected") != 0) conectaaconnect();
+};
+
+
+
+
+void
+HOR::conectaaconnect()
+{
+  char tempi[128];
+
+       if (MID != NULL)
+       {
+       bzero(tempi,sizeof(tempi));
+       sprintf(tempi, "aconnect %d:%d  %d:%d",Ccin,Pcin,Cyoin,Pyoin);
+       system(tempi);
+       IsCoIn=1;
+       }
+
+};
+
+
+void
+HOR::disconectaaconnect()
+{
+     char tempi[128];
+
+       if (MID != NULL)
+       {
+       bzero(tempi,sizeof(tempi));
+       sprintf(tempi, "aconnect -d %d:%d  %d:%d",Ccin,Pcin,Cyoin,Pyoin);
+       system(tempi);
+       IsCoIn=0;
+       }
+
+
+};

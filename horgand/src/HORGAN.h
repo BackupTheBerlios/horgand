@@ -158,6 +158,26 @@ private:
   void cb_V6_i(Drawbar*, void*);
   static void cb_V6(Drawbar*, void*);
 public:
+  Drawbar *V7;
+private:
+  void cb_V7_i(Drawbar*, void*);
+  static void cb_V7(Drawbar*, void*);
+public:
+  Drawbar *V8;
+private:
+  void cb_V8_i(Drawbar*, void*);
+  static void cb_V8(Drawbar*, void*);
+public:
+  Drawbar *V9;
+private:
+  void cb_V9_i(Drawbar*, void*);
+  static void cb_V9(Drawbar*, void*);
+public:
+  Drawbar *V10;
+private:
+  void cb_V10_i(Drawbar*, void*);
+  static void cb_V10(Drawbar*, void*);
+public:
   Rueda *Detune;
 private:
   void cb_Detune_i(Rueda*, void*);
@@ -222,6 +242,26 @@ public:
 private:
   void cb_H6_i(Fl_Slider*, void*);
   static void cb_H6(Fl_Slider*, void*);
+public:
+  Fl_Slider *H7;
+private:
+  void cb_H7_i(Fl_Slider*, void*);
+  static void cb_H7(Fl_Slider*, void*);
+public:
+  Fl_Slider *H8;
+private:
+  void cb_H8_i(Fl_Slider*, void*);
+  static void cb_H8(Fl_Slider*, void*);
+public:
+  Fl_Slider *H9;
+private:
+  void cb_H9_i(Fl_Slider*, void*);
+  static void cb_H9(Fl_Slider*, void*);
+public:
+  Fl_Slider *H10;
+private:
+  void cb_H10_i(Fl_Slider*, void*);
+  static void cb_H10(Fl_Slider*, void*);
 public:
   Fl_Button *Rota;
 private:
@@ -338,11 +378,7 @@ private:
   void cb_StStRiton_i(Fl_Button*, void*);
   static void cb_StStRiton(Fl_Button*, void*);
 public:
-  Fl_Button *Rit4;
-private:
-  void cb_Rit4_i(Fl_Button*, void*);
-  static void cb_Rit4(Fl_Button*, void*);
-public:
+  Fl_Group *RitButtons;
   Fl_Button *Rit1;
 private:
   void cb_Rit1_i(Fl_Button*, void*);
@@ -357,6 +393,11 @@ public:
 private:
   void cb_Rit3_i(Fl_Button*, void*);
   static void cb_Rit3(Fl_Button*, void*);
+public:
+  Fl_Button *Rit4;
+private:
+  void cb_Rit4_i(Fl_Button*, void*);
+  static void cb_Rit4(Fl_Button*, void*);
 public:
   Fl_Button *Rit5;
 private:
@@ -470,55 +511,15 @@ public:
   Fl_Value_Output *NV4;
   Fl_Value_Output *NV5;
   Fl_Value_Output *NV6;
+  Fl_Value_Output *NV7;
+  Fl_Value_Output *NV8;
+  Fl_Value_Output *NV9;
+  Fl_Value_Output *NV10;
   Fl_Counter *CPrograma;
 private:
   void cb_CPrograma_i(Fl_Counter*, void*);
   static void cb_CPrograma(Fl_Counter*, void*);
 public:
-  Drawbar *V7;
-private:
-  void cb_V7_i(Drawbar*, void*);
-  static void cb_V7(Drawbar*, void*);
-public:
-  Drawbar *V8;
-private:
-  void cb_V8_i(Drawbar*, void*);
-  static void cb_V8(Drawbar*, void*);
-public:
-  Drawbar *V9;
-private:
-  void cb_V9_i(Drawbar*, void*);
-  static void cb_V9(Drawbar*, void*);
-public:
-  Drawbar *V10;
-private:
-  void cb_V10_i(Drawbar*, void*);
-  static void cb_V10(Drawbar*, void*);
-public:
-  Fl_Slider *H7;
-private:
-  void cb_H7_i(Fl_Slider*, void*);
-  static void cb_H7(Fl_Slider*, void*);
-public:
-  Fl_Slider *H8;
-private:
-  void cb_H8_i(Fl_Slider*, void*);
-  static void cb_H8(Fl_Slider*, void*);
-public:
-  Fl_Slider *H9;
-private:
-  void cb_H9_i(Fl_Slider*, void*);
-  static void cb_H9(Fl_Slider*, void*);
-public:
-  Fl_Slider *H10;
-private:
-  void cb_H10_i(Fl_Slider*, void*);
-  static void cb_H10(Fl_Slider*, void*);
-public:
-  Fl_Value_Output *NV7;
-  Fl_Value_Output *NV8;
-  Fl_Value_Output *NV9;
-  Fl_Value_Output *NV10;
   Drawbar *OMaster;
 private:
   void cb_OMaster_i(Drawbar*, void*);
@@ -934,18 +935,13 @@ public:
   void PutCombi(int i);
   void MiraClientes();
   void MiraConfig();
-  void GrabaSettings();
   void metebanco();
   HORGAN(HOR *hor_);
-  void Conecta();
   void Undo();
   void Actu();
   void Redo();
   void GetPrim();
   static void tick(void *v);
-private:
-  HOR *hor;
-public:
   void ponreverb();
   void GetRit(int Selected_Rhythm);
   void meteritmos();
@@ -957,5 +953,8 @@ public:
   void ApagaTodo();
   void meteprog();
   void SetBassType(int type);
+  void Guarda_Pref(int parte);
+private:
+  HOR *hor;
 };
 #endif

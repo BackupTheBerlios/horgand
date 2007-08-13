@@ -70,7 +70,8 @@ return 1;
 }
 
 void HORGAN::cb_HORwindow_i(Fl_Double_Window* o, void*) {
-  Pexitprogram=1;
+  Guarda_Pref(0);
+Pexitprogram=1;
 o->hide();
 exit(0);
 }
@@ -178,17 +179,15 @@ void HORGAN::cb_Save2(Fl_Menu_* o, void* v) {
 }
 
 void HORGAN::cb_About_i(Fl_Menu_*, void*) {
-  aboutwindow->position(200,200);
+  aboutwindow->position(HORwindow->x()+200,HORwindow->y()+200);
 aboutwindow->show();
 }
 void HORGAN::cb_About(Fl_Menu_* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_About_i(o,v);
 }
 
-void HORGAN::cb_E_i(Fl_Menu_* o, void*) {
-  Pexitprogram=1;
-o->hide();
-exit(0);
+void HORGAN::cb_E_i(Fl_Menu_*, void*) {
+  HORwindow->do_callback();
 }
 void HORGAN::cb_E(Fl_Menu_* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_E_i(o,v);
@@ -209,7 +208,7 @@ void HORGAN::cb_Redo(Fl_Menu_* o, void* v) {
 }
 
 void HORGAN::cb_MBank_i(Fl_Menu_*, void*) {
-  HORBank->position(1,1);
+  HORBank->position(HORwindow->x(),HORwindow->y());
 HORBank->show();
 Fl::focus(BClose);
 }
@@ -220,7 +219,7 @@ void HORGAN::cb_MBank(Fl_Menu_* o, void* v) {
 void HORGAN::cb_Settings_i(Fl_Menu_*, void*) {
   MiraClientes();
 MiraConfig();
-Settingswindow->position(1,1);
+Settingswindow->position(HORwindow->x(),HORwindow->y());
 Settingswindow->show();
 Fl::focus(SClose);
 }
@@ -304,7 +303,7 @@ void HORGAN::cb_VUI1(Fl_Slider* o, void* v) {
 }
 
 void HORGAN::cb_DMIN1_i(Fl_Box* o, void*) {
-  o->label(hor->MidiInPuerto[1].pMIDIIN);
+  o->label(hor->MID);
 }
 void HORGAN::cb_DMIN1(Fl_Box* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_DMIN1_i(o,v);
@@ -418,6 +417,54 @@ Signal_for_Cb_Sliders = 0;
 }
 void HORGAN::cb_V6(Drawbar* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_V6_i(o,v);
+}
+
+void HORGAN::cb_V7_i(Drawbar* o, void*) {
+  hor->Operator[7].volumen = (float) o->value() / 100.0;
+if (Signal_for_Cb_Sliders == 1)
+{ 
+Actu();
+Signal_for_Cb_Sliders = 0;
+};
+}
+void HORGAN::cb_V7(Drawbar* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_V7_i(o,v);
+}
+
+void HORGAN::cb_V8_i(Drawbar* o, void*) {
+  hor->Operator[8].volumen = (float) o->value() / 100.0;
+if (Signal_for_Cb_Sliders == 1)
+{ 
+Actu();
+Signal_for_Cb_Sliders = 0;
+};
+}
+void HORGAN::cb_V8(Drawbar* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_V8_i(o,v);
+}
+
+void HORGAN::cb_V9_i(Drawbar* o, void*) {
+  hor->Operator[9].volumen = (float) o->value() / 100.0;
+if (Signal_for_Cb_Sliders == 1)
+{ 
+Actu();
+Signal_for_Cb_Sliders = 0;
+};
+}
+void HORGAN::cb_V9(Drawbar* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_V9_i(o,v);
+}
+
+void HORGAN::cb_V10_i(Drawbar* o, void*) {
+  hor->Operator[10].volumen = (float) o->value() / 100.0;
+if (Signal_for_Cb_Sliders == 1)
+{ 
+Actu();
+Signal_for_Cb_Sliders = 0;
+};
+}
+void HORGAN::cb_V10(Drawbar* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_V10_i(o,v);
 }
 
 void HORGAN::cb_Detune_i(Rueda* o, void*) {
@@ -557,6 +604,44 @@ Actu();
 }
 void HORGAN::cb_H6(Fl_Slider* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_H6_i(o,v);
+}
+
+void HORGAN::cb_H7_i(Fl_Slider* o, void*) {
+  hor->Operator[7].harmonic = (int) o->value();
+NV7->value(hor->lasfreq[(int) o->value()]);
+
+Actu();
+}
+void HORGAN::cb_H7(Fl_Slider* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_H7_i(o,v);
+}
+
+void HORGAN::cb_H8_i(Fl_Slider* o, void*) {
+  hor->Operator[8].harmonic = (int) o->value();
+NV8->value(hor->lasfreq[(int) o->value()]);
+
+Actu();
+}
+void HORGAN::cb_H8(Fl_Slider* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_H8_i(o,v);
+}
+
+void HORGAN::cb_H9_i(Fl_Slider* o, void*) {
+  hor->Operator[9].harmonic = (int) o->value();
+NV9->value(hor->lasfreq[(int) o->value()]);
+Actu();
+}
+void HORGAN::cb_H9(Fl_Slider* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_H9_i(o,v);
+}
+
+void HORGAN::cb_H10_i(Fl_Slider* o, void*) {
+  hor->Operator[10].harmonic = (int) o->value();
+NV10->value(hor->lasfreq[(int) o->value()]);
+Actu();
+}
+void HORGAN::cb_H10(Fl_Slider* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_H10_i(o,v);
 }
 
 void HORGAN::cb_Rota_i(Fl_Button*, void*) {
@@ -847,21 +932,6 @@ void HORGAN::cb_StStRiton(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_StStRiton_i(o,v);
 }
 
-void HORGAN::cb_Rit4_i(Fl_Button* o, void*) {
-  ApagaTodo();
-o->value(1);
-Selected_Rhythm = 4;
-if (Fl::event_button()==3)
-{
-GetRit(Selected_Rhythm);
-EditRit(Selected_Rhythm);
-}
-if (Fl::event_button()==1) GetRit(Selected_Rhythm);
-}
-void HORGAN::cb_Rit4(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit4_i(o,v);
-}
-
 void HORGAN::cb_Rit1_i(Fl_Button* o, void*) {
   ApagaTodo();
 o->value(1);
@@ -905,6 +975,21 @@ if (Fl::event_button()==1) GetRit(Selected_Rhythm);
 }
 void HORGAN::cb_Rit3(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit3_i(o,v);
+}
+
+void HORGAN::cb_Rit4_i(Fl_Button* o, void*) {
+  ApagaTodo();
+o->value(1);
+Selected_Rhythm = 4;
+if (Fl::event_button()==3)
+{
+GetRit(Selected_Rhythm);
+EditRit(Selected_Rhythm);
+}
+if (Fl::event_button()==1) GetRit(Selected_Rhythm);
+}
+void HORGAN::cb_Rit4(Fl_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->parent()->user_data()))->cb_Rit4_i(o,v);
 }
 
 void HORGAN::cb_Rit5_i(Fl_Button* o, void*) {
@@ -1196,92 +1281,6 @@ void HORGAN::cb_CPrograma(Fl_Counter* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_CPrograma_i(o,v);
 }
 
-void HORGAN::cb_V7_i(Drawbar* o, void*) {
-  hor->Operator[7].volumen = (float) o->value() / 100.0;
-if (Signal_for_Cb_Sliders == 1)
-{ 
-Actu();
-Signal_for_Cb_Sliders = 0;
-};
-}
-void HORGAN::cb_V7(Drawbar* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_V7_i(o,v);
-}
-
-void HORGAN::cb_V8_i(Drawbar* o, void*) {
-  hor->Operator[8].volumen = (float) o->value() / 100.0;
-if (Signal_for_Cb_Sliders == 1)
-{ 
-Actu();
-Signal_for_Cb_Sliders = 0;
-};
-}
-void HORGAN::cb_V8(Drawbar* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_V8_i(o,v);
-}
-
-void HORGAN::cb_V9_i(Drawbar* o, void*) {
-  hor->Operator[9].volumen = (float) o->value() / 100.0;
-if (Signal_for_Cb_Sliders == 1)
-{ 
-Actu();
-Signal_for_Cb_Sliders = 0;
-};
-}
-void HORGAN::cb_V9(Drawbar* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_V9_i(o,v);
-}
-
-void HORGAN::cb_V10_i(Drawbar* o, void*) {
-  hor->Operator[10].volumen = (float) o->value() / 100.0;
-if (Signal_for_Cb_Sliders == 1)
-{ 
-Actu();
-Signal_for_Cb_Sliders = 0;
-};
-}
-void HORGAN::cb_V10(Drawbar* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_V10_i(o,v);
-}
-
-void HORGAN::cb_H7_i(Fl_Slider* o, void*) {
-  hor->Operator[7].harmonic = (int) o->value();
-NV7->value(hor->lasfreq[(int) o->value()]);
-
-Actu();
-}
-void HORGAN::cb_H7(Fl_Slider* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_H7_i(o,v);
-}
-
-void HORGAN::cb_H8_i(Fl_Slider* o, void*) {
-  hor->Operator[8].harmonic = (int) o->value();
-NV8->value(hor->lasfreq[(int) o->value()]);
-
-Actu();
-}
-void HORGAN::cb_H8(Fl_Slider* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_H8_i(o,v);
-}
-
-void HORGAN::cb_H9_i(Fl_Slider* o, void*) {
-  hor->Operator[9].harmonic = (int) o->value();
-NV9->value(hor->lasfreq[(int) o->value()]);
-Actu();
-}
-void HORGAN::cb_H9(Fl_Slider* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_H9_i(o,v);
-}
-
-void HORGAN::cb_H10_i(Fl_Slider* o, void*) {
-  hor->Operator[10].harmonic = (int) o->value();
-NV10->value(hor->lasfreq[(int) o->value()]);
-Actu();
-}
-void HORGAN::cb_H10(Fl_Slider* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_H10_i(o,v);
-}
-
 void HORGAN::cb_OMaster_i(Drawbar* o, void*) {
   hor->Organ_Master_Volume = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
@@ -1309,7 +1308,7 @@ void HORGAN::cb_SClose(Fl_Button* o, void* v) {
 }
 
 void HORGAN::cb_Save3_i(Fl_Button*, void*) {
-  GrabaSettings();
+  Guarda_Pref(1);
 fl_message("Changes will take effect the next time you restart the program");
 Settingswindow->hide();
 }
@@ -1320,8 +1319,10 @@ void HORGAN::cb_Save3(Fl_Button* o, void* v) {
 void HORGAN::cb_BMidiIn_i(Fl_Browser* o, void*) {
   int valor;
 valor = (int) o->value();
-hor->MidiInPuerto[1].SMidiIn =(char*) o->text(valor);
+strcpy(hor->MID,o->text(valor));
 o->select(valor,1);
+hor->Conecta();
+DMIN1->do_callback();
 }
 void HORGAN::cb_BMidiIn(Fl_Browser* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_BMidiIn_i(o,v);
@@ -2080,7 +2081,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     }
-    { Fl_Box* o = new Fl_Box(530, 95, 65, 215, gettext("Master"));
+    { Fl_Box* o = new Fl_Box(530, 95, 65, 215);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -2200,7 +2201,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)208);
       o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
     }
-    { Fl_Box* o = new Fl_Box(315, 240, 50, 15, gettext("Delay"));
+    { Fl_Box* o = new Fl_Box(320, 240, 45, 15, gettext("Delay"));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
@@ -2267,7 +2268,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelsize(12);
       o->callback((Fl_Callback*)cb_DMIN1);
       o->align(68|FL_ALIGN_INSIDE);
-      o->label(hor->MidiInPuerto[1].pMIDIIN);
+      o->label(hor->MID);
     }
     { Fl_Box* o = DispNumber = new Fl_Box(15, 100, 75, 60, gettext("--"));
       o->box(FL_SHADOW_BOX);
@@ -2418,6 +2419,66 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(66);
       o->when(FL_WHEN_CHANGED);
     }
+    { Drawbar* o = V7 = new Drawbar(355, 335, 55, 205);
+      o->type(4);
+      o->box(FL_PLASTIC_DOWN_BOX);
+      o->color((Fl_Color)24);
+      o->selection_color(FL_GREEN);
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->labelfont(0);
+      o->labelsize(14);
+      o->labelcolor((Fl_Color)4);
+      o->maximum(99);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_V7);
+      o->align(66);
+      o->when(FL_WHEN_CHANGED);
+    }
+    { Drawbar* o = V8 = new Drawbar(415, 335, 55, 205);
+      o->type(4);
+      o->box(FL_PLASTIC_DOWN_BOX);
+      o->color((Fl_Color)24);
+      o->selection_color(FL_GREEN);
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->labelfont(0);
+      o->labelsize(14);
+      o->labelcolor((Fl_Color)4);
+      o->maximum(99);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_V8);
+      o->align(66);
+      o->when(FL_WHEN_CHANGED);
+    }
+    { Drawbar* o = V9 = new Drawbar(474, 335, 55, 205);
+      o->type(4);
+      o->box(FL_PLASTIC_DOWN_BOX);
+      o->color((Fl_Color)24);
+      o->selection_color(FL_GREEN);
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->labelfont(0);
+      o->labelsize(14);
+      o->labelcolor((Fl_Color)4);
+      o->maximum(99);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_V9);
+      o->align(66);
+      o->when(FL_WHEN_CHANGED);
+    }
+    { Drawbar* o = V10 = new Drawbar(533, 335, 55, 205);
+      o->type(4);
+      o->box(FL_PLASTIC_DOWN_BOX);
+      o->color((Fl_Color)24);
+      o->selection_color(FL_GREEN);
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->labelfont(0);
+      o->labelsize(14);
+      o->labelcolor((Fl_Color)4);
+      o->maximum(99);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_V10);
+      o->align(66);
+      o->when(FL_WHEN_CHANGED);
+    }
     { Rueda* o = Detune = new Rueda(180, 245, 45, 45, gettext("Detune"));
       o->box(FL_OSHADOW_BOX);
       o->color(FL_DARK1);
@@ -2506,6 +2567,9 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_EchoDelay);
       o->when(FL_WHEN_RELEASE);
     }
+    { Fl_Box* o = new Fl_Box(650, 464, 52, 36);
+      o->box(FL_DOWN_FRAME);
+    }
     { Fl_Slider* o = H1 = new Fl_Slider(2, 563, 55, 25);
       o->type(5);
       o->box(FL_PLASTIC_DOWN_BOX);
@@ -2519,9 +2583,6 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_H1);
       o->align(FL_ALIGN_TOP);
       o->when(FL_WHEN_RELEASE);
-    }
-    { Fl_Box* o = new Fl_Box(650, 464, 52, 36);
-      o->box(FL_DOWN_FRAME);
     }
     { Fl_Slider* o = H2 = new Fl_Slider(61, 563, 55, 25);
       o->type(5);
@@ -2586,6 +2647,58 @@ Fl_Double_Window* HORGAN::make_window() {
       o->maximum(22);
       o->step(1);
       o->callback((Fl_Callback*)cb_H6);
+      o->when(FL_WHEN_RELEASE);
+    }
+    { Fl_Slider* o = H7 = new Fl_Slider(356, 565, 55, 25);
+      o->type(5);
+      o->box(FL_PLASTIC_DOWN_BOX);
+      o->color(FL_FOREGROUND_COLOR);
+      o->selection_color((Fl_Color)3);
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->labelcolor((Fl_Color)4);
+      o->minimum(1);
+      o->maximum(22);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_H7);
+      o->when(FL_WHEN_RELEASE);
+    }
+    { Fl_Slider* o = H8 = new Fl_Slider(415, 565, 55, 25);
+      o->type(5);
+      o->box(FL_PLASTIC_DOWN_BOX);
+      o->color(FL_FOREGROUND_COLOR);
+      o->selection_color((Fl_Color)3);
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->labelcolor((Fl_Color)4);
+      o->minimum(1);
+      o->maximum(22);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_H8);
+      o->when(FL_WHEN_RELEASE);
+    }
+    { Fl_Slider* o = H9 = new Fl_Slider(474, 565, 55, 25);
+      o->type(5);
+      o->box(FL_PLASTIC_DOWN_BOX);
+      o->color(FL_FOREGROUND_COLOR);
+      o->selection_color((Fl_Color)3);
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->labelcolor((Fl_Color)4);
+      o->minimum(1);
+      o->maximum(22);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_H9);
+      o->when(FL_WHEN_RELEASE);
+    }
+    { Fl_Slider* o = H10 = new Fl_Slider(533, 565, 55, 25);
+      o->type(5);
+      o->box(FL_PLASTIC_DOWN_BOX);
+      o->color(FL_FOREGROUND_COLOR);
+      o->selection_color((Fl_Color)3);
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->labelcolor((Fl_Color)4);
+      o->minimum(1);
+      o->maximum(22);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_H10);
       o->when(FL_WHEN_RELEASE);
     }
     { Fl_Button* o = Rota = new Fl_Button(180, 170, 45, 30, gettext("Rotary"));
@@ -2852,18 +2965,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     }
-    { Fl_Group* o = new Fl_Group(595, 83, 230, 322);
-      { Fl_Button* o = Rit4 = new Fl_Button(605, 195, 95, 25);
-        o->tooltip(gettext("Right Click Edit -  Left Click Select"));
-        o->type(1);
-        o->box(FL_PLASTIC_UP_BOX);
-        o->color((Fl_Color)31);
-        o->selection_color(FL_GREEN);
-        o->labeltype(FL_ENGRAVED_LABEL);
-        o->labelsize(12);
-        o->callback((Fl_Callback*)cb_Rit4);
-        o->align(FL_ALIGN_CLIP);
-      }
+    { Fl_Group* o = RitButtons = new Fl_Group(595, 93, 230, 312);
       { Fl_Button* o = Rit1 = new Fl_Button(605, 105, 95, 25);
         o->tooltip(gettext("Right Click Edit -  Left Click Select"));
         o->type(1);
@@ -2895,6 +2997,17 @@ Fl_Double_Window* HORGAN::make_window() {
         o->labeltype(FL_ENGRAVED_LABEL);
         o->labelsize(12);
         o->callback((Fl_Callback*)cb_Rit3);
+        o->align(FL_ALIGN_CLIP);
+      }
+      { Fl_Button* o = Rit4 = new Fl_Button(605, 195, 95, 25);
+        o->tooltip(gettext("Right Click Edit -  Left Click Select"));
+        o->type(1);
+        o->box(FL_PLASTIC_UP_BOX);
+        o->color((Fl_Color)31);
+        o->selection_color(FL_GREEN);
+        o->labeltype(FL_ENGRAVED_LABEL);
+        o->labelsize(12);
+        o->callback((Fl_Callback*)cb_Rit4);
         o->align(FL_ALIGN_CLIP);
       }
       { Fl_Button* o = Rit5 = new Fl_Button(605, 225, 95, 25);
@@ -3102,9 +3215,6 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_Basson);
       o->align(FL_ALIGN_CLIP);
     }
-    { Fl_Group* o = new Fl_Group(760, 465, 60, 95);
-      o->end();
-    }
     { Fl_Group* o = new Fl_Group(755, 470, 70, 85);
       { Fl_Button* o = Bass1 = new Fl_Button(755, 470, 65, 25, gettext("Acoustic"));
         o->type(102);
@@ -3201,129 +3311,6 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
-    { Fl_Counter* o = CPrograma = new Fl_Counter(15, 165, 75, 25);
-      o->type(1);
-      o->labeltype(FL_EMBOSSED_LABEL);
-      o->labelcolor((Fl_Color)208);
-      o->minimum(1);
-      o->maximum(32);
-      o->step(1);
-      o->callback((Fl_Callback*)cb_CPrograma);
-      o->align(FL_ALIGN_LEFT);
-      o->when(FL_WHEN_RELEASE);
-    }
-    { Drawbar* o = V7 = new Drawbar(355, 335, 55, 205);
-      o->type(4);
-      o->box(FL_PLASTIC_DOWN_BOX);
-      o->color((Fl_Color)24);
-      o->selection_color(FL_GREEN);
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->labelfont(0);
-      o->labelsize(14);
-      o->labelcolor((Fl_Color)4);
-      o->maximum(99);
-      o->step(1);
-      o->callback((Fl_Callback*)cb_V7);
-      o->align(66);
-      o->when(FL_WHEN_CHANGED);
-    }
-    { Drawbar* o = V8 = new Drawbar(415, 335, 55, 205);
-      o->type(4);
-      o->box(FL_PLASTIC_DOWN_BOX);
-      o->color((Fl_Color)24);
-      o->selection_color(FL_GREEN);
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->labelfont(0);
-      o->labelsize(14);
-      o->labelcolor((Fl_Color)4);
-      o->maximum(99);
-      o->step(1);
-      o->callback((Fl_Callback*)cb_V8);
-      o->align(66);
-      o->when(FL_WHEN_CHANGED);
-    }
-    { Drawbar* o = V9 = new Drawbar(474, 335, 55, 205);
-      o->type(4);
-      o->box(FL_PLASTIC_DOWN_BOX);
-      o->color((Fl_Color)24);
-      o->selection_color(FL_GREEN);
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->labelfont(0);
-      o->labelsize(14);
-      o->labelcolor((Fl_Color)4);
-      o->maximum(99);
-      o->step(1);
-      o->callback((Fl_Callback*)cb_V9);
-      o->align(66);
-      o->when(FL_WHEN_CHANGED);
-    }
-    { Drawbar* o = V10 = new Drawbar(533, 335, 55, 205);
-      o->type(4);
-      o->box(FL_PLASTIC_DOWN_BOX);
-      o->color((Fl_Color)24);
-      o->selection_color(FL_GREEN);
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->labelfont(0);
-      o->labelsize(14);
-      o->labelcolor((Fl_Color)4);
-      o->maximum(99);
-      o->step(1);
-      o->callback((Fl_Callback*)cb_V10);
-      o->align(66);
-      o->when(FL_WHEN_CHANGED);
-    }
-    { Fl_Slider* o = H7 = new Fl_Slider(356, 565, 55, 25);
-      o->type(5);
-      o->box(FL_PLASTIC_DOWN_BOX);
-      o->color(FL_FOREGROUND_COLOR);
-      o->selection_color((Fl_Color)3);
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->labelcolor((Fl_Color)4);
-      o->minimum(1);
-      o->maximum(22);
-      o->step(1);
-      o->callback((Fl_Callback*)cb_H7);
-      o->when(FL_WHEN_RELEASE);
-    }
-    { Fl_Slider* o = H8 = new Fl_Slider(415, 565, 55, 25);
-      o->type(5);
-      o->box(FL_PLASTIC_DOWN_BOX);
-      o->color(FL_FOREGROUND_COLOR);
-      o->selection_color((Fl_Color)3);
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->labelcolor((Fl_Color)4);
-      o->minimum(1);
-      o->maximum(22);
-      o->step(1);
-      o->callback((Fl_Callback*)cb_H8);
-      o->when(FL_WHEN_RELEASE);
-    }
-    { Fl_Slider* o = H9 = new Fl_Slider(474, 565, 55, 25);
-      o->type(5);
-      o->box(FL_PLASTIC_DOWN_BOX);
-      o->color(FL_FOREGROUND_COLOR);
-      o->selection_color((Fl_Color)3);
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->labelcolor((Fl_Color)4);
-      o->minimum(1);
-      o->maximum(22);
-      o->step(1);
-      o->callback((Fl_Callback*)cb_H9);
-      o->when(FL_WHEN_RELEASE);
-    }
-    { Fl_Slider* o = H10 = new Fl_Slider(533, 565, 55, 25);
-      o->type(5);
-      o->box(FL_PLASTIC_DOWN_BOX);
-      o->color(FL_FOREGROUND_COLOR);
-      o->selection_color((Fl_Color)3);
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->labelcolor((Fl_Color)4);
-      o->minimum(1);
-      o->maximum(22);
-      o->step(1);
-      o->callback((Fl_Callback*)cb_H10);
-      o->when(FL_WHEN_RELEASE);
-    }
     { Fl_Value_Output* o = NV7 = new Fl_Value_Output(356, 543, 55, 20);
       o->color(FL_DARK1);
       o->selection_color((Fl_Color)1);
@@ -3360,6 +3347,17 @@ Fl_Double_Window* HORGAN::make_window() {
       o->textcolor(4);
       o->align(72|FL_ALIGN_INSIDE);
     }
+    { Fl_Counter* o = CPrograma = new Fl_Counter(15, 165, 75, 25);
+      o->type(1);
+      o->labeltype(FL_EMBOSSED_LABEL);
+      o->labelcolor((Fl_Color)208);
+      o->minimum(1);
+      o->maximum(32);
+      o->step(1);
+      o->callback((Fl_Callback*)cb_CPrograma);
+      o->align(FL_ALIGN_LEFT);
+      o->when(FL_WHEN_RELEASE);
+    }
     { Drawbar* o = OMaster = new Drawbar(470, 100, 55, 190, gettext("Volume"));
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
@@ -3383,17 +3381,17 @@ Fl_Double_Window* HORGAN::make_window() {
   { Fl_Double_Window* o = aboutwindow = new Fl_Double_Window(380, 300, gettext("About..."));
     w = o;
     o->user_data((void*)(this));
-    { Fl_Box* o = new Fl_Box(35, 5, 260, 40, gettext("Horgand"));
+    { Fl_Box* o = new Fl_Box(65, 5, 260, 40, gettext("Horgand"));
       o->labelfont(1);
       o->labelsize(24);
       o->align(FL_ALIGN_CLIP);
     }
-    { Fl_Box* o = new Fl_Box(10, 45, 345, 70, gettext("Copyright (C) 2003-2007 by Josep Andreu\n     (Holborn) \n      holborn@@tele\
+    { Fl_Box* o = new Fl_Box(15, 45, 345, 70, gettext("Copyright (C) 2003-2007 by Josep Andreu\n     (Holborn) \n      holborn@@tele\
 fonica.net "));
       o->labelfont(1);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
-    { Fl_Box* o = new Fl_Box(0, 115, 340, 130, gettext("This is free software. you may redistribute and/or modify it under the terms \
+    { Fl_Box* o = new Fl_Box(20, 115, 340, 130, gettext("This is free software. you may redistribute and/or modify it under the terms \
 of the version 2 of the GNU General Public License as published by the Free So\
 ftware Fundation.\n This program comes with \n ABSOLUTE NO WARRANTY. \n See th\
 e version 2 of the \n GNU General Public License for details."));
@@ -3401,7 +3399,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->labelsize(11);
       o->align(194|FL_ALIGN_INSIDE);
     }
-    { Fl_Button* o = new Fl_Button(140, 250, 70, 40, gettext("OK"));
+    { Fl_Button* o = new Fl_Button(150, 250, 70, 40, gettext("OK"));
       o->shortcut(0xff0d);
       o->callback((Fl_Callback*)cb_OK);
     }
@@ -4178,27 +4176,68 @@ e version 2 of the \n GNU General Public License for details."));
 }
 
 void HORGAN::metelo() {
-  meteprog();
+  Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
+char *temp;
+int val=1;
+float valf=0;
+int x,y,w,h;
 
-switch (hor->Salida)
-{
- case 1:
-        DMIN2->label("OSS");
-        break;
- case 2:
-        DMIN2->label("Alsa");
-        break;
- case 3:
-        DMIN2->label("Jack");
-        break;
-}
+horgand.get("Audio Out device",temp,"");
+DMIN2->label(temp);
 
+horgand.get("Rhythm Selected",val,1);
+Fl_Button *pepe;
+pepe = (Fl_Button*) RitButtons->child(val-1);
+pepe->value(1);
 
-Rit1->value(1);
-Selected_Rhythm = 1;
+Selected_Rhythm = val;
 GetRit(Selected_Rhythm);
-SetBassType(0);
-Bass1->value(1);
+
+horgand.get("Rhythm Volume",valf,.5);        
+hor->Rhythm_Volume=valf;
+
+
+horgand.get("Bass Selected",val,1);
+SetBassType(val);
+
+switch (val)
+        {
+          case 0:
+          Bass1->value(1);
+          break;          
+          case 1:
+          Bass2->value(1);
+          break; 
+          case 2:
+          Bass3->value(1);
+        }        
+        
+horgand.get("Bass Volume",valf,.5);        
+hor->Bass_Volume=valf;
+
+horgand.get("Preset",val,0);
+hor->cpreset=val;
+if(commandline == 0) PutCombi(hor->cpreset);
+else meteprog();
+
+horgand.get("Split Point",val,0);
+hor->split=val;
+
+
+horgand.get("Master_Tune",valf,1);
+hor->mastertune=valf;
+MasterT->value((int) ((hor->mastertune -1) * 1600));
+calbtune();
+
+horgand.get("Master Volume",valf,.7);
+Master->value((int)(valf*100));
+
+horgand.get("HORwindow X",x,1);
+horgand.get("HORwindow Y",y,1);
+horgand.get("HORwindow W",w,800);
+horgand.get("HORwindow H",h,600);
+
+HORwindow->resize(x,y,w,h);
 }
 
 void HORGAN::GetCombi(int i) {
@@ -4284,72 +4323,38 @@ CPrograma->value(i);
 }
 
 void HORGAN::MiraClientes() {
-  snd_seq_client_info_t *cinfo;
-        snd_seq_port_info_t *pinfo;
-        int  client;
-        int  err;
-        int i;
-        snd_seq_t *handle;
-        int count = 1;
-        int count1 = 1;
-        char temp[80];
-        char linea[256];
-        BMidiIn->clear();
-        BMidiIn->add("Not Connected");
-        err = snd_seq_open(&handle, "hw", SND_SEQ_OPEN_DUPLEX, 0);
-        if (err < 0) printf("Could not open sequencer");
+  FILE *fp;
+char temp[128];
+char temp1[128];
+char *masque;
+char *name;
 
-        snd_seq_client_info_alloca(&cinfo);
-        snd_seq_client_info_set_client(cinfo, -1);
+BMidiIn->clear();
+BMidiIn->add("Not Connected");
 
-        while (snd_seq_query_next_client(handle, cinfo) >= 0) {
-                client = snd_seq_client_info_get_client(cinfo);
-                snd_seq_port_info_alloca(&pinfo);
-                snd_seq_port_info_set_client(pinfo, client);
+if ((fp = fopen ("/proc/asound/seq/clients", "r")) != NULL)
+  {
+    bzero (temp, sizeof (temp));
 
-                snd_seq_port_info_set_port(pinfo, -1);
-                while (snd_seq_query_next_port(handle, pinfo) >= 0) {
-                        unsigned int  cap;
-
-                        cap = (SND_SEQ_PORT_CAP_SUBS_WRITE|SND_SEQ_PORT_CAP_WRITE);
-                        if ((snd_seq_port_info_get_capability(pinfo) & cap) == cap) {
-
-                           hor->CPOMidiS[count].Client = snd_seq_port_info_get_client(pinfo);
-                           hor->CPOMidiS[count].Port = snd_seq_port_info_get_port(pinfo);
-                           hor->CPOMidiS[count].CName = snd_seq_client_info_get_name(cinfo);
-      for (i=0; i<=(int)(strlen(hor->CPOMidiS[count].CName));i++) hor->CPOMidiS[count].Name[i]=hor->CPOMidiS[count].CName[i];
-                           hor->CPOMidiS[count].CInfo = snd_seq_port_info_get_name(pinfo);
-      for (i=0; i<=(int)(strlen(hor->CPOMidiS[count].CInfo));i++) hor->CPOMidiS[count].Info[i]=hor->CPOMidiS[count].CInfo[i];
-                           
-                    count++;
-                                             }
-
-
-                        cap = (SND_SEQ_PORT_CAP_SUBS_READ|SND_SEQ_PORT_CAP_READ);
-                        if ((snd_seq_port_info_get_capability(pinfo) & cap) == cap) {
-
-                           hor->CPIMidiS[count1].Client = snd_seq_port_info_get_client(pinfo);
-                           hor->CPIMidiS[count1].Port = snd_seq_port_info_get_port(pinfo);
-                           hor->CPIMidiS[count1].CName = snd_seq_client_info_get_name(cinfo);
-     for (i=0; i<=(int)(strlen(hor->CPIMidiS[count1].CName));i++) hor->CPIMidiS[count1].Name[i]=hor->CPIMidiS[count1].CName[i];
-                           hor->CPIMidiS[count1].CInfo = snd_seq_port_info_get_name(pinfo);
-     for (i=0; i<=(int)(strlen(hor->CPIMidiS[count1].CInfo));i++) hor->CPIMidiS[count1].Info[i]=hor->CPIMidiS[count1].CInfo[i];
-                           bzero(linea,sizeof(linea));
-                           sprintf(linea,"%s",hor->CPIMidiS[count1].CInfo);
-                           bzero(temp,sizeof(temp));
-                           sscanf(linea,"%s",temp);
-                           if (strcmp(temp,"Horgand")!=0)
-                           
-
-                                BMidiIn->add(linea);
-                               
-
-                           count1++;
-
-                                       }
-
-                }
-      }
+      while (fgets (temp, sizeof temp, fp) != NULL)
+           {
+             
+            if (strstr(temp,"Port") != NULL)
+             
+           {  
+             
+             strcpy(temp1,temp);
+             strtok(temp1,"\"");
+             name=strtok(NULL,"\"");
+             masque=strtok(NULL,")");
+             
+             if (masque[2]=='R' ) BMidiIn->add(name);
+             
+            } 
+           } 
+   }
+   
+   fclose(fp);
 }
 
 void HORGAN::MiraConfig() {
@@ -4357,7 +4362,7 @@ void HORGAN::MiraConfig() {
 
 while (BMidiIn->text(i) != NULL)
 {
-if (strcmp(BMidiIn->text(i),hor->MidiInPuerto[1].SetMidiIn)==0 ) BMidiIn->select(i,1);
+if (strcmp(BMidiIn->text(i),hor->MID)==0 ) BMidiIn->select(i,1);
 i++; 
 }
 
@@ -4376,32 +4381,6 @@ switch (hor->Salida)
 }
 
 BFiname->value(hor->BankFilename);
-}
-
-void HORGAN::GrabaSettings() {
-  FILE *fn;
-char *temp;
-int i;
-char nomfile[256];
-sprintf(nomfile,"%s%s",getenv("HOME"),"/.Horgand");
-fn = fopen(nomfile,"w");
-i = BMidiIn->value();
-temp = (char*) BMidiIn->text(i);
-if (temp == NULL ) temp= strdup("Not Connected");
-fputs(temp,fn);
-fputs("\n",fn);
-bzero(temp,sizeof(temp));
-temp = strdup("OSS");
-if (OSS->value() != 0) temp = strdup("OSS");
-if (Alsa->value() != 0) temp = strdup("Alsa");
-if (Jack->value() != 0) temp =strdup("Jack");
-fputs(temp,fn);
-fputs("\n",fn);
-bzero(temp,sizeof(temp));
-temp=hor->BankFilename;
-fputs(temp,fn);
-fputs("\n",fn);
-fclose(fn);
 }
 
 void HORGAN::metebanco() {
@@ -4444,94 +4423,14 @@ HORGAN::HORGAN(HOR *hor_) {
 Fl::visual(FL_RGB);
 hor=hor_;
 make_window();
-HORwindow->position(1,1);
 Fl::focus(PANICO);
-MiraClientes();
-Conecta();
 metebanco();
 metelo();
-if(commandline == 0) PutCombi(1);
 Actu();
 hor->PutPrim();
 meteritmos();
 HORwindow->show();
 Fl::add_timeout(1.0 * 0.04,tick);
-}
-
-void HORGAN::Conecta() {
-  char  t1[40], t2[40];
-const char *tt1, *tt2;
-int client=0;
-char linea[256];
-
-
-        int queue = 0, convert_time = 0, convert_real = 0, exclusive = 0;
-        snd_seq_port_subscribe_t *subs;
-        snd_seq_addr_t sender, dest;
-
-
-
-
-
-
-
-while ( waitforGUI == 0 ) usleep(1);
-
-int k= 0,i=0;
-
-for (k=1; k<=46; k++)
-    {
-
-    sprintf(linea,"Horgand IN");
-
-if (!strcmp(hor->CPOMidiS[k].Info ,linea)) hor->MidiInPuerto[1].YOIN = hor->CPOMidiS[k].Client;
-if (!strcmp(hor->CPIMidiS[k].Info ,hor->MidiInPuerto[1].SetMidiIn))
-        {
-        hor->MidiInPuerto[1].SettingsIN = hor->CPIMidiS[k].Client;
-        hor->MidiInPuerto[1].Ports = hor->CPIMidiS[k].Port;
-        }
-    }
-
-
-
-
-
-
-if (strcmp(hor->MidiInPuerto[1].SetMidiIn,"Not Connected") !=0 )
-{
-
-  sprintf(t1,"%d",hor->MidiInPuerto[1].YOIN); tt1 = t1;
-  sprintf(t2,"%d",hor->MidiInPuerto[1].SettingsIN);tt2 = t2;
-
- if ((client = snd_seq_client_id(hor->MidiInPuerto[1].midi_in)) < 0) printf("can't get client id\n");
- if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &sender,tt2) < 0) printf("invalid sender address %s\n", (char*) hor->MidiInPuerto[1].SettingsIN);
- if (snd_seq_parse_address(hor->MidiInPuerto[1].midi_in, &dest,tt1) < 0) printf("invalid destination address %s\n", (char*) hor->MidiInPuerto[1].YOIN);
-        dest.port = hor->MidiInPuerto[1].Ports;
-        snd_seq_port_subscribe_alloca(&subs);
-        snd_seq_port_subscribe_set_sender(subs, &sender);
-        snd_seq_port_subscribe_set_dest(subs, &dest);
-        snd_seq_port_subscribe_set_queue(subs, queue);
-        snd_seq_port_subscribe_set_exclusive(subs, exclusive);
-        snd_seq_port_subscribe_set_time_update(subs, convert_time);
-        snd_seq_port_subscribe_set_time_real(subs, convert_real);
-
- if (snd_seq_get_port_subscription(hor->MidiInPuerto[1].midi_in, subs) == 0) printf("Connection is already subscribed\n");
- if (snd_seq_subscribe_port(hor->MidiInPuerto[1].midi_in, subs) < 0)
-                                          {
-                                          printf("Connection failed (%s)\n", snd_strerror(errno));
-                                          DMIN1->label("Connection failed");
-                                          }
-                                           else
-                                          {
-                                           bzero(linea,sizeof(linea));
-                                           sprintf(linea ,"%d %s",hor->MidiInPuerto[1].SettingsIN,hor->MidiInPuerto[1].SetMidiIn);
-                                           for (i=0; i<=(int) strlen(linea);i++) hor->MidiInPuerto[1].pMIDIIN[i] = linea[i];
-
-                                          }
-
-
-}
-else sprintf(hor->MidiInPuerto[1].pMIDIIN,"Not Connected");
 }
 
 void HORGAN::Undo() {
@@ -4564,6 +4463,7 @@ void HORGAN::tick(void *v) {
 
 void HORGAN::ponreverb() {
   hor->Clean_Buffer_Effects();
+
 switch(hor->Reverb_Preset)
 {
 case 1:
@@ -4621,8 +4521,8 @@ void HORGAN::GetRit(int Selected_Rhythm) {
 int rula;
 
 char temp[512];
-if (prefix_trick == 1) sprintf(temp,"%s%s","/usr/share/horgand/",hor->Rt[Selected_Rhythm].Nfile);
-if (prefix_trick == 2) sprintf(temp,"%s%s","/usr/local/share/horgand/",hor->Rt[Selected_Rhythm].Nfile);
+sprintf(temp,"%s/%s",DATADIR,hor->Rt[Selected_Rhythm].Nfile);
+
 
 char *tmp = temp;
 
@@ -4722,6 +4622,7 @@ meteval();
 char temp[512];
 sprintf(temp,"%s - Bass Line Editor",hor->Rt[i].Nom);
 RitEdit->label(temp);
+RitEdit->position(HORwindow->x(),HORwindow->y()+40);
 RitEdit->show();
 Fl::focus(CloRit);
 }
@@ -4870,7 +4771,8 @@ Rit20->value(0);
 
 void HORGAN::meteprog() {
   OMaster->value(hor->Organ_Master_Volume * 100.0);
-
+RitVol->value(hor->Rhythm_Volume);
+BassVol->value(hor->Bass_Volume);
 
 V1->value(hor->Operator[1].volumen * 100);
 V2->value(hor->Operator[2].volumen * 100);
@@ -4920,7 +4822,6 @@ LFOSpeed->value(hor->Rotary_LFO_Speed);
 LFOPitch->value(hor->LFOpitch);
 hor->Calc_LFO_Frequency();
 Rota->value(hor->E_Rotary_On);
-MasterT->value(1 - hor->mastertune);
 Transpose->value(hor->transpose);
 calbtrans();
 Nombre->value(hor->c_name);
@@ -4996,7 +4897,6 @@ hor->Calc_Chorus_LFO_Frequency();
 POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
-memset(hor->f, 0 ,20);
 ponreverb();
 }
 
@@ -5004,11 +4904,57 @@ void HORGAN::SetBassType(int type) {
   char temp[512];
 const char *bassfiles[] = {"AcousticBass.wav", "FenderBass.wav", "FretlessBass.wav"};
 
-if (prefix_trick == 1)
-sprintf(temp ,"%s%s", "/usr/share/horgand/", bassfiles[type]);
-if (prefix_trick == 2)
-sprintf(temp, "%s%s", "/usr/local/share/horgand/", bassfiles[type]);
-
+sprintf(temp ,"%s/%s", DATADIR, bassfiles[type]);
 hor->Select_Bass(temp);
 hor->frames_bass = (int) (hor->sfinfob.frames / 2.0);
+hor->Bass_Type=type;
+}
+
+void HORGAN::Guarda_Pref(int parte) {
+  Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE, PACKAGE);
+
+if (parte==0)
+{
+horgand.set("HORwindow X",HORwindow->x());
+horgand.set("HORwindow Y",HORwindow->y());
+horgand.set("HORwindow W",HORwindow->w());
+horgand.set("HORwindow H",HORwindow->h());
+
+horgand.set("Bank Filename",hor->BankFilename);
+horgand.set("Rhythm Filename",hor->RhythmFilename);
+
+
+horgand.set("Type Chord Recognition",hor->TypeRecChord);
+horgand.set("Split Point",hor->split);
+
+horgand.set("Bass Selected",hor->Bass_Type);
+horgand.set("Bass Volume",hor->Bass_Volume);
+horgand.set("Rhythm Selected",Selected_Rhythm);
+horgand.set("Rhythm Volume",hor->Rhythm_Volume);
+horgand.set("Master Volume",hor->Master_Volume);
+horgand.set("Master_Tune",hor->mastertune);
+horgand.set("Transpose",hor->transpose);
+horgand.set("Preset",hor->cpreset);
+}
+
+if (parte==1)
+{
+
+int i;
+char *temp;
+
+horgand.set("Bank Filename",hor->BankFilename);
+
+i = BMidiIn->value();
+temp = (char*) BMidiIn->text(i);
+if (temp == NULL ) temp= strdup("Not Connected");
+horgand.set("MIDI IN Device",temp);
+bzero(temp,sizeof(temp));
+temp = strdup("OSS");
+if (OSS->value() != 0) temp = strdup("OSS");
+if (Alsa->value() != 0) temp = strdup("Alsa");
+if (Jack->value() != 0) temp =strdup("Jack");
+horgand.set("Audio Out device",temp);
+
+}
 }

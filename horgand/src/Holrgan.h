@@ -24,8 +24,8 @@
 #ifndef DXEMU_H
 #define DXEMU_H
 #include <pthread.h>
+#include <signal.h>
 #include <alsa/asoundlib.h>
-#include <jack/jack.h>
 #include <sndfile.h>
 #define MPERIOD  128
 #define BUFSIZE 1024
@@ -34,12 +34,10 @@
 #define D_PI 6.283184
 
 extern pthread_mutex_t mutex, m_mutex;
-extern int Pexitprogram, waitforGUI, UndoCount, preset,MidiInLevel,LastMidiInLevel,BarLead,changeNameChord;
+extern int Pexitprogram, UndoCount, preset,MidiInLevel,LastMidiInLevel,BarLead,changeNameChord;
 extern int Signal_for_Cb_Sliders,commandline;
 extern char NameChord[16];
-extern int prefix_trick,Selected_Rhythm;
-int  Alg1sj (jack_nframes_t nframes,void *arg);
-int  jackprocess (jack_nframes_t nframes,void *arg);
+extern int Selected_Rhythm;
 
 
 class HOR
@@ -52,6 +50,8 @@ public:
    HOR ();
   ~HOR ();
 
+  void  init_hor();
+  void Adjust_Audio();
   float Fsin(float x);
   void Alg1s (int frames, void*);
   float Jenvelope(int *note_active, int gate, float t, int nota);
@@ -69,7 +69,7 @@ public:
   void Effect_Delay();
   void Effect_Reverb();
   void Clean_Buffer_Effects();
-  void Final_Output();
+  void Final_Output(int S_Output);
   void Effect_Rotary();
   void Effect_Chorus();
   int Select_Rhythm(char *nomrit);
@@ -91,14 +91,17 @@ public:
   void Put_Period();
   void ossaudioprepare();
   void alsaaudioprepare();
-  void jackaudioprepare();
   void savefile(char *filename);
   void loadfile(char *filename);
   void savebank(char *filename);
   void saverhyt(char *filename);
+  void Conecta();
+  void disconectaaconnect();
+  void conectaaconnect();
+  void CloseAudio(int i);
 
 
-
+  snd_seq_t *midi_in;
   float ldelay,rdelay;
   float *lsin;
   float *buf;
@@ -148,7 +151,6 @@ public:
   float Stereo_Side; 
   int To_Stereo_Side;
   float LFO_Volume;
-  float LFO_X;
   float detune;
   float LFO_Frequency;
   float Rotary_LFO_Frequency;
@@ -210,12 +212,20 @@ public:
   int ae;
   int pattern_bars;
   int file_ok;
+  int TypeRecChord;
+  int Bass_Type;
   char BankFilename[128];
+  char RhythmFilename[128];
   SNDFILE *infile;
   SF_INFO sfinfo;
   SNDFILE *infileb;
   SF_INFO sfinfob;
-
+  char MID[128];
+  int IsCoIn;
+  int Cyoin;
+  int Pyoin;
+  int Ccin;
+  int Pcin;
 
   
 struct Rhythm
@@ -353,11 +363,6 @@ struct Todolo
   int snd_samplerate;
   short int *smps;    
   
-// JACK Audio
-
-jack_client_t *jackclient;
-jack_port_t *outport_left,*outport_right;
-                                
 
 
   struct freqVarios
@@ -374,37 +379,6 @@ jack_port_t *outport_left,*outport_right;
   { 
     float f1,f2,f3;
   }  h[192];
-
-  
-  struct PuertoMidiIn
-  {
-    char pMIDIIN[256];
-    char SetMidiIn[40];
-    unsigned char IN[16];
-    int YOIN, SettingsIN;
-    char *SMidiIn;
-    int Ports;
-    snd_seq_t *midi_in;
-  }
-  MidiInPuerto[3];
-
-struct PMidiOut
-  {
-   char Name[40], Info[40];
-   int Client, Port;
-   const char *CName, *CInfo;
-            
-   } CPOMidiS[50];
-                               
-
-  struct PMidiIn
-  {
-    char Name[40], Info[40];
-    int Client, Port;
-    const char *CName, *CInfo;
-
-  } CPIMidiS[50];
-
 
 };
 

@@ -263,9 +263,11 @@ HOR::loadrhyt(char *filename)
              switch (linea)
            { 
              case 1:
+              bzero(Rt[Num_Rhythm].Nom,sizeof(Rt[Num_Rhythm].Nom));
               for (i = 0; i <= (int) strlen(temp) - 2; i++) Rt[Num_Rhythm].Nom[i] = temp[i];                   
               break; 
              case 2:
+              bzero(Rt[Num_Rhythm].Nfile,sizeof(Rt[Num_Rhythm].Nfile));
               for (i = 0; i <= (int) strlen(temp) - 2; i++) Rt[Num_Rhythm].Nfile[i] = temp[i];
               break;
              case 3:

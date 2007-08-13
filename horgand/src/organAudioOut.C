@@ -29,30 +29,65 @@
 #include <math.h>
 
 
-// Convert fload to short to send to the devices
 
 void
-HOR::Final_Output ()
+HOR::CloseAudio(int i)
 {
-  int i,j;
+
+
+       switch(i)
+         
+         { 
+           case 1:
+                 close(snd_handle);
+                 break;
+           case 2:
+                 snd_pcm_close (playback_handle);
+                 break;
+         }
+     
+};
+
+
+
+void
+HOR::Final_Output (int S_Output)
+{
+  int i,j,kk;
   short sl,sr;
   memset (wbuf, 0, PERIOD4);
   
-  
   for (i = 0; i < PERIOD; i +=2)
     { 
-    
       j = i*2;            
       sl = (short) (buf[i]  * Master_Volume * 32767.0);
       sr = (short) (buf[i+1] * Master_Volume * 32767.0);
       wbuf[j] = sl;
       wbuf[j+1]=sr;
-      
     }
+
+
+    switch (S_Output)
+    {
+    case 1:
+      write (snd_handle, wbuf, PERIOD4);
+      break;
+    case 2:
+      kk = snd_pcm_writei (playback_handle, wbuf, PERIOD);
+      if (kk < PERIOD)
+        {
+        printf("xrun!\n");
+	snd_pcm_prepare (playback_handle);
+	}
+      break;
+    
+    }
+
+
+
+
+
 };
-
-
-
 
 
 // OSS AUDIO OUT Check and prepare
@@ -107,9 +142,9 @@ HOR::alsaaudioprepare ()
   snd_pcm_hw_params_alloca (&hw_params);
   snd_pcm_hw_params_any (playback_handle, hw_params);
   snd_pcm_hw_params_set_access (playback_handle, hw_params,
-				SND_PCM_ACCESS_RW_INTERLEAVED);
+                                SND_PCM_ACCESS_RW_INTERLEAVED);
   snd_pcm_hw_params_set_format (playback_handle, hw_params,
-				SND_PCM_FORMAT_S16_LE);
+                                SND_PCM_FORMAT_S16_LE);
   snd_pcm_hw_params_set_rate (playback_handle, hw_params, SAMPLE_RATE, 0);
   snd_pcm_hw_params_set_channels (playback_handle, hw_params, 2);
 
@@ -123,57 +158,4 @@ HOR::alsaaudioprepare ()
 
 
 };
-
-// JACK Audio Check and Prepare
-
-
-void
-HOR::jackaudioprepare ()
-{
-
-  jackclient = jack_client_new ("Horgand");
-  if (jackclient == 0)
-    {
-      fprintf (stderr, "Cannot make a jack client\n");
-      exit (1);
-    };
-  SAMPLE_RATE=DSAMPLE_RATE;
-  fprintf (stderr, "Internal SampleRate   = %d\nJack Output SampleRate= %d\n",
-	   SAMPLE_RATE, jack_get_sample_rate (jackclient));
-  if ((unsigned int) jack_get_sample_rate (jackclient) !=
-      (unsigned int) SAMPLE_RATE)
-    fprintf (stderr,
-	     "Adjusting SAMPLE_RATE to jackd.\n");
-
-  SAMPLE_RATE = jack_get_sample_rate(jackclient);
-  jack_set_process_callback (jackclient, jackprocess, 0);
-  PERIOD = jack_get_buffer_size (jackclient);
-  Put_Period ();
-  outport_left = jack_port_register (jackclient, "out_1",
-				     JACK_DEFAULT_AUDIO_TYPE,
-				     JackPortIsOutput | JackPortIsTerminal,
-				     0);
-  outport_right =
-    jack_port_register (jackclient, "out_2", JACK_DEFAULT_AUDIO_TYPE,
-			JackPortIsOutput | JackPortIsTerminal, 0);
-
-
-
-  if (jack_activate (jackclient))
-    {
-      fprintf (stderr, "Cannot activate jack client\n");
-      exit (1);
-    };
-
-  jack_connect (jackclient, jack_port_name (outport_left),
-		"alsa_pcm:playback_1");
-  jack_connect (jackclient, jack_port_name (outport_right),
-		"alsa_pcm:playback_2");
-
-};
-
-
-
-
-
 
