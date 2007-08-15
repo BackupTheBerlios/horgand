@@ -55,6 +55,7 @@ public:
   float Fsin(float x);
   void Alg1s (int frames, void*);
   float Jenvelope(int *note_active, int gate, float t, int nota);
+  float Penvelope(int *note_active, int gate, float t, int nota);
   float Get_Partial(int note);
   float Chorus_LFO(float *t);
   float Rotary_LFO(float t);  
@@ -80,6 +81,7 @@ public:
   void Get_Chord();  
   void Get_Tempo();
   void New();
+  void PonDATA_Undo(int Undonumber);
   void MUndo();
   void MRedo();
   void MActu();
@@ -99,6 +101,8 @@ public:
   void disconectaaconnect();
   void conectaaconnect();
   void CloseAudio(int i);
+  void Get_Combi_t(int i);
+  void Put_Combi_t(int i);
 
 
   snd_seq_t *midi_in;
@@ -115,6 +119,10 @@ public:
   float decay;
   float sustain;
   float release;
+  float p_attack;
+  float p_decay;
+  float p_sustain;
+  float p_release;
   int PERIOD;
   unsigned int SAMPLE_RATE;
   int PERIOD2;
@@ -134,6 +142,7 @@ public:
   int rnote[POLY];
   int  gate[POLY];
   float Envelope_Volume[POLY];
+  float Perc_Volume[POLY];
   int  note_active[POLY];
   float  mastertune;
   float lasfreq[64];
@@ -310,7 +319,7 @@ struct OperatorPar
  float con1;
  int harmonic;
  int marimba; 
- }    
+  }    
    Operator[11];
 
 struct Todolo
@@ -370,6 +379,7 @@ struct Todolo
   {   
     float phi[POLY];
     float dphi;
+
   } f[11];
   
 

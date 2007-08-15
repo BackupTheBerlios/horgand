@@ -525,6 +525,56 @@ private:
   void cb_OMaster_i(Drawbar*, void*);
   static void cb_OMaster(Drawbar*, void*);
 public:
+  Fl_Light_Button *Mar1;
+private:
+  void cb_Mar1_i(Fl_Light_Button*, void*);
+  static void cb_Mar1(Fl_Light_Button*, void*);
+public:
+  Fl_Light_Button *Mar2;
+private:
+  void cb_Mar2_i(Fl_Light_Button*, void*);
+  static void cb_Mar2(Fl_Light_Button*, void*);
+public:
+  Fl_Light_Button *Mar3;
+private:
+  void cb_Mar3_i(Fl_Light_Button*, void*);
+  static void cb_Mar3(Fl_Light_Button*, void*);
+public:
+  Fl_Light_Button *Mar4;
+private:
+  void cb_Mar4_i(Fl_Light_Button*, void*);
+  static void cb_Mar4(Fl_Light_Button*, void*);
+public:
+  Fl_Light_Button *Mar5;
+private:
+  void cb_Mar5_i(Fl_Light_Button*, void*);
+  static void cb_Mar5(Fl_Light_Button*, void*);
+public:
+  Fl_Light_Button *Mar6;
+private:
+  void cb_Mar6_i(Fl_Light_Button*, void*);
+  static void cb_Mar6(Fl_Light_Button*, void*);
+public:
+  Fl_Light_Button *Mar7;
+private:
+  void cb_Mar7_i(Fl_Light_Button*, void*);
+  static void cb_Mar7(Fl_Light_Button*, void*);
+public:
+  Fl_Light_Button *Mar8;
+private:
+  void cb_Mar8_i(Fl_Light_Button*, void*);
+  static void cb_Mar8(Fl_Light_Button*, void*);
+public:
+  Fl_Light_Button *Mar9;
+private:
+  void cb_Mar9_i(Fl_Light_Button*, void*);
+  static void cb_Mar9(Fl_Light_Button*, void*);
+public:
+  Fl_Light_Button *Mar10;
+private:
+  void cb_Mar10_i(Fl_Light_Button*, void*);
+  static void cb_Mar10(Fl_Light_Button*, void*);
+public:
   Fl_Double_Window *aboutwindow;
 private:
   void cb_OK_i(Fl_Button*, void*);
@@ -550,6 +600,11 @@ public:
 private:
   void cb_Browse_i(Fl_Button*, void*);
   static void cb_Browse(Fl_Button*, void*);
+public:
+  Fl_File_Input *RFiname;
+private:
+  void cb_Browse1_i(Fl_Button*, void*);
+  static void cb_Browse1(Fl_Button*, void*);
 public:
   Fl_Double_Window *HORBank;
   Fl_Button *BClose;

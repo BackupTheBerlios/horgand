@@ -223,11 +223,9 @@ HOR::New ()
 
   for (i = 1; i <= 10; i++)
     {
-
       Operator[i].harmonic_fine = 0.0;
       Operator[i].volumen = 0.0;
       Operator[i].marimba = 0;
-
     }
 
   Operator[1].harmonic = 1;
@@ -275,13 +273,16 @@ HOR::New ()
 void
 HOR::MUndo()
 {
-
-int k;
-
-UndoCount = UndoCount -1;
+UndoCount=UndoCount-1;
 if (UndoCount == -1) UndoCount = 95;
-for (k=1; k<=10; k++)
+PonDATA_Undo(UndoCount);
+};
 
+void
+HOR::PonDATA_Undo(int UndoCount)
+{
+int k;
+for (k=1; k<=10; k++)
 {
 Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
 Operator[k].harmonic_fine=Undo[UndoCount].Operator[k].harmonic_fine;
@@ -323,51 +324,9 @@ Chorus_Volume=Undo[UndoCount].Chorus_Volume;
 void
 HOR::MRedo()
 {
-
-int k;
-
-
 UndoCount = UndoCount + 1;
 if (UndoCount == 95 ) UndoCount = 0;
-
-for (k=1; k<=10; k++)
-{
-Operator[k].volumen =Undo[UndoCount].Operator[k].volumen;
-Operator[k].harmonic_fine=Undo[UndoCount].Operator[k].harmonic_fine;
-Operator[k].harmonic =Undo[UndoCount].Operator[k].harmonic;
-Operator[k].marimba=Undo[UndoCount].Operator[k].marimba;
-}
-
-
-
-E_Delay_On = Undo[UndoCount].E_Delay_On;
-Delay_Volume = Undo[UndoCount].Delay_Volume;
-Delay_Delay = Undo[UndoCount].Delay_Delay;
-
-
-Pitch_LFO_Speed = Undo[UndoCount].Pitch_LFO_Speed;
-Pitch_LFO_Delay = Undo[UndoCount].Pitch_LFO_Delay;
-Rotary_LFO_Speed = Undo[UndoCount].Rotary_LFO_Speed;
-LFOpitch = Undo[UndoCount].LFOpitch;
-E_Rotary_On = Undo[UndoCount].E_Rotary_On;
-modulation = Undo[UndoCount].modulation;
-transpose = Undo[UndoCount].transpose;
-Organ_Master_Volume = Undo[UndoCount].Organ_Master_Volume;
-
-for (k=0; k<=24; k++) Name[k]=Undo[UndoCount].Name[k];
-c_name = Name;
-
-attack = Undo[UndoCount].attack;
-detune = Undo[UndoCount].detune;
-
-E_Reverb_On=Undo[UndoCount].E_Reverb_On;
-split=Undo[UndoCount].split;
-Reverb_Preset=Undo[UndoCount].Reverb_Preset;
-E_Chorus_On=Undo[UndoCount].E_Chorus_On;
-Chorus_LFO_Amplitude=Undo[UndoCount].Chorus_LFO_Amplitude;
-Chorus_Delay=Undo[UndoCount].Chorus_Delay;
-Chorus_LFO_Speed=Undo[UndoCount].Chorus_LFO_Speed;
-Chorus_Volume=Undo[UndoCount].Chorus_Volume;
+PonDATA_Undo(UndoCount);
 
 };
 
@@ -436,8 +395,6 @@ Prim[1].Operator[k].harmonic=Operator[k].harmonic;
 Prim[1].Operator[k].marimba=Operator[k].marimba;
 }
 
-
-
 Prim[1].E_Delay_On=E_Delay_On;
 Prim[1].Delay_Volume=Delay_Volume;
 Prim[1].Delay_Delay=Delay_Delay;
@@ -484,9 +441,6 @@ Operator[k].harmonic =Prim[1].Operator[k].harmonic;
 Operator[k].marimba = Prim[1].Operator[k].marimba;
 }
 
-
-
-
 E_Delay_On = Prim[1].E_Delay_On;
 Delay_Volume = Prim[1].Delay_Volume;
 Delay_Delay = Prim[1].Delay_Delay;
@@ -512,6 +466,84 @@ Chorus_Delay=Prim[1].Chorus_Delay;
 Chorus_LFO_Speed=Prim[1].Chorus_LFO_Speed;
 Chorus_Volume=Prim[1].Chorus_Volume;
 
+
+};
+
+
+void
+HOR::Get_Combi_t(int i)
+{
+int k;
+for (k=1; k<=10; k++)
+{
+Banco[i].Operator[k].volumen=Operator[k].volumen;
+Banco[i].Operator[k].harmonic_fine=Operator[k].harmonic_fine;
+Banco[i].Operator[k].harmonic=Operator[k].harmonic;
+Banco[i].Operator[k].marimba=Operator[k].marimba;
+}
+Banco[i].E_Delay_On=E_Delay_On;
+Banco[i].Delay_Delay=Delay_Delay;
+Banco[i].Delay_Volume=Delay_Volume;
+Banco[i].Pitch_LFO_Speed=Pitch_LFO_Speed;
+Banco[i].Pitch_LFO_Delay=Pitch_LFO_Delay;
+Banco[i].Rotary_LFO_Speed=Rotary_LFO_Speed;
+Banco[i].LFOpitch=LFOpitch;
+Banco[i].E_Rotary_On=E_Rotary_On;
+Banco[i].modulation=modulation;
+Banco[i].transpose=transpose;
+Banco[i].Organ_Master_Volume=Organ_Master_Volume;
+
+for (k=0; k<=24; k++) Banco[i].Name[k]=Name[k];
+
+Banco[i].detune=detune;
+Banco[i].E_Reverb_On=E_Reverb_On;
+Banco[i].split=split;
+Banco[i].Reverb_Preset =Reverb_Preset;
+Banco[i].E_Chorus_On=E_Chorus_On;
+Banco[i].Chorus_LFO_Amplitude=Chorus_LFO_Amplitude;
+Banco[i].Chorus_Delay=Chorus_Delay;
+Banco[i].Chorus_LFO_Speed=Chorus_LFO_Speed;
+Banco[i].Chorus_Volume=Chorus_Volume;
+};
+
+
+void
+HOR::Put_Combi_t(int i)
+{
+int k;
+for (k=1; k<=10; k++)
+{
+Operator[k].volumen =Banco[i].Operator[k].volumen;
+Operator[k].harmonic_fine =Banco[i].Operator[k].harmonic_fine;
+Operator[k].harmonic =Banco[i].Operator[k].harmonic;
+Operator[k].marimba=Banco[i].Operator[k].marimba;
+}
+
+E_Delay_On = Banco[i].E_Delay_On;
+Delay_Volume = Banco[i].Delay_Volume;
+Delay_Delay = Banco[i].Delay_Delay;
+Pitch_LFO_Speed = Banco[i].Pitch_LFO_Speed;
+Pitch_LFO_Delay = Banco[i].Pitch_LFO_Delay;
+Rotary_LFO_Speed = Banco[i].Rotary_LFO_Speed;
+LFOpitch = Banco[i].LFOpitch;
+E_Rotary_On = Banco[i].E_Rotary_On;
+modulation = Banco[i].modulation;
+transpose = Banco[i].transpose;
+Organ_Master_Volume = Banco[i].Organ_Master_Volume;
+bzero(Name, sizeof(Name));
+for (k=0; k<=24; k++) Name[k]=Banco[i].Name[k];
+c_name = Name;
+E_Reverb_On = Banco[i].E_Reverb_On;
+detune = Banco[i].detune;
+if (Rhythm_On != 1) split=Banco[i].split;
+Reverb_Preset=Banco[i].Reverb_Preset;
+E_Chorus_On=Banco[i].E_Chorus_On;
+Chorus_LFO_Amplitude=Banco[i].Chorus_LFO_Amplitude;
+Chorus_Delay=Banco[i].Chorus_Delay;
+Chorus_LFO_Speed=Banco[i].Chorus_LFO_Speed;
+Chorus_Volume=Banco[i].Chorus_Volume;
+
+Prim[1] = Banco[i];
 
 };
 

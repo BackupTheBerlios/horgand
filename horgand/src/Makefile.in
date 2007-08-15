@@ -120,7 +120,7 @@ target_alias = @target_alias@
 helpdir = $(prefix)/share/doc/${PACKAGE}
 website = "horgand.berlios.de"
 package = "horgand"
-version = "1.09"
+version = "1.10"
 bin_PROGRAMS = horgand
 horgand_SOURCES = main.C \
         organ.C \

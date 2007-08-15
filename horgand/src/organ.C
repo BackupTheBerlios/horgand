@@ -43,7 +43,6 @@ HOR::HOR()
 {
 
   //Init de vars
-  
   Bass_Type=0;
   TypeRecChord=0;
   Selected_Rhythm = 0;
@@ -116,6 +115,10 @@ HOR::HOR()
   decay = 0.20;
   sustain = 0.8;
   release = 0.12;
+  p_attack=0.001;
+  p_decay = 0.17;
+  p_sustain=0.0;
+  p_release=0.12;
   E_Delay_On = 0;
   Delay_Delay = 0;
   Delay_Volume = 0;
@@ -779,6 +782,7 @@ for (j = 1; j<= 20; j++)
 	  Banco[j].Operator[i].harmonic = Operator[i].harmonic;
 	  Banco[j].Operator[i].harmonic_fine = 0.0;
 	  Banco[j].Operator[i].volumen = 0.0;
+          Banco[j].Operator[i].marimba=0;
 	}
 
 
@@ -819,7 +823,7 @@ for (j = 1; j<= 20; j++)
 	  Undo[j].Operator[i].harmonic = Operator[i].harmonic;
 	  Undo[j].Operator[i].harmonic_fine = 0.0;
 	  Undo[j].Operator[i].volumen = 0.0;
-
+	  Undo[j].Operator[i].marimba = 0;
 	}
 
       Undo[j].E_Delay_On = 0;
@@ -858,6 +862,7 @@ for (j = 1; j<= 20; j++)
 	  Prim[j].Operator[i].harmonic = Operator[i].harmonic;
 	  Prim[j].Operator[i].harmonic_fine = 0.0;
 	  Prim[j].Operator[i].volumen = 0.0;
+	  Prim[j].Operator[i].marimba = 0;
 	}
 
 
@@ -1082,11 +1087,8 @@ HOR::Adjust_Audio()
 float
 HOR::pitch_Operator (int i, int note)
 {
-  
 return (lasfreq[Operator[i].harmonic] + Operator[i].harmonic_fine);
-
 }
-                 
 
 // Returns The FM Operator Volume 
 
@@ -1125,12 +1127,26 @@ HOR::panic()
 
 
 float
+HOR::Penvelope (int *note_active, int gate, float t, int nota)
+{
+
+       if (gate)
+       {    
+       if (t > p_attack + p_decay )  return (p_sustain);
+       if (t > p_attack) return(1.0 - (1.0 - p_sustain) * (t - p_attack) / p_decay);
+       return(t / p_attack);
+       }
+       else return Perc_Volume[nota] * ( 1.0 - t / p_release);
+};
+
+
+
+float
 HOR::Jenvelope (int *note_active, int gate, float t, int nota)
 {
 
   float Env = 0;
-
-    
+  
     if (gate)
     {
        if (t > attack + decay )  return (sustain);
@@ -1145,7 +1161,7 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
       {  
           if (release>t)
           {
-          Env = Envelope_Volume[nota] * (1.0 -  t / release);
+          Env = Envelope_Volume[nota] * (1.0 - t / release);
           if (Env < 0.000015)
              {
                if (*note_active) *note_active=0;
@@ -1218,6 +1234,7 @@ HOR::Get_Partial (int nota)
 float
 HOR::Fsin (float x)
 {
+
 if ( x > D_PI) x = fmod(x,D_PI);  
 return(lsin[(int)(x * 1000)]);
 
@@ -1247,6 +1264,7 @@ HOR::Alg1s (int nframes, void *)
   int l1, l2, i;
   int put_eff=0;
   float sound;
+  float Env_Vol=0;
   float m_partial;
   float p_op[11];
   float organ_master = Organ_Master_Volume * .5;
@@ -1254,14 +1272,12 @@ HOR::Alg1s (int nframes, void *)
   memset (buf, 0, PERIOD4);
  
     for (i=1;i<=10;i++) p_op[i]=pitch_Operator (i, 0);
-    
-
+        
     for (l2 = 0; l2 < POLY; l2++)
     {
 
       if (note_active[l2])
 	{
-          
 	  put_eff=1;
 	  m_partial=Get_Partial(l2);
           for (i=1;i<=10;i++) volume_Operator(i, l2);
@@ -1271,21 +1287,24 @@ HOR::Alg1s (int nframes, void *)
      	    sound=0;
                        
             Envelope_Volume[l2] = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
+     	    Perc_Volume[l2] = Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
+     	    
      	    LFO_Volume=Pitch_LFO(env_time[l2]);
      	   
              for(i = 1; i <= 10; i++)
 	      {
-                              
-                if (Operator[i].con1 > 0)
-                   {
+	        if (Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2];
+                     else Env_Vol=Perc_Volume[l2]; 
+                   
+	      
+                if ((Operator[i].con1 > 0) && (Env_Vol > 0))
+                   { 
                      f[i].dphi = m_partial * (p_op[i] + LFO_Volume);
                      if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
                      f[i].phi[l2] += f[i].dphi;
                      if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
-                     sound += Envelope_Volume[l2]*Operator[i].con1*Fsin(f[i].phi[l2]);
-                        
+                     sound += Env_Vol*Operator[i].con1*Fsin(f[i].phi[l2]);
                    }                
- 
               }  
                 
                 buf[l1] += sound * organ_master;
@@ -1298,10 +1317,6 @@ HOR::Alg1s (int nframes, void *)
 
     }
      
-
-
- 
-
 if (put_eff)
 {
 if (E_Rotary_On) Effect_Rotary();

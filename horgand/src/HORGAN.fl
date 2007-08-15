@@ -92,12 +92,11 @@ return 1;
 class HORGAN {} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
-      label {Horgand v1.09}
       callback {Guarda_Pref(0);
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {197 77 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
+      xywh {308 345 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -135,7 +134,7 @@ exit(0);}
       Fl_Button PANICO {
         label {Panic!!}
         callback {hor->panic();}
-        xywh {5 275 95 30} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labelfont 1 labelsize 15 labelcolor 7
+        xywh {5 275 95 30} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labelsize 15 labelcolor 7
       }
       Fl_Menu_Bar MenuPrincipal {
         xywh {0 0 1030 25} box THIN_UP_BOX
@@ -149,7 +148,7 @@ exit(0);}
             label {&New...}
             callback {hor->New();
 ApagaTodo();
-metelo();
+meteprog();
 Actu();
 hor->PutPrim();
 sprintf(hor->temporal, "--"); 
@@ -296,15 +295,15 @@ Fl::focus(SClose);}
       }
       Fl_Box {} {
         label {Master Tune}
-        xywh {385 240 75 20} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 16
+        xywh {385 240 75 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
         label Delay
-        xywh {320 240 45 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 16
+        xywh {320 240 45 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
         label Transpose
-        xywh {385 275 75 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 16
+        xywh {385 275 75 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
         xywh {240 139 46 46} box OVAL_FRAME
@@ -314,7 +313,7 @@ Fl::focus(SClose);}
       }
       Fl_Box {} {
         label Volume
-        xywh {315 275 50 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 16
+        xywh {315 275 50 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
         xywh {655 525 46 45} box OVAL_FRAME
@@ -341,7 +340,7 @@ if ( o->value() != 0 ) GetPrim(); else {
 UndoCount++;
 Undo();
 }}
-        xywh {5 235 95 40} box PLASTIC_UP_BOX color 0 labelfont 1 labelcolor 7 align 212 when 1
+        xywh {5 235 95 40} box PLASTIC_UP_BOX color 0 labelcolor 7 align 212 when 1
       }
       Fl_Light_Button CL {
         label {Compare Last}
@@ -360,7 +359,7 @@ MEdit->activate();
 }
 
 if ( o->value() != 0 ) Undo(); else Redo();}
-        xywh {5 195 95 40} box PLASTIC_UP_BOX color 0 labelfont 1 labelcolor 7 align 212 when 1
+        xywh {5 195 95 40} box PLASTIC_UP_BOX color 0 labelcolor 7 align 212 when 1
       }
       Fl_Slider VUI1 {
         callback {o->value(MidiInLevel);}
@@ -718,14 +717,14 @@ Actu();}
         callback {hor->E_Delay_On =  o->value();
 hor->Clean_Buffer_Effects();
 Actu();}
-        xywh {240 245 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {240 245 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
       Fl_Button ChorusOn {
         label Chorus
         callback {hor->E_Chorus_On =  o->value();
 hor->Clean_Buffer_Effects();
 Actu();}
-        xywh {240 100 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {240 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
       Fl_Group {} {
         xywh {385 135 75 100}
@@ -857,19 +856,19 @@ break;
 }
 hor->Clean_Buffer_Effects();
 Actu();}
-        xywh {400 100 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {395 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
       Fl_Slider RitVol {
-        label Volume
+        label {Vol.}
         callback {hor->Rhythm_Volume = o->value();}
-        xywh {605 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 0.99 maximum 0 step 0.01 value 0.5
+        xywh {605 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
       }
       Fl_Dial Tempo {
         label Tempo
         callback {hor->tempo = (float) o->value();
 hor->frame_total_size = (int) (hor->tempo * hor->sfinfo.frames);
 hor->fractional_position = hor->frame_total_size /(4 * hor->quarter_note * hor->bars);}
-        xywh {655 525 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 1.7 maximum 2.7 step 0.01 value 2 deactivate
+        xywh {655 525 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 194 minimum 1.7 maximum 2.7 step 0.01 value 2 deactivate
       }
       Fl_Slider VUI2 {
         callback {o->value(BarLead);}
@@ -1148,9 +1147,9 @@ if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
         }
       }
       Fl_Slider BassVol {
-        label Volume
+        label {Vol.}
         callback {hor->Bass_Volume = o->value();}
-        xywh {710 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 0.99 maximum 0 step 0.01 value 0.5
+        xywh {710 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
       }
       Fl_Box {} {
         xywh {765 424 51 36} box DOWN_FRAME
@@ -1187,34 +1186,34 @@ hor->Bass_On =  o->value();}
         xywh {315 35 205 50} box PLASTIC_DOWN_BOX color 219 labeltype ENGRAVED_LABEL labelfont 1 labelsize 22 align 80
       }
       Fl_Value_Output NV1 {
-        xywh {2 543 55 20} color 47 selection_color 1 labelfont 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {2 543 55 20} color 47 selection_color 1 labelfont 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV2 {
-        xywh {61 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {61 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV3 {
-        xywh {120 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {120 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV4 {
-        xywh {179 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {179 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV5 {
-        xywh {238 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {238 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV6 {
-        xywh {297 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {297 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV7 {
-        xywh {356 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {356 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV8 {
-        xywh {415 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {415 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV9 {
-        xywh {474 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {474 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Value_Output NV10 {
-        xywh {533 543 55 20} color 47 selection_color 1 align 88 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {533 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
       }
       Fl_Counter CPrograma {
         callback {hor->cpreset = (int) o->value();
@@ -1232,6 +1231,56 @@ Signal_for_Cb_Sliders = 0;
 }}
         xywh {470 100 55 190} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 2 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 100 maximum 0 step 1 value 70
         class Drawbar
+      }
+      Fl_Light_Button Mar1 {
+        label Perc
+        callback {hor->Operator[1].marimba=o->value();}
+        xywh {5 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+      }
+      Fl_Light_Button Mar2 {
+        label Perc
+        callback {hor->Operator[2].marimba=o->value();}
+        xywh {64 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+      }
+      Fl_Light_Button Mar3 {
+        label Perc
+        callback {hor->Operator[3].marimba=o->value();}
+        xywh {120 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+      }
+      Fl_Light_Button Mar4 {
+        label Perc
+        callback {hor->Operator[4].marimba=o->value();}
+        xywh {180 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+      }
+      Fl_Light_Button Mar5 {
+        label Perc
+        callback {hor->Operator[5].marimba=o->value();}
+        xywh {240 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+      }
+      Fl_Light_Button Mar6 {
+        label Perc
+        callback {hor->Operator[6].marimba=o->value();}
+        xywh {295 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+      }
+      Fl_Light_Button Mar7 {
+        label Perc
+        callback {hor->Operator[7].marimba=o->value();}
+        xywh {355 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+      }
+      Fl_Light_Button Mar8 {
+        label Perc
+        callback {hor->Operator[8].marimba=o->value();}
+        xywh {415 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+      }
+      Fl_Light_Button Mar9 {
+        label Perc
+        callback {hor->Operator[9].marimba=o->value();}
+        xywh {475 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+      }
+      Fl_Light_Button Mar10 {
+        label Perc
+        callback {hor->Operator[10].marimba=o->value();}
+        xywh {535 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
     }
     Fl_Window aboutwindow {
@@ -1263,8 +1312,8 @@ Signal_for_Cb_Sliders = 0;
       }
     }
     Fl_Window Settingswindow {
-      label Settings open
-      xywh {570 89 495 265} type Double hide
+      label Settings
+      xywh {1529 135 495 310} type Double hide
     } {
       Fl_Box {} {
         label {Midi Input to:}
@@ -1273,14 +1322,14 @@ Signal_for_Cb_Sliders = 0;
       Fl_Button SClose {
         label Close
         callback {Settingswindow->hide();}
-        xywh {350 165 120 30} shortcut 0xff0d
+        xywh {350 180 120 30} shortcut 0xff0d
       }
       Fl_Button {} {
         label Save
         callback {Guarda_Pref(1);
 fl_message("Changes will take effect the next time you restart the program");
 Settingswindow->hide();}
-        xywh {350 125 120 30}
+        xywh {350 145 120 30}
       }
       Fl_Browser BMidiIn {
         callback {int valor;
@@ -1321,6 +1370,20 @@ filename=fl_filename_setext(filename,".horeb");
 BFiname->value(filename);
 strcpy(hor->BankFilename,filename);}
         xywh {405 230 65 30}
+      }
+      Fl_File_Input RFiname {
+        label {  Rhythm Filename}
+        xywh {0 280 390 30} labelsize 12 align 5
+      }
+      Fl_Button {} {
+        label Browse
+        callback {char *filename;
+filename=fl_file_chooser("Browse:","(*.txt)",NULL,0);
+if (filename==NULL) return;
+filename=fl_filename_setext(filename,".txt");
+RFiname->value(filename);
+strcpy(hor->RhythmFilename,filename);}
+        xywh {405 270 65 30}
       }
     }
     Fl_Window HORBank {
@@ -2106,83 +2169,16 @@ sprintf(tmp, "%2.1f", hor->lasfreq[(int) o->value()]);
 V1->label(tmp);
 Actu();
 Bass1->value(1);
-SetBassType(0);} selected
+SetBassType(0);}
     }
   }
   Function {GetCombi(int i)} {} {
-    code {int k;
-for (k=1; k<=10; k++)
-{
-hor->Banco[i].Operator[k].volumen=hor->Operator[k].volumen;
-hor->Banco[i].Operator[k].harmonic_fine=hor->Operator[k].harmonic_fine;
-hor->Banco[i].Operator[k].harmonic=hor->Operator[k].harmonic;
-hor->Banco[i].Operator[k].marimba=hor->Operator[k].marimba;
-}
-
-
-hor->Banco[i].E_Delay_On=hor->E_Delay_On;
-hor->Banco[i].Delay_Delay=hor->Delay_Delay;
-hor->Banco[i].Delay_Volume=hor->Delay_Volume;
-hor->Banco[i].Pitch_LFO_Speed=hor->Pitch_LFO_Speed;
-hor->Banco[i].Pitch_LFO_Delay=hor->Pitch_LFO_Delay;
-hor->Banco[i].Rotary_LFO_Speed=hor->Rotary_LFO_Speed;
-hor->Banco[i].LFOpitch=hor->LFOpitch;
-hor->Banco[i].E_Rotary_On=hor->E_Rotary_On;
-hor->Banco[i].modulation=hor->modulation;
-hor->Banco[i].transpose=hor->transpose;
-hor->Banco[i].Organ_Master_Volume=hor->Organ_Master_Volume;
-
-for (k=0; k<=24; k++) hor->Banco[i].Name[k]=hor->Name[k];
-
-hor->Banco[i].detune=hor->detune;
-hor->Banco[i].E_Reverb_On=hor->E_Reverb_On;
-hor->Banco[i].split=hor->split;
-hor->Banco[i].Reverb_Preset =hor->Reverb_Preset;
-hor->Banco[i].E_Chorus_On=hor->E_Chorus_On;
-hor->Banco[i].Chorus_LFO_Amplitude=hor->Chorus_LFO_Amplitude;
-hor->Banco[i].Chorus_Delay=hor->Chorus_Delay;
-hor->Banco[i].Chorus_LFO_Speed=hor->Chorus_LFO_Speed;
-hor->Banco[i].Chorus_Volume=hor->Chorus_Volume;} {}
+    code {hor->Get_Combi_t(i);} {}
   }
   Function {PutCombi(int i)} {} {
-    code {int k;
-hor->cpreset= i;
+    code {hor->cpreset= i;
+hor->Put_Combi_t(i);
 
-for (k=1; k<=10; k++)
-{
-hor->Operator[k].volumen =hor->Banco[i].Operator[k].volumen;
-hor->Operator[k].harmonic_fine =hor->Banco[i].Operator[k].harmonic_fine;
-hor->Operator[k].harmonic =hor->Banco[i].Operator[k].harmonic;
-hor->Operator[k].marimba=hor->Banco[i].Operator[k].marimba;
-}
-
-
-
-hor->E_Delay_On = hor->Banco[i].E_Delay_On;
-hor->Delay_Volume = hor->Banco[i].Delay_Volume;
-hor->Delay_Delay = hor->Banco[i].Delay_Delay;
-hor->Pitch_LFO_Speed = hor->Banco[i].Pitch_LFO_Speed;
-hor->Pitch_LFO_Delay = hor->Banco[i].Pitch_LFO_Delay;
-hor->Rotary_LFO_Speed = hor->Banco[i].Rotary_LFO_Speed;
-hor->LFOpitch = hor->Banco[i].LFOpitch;
-hor->E_Rotary_On = hor->Banco[i].E_Rotary_On;
-hor->modulation = hor->Banco[i].modulation;
-hor->transpose = hor->Banco[i].transpose;
-hor->Organ_Master_Volume = hor->Banco[i].Organ_Master_Volume;
-bzero(hor->Name, sizeof(hor->Name));
-for (k=0; k<=24; k++) hor->Name[k]=hor->Banco[i].Name[k];
-hor->c_name = hor->Name;
-hor->E_Reverb_On = hor->Banco[i].E_Reverb_On;
-hor->detune = hor->Banco[i].detune;
-if (hor->Rhythm_On != 1) hor->split=hor->Banco[i].split;
-hor->Reverb_Preset=hor->Banco[i].Reverb_Preset;
-hor->E_Chorus_On=hor->Banco[i].E_Chorus_On;
-hor->Chorus_LFO_Amplitude=hor->Banco[i].Chorus_LFO_Amplitude;
-hor->Chorus_Delay=hor->Banco[i].Chorus_Delay;
-hor->Chorus_LFO_Speed=hor->Banco[i].Chorus_LFO_Speed;
-hor->Chorus_Volume=hor->Banco[i].Chorus_Volume;
-
-hor->Prim[1] = hor->Banco[i];
 meteprog();
 Actu();
 sprintf(hor->temporal, "%02d",i);
@@ -2246,7 +2242,8 @@ switch (hor->Salida)
       
 }
 
-BFiname->value(hor->BankFilename);} {}
+BFiname->value(hor->BankFilename);
+RFiname->value(hor->RhythmFilename);} {}
   }
   Function {metebanco()} {} {
     code {Banco1->label(hor->Banco[1].Name);
@@ -2288,6 +2285,9 @@ Banco32->label(hor->Banco[32].Name);} {}
 Fl::visual(FL_RGB);
 hor=hor_;
 make_window();
+char tmp[32];
+sprintf(tmp,"%s v%s",PACKAGE,VERSION); 
+HORwindow->copy_label(tmp);
 Fl::focus(PANICO);
 metebanco();
 metelo();
@@ -2295,7 +2295,8 @@ Actu();
 hor->PutPrim();
 meteritmos();
 HORwindow->show();
-Fl::add_timeout(1.0 * 0.04,tick);} {}
+Fl::add_timeout(1.0 * 0.04,tick);} {selected
+    }
   }
   Function {Undo()} {} {
     code {hor->MUndo();
@@ -2627,6 +2628,19 @@ Rit20->value(0);} {}
     code {OMaster->value(hor->Organ_Master_Volume * 100.0);
 RitVol->value(hor->Rhythm_Volume);
 BassVol->value(hor->Bass_Volume);
+
+
+Mar1->value(hor->Operator[1].marimba);
+Mar2->value(hor->Operator[2].marimba);
+Mar3->value(hor->Operator[3].marimba);
+Mar4->value(hor->Operator[4].marimba);
+Mar5->value(hor->Operator[5].marimba);
+Mar6->value(hor->Operator[6].marimba);
+Mar7->value(hor->Operator[7].marimba);
+Mar8->value(hor->Operator[8].marimba);
+Mar9->value(hor->Operator[9].marimba);
+Mar10->value(hor->Operator[10].marimba);
+
 
 V1->value(hor->Operator[1].volumen * 100);
 V2->value(hor->Operator[2].volumen * 100);

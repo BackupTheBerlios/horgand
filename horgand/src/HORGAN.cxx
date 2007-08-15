@@ -96,7 +96,7 @@ void HORGAN::cb_MFile(Fl_Menu_* o, void* v) {
 void HORGAN::cb_New_i(Fl_Menu_*, void*) {
   hor->New();
 ApagaTodo();
-metelo();
+meteprog();
 Actu();
 hor->PutPrim();
 sprintf(hor->temporal, "--"); 
@@ -1293,6 +1293,76 @@ void HORGAN::cb_OMaster(Drawbar* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_OMaster_i(o,v);
 }
 
+void HORGAN::cb_Mar1_i(Fl_Light_Button* o, void*) {
+  hor->Operator[1].marimba=o->value();
+}
+void HORGAN::cb_Mar1(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar1_i(o,v);
+}
+
+void HORGAN::cb_Mar2_i(Fl_Light_Button* o, void*) {
+  hor->Operator[2].marimba=o->value();
+}
+void HORGAN::cb_Mar2(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar2_i(o,v);
+}
+
+void HORGAN::cb_Mar3_i(Fl_Light_Button* o, void*) {
+  hor->Operator[3].marimba=o->value();
+}
+void HORGAN::cb_Mar3(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar3_i(o,v);
+}
+
+void HORGAN::cb_Mar4_i(Fl_Light_Button* o, void*) {
+  hor->Operator[4].marimba=o->value();
+}
+void HORGAN::cb_Mar4(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar4_i(o,v);
+}
+
+void HORGAN::cb_Mar5_i(Fl_Light_Button* o, void*) {
+  hor->Operator[5].marimba=o->value();
+}
+void HORGAN::cb_Mar5(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar5_i(o,v);
+}
+
+void HORGAN::cb_Mar6_i(Fl_Light_Button* o, void*) {
+  hor->Operator[6].marimba=o->value();
+}
+void HORGAN::cb_Mar6(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar6_i(o,v);
+}
+
+void HORGAN::cb_Mar7_i(Fl_Light_Button* o, void*) {
+  hor->Operator[7].marimba=o->value();
+}
+void HORGAN::cb_Mar7(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar7_i(o,v);
+}
+
+void HORGAN::cb_Mar8_i(Fl_Light_Button* o, void*) {
+  hor->Operator[8].marimba=o->value();
+}
+void HORGAN::cb_Mar8(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar8_i(o,v);
+}
+
+void HORGAN::cb_Mar9_i(Fl_Light_Button* o, void*) {
+  hor->Operator[9].marimba=o->value();
+}
+void HORGAN::cb_Mar9(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar9_i(o,v);
+}
+
+void HORGAN::cb_Mar10_i(Fl_Light_Button* o, void*) {
+  hor->Operator[10].marimba=o->value();
+}
+void HORGAN::cb_Mar10(Fl_Light_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Mar10_i(o,v);
+}
+
 void HORGAN::cb_OK_i(Fl_Button*, void*) {
   aboutwindow->hide();
 }
@@ -1338,6 +1408,18 @@ strcpy(hor->BankFilename,filename);
 }
 void HORGAN::cb_Browse(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Browse_i(o,v);
+}
+
+void HORGAN::cb_Browse1_i(Fl_Button*, void*) {
+  char *filename;
+filename=fl_file_chooser("Browse:","(*.txt)",NULL,0);
+if (filename==NULL) return;
+filename=fl_filename_setext(filename,".txt");
+RFiname->value(filename);
+strcpy(hor->RhythmFilename,filename);
+}
+void HORGAN::cb_Browse1(Fl_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Browse1_i(o,v);
 }
 
 void HORGAN::cb_BClose_i(Fl_Button*, void*) {
@@ -2053,7 +2135,7 @@ void HORGAN::cb_CloRit(Fl_Button* o, void* v) {
 
 Fl_Double_Window* HORGAN::make_window() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(825, 595, gettext("Horgand v1.09"));
+  { Fl_Double_Window* o = HORwindow = new Fl_Double_Window(825, 595);
     w = o;
     o->color(FL_LIGHT1);
     o->labelcolor((Fl_Color)208);
@@ -2145,7 +2227,6 @@ Fl_Double_Window* HORGAN::make_window() {
       o->box(FL_PLASTIC_UP_BOX);
       o->shortcut(0xff0d);
       o->color((Fl_Color)1);
-      o->labelfont(1);
       o->labelsize(15);
       o->labelcolor(FL_BACKGROUND2_COLOR);
       o->callback((Fl_Callback*)cb_PANICO);
@@ -2195,23 +2276,23 @@ Fl_Double_Window* HORGAN::make_window() {
     { Fl_Box* o = new Fl_Box(180, 204, 46, 31);
       o->box(FL_DOWN_FRAME);
     }
-    { Fl_Box* o = new Fl_Box(385, 240, 75, 20, gettext("Master Tune"));
+    { Fl_Box* o = new Fl_Box(385, 240, 75, 15, gettext("Master Tune"));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
-      o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+      o->align(192|FL_ALIGN_INSIDE);
     }
     { Fl_Box* o = new Fl_Box(320, 240, 45, 15, gettext("Delay"));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
-      o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+      o->align(192|FL_ALIGN_INSIDE);
     }
     { Fl_Box* o = new Fl_Box(385, 275, 75, 15, gettext("Transpose"));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
-      o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+      o->align(192|FL_ALIGN_INSIDE);
     }
     { Fl_Box* o = new Fl_Box(240, 139, 46, 46);
       o->box(FL_OVAL_FRAME);
@@ -2223,7 +2304,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
-      o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
+      o->align(192|FL_ALIGN_INSIDE);
     }
     { Fl_Box* o = new Fl_Box(655, 525, 46, 45);
       o->box(FL_OVAL_FRAME);
@@ -2234,7 +2315,6 @@ Fl_Double_Window* HORGAN::make_window() {
     { Fl_Light_Button* o = CF = new Fl_Light_Button(5, 235, 95, 40, gettext("Compare First"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
-      o->labelfont(1);
       o->labelcolor(FL_BACKGROUND2_COLOR);
       o->callback((Fl_Callback*)cb_CF);
       o->align(196|FL_ALIGN_INSIDE);
@@ -2243,7 +2323,6 @@ Fl_Double_Window* HORGAN::make_window() {
     { Fl_Light_Button* o = CL = new Fl_Light_Button(5, 195, 95, 40, gettext("Compare Last"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
-      o->labelfont(1);
       o->labelcolor(FL_BACKGROUND2_COLOR);
       o->callback((Fl_Callback*)cb_CL);
       o->align(196|FL_ALIGN_INSIDE);
@@ -2781,7 +2860,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_DMIN2);
       o->align(68|FL_ALIGN_INSIDE);
     }
-    { Fl_Button* o = EchoOn = new Fl_Button(240, 245, 45, 30, gettext("Delay"));
+    { Fl_Button* o = EchoOn = new Fl_Button(240, 245, 55, 30, gettext("Delay"));
       o->type(1);
       o->box(FL_PLASTIC_UP_BOX);
       o->color((Fl_Color)31);
@@ -2791,7 +2870,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_EchoOn);
       o->align(FL_ALIGN_CLIP);
     }
-    { Fl_Button* o = ChorusOn = new Fl_Button(240, 100, 45, 30, gettext("Chorus"));
+    { Fl_Button* o = ChorusOn = new Fl_Button(240, 100, 55, 30, gettext("Chorus"));
       o->type(1);
       o->box(FL_PLASTIC_UP_BOX);
       o->color((Fl_Color)31);
@@ -2888,7 +2967,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->box(FL_DOWN_FRAME);
       o->align(FL_ALIGN_CLIP);
     }
-    { Fl_Button* o = Rev = new Fl_Button(400, 100, 45, 30, gettext("Reverb"));
+    { Fl_Button* o = Rev = new Fl_Button(395, 100, 55, 30, gettext("Reverb"));
       o->type(1);
       o->box(FL_PLASTIC_UP_BOX);
       o->color((Fl_Color)31);
@@ -2898,7 +2977,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_Rev);
       o->align(FL_ALIGN_CLIP);
     }
-    { Fl_Slider* o = RitVol = new Fl_Slider(605, 415, 40, 155, gettext("Volume"));
+    { Fl_Slider* o = RitVol = new Fl_Slider(605, 415, 40, 155, gettext("Vol."));
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -2911,6 +2990,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.01);
       o->value(0.5);
       o->callback((Fl_Callback*)cb_RitVol);
+      o->align(194);
     }
     { Fl_Dial* o = Tempo = new Fl_Dial(655, 525, 45, 45, gettext("Tempo"));
       o->box(FL_OSHADOW_BOX);
@@ -2923,6 +3003,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.01);
       o->value(2);
       o->callback((Fl_Callback*)cb_Tempo);
+      o->align(194);
       o->deactivate();
     }
     { Fl_Slider* o = VUI2 = new Fl_Slider(650, 510, 15, 15);
@@ -3188,7 +3269,7 @@ Fl_Double_Window* HORGAN::make_window() {
       }
       o->end();
     }
-    { Fl_Slider* o = BassVol = new Fl_Slider(710, 415, 40, 155, gettext("Volume"));
+    { Fl_Slider* o = BassVol = new Fl_Slider(710, 415, 40, 155, gettext("Vol."));
       o->type(4);
       o->box(FL_PLASTIC_DOWN_BOX);
       o->color((Fl_Color)24);
@@ -3201,6 +3282,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.01);
       o->value(0.5);
       o->callback((Fl_Callback*)cb_BassVol);
+      o->align(194);
     }
     { Fl_Box* o = new Fl_Box(765, 424, 51, 36);
       o->box(FL_DOWN_FRAME);
@@ -3264,7 +3346,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV2 = new Fl_Value_Output(61, 543, 55, 20);
       o->color(FL_DARK1);
@@ -3273,7 +3355,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV3 = new Fl_Value_Output(120, 543, 55, 20);
       o->color(FL_DARK1);
@@ -3282,7 +3364,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV4 = new Fl_Value_Output(179, 543, 55, 20);
       o->color(FL_DARK1);
@@ -3291,7 +3373,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV5 = new Fl_Value_Output(238, 543, 55, 20);
       o->color(FL_DARK1);
@@ -3300,7 +3382,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV6 = new Fl_Value_Output(297, 543, 55, 20);
       o->color(FL_DARK1);
@@ -3309,7 +3391,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV7 = new Fl_Value_Output(356, 543, 55, 20);
       o->color(FL_DARK1);
@@ -3318,7 +3400,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV8 = new Fl_Value_Output(415, 543, 55, 20);
       o->color(FL_DARK1);
@@ -3327,7 +3409,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV9 = new Fl_Value_Output(474, 543, 55, 20);
       o->color(FL_DARK1);
@@ -3336,7 +3418,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Value_Output* o = NV10 = new Fl_Value_Output(533, 543, 55, 20);
       o->color(FL_DARK1);
@@ -3345,7 +3427,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->step(0.5);
       o->textfont(1);
       o->textcolor(4);
-      o->align(72|FL_ALIGN_INSIDE);
+      o->align(200|FL_ALIGN_INSIDE);
     }
     { Fl_Counter* o = CPrograma = new Fl_Counter(15, 165, 75, 25);
       o->type(1);
@@ -3374,6 +3456,66 @@ Fl_Double_Window* HORGAN::make_window() {
       o->callback((Fl_Callback*)cb_OMaster);
       o->align(FL_ALIGN_BOTTOM);
       o->when(FL_WHEN_CHANGED);
+    }
+    { Fl_Light_Button* o = Mar1 = new Fl_Light_Button(5, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar1);
+      o->align(196|FL_ALIGN_INSIDE);
+    }
+    { Fl_Light_Button* o = Mar2 = new Fl_Light_Button(64, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar2);
+      o->align(196|FL_ALIGN_INSIDE);
+    }
+    { Fl_Light_Button* o = Mar3 = new Fl_Light_Button(120, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar3);
+      o->align(196|FL_ALIGN_INSIDE);
+    }
+    { Fl_Light_Button* o = Mar4 = new Fl_Light_Button(180, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar4);
+      o->align(196|FL_ALIGN_INSIDE);
+    }
+    { Fl_Light_Button* o = Mar5 = new Fl_Light_Button(240, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar5);
+      o->align(196|FL_ALIGN_INSIDE);
+    }
+    { Fl_Light_Button* o = Mar6 = new Fl_Light_Button(295, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar6);
+      o->align(196|FL_ALIGN_INSIDE);
+    }
+    { Fl_Light_Button* o = Mar7 = new Fl_Light_Button(355, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar7);
+      o->align(196|FL_ALIGN_INSIDE);
+    }
+    { Fl_Light_Button* o = Mar8 = new Fl_Light_Button(415, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar8);
+      o->align(196|FL_ALIGN_INSIDE);
+    }
+    { Fl_Light_Button* o = Mar9 = new Fl_Light_Button(475, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar9);
+      o->align(196|FL_ALIGN_INSIDE);
+    }
+    { Fl_Light_Button* o = Mar10 = new Fl_Light_Button(535, 317, 50, 15, gettext("Perc"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->labelsize(11);
+      o->callback((Fl_Callback*)cb_Mar10);
+      o->align(196|FL_ALIGN_INSIDE);
     }
     o->end();
     o->resizable(o);
@@ -3405,15 +3547,15 @@ e version 2 of the \n GNU General Public License for details."));
     }
     o->end();
   }
-  { Fl_Double_Window* o = Settingswindow = new Fl_Double_Window(495, 265, gettext("Settings"));
+  { Fl_Double_Window* o = Settingswindow = new Fl_Double_Window(495, 310, gettext("Settings"));
     w = o;
     o->user_data((void*)(this));
     new Fl_Box(5, 0, 151, 30, gettext("Midi Input to:"));
-    { Fl_Button* o = SClose = new Fl_Button(350, 165, 120, 30, gettext("Close"));
+    { Fl_Button* o = SClose = new Fl_Button(350, 180, 120, 30, gettext("Close"));
       o->shortcut(0xff0d);
       o->callback((Fl_Callback*)cb_SClose);
     }
-    { Fl_Button* o = new Fl_Button(350, 125, 120, 30, gettext("Save"));
+    { Fl_Button* o = new Fl_Button(350, 145, 120, 30, gettext("Save"));
       o->callback((Fl_Callback*)cb_Save3);
     }
     { Fl_Browser* o = BMidiIn = new Fl_Browser(5, 25, 295, 185);
@@ -3447,6 +3589,13 @@ e version 2 of the \n GNU General Public License for details."));
     }
     { Fl_Button* o = new Fl_Button(405, 230, 65, 30, gettext("Browse"));
       o->callback((Fl_Callback*)cb_Browse);
+    }
+    { Fl_File_Input* o = RFiname = new Fl_File_Input(0, 280, 390, 30, gettext("  Rhythm Filename"));
+      o->labelsize(12);
+      o->align(FL_ALIGN_TOP_LEFT);
+    }
+    { Fl_Button* o = new Fl_Button(405, 270, 65, 30, gettext("Browse"));
+      o->callback((Fl_Callback*)cb_Browse1);
     }
     o->end();
   }
@@ -4241,80 +4390,13 @@ HORwindow->resize(x,y,w,h);
 }
 
 void HORGAN::GetCombi(int i) {
-  int k;
-for (k=1; k<=10; k++)
-{
-hor->Banco[i].Operator[k].volumen=hor->Operator[k].volumen;
-hor->Banco[i].Operator[k].harmonic_fine=hor->Operator[k].harmonic_fine;
-hor->Banco[i].Operator[k].harmonic=hor->Operator[k].harmonic;
-hor->Banco[i].Operator[k].marimba=hor->Operator[k].marimba;
-}
-
-
-hor->Banco[i].E_Delay_On=hor->E_Delay_On;
-hor->Banco[i].Delay_Delay=hor->Delay_Delay;
-hor->Banco[i].Delay_Volume=hor->Delay_Volume;
-hor->Banco[i].Pitch_LFO_Speed=hor->Pitch_LFO_Speed;
-hor->Banco[i].Pitch_LFO_Delay=hor->Pitch_LFO_Delay;
-hor->Banco[i].Rotary_LFO_Speed=hor->Rotary_LFO_Speed;
-hor->Banco[i].LFOpitch=hor->LFOpitch;
-hor->Banco[i].E_Rotary_On=hor->E_Rotary_On;
-hor->Banco[i].modulation=hor->modulation;
-hor->Banco[i].transpose=hor->transpose;
-hor->Banco[i].Organ_Master_Volume=hor->Organ_Master_Volume;
-
-for (k=0; k<=24; k++) hor->Banco[i].Name[k]=hor->Name[k];
-
-hor->Banco[i].detune=hor->detune;
-hor->Banco[i].E_Reverb_On=hor->E_Reverb_On;
-hor->Banco[i].split=hor->split;
-hor->Banco[i].Reverb_Preset =hor->Reverb_Preset;
-hor->Banco[i].E_Chorus_On=hor->E_Chorus_On;
-hor->Banco[i].Chorus_LFO_Amplitude=hor->Chorus_LFO_Amplitude;
-hor->Banco[i].Chorus_Delay=hor->Chorus_Delay;
-hor->Banco[i].Chorus_LFO_Speed=hor->Chorus_LFO_Speed;
-hor->Banco[i].Chorus_Volume=hor->Chorus_Volume;
+  hor->Get_Combi_t(i);
 }
 
 void HORGAN::PutCombi(int i) {
-  int k;
-hor->cpreset= i;
+  hor->cpreset= i;
+hor->Put_Combi_t(i);
 
-for (k=1; k<=10; k++)
-{
-hor->Operator[k].volumen =hor->Banco[i].Operator[k].volumen;
-hor->Operator[k].harmonic_fine =hor->Banco[i].Operator[k].harmonic_fine;
-hor->Operator[k].harmonic =hor->Banco[i].Operator[k].harmonic;
-hor->Operator[k].marimba=hor->Banco[i].Operator[k].marimba;
-}
-
-
-
-hor->E_Delay_On = hor->Banco[i].E_Delay_On;
-hor->Delay_Volume = hor->Banco[i].Delay_Volume;
-hor->Delay_Delay = hor->Banco[i].Delay_Delay;
-hor->Pitch_LFO_Speed = hor->Banco[i].Pitch_LFO_Speed;
-hor->Pitch_LFO_Delay = hor->Banco[i].Pitch_LFO_Delay;
-hor->Rotary_LFO_Speed = hor->Banco[i].Rotary_LFO_Speed;
-hor->LFOpitch = hor->Banco[i].LFOpitch;
-hor->E_Rotary_On = hor->Banco[i].E_Rotary_On;
-hor->modulation = hor->Banco[i].modulation;
-hor->transpose = hor->Banco[i].transpose;
-hor->Organ_Master_Volume = hor->Banco[i].Organ_Master_Volume;
-bzero(hor->Name, sizeof(hor->Name));
-for (k=0; k<=24; k++) hor->Name[k]=hor->Banco[i].Name[k];
-hor->c_name = hor->Name;
-hor->E_Reverb_On = hor->Banco[i].E_Reverb_On;
-hor->detune = hor->Banco[i].detune;
-if (hor->Rhythm_On != 1) hor->split=hor->Banco[i].split;
-hor->Reverb_Preset=hor->Banco[i].Reverb_Preset;
-hor->E_Chorus_On=hor->Banco[i].E_Chorus_On;
-hor->Chorus_LFO_Amplitude=hor->Banco[i].Chorus_LFO_Amplitude;
-hor->Chorus_Delay=hor->Banco[i].Chorus_Delay;
-hor->Chorus_LFO_Speed=hor->Banco[i].Chorus_LFO_Speed;
-hor->Chorus_Volume=hor->Banco[i].Chorus_Volume;
-
-hor->Prim[1] = hor->Banco[i];
 meteprog();
 Actu();
 sprintf(hor->temporal, "%02d",i);
@@ -4381,6 +4463,7 @@ switch (hor->Salida)
 }
 
 BFiname->value(hor->BankFilename);
+RFiname->value(hor->RhythmFilename);
 }
 
 void HORGAN::metebanco() {
@@ -4423,6 +4506,9 @@ HORGAN::HORGAN(HOR *hor_) {
 Fl::visual(FL_RGB);
 hor=hor_;
 make_window();
+char tmp[32];
+sprintf(tmp,"%s v%s",PACKAGE,VERSION); 
+HORwindow->copy_label(tmp);
 Fl::focus(PANICO);
 metebanco();
 metelo();
@@ -4773,6 +4859,19 @@ void HORGAN::meteprog() {
   OMaster->value(hor->Organ_Master_Volume * 100.0);
 RitVol->value(hor->Rhythm_Volume);
 BassVol->value(hor->Bass_Volume);
+
+
+Mar1->value(hor->Operator[1].marimba);
+Mar2->value(hor->Operator[2].marimba);
+Mar3->value(hor->Operator[3].marimba);
+Mar4->value(hor->Operator[4].marimba);
+Mar5->value(hor->Operator[5].marimba);
+Mar6->value(hor->Operator[6].marimba);
+Mar7->value(hor->Operator[7].marimba);
+Mar8->value(hor->Operator[8].marimba);
+Mar9->value(hor->Operator[9].marimba);
+Mar10->value(hor->Operator[10].marimba);
+
 
 V1->value(hor->Operator[1].volumen * 100);
 V2->value(hor->Operator[2].volumen * 100);
