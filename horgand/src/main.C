@@ -171,6 +171,7 @@ int main(int argc, char *argv[])
 
   hor.init_hor();
   
+
   // Launch GUI
   
   HORGAN *horUI = new HORGAN(&hor);
@@ -190,8 +191,6 @@ int main(int argc, char *argv[])
   {
      JACKstart(&hor);
   }   
-  
-  
   
   hor.Adjust_Audio();  
   

@@ -155,9 +155,9 @@ void HORGAN::cb_Save1(Fl_Menu_* o, void* v) {
 void HORGAN::cb_Load2_i(Fl_Menu_*, void*) {
   char *filename;
 Fl::focus(PANICO);
-filename=fl_file_chooser("Load:","(*.hrt)",NULL,0);
+filename=fl_file_chooser("Load:","(*.txt)",NULL,0);
 if (filename==NULL) return;
-filename=fl_filename_setext(filename,".hrt");
+filename=fl_filename_setext(filename,".txt");
 hor->loadrhyt(filename);
 meteritmos();
 }
@@ -167,7 +167,7 @@ void HORGAN::cb_Load2(Fl_Menu_* o, void* v) {
 
 void HORGAN::cb_Save2_i(Fl_Menu_*, void*) {
   char *filename;
-#define EXT ".hrt"
+#define EXT ".txt"
 filename=fl_file_chooser("Save:","(*"EXT")",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
@@ -265,7 +265,13 @@ MBank->activate();
 MEdit->activate();
 }
 
-if ( o->value() != 0 ) GetPrim(); else {
+if ( o->value() != 0 )
+{
+ 
+ GetPrim();
+} 
+else
+{
 UndoCount++;
 Undo();
 };
@@ -3673,6 +3679,10 @@ e version 2 of the \n GNU General Public License for details."));
       o->callback((Fl_Callback*)cb_Banco5);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
+    { Fl_Box* o = new Fl_Box(0, 90, 30, 25, gettext("5"));
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+    }
     { Fl_Button* o = Banco6 = new Fl_Button(205, 90, 145, 25);
       o->tooltip(gettext("Right Click Get -  Left Click Put"));
       o->box(FL_PLASTIC_UP_BOX);
@@ -3695,7 +3705,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->callback((Fl_Callback*)cb_Banco7);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
-    { Fl_Box* o = new Fl_Box(350, 90, 30, 25, gettext("17"));
+    { Fl_Box* o = new Fl_Box(350, 90, 30, 25, gettext("7"));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
@@ -3719,6 +3729,10 @@ e version 2 of the \n GNU General Public License for details."));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(12);
       o->callback((Fl_Callback*)cb_Banco9);
+      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+    }
+    { Fl_Box* o = new Fl_Box(0, 120, 30, 25, gettext("9"));
+      o->labeltype(FL_ENGRAVED_LABEL);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
     { Fl_Button* o = Banco10 = new Fl_Button(205, 120, 145, 25);
@@ -3769,6 +3783,10 @@ e version 2 of the \n GNU General Public License for details."));
       o->callback((Fl_Callback*)cb_Banco13);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
+    { Fl_Box* o = new Fl_Box(0, 150, 30, 25, gettext("13"));
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+    }
     { Fl_Button* o = Banco14 = new Fl_Button(205, 150, 145, 25);
       o->tooltip(gettext("Right Click Get -  Left Click Put"));
       o->box(FL_PLASTIC_UP_BOX);
@@ -3817,6 +3835,10 @@ e version 2 of the \n GNU General Public License for details."));
       o->callback((Fl_Callback*)cb_Banco17);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
+    { Fl_Box* o = new Fl_Box(0, 180, 30, 25, gettext("17"));
+      o->labeltype(FL_ENGRAVED_LABEL);
+      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+    }
     { Fl_Button* o = Banco18 = new Fl_Button(205, 180, 145, 25);
       o->tooltip(gettext("Right Click Get -  Left Click Put"));
       o->box(FL_PLASTIC_UP_BOX);
@@ -3853,22 +3875,6 @@ e version 2 of the \n GNU General Public License for details."));
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
     { Fl_Box* o = new Fl_Box(525, 180, 30, 25, gettext("20"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    }
-    { Fl_Box* o = new Fl_Box(0, 90, 30, 25, gettext("5"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    }
-    { Fl_Box* o = new Fl_Box(0, 120, 30, 25, gettext("9"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    }
-    { Fl_Box* o = new Fl_Box(0, 150, 30, 25, gettext("13"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    }
-    { Fl_Box* o = new Fl_Box(0, 180, 30, 25, gettext("17"));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     }
@@ -4240,7 +4246,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->align(FL_ALIGN_LEFT);
       o->value(hor->pattern_bars);
     }
-    { Fl_Button* o = CloRit = new Fl_Button(155, 70, 80, 25, gettext("Ok"));
+    { Fl_Button* o = CloRit = new Fl_Button(165, 70, 80, 25, gettext("Ok"));
       o->shortcut(0xff0d);
       o->labeltype(FL_ENGRAVED_LABEL);
       o->callback((Fl_Callback*)cb_CloRit);
@@ -4317,8 +4323,6 @@ e version 2 of the \n GNU General Public License for details."));
     { Fl_Box* o = new Fl_Box(325, 65, 50, 25, gettext("Notes:"));
       o->labeltype(FL_ENGRAVED_LABEL);
     }
-    new Fl_Button(235, 70, 80, 25);
-    new Fl_Button(315, 70, 80, 25);
     o->end();
   }
   return w;
@@ -4334,7 +4338,10 @@ int x,y,w,h;
 horgand.get("Audio Out device",temp,"");
 DMIN2->label(temp);
 
-horgand.get("Rhythm Selected",val,1);
+
+
+
+horgand.get("Rhythm Selected",val,2);
 Fl_Button *pepe;
 pepe = (Fl_Button*) RitButtons->child(val-1);
 pepe->value(1);
@@ -4506,7 +4513,7 @@ HORGAN::HORGAN(HOR *hor_) {
 Fl::visual(FL_RGB);
 hor=hor_;
 make_window();
-char tmp[32];
+char tmp[64];
 sprintf(tmp,"%s v%s",PACKAGE,VERSION); 
 HORwindow->copy_label(tmp);
 Fl::focus(PANICO);
@@ -4884,7 +4891,6 @@ V8->value(hor->Operator[8].volumen * 100);
 V9->value(hor->Operator[9].volumen * 100);
 V10->value(hor->Operator[10].volumen * 100);
 
-
 H1->value(hor->Operator[1].harmonic);
 H2->value(hor->Operator[2].harmonic);
 H3->value(hor->Operator[3].harmonic);
@@ -4896,11 +4902,6 @@ H8->value(hor->Operator[8].harmonic);
 H9->value(hor->Operator[9].harmonic);
 H10->value(hor->Operator[10].harmonic);
 
-
-char *t;
-
-t = (char *) malloc (20 * sizeof (char) * 12);
-
 NV1->value(hor->lasfreq[hor->Operator[1].harmonic]);
 NV2->value(hor->lasfreq[hor->Operator[2].harmonic]);
 NV3->value(hor->lasfreq[hor->Operator[3].harmonic]);
@@ -4911,8 +4912,6 @@ NV7->value(hor->lasfreq[hor->Operator[7].harmonic]);
 NV8->value(hor->lasfreq[hor->Operator[8].harmonic]);
 NV9->value(hor->lasfreq[hor->Operator[9].harmonic]);
 NV10->value(hor->lasfreq[hor->Operator[10].harmonic]);
-
-
 
 Detune->value(hor->detune);
 PLFOSpeed->value(hor->Pitch_LFO_Speed);
@@ -4997,6 +4996,7 @@ POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
 ponreverb();
+memset(hor->f,0,sizeof hor->f);
 }
 
 void HORGAN::SetBassType(int type) {
@@ -5054,6 +5054,5 @@ if (OSS->value() != 0) temp = strdup("OSS");
 if (Alsa->value() != 0) temp = strdup("Alsa");
 if (Jack->value() != 0) temp =strdup("Jack");
 horgand.set("Audio Out device",temp);
-
 }
 }

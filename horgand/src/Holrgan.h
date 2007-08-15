@@ -106,6 +106,7 @@ public:
 
 
   snd_seq_t *midi_in;
+  
   float ldelay,rdelay;
   float *lsin;
   float *buf;
@@ -216,8 +217,7 @@ public:
   int bass_transpose;
   int bmt;
   int cpreset;
-  int marimba;
-//ae means the selected rhythm
+  //ae means the selected rhythm
   int ae;
   int pattern_bars;
   int file_ok;
@@ -379,7 +379,6 @@ struct Todolo
   {   
     float phi[POLY];
     float dphi;
-
   } f[11];
   
 

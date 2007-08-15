@@ -306,7 +306,6 @@ for (k=0; k<=24; k++) Name[k]=Undo[UndoCount].Name[k];
 c_name = Name;
 
 E_Reverb_On=Undo[UndoCount].E_Reverb_On;
-attack= Undo[UndoCount].attack;
 detune = Undo[UndoCount].detune;
 split=Undo[UndoCount].split;
 Reverb_Preset=Undo[UndoCount].Reverb_Preset;
@@ -365,7 +364,6 @@ Undo[UndoCount].Organ_Master_Volume=Organ_Master_Volume;
 
 for (k=0; k<=24; k++) Undo[UndoCount].Name[k]=Name[k];
 c_name = Name;
-Undo[UndoCount].attack=attack;
 Undo[UndoCount].detune=detune;
 Undo[UndoCount].E_Reverb_On=E_Reverb_On;
 Undo[UndoCount].split=split;
@@ -410,7 +408,6 @@ Prim[1].Organ_Master_Volume=Organ_Master_Volume;
 
 for (k=0; k<=24; k++) Prim[1].Name[k]=Name[k];
 
-Prim[1].attack=attack;
 Prim[1].detune=detune;
 Prim[1].E_Reverb_On=E_Reverb_On;
 
@@ -421,7 +418,6 @@ Prim[1].Chorus_LFO_Amplitude=Chorus_LFO_Amplitude;
 Prim[1].Chorus_Delay=Chorus_Delay;
 Prim[1].Chorus_LFO_Speed=Chorus_LFO_Speed;
 Prim[1].Chorus_Volume=Chorus_Volume;
-
 };
 
 
@@ -455,7 +451,6 @@ Organ_Master_Volume = Prim[1].Organ_Master_Volume;
 bzero(Name,sizeof(Name));
 for (k=0; k<=24; k++) Name[k]=Prim[1].Name[k];
 c_name = Name;
-attack = Prim[1].attack;
 detune = Prim[1].detune;
 E_Reverb_On = Prim[1].E_Reverb_On;
 split=Prim[1].split;

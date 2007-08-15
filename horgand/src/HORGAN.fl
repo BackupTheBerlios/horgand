@@ -9,9 +9,6 @@ decl {//Copyright (c) 2003-2004 Josep Andreu (Holborn)} {}
 
 decl {//License: GNU GPL version 2} {} 
 
-decl {\#include <alsa/asoundlib.h>} {public
-} 
-
 decl {\#include <FL/Fl_File_Chooser.H>} {public
 } 
 
@@ -89,8 +86,10 @@ return 1;
   }
 } 
 
-class HORGAN {} {
-  Function {make_window()} {} {
+class HORGAN {open
+} {
+  Function {make_window()} {open
+  } {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
@@ -197,9 +196,9 @@ hor->PutPrim();}
             label {Load Rhythm...}
             callback {char *filename;
 Fl::focus(PANICO);
-filename=fl_file_chooser("Load:","(*.hrt)",NULL,0);
+filename=fl_file_chooser("Load:","(*.txt)",NULL,0);
 if (filename==NULL) return;
-filename=fl_filename_setext(filename,".hrt");
+filename=fl_filename_setext(filename,".txt");
 hor->loadrhyt(filename);
 meteritmos();}
             xywh {0 0 100 20} labelsize 14
@@ -207,7 +206,7 @@ meteritmos();}
           MenuItem {} {
             label {Save Rhythm...}
             callback {char *filename;
-\#define EXT ".hrt"
+\#define EXT ".txt"
 filename=fl_file_chooser("Save:","(*"EXT")",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
@@ -336,7 +335,13 @@ MBank->activate();
 MEdit->activate();
 }
 
-if ( o->value() != 0 ) GetPrim(); else {
+if ( o->value() != 0 )
+{
+ 
+ GetPrim();
+} 
+else
+{
 UndoCount++;
 Undo();
 }}
@@ -1396,7 +1401,7 @@ strcpy(hor->RhythmFilename,filename);}
 Fl::focus(PANICO);}
         xywh {275 310 145 40} box PLASTIC_UP_BOX shortcut 0xff0d labeltype ENGRAVED_LABEL
       }
-      Fl_Menu_Bar {} {open
+      Fl_Menu_Bar {} {
         xywh {0 0 760 30}
       } {
         Submenu BFile {
@@ -1478,6 +1483,10 @@ if (Fl::event_button()==1) PutCombi(5);
 o->label(hor->Banco[5].Name)}
         tooltip {Right Click Get -  Left Click Put} xywh {30 90 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
       }
+      Fl_Box {} {
+        label 5
+        xywh {0 90 30 25} labeltype ENGRAVED_LABEL align 80
+      }
       Fl_Button Banco6 {
         callback {if (Fl::event_button()==3) GetCombi(6);
 if (Fl::event_button()==1) PutCombi(6);
@@ -1495,7 +1504,7 @@ o->label(hor->Banco[7].Name)}
         tooltip {Right Click Get -  Left Click Put} xywh {380 90 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
       }
       Fl_Box {} {
-        label 17
+        label 7
         xywh {350 90 30 25} labeltype ENGRAVED_LABEL align 80
       }
       Fl_Button Banco8 {
@@ -1513,6 +1522,10 @@ o->label(hor->Banco[8].Name)}
 if (Fl::event_button()==1) PutCombi(9);
 o->label(hor->Banco[9].Name)}
         tooltip {Right Click Get -  Left Click Put} xywh {30 120 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+      }
+      Fl_Box {} {
+        label 9
+        xywh {0 120 30 25} labeltype ENGRAVED_LABEL align 80
       }
       Fl_Button Banco10 {
         callback {if (Fl::event_button()==3) GetCombi(10);
@@ -1550,6 +1563,10 @@ if (Fl::event_button()==1) PutCombi(13);
 o->label(hor->Banco[13].Name)}
         tooltip {Right Click Get -  Left Click Put} xywh {30 150 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
       }
+      Fl_Box {} {
+        label 13
+        xywh {0 150 30 25} labeltype ENGRAVED_LABEL align 80
+      }
       Fl_Button Banco14 {
         callback {if (Fl::event_button()==3) GetCombi(14);
 if (Fl::event_button()==1) PutCombi(14);
@@ -1586,6 +1603,10 @@ if (Fl::event_button()==1) PutCombi(17);
 o->label(hor->Banco[17].Name)}
         tooltip {Right Click Get -  Left Click Put} xywh {30 180 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
       }
+      Fl_Box {} {
+        label 17 selected
+        xywh {0 180 30 25} labeltype ENGRAVED_LABEL align 80
+      }
       Fl_Button Banco18 {
         callback {if (Fl::event_button()==3) GetCombi(18);
 if (Fl::event_button()==1) PutCombi(18);
@@ -1615,22 +1636,6 @@ o->label(hor->Banco[20].Name)}
       Fl_Box {} {
         label 20
         xywh {525 180 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Box {} {
-        label 5
-        xywh {0 90 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Box {} {
-        label 9
-        xywh {0 120 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Box {} {
-        label 13
-        xywh {0 150 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Box {} {
-        label 17
-        xywh {0 180 30 25} labeltype ENGRAVED_LABEL align 80
       }
       Fl_Button Banco21 {
         callback {if (Fl::event_button()==3) GetCombi(21);
@@ -1770,7 +1775,7 @@ if (hor->file_ok == 1)
 GetRit(hor->ae);
 }
 RitEdit->hide();}
-      xywh {4 29 615 175} type Double hide
+      xywh {444 233 615 175} type Double hide
     } {
       Fl_Input RtName {
         label Name
@@ -2027,7 +2032,7 @@ if (hor->file_ok == 1)
 GetRit(hor->ae);
 }
 RitEdit->hide();}
-        xywh {155 70 80 25} shortcut 0xff0d labeltype ENGRAVED_LABEL
+        xywh {165 70 80 25} shortcut 0xff0d labeltype ENGRAVED_LABEL
       }
       Fl_Box {} {
         label Note
@@ -2092,12 +2097,6 @@ RitEdit->hide();}
         label {Notes:}
         xywh {325 65 50 25} labeltype ENGRAVED_LABEL
       }
-      Fl_Button {} {
-        xywh {235 70 80 25}
-      }
-      Fl_Button {} {
-        xywh {315 70 80 25}
-      }
     }
   }
   Function {metelo()} {} {
@@ -2110,7 +2109,10 @@ int x,y,w,h;
 horgand.get("Audio Out device",temp,"");
 DMIN2->label(temp);
 
-horgand.get("Rhythm Selected",val,1);
+
+
+
+horgand.get("Rhythm Selected",val,2);
 Fl_Button *pepe;
 pepe = (Fl_Button*) RitButtons->child(val-1);
 pepe->value(1);
@@ -2285,7 +2287,7 @@ Banco32->label(hor->Banco[32].Name);} {}
 Fl::visual(FL_RGB);
 hor=hor_;
 make_window();
-char tmp[32];
+char tmp[64];
 sprintf(tmp,"%s v%s",PACKAGE,VERSION); 
 HORwindow->copy_label(tmp);
 Fl::focus(PANICO);
@@ -2295,9 +2297,9 @@ Actu();
 hor->PutPrim();
 meteritmos();
 HORwindow->show();
-Fl::add_timeout(1.0 * 0.04,tick);} {selected
-    }
+Fl::add_timeout(1.0 * 0.04,tick);} {}
   }
+  decl {HOR *hor;} {}
   Function {Undo()} {} {
     code {hor->MUndo();
 meteprog();} {}
@@ -2314,10 +2316,7 @@ hor->MActu();} {}
     code {hor->MRedo();
 meteprog();} {}
   }
-  Function {GetPrim()} {
-    callback {hor->Operator[1].attack = (float) o->value()/100;
-Actu();}
-  } {
+  Function {GetPrim()} {} {
     code {hor->MGetPrim();
 meteprog();} {}
   }
@@ -2653,7 +2652,6 @@ V8->value(hor->Operator[8].volumen * 100);
 V9->value(hor->Operator[9].volumen * 100);
 V10->value(hor->Operator[10].volumen * 100);
 
-
 H1->value(hor->Operator[1].harmonic);
 H2->value(hor->Operator[2].harmonic);
 H3->value(hor->Operator[3].harmonic);
@@ -2665,11 +2663,6 @@ H8->value(hor->Operator[8].harmonic);
 H9->value(hor->Operator[9].harmonic);
 H10->value(hor->Operator[10].harmonic);
 
-
-char *t;
-
-t = (char *) malloc (20 * sizeof (char) * 12);
-
 NV1->value(hor->lasfreq[hor->Operator[1].harmonic]);
 NV2->value(hor->lasfreq[hor->Operator[2].harmonic]);
 NV3->value(hor->lasfreq[hor->Operator[3].harmonic]);
@@ -2680,8 +2673,6 @@ NV7->value(hor->lasfreq[hor->Operator[7].harmonic]);
 NV8->value(hor->lasfreq[hor->Operator[8].harmonic]);
 NV9->value(hor->lasfreq[hor->Operator[9].harmonic]);
 NV10->value(hor->lasfreq[hor->Operator[10].harmonic]);
-
-
 
 Detune->value(hor->detune);
 PLFOSpeed->value(hor->Pitch_LFO_Speed);
@@ -2765,7 +2756,8 @@ hor->Calc_Chorus_LFO_Frequency();
 POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
-ponreverb();} {}
+ponreverb();
+memset(hor->f,0,sizeof hor->f);} {}
   }
   Function {SetBassType(int type)} {return_type void
   } {
@@ -2822,13 +2814,6 @@ if (OSS->value() != 0) temp = strdup("OSS");
 if (Alsa->value() != 0) temp = strdup("Alsa");
 if (Jack->value() != 0) temp =strdup("Jack");
 horgand.set("Audio Out device",temp);
-
 }} {}
-  }
-  decl {HOR *hor;} {
-    callback {->Operator[1].frequency_type = (int) o->value();
-if (o->value() == 0)  o->label("Coarse");
-if (o->value() == 1)  o->label("Fixed");
-Actu();}
   }
 } 

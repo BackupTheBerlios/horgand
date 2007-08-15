@@ -3,7 +3,6 @@
 #ifndef HORGAN_h
 #define HORGAN_h
 #include <FL/Fl.H>
-#include <alsa/asoundlib.h>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_Dial.H>
 #include "Holrgan.h"
@@ -992,6 +991,9 @@ public:
   void MiraConfig();
   void metebanco();
   HORGAN(HOR *hor_);
+private:
+  HOR *hor;
+public:
   void Undo();
   void Actu();
   void Redo();
@@ -1009,7 +1011,5 @@ public:
   void meteprog();
   void SetBassType(int type);
   void Guarda_Pref(int parte);
-private:
-  HOR *hor;
 };
 #endif

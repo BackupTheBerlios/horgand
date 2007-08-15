@@ -63,26 +63,24 @@ HOR::Effect_Chorus()
 {
 
   int elkel,elkel2;
-  float ch_delay= Chorus_Delay * 4.4;
+  float ch_delay= Chorus_Delay * SAMPLE_RATE / 10000.0;
   float ldelay1,rdelay1,dell,valorl;
   int i;
   float chor_vol=Chorus_Volume*.5;
   float ms=SAMPLE_RATE/1000.0*20.0;
   float dllo;
-
+  
   for (i = 0; i < PERIOD; i +=2)
 
     {
       ldelay1=ldelay;
       rdelay1=rdelay;
-     
+           
       // L Channel
       ldelay=ms+ch_delay+Chorus_LFO(&Chorus_X_L);
       dell=(ldelay1*(PERIOD-i)+ldelay*i)/PERIOD;
       dllo=1.0-fmod(dell,1.0);
-      //elkel=(cl_counter-(int)dell+8192)%8192;
-      //elkel2=(elkel-1+8192)%8192;
-      elkel=(cl_counter-(int)dell);
+      elkel=cl_counter-(int)dell;
       if (elkel<0) elkel +=8192;
       elkel2=elkel-1;
       if (elkel2<0) elkel2 +=8192;
@@ -95,9 +93,7 @@ HOR::Effect_Chorus()
       rdelay=ms+ch_delay+Chorus_LFO(&Chorus_X_R);
       dell=(rdelay1*(PERIOD-i)+rdelay*i)/PERIOD;
       dllo=1.0-fmod(dell,1.0);
-//      elkel=(cl_counter-(int)dell+8192)%8192;
-//      elkel2=(elkel-1+8192)%8192;      
-      elkel=(cl_counter-(int)dell);
+      elkel=cl_counter-(int)dell;
       if (elkel<0) elkel +=8192;
       elkel2=elkel-1;
       if (elkel2<0) elkel2 +=8192;

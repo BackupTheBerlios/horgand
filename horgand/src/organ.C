@@ -115,9 +115,9 @@ HOR::HOR()
   decay = 0.20;
   sustain = 0.8;
   release = 0.12;
-  p_attack=0.001;
-  p_decay = 0.17;
-  p_sustain=0.0;
+  p_attack= 0.001;
+  p_decay = 0.20;
+  p_sustain=0.00;
   p_release=0.12;
   E_Delay_On = 0;
   Delay_Delay = 0;
@@ -1281,13 +1281,13 @@ HOR::Alg1s (int nframes, void *)
 	  put_eff=1;
 	  m_partial=Get_Partial(l2);
           for (i=1;i<=10;i++) volume_Operator(i, l2);
-                              
+        
           for (l1 = 0; l1 < PERIOD; l1 +=2)
           {
      	    sound=0;
                        
             Envelope_Volume[l2] = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
-     	    Perc_Volume[l2] = Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
+     	    Perc_Volume[l2] = 1.01 * Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
      	    
      	    LFO_Volume=Pitch_LFO(env_time[l2]);
      	   
