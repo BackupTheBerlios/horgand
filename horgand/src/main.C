@@ -171,6 +171,7 @@ int main(int argc, char *argv[])
 
   hor.init_hor();
   
+  if (hor.Salida < 3) hor.Adjust_Audio();
 
   // Launch GUI
   
@@ -185,14 +186,15 @@ int main(int argc, char *argv[])
 
   // Launch AUDIO thread for ALSA and OSS, not for JACK
   
+
   if (hor.Salida < 3)  pthread_create (&thr2, NULL, thread2, NULL); 
 
   if (hor.Salida==3)
   {
      JACKstart(&hor);
+     hor.Adjust_Audio();
   }   
   
-  hor.Adjust_Audio();  
   
   // Main  
 

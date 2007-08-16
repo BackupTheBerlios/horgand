@@ -952,8 +952,9 @@ for (j = 1; j<= 20; j++)
   bbuf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   buf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   history = (float *) malloc (2 * sizeof (float) * BUFSIZE * 512);
-  cldelay = (float *) malloc (sizeof (float) * BUFSIZE * 8);
-  crdelay = (float *) malloc (sizeof (float) * BUFSIZE * 8); 
+
+  cldelay = (float *) malloc (sizeof  (float) * 8192);
+  crdelay = (float *) malloc (sizeof (float)  * 8192); 
 
 // Init Buffers
 
@@ -1075,7 +1076,7 @@ HOR::Adjust_Audio()
 
       increment = .5 / SAMPLE_RATE;
       D_PI_to_SAMPLE_RATE = D_PI / SAMPLE_RATE;
-   
+      
 }
 
 

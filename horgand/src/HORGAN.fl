@@ -86,16 +86,14 @@ return 1;
   }
 } 
 
-class HORGAN {open
-} {
-  Function {make_window()} {open
-  } {
+class HORGAN {} {
+  Function {make_window()} {} {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {308 345 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
+      xywh {219 303 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -243,7 +241,11 @@ aboutwindow->show();}
         }
         MenuItem MBank {
           label {&Bank}
-          callback {HORBank->position(HORwindow->x(),HORwindow->y());
+          callback {int x,y;
+Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
+horgand.get("HORBank X",x,1);
+horgand.get("HORBank Y",y,1);
+HORBank->position(x,y);
 HORBank->show();
 Fl::focus(BClose);}
           xywh {0 0 100 20} shortcut 0x80062 labelsize 14
@@ -1290,6 +1292,7 @@ Signal_for_Cb_Sliders = 0;
     }
     Fl_Window aboutwindow {
       label {About...}
+      callback {aboutwindow->hide();}
       xywh {1630 117 380 300} type Double hide
     } {
       Fl_Box {} {
@@ -1312,12 +1315,13 @@ Signal_for_Cb_Sliders = 0;
       }
       Fl_Button {} {
         label OK
-        callback {aboutwindow->hide();}
+        callback {aboutwindow->do_callback();}
         xywh {150 250 70 40} shortcut 0xff0d
       }
     }
     Fl_Window Settingswindow {
       label Settings
+      callback {Settingswindow->hide();}
       xywh {1529 135 495 310} type Double hide
     } {
       Fl_Box {} {
@@ -1326,7 +1330,7 @@ Signal_for_Cb_Sliders = 0;
       }
       Fl_Button SClose {
         label Close
-        callback {Settingswindow->hide();}
+        callback {Settingswindow->do_callback();}
         xywh {350 180 120 30} shortcut 0xff0d
       }
       Fl_Button {} {
@@ -1393,12 +1397,14 @@ strcpy(hor->RhythmFilename,filename);}
     }
     Fl_Window HORBank {
       label {DXEmulator Bank}
+      callback {Guarda_Pref(2);
+HORBank->hide();
+Fl::focus(PANICO);}
       tooltip {Right Click Get  - Left Click Put} xywh {4 29 710 360} type Double hide
     } {
       Fl_Button BClose {
         label Close
-        callback {HORBank->hide();
-Fl::focus(PANICO);}
+        callback {HORBank->do_callback();}
         xywh {275 310 145 40} box PLASTIC_UP_BOX shortcut 0xff0d labeltype ENGRAVED_LABEL
       }
       Fl_Menu_Bar {} {
@@ -1431,8 +1437,7 @@ hor->savebank(filename);}
           }
           MenuItem {} {
             label {&Close}
-            callback {HORBank->hide();
-Fl::focus(PANICO);}
+            callback {HORBank->do_callback();}
             xywh {0 0 100 20} labelsize 14
           }
         }
@@ -1604,7 +1609,7 @@ o->label(hor->Banco[17].Name)}
         tooltip {Right Click Get -  Left Click Put} xywh {30 180 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
       }
       Fl_Box {} {
-        label 17 selected
+        label 17
         xywh {0 180 30 25} labeltype ENGRAVED_LABEL align 80
       }
       Fl_Button Banco18 {
@@ -1775,7 +1780,7 @@ if (hor->file_ok == 1)
 GetRit(hor->ae);
 }
 RitEdit->hide();}
-      xywh {444 233 615 175} type Double hide
+      xywh {1448 239 615 175} type Double hide
     } {
       Fl_Input RtName {
         label Name
@@ -2016,23 +2021,8 @@ meteval();}
       }
       Fl_Button CloRit {
         label Ok
-        callback {if((hor->Rt[hor->ae].bars < 1) || (hor->Rt[hor->ae].bars > 4))
-{
-fl_alert("Bars error.");
-return;
-}  
-
-if((hor->Rt[hor->ae].quarter_note < 2) || (hor->Rt[hor->ae].quarter_note > 4))
-{
-fl_alert("Nom. error");
-return;
-}  
-if (hor->file_ok == 1)
-{
-GetRit(hor->ae);
-}
-RitEdit->hide();}
-        xywh {165 70 80 25} shortcut 0xff0d labeltype ENGRAVED_LABEL
+        callback {RitEdit->do_callback();}
+        xywh {130 70 80 25} shortcut 0xff0d labeltype ENGRAVED_LABEL
       }
       Fl_Box {} {
         label Note
@@ -2330,53 +2320,54 @@ meteprog();} {}
 switch(hor->Reverb_Preset)
 {
 case 1:
-hor->Reverb_Time = 17;
+hor->Reverb_Time = 16;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.14;
 
 break;
 
 case 2:
-hor->Reverb_Time = 19;
+hor->Reverb_Time = 18;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.14;
 break;
 
 case 3:
-hor->Reverb_Time = 21;
+hor->Reverb_Time = 20;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 4:
-hor->Reverb_Time = 27;
+hor->Reverb_Time = 22;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 5:
-hor->Reverb_Time = 32;
+hor->Reverb_Time = 24;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 6:
-hor->Reverb_Time = 38;
+hor->Reverb_Time = 26;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 
 case 7:
-hor->Reverb_Time = 44;
+hor->Reverb_Time = 30;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 8:
-hor->Reverb_Time = 54;
+hor->Reverb_Time = 34;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
-}} {}
+}} {selected
+    }
   }
   Function {GetRit(int Selected_Rhythm)} {} {
     code {int i;
@@ -2814,6 +2805,14 @@ if (OSS->value() != 0) temp = strdup("OSS");
 if (Alsa->value() != 0) temp = strdup("Alsa");
 if (Jack->value() != 0) temp =strdup("Jack");
 horgand.set("Audio Out device",temp);
+}
+
+if (parte==2)
+{ 
+horgand.set("HORBank X",HORBank->x());
+horgand.set("HORBank Y",HORBank->y());
+horgand.set("HORBank W",HORBank->w());
+horgand.set("HORBank H",HORBank->h());
 }} {}
   }
 } 

@@ -65,43 +65,43 @@ HOR::Effect_Chorus()
   int elkel,elkel2;
   float ch_delay= Chorus_Delay * SAMPLE_RATE / 10000.0;
   float ldelay1,rdelay1,dell,valorl;
-  int i;
+  int i,j;
   float chor_vol=Chorus_Volume*.5;
   float ms=SAMPLE_RATE/1000.0*20.0;
   float dllo;
-  
+  int uPERIOD=PERIOD/2;
+    
   for (i = 0; i < PERIOD; i +=2)
 
     {
+      j =i/2;
       ldelay1=ldelay;
       rdelay1=rdelay;
            
       // L Channel
       ldelay=ms+ch_delay+Chorus_LFO(&Chorus_X_L);
-      dell=(ldelay1*(PERIOD-i)+ldelay*i)/PERIOD;
-      dllo=1.0-fmod(dell,1.0);
+      dell=(ldelay1*(uPERIOD-j)+ldelay*j)/uPERIOD;
       elkel=cl_counter-(int)dell;
       if (elkel<0) elkel +=8192;
       elkel2=elkel-1;
       if (elkel2<0) elkel2 +=8192;
-
+      dllo=1.0-fmod(dell,1.0);
       valorl=(dllo*cldelay[elkel])+(cldelay[elkel2]*(1-dllo));
       buf[i] +=valorl*chor_vol;
       cldelay[cl_counter]=buf[i];
       
       // R Channel
       rdelay=ms+ch_delay+Chorus_LFO(&Chorus_X_R);
-      dell=(rdelay1*(PERIOD-i)+rdelay*i)/PERIOD;
-      dllo=1.0-fmod(dell,1.0);
+      dell=(rdelay1*(uPERIOD-j)+rdelay*j)/uPERIOD;
       elkel=cl_counter-(int)dell;
       if (elkel<0) elkel +=8192;
       elkel2=elkel-1;
       if (elkel2<0) elkel2 +=8192;
-    
-      
+      dllo=1.0-fmod(dell,1.0);
       valorl = (dllo*crdelay[elkel])+(crdelay[elkel2]*(1-dllo));
       buf[i+1] +=valorl*chor_vol;
       crdelay[cl_counter]=buf[i+1];      
+      
       if (++cl_counter>=8192) cl_counter=0;
       
  

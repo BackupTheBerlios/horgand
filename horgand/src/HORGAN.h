@@ -576,10 +576,16 @@ private:
 public:
   Fl_Double_Window *aboutwindow;
 private:
+  void cb_aboutwindow_i(Fl_Double_Window*, void*);
+  static void cb_aboutwindow(Fl_Double_Window*, void*);
   void cb_OK_i(Fl_Button*, void*);
   static void cb_OK(Fl_Button*, void*);
 public:
   Fl_Double_Window *Settingswindow;
+private:
+  void cb_Settingswindow_i(Fl_Double_Window*, void*);
+  static void cb_Settingswindow(Fl_Double_Window*, void*);
+public:
   Fl_Button *SClose;
 private:
   void cb_SClose_i(Fl_Button*, void*);
@@ -606,6 +612,10 @@ private:
   static void cb_Browse1(Fl_Button*, void*);
 public:
   Fl_Double_Window *HORBank;
+private:
+  void cb_HORBank_i(Fl_Double_Window*, void*);
+  static void cb_HORBank(Fl_Double_Window*, void*);
+public:
   Fl_Button *BClose;
 private:
   void cb_BClose_i(Fl_Button*, void*);

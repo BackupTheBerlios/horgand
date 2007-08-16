@@ -208,7 +208,11 @@ void HORGAN::cb_Redo(Fl_Menu_* o, void* v) {
 }
 
 void HORGAN::cb_MBank_i(Fl_Menu_*, void*) {
-  HORBank->position(HORwindow->x(),HORwindow->y());
+  int x,y;
+Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
+horgand.get("HORBank X",x,1);
+horgand.get("HORBank Y",y,1);
+HORBank->position(x,y);
 HORBank->show();
 Fl::focus(BClose);
 }
@@ -1369,15 +1373,29 @@ void HORGAN::cb_Mar10(Fl_Light_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Mar10_i(o,v);
 }
 
-void HORGAN::cb_OK_i(Fl_Button*, void*) {
+void HORGAN::cb_aboutwindow_i(Fl_Double_Window*, void*) {
   aboutwindow->hide();
+}
+void HORGAN::cb_aboutwindow(Fl_Double_Window* o, void* v) {
+  ((HORGAN*)(o->user_data()))->cb_aboutwindow_i(o,v);
+}
+
+void HORGAN::cb_OK_i(Fl_Button*, void*) {
+  aboutwindow->do_callback();
 }
 void HORGAN::cb_OK(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_OK_i(o,v);
 }
 
-void HORGAN::cb_SClose_i(Fl_Button*, void*) {
+void HORGAN::cb_Settingswindow_i(Fl_Double_Window*, void*) {
   Settingswindow->hide();
+}
+void HORGAN::cb_Settingswindow(Fl_Double_Window* o, void* v) {
+  ((HORGAN*)(o->user_data()))->cb_Settingswindow_i(o,v);
+}
+
+void HORGAN::cb_SClose_i(Fl_Button*, void*) {
+  Settingswindow->do_callback();
 }
 void HORGAN::cb_SClose(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_SClose_i(o,v);
@@ -1428,9 +1446,17 @@ void HORGAN::cb_Browse1(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Browse1_i(o,v);
 }
 
-void HORGAN::cb_BClose_i(Fl_Button*, void*) {
-  HORBank->hide();
+void HORGAN::cb_HORBank_i(Fl_Double_Window*, void*) {
+  Guarda_Pref(2);
+HORBank->hide();
 Fl::focus(PANICO);
+}
+void HORGAN::cb_HORBank(Fl_Double_Window* o, void* v) {
+  ((HORGAN*)(o->user_data()))->cb_HORBank_i(o,v);
+}
+
+void HORGAN::cb_BClose_i(Fl_Button*, void*) {
+  HORBank->do_callback();
 }
 void HORGAN::cb_BClose(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_BClose_i(o,v);
@@ -1462,8 +1488,7 @@ void HORGAN::cb_BSave(Fl_Menu_* o, void* v) {
 }
 
 void HORGAN::cb_Close_i(Fl_Menu_*, void*) {
-  HORBank->hide();
-Fl::focus(PANICO);
+  HORBank->do_callback();
 }
 void HORGAN::cb_Close(Fl_Menu_* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Close_i(o,v);
@@ -2118,22 +2143,7 @@ void HORGAN::cb_SBar(Fl_Counter* o, void* v) {
 }
 
 void HORGAN::cb_CloRit_i(Fl_Button*, void*) {
-  if((hor->Rt[hor->ae].bars < 1) || (hor->Rt[hor->ae].bars > 4))
-{
-fl_alert("Bars error.");
-return;
-}  
-
-if((hor->Rt[hor->ae].quarter_note < 2) || (hor->Rt[hor->ae].quarter_note > 4))
-{
-fl_alert("Nom. error");
-return;
-}  
-if (hor->file_ok == 1)
-{
-GetRit(hor->ae);
-}
-RitEdit->hide();
+  RitEdit->do_callback();
 }
 void HORGAN::cb_CloRit(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_CloRit_i(o,v);
@@ -3528,7 +3538,7 @@ Fl_Double_Window* HORGAN::make_window() {
   }
   { Fl_Double_Window* o = aboutwindow = new Fl_Double_Window(380, 300, gettext("About..."));
     w = o;
-    o->user_data((void*)(this));
+    o->callback((Fl_Callback*)cb_aboutwindow, (void*)(this));
     { Fl_Box* o = new Fl_Box(65, 5, 260, 40, gettext("Horgand"));
       o->labelfont(1);
       o->labelsize(24);
@@ -3555,7 +3565,7 @@ e version 2 of the \n GNU General Public License for details."));
   }
   { Fl_Double_Window* o = Settingswindow = new Fl_Double_Window(495, 310, gettext("Settings"));
     w = o;
-    o->user_data((void*)(this));
+    o->callback((Fl_Callback*)cb_Settingswindow, (void*)(this));
     new Fl_Box(5, 0, 151, 30, gettext("Midi Input to:"));
     { Fl_Button* o = SClose = new Fl_Button(350, 180, 120, 30, gettext("Close"));
       o->shortcut(0xff0d);
@@ -3608,7 +3618,7 @@ e version 2 of the \n GNU General Public License for details."));
   { Fl_Double_Window* o = HORBank = new Fl_Double_Window(710, 360, gettext("DXEmulator Bank"));
     w = o;
     o->tooltip(gettext("Right Click Get  - Left Click Put"));
-    o->user_data((void*)(this));
+    o->callback((Fl_Callback*)cb_HORBank, (void*)(this));
     { Fl_Button* o = BClose = new Fl_Button(275, 310, 145, 40, gettext("Close"));
       o->box(FL_PLASTIC_UP_BOX);
       o->shortcut(0xff0d);
@@ -4246,7 +4256,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->align(FL_ALIGN_LEFT);
       o->value(hor->pattern_bars);
     }
-    { Fl_Button* o = CloRit = new Fl_Button(165, 70, 80, 25, gettext("Ok"));
+    { Fl_Button* o = CloRit = new Fl_Button(130, 70, 80, 25, gettext("Ok"));
       o->shortcut(0xff0d);
       o->labeltype(FL_ENGRAVED_LABEL);
       o->callback((Fl_Callback*)cb_CloRit);
@@ -4560,49 +4570,49 @@ void HORGAN::ponreverb() {
 switch(hor->Reverb_Preset)
 {
 case 1:
-hor->Reverb_Time = 17;
+hor->Reverb_Time = 16;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.14;
 
 break;
 
 case 2:
-hor->Reverb_Time = 19;
+hor->Reverb_Time = 18;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.14;
 break;
 
 case 3:
-hor->Reverb_Time = 21;
+hor->Reverb_Time = 20;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 4:
-hor->Reverb_Time = 27;
+hor->Reverb_Time = 22;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 5:
-hor->Reverb_Time = 32;
+hor->Reverb_Time = 24;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 6:
-hor->Reverb_Time = 38;
+hor->Reverb_Time = 26;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 
 case 7:
-hor->Reverb_Time = 44;
+hor->Reverb_Time = 30;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 
 case 8:
-hor->Reverb_Time = 54;
+hor->Reverb_Time = 34;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
@@ -5054,5 +5064,13 @@ if (OSS->value() != 0) temp = strdup("OSS");
 if (Alsa->value() != 0) temp = strdup("Alsa");
 if (Jack->value() != 0) temp =strdup("Jack");
 horgand.set("Audio Out device",temp);
+}
+
+if (parte==2)
+{ 
+horgand.set("HORBank X",HORBank->x());
+horgand.set("HORBank Y",HORBank->y());
+horgand.set("HORBank W",HORBank->w());
+horgand.set("HORBank H",HORBank->h());
 }
 }
