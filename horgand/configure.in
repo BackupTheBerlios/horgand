@@ -50,6 +50,6 @@ AC_CHECK_HEADERS([fcntl.h libintl.h stdlib.h string.h sys/ioctl.h unistd.h])
 AC_CHECK_HEADER(alsa/asoundlib.h, true, AC_MSG_ERROR([Alsa is required]))
 CXXFLAGS="-O3 -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer -msse -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
 LIBS="`$FLTKCONFIG --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile`"
-AC_CONFIG_FILES([Makefile src/Makefile data/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile data/Makefile man/Makefile])
 AC_OUTPUT
 

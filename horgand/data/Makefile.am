@@ -1,5 +1,5 @@
 datadir = $(prefix)/share/${PACKAGE}
-data_DATA= Default.horeb \
+data_DATA = Default.horeb \
 	Rhythm_List.txt \
 	130_Houseloop_2.wav \
 	AcousticBass.wav \
@@ -9,3 +9,6 @@ data_DATA= Default.horeb \
 	FretlessBass.wav \
 	frog_loop01.wav \
 	funkyfeet1.wav
+
+EXTRA_DIST = $(data_DATA)
+ 

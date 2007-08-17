@@ -152,6 +152,7 @@ data_DATA = Default.horeb \
 	frog_loop01.wav \
 	funkyfeet1.wav
 
+EXTRA_DIST = $(data_DATA)
 all: all-am
 
 .SUFFIXES:
