@@ -6,6 +6,7 @@ horgand ChangeLog
 
 == v1.10 (  /08/2007) ==
 --------------------------------------------------------------------------------------------
+- Solve bug on Compare.
 - Adjust presets.
 - Small visual changes.
 - Each drawbar can be managed as percussion.

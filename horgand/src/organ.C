@@ -116,7 +116,7 @@ HOR::HOR()
   sustain = 0.8;
   release = 0.12;
   p_attack= 0.001;
-  p_decay = 0.20;
+  p_decay = 0.24;
   p_sustain=0.00;
   p_release=0.12;
   E_Delay_On = 0;
@@ -163,6 +163,8 @@ int tapsg[16]= {36,33,29,27,24,21,17,15,13,16,21,24,27,31,33,36};
 for (i=0; i<16; i++)
 
 {
+  a_combl[i]=0;
+  a_combr[i]=0;
   combl[i] = tcombl[i]/8;
   combr[i] = tcombr[i]/8;
   apsg[i] = tapsg[i];
@@ -797,7 +799,6 @@ for (j = 1; j<= 20; j++)
       Banco[j].modulation = 0;
       Banco[j].transpose = 0;
       Banco[j].Organ_Master_Volume = 0.70;
-      Banco[j].attack = attack;
       Banco[j].detune = 0;
       Banco[j].E_Chorus_On = 0;
       Banco[j].split = 0;
@@ -837,7 +838,6 @@ for (j = 1; j<= 20; j++)
       Undo[j].modulation = 0;
       Undo[j].transpose = 0;
       Undo[j].Organ_Master_Volume = 0.70;
-      Undo[j].attack = attack;
       Undo[j].detune = 0;
       Undo[j].E_Chorus_On = 0;
       Undo[j].split = 0;
@@ -878,7 +878,6 @@ for (j = 1; j<= 20; j++)
       Prim[j].modulation = 0;
       Prim[j].transpose = 0;
       Prim[j].Organ_Master_Volume = 0.70;
-      Prim[j].attack = attack;
       Prim[j].detune = 0;
       Prim[j].E_Chorus_On = 0;
       Prim[j].split = 0;
@@ -1288,8 +1287,7 @@ HOR::Alg1s (int nframes, void *)
      	    sound=0;
                        
             Envelope_Volume[l2] = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
-     	    Perc_Volume[l2] = 1.01 * Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
-     	    
+     	    Perc_Volume[l2] = Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
      	    LFO_Volume=Pitch_LFO(env_time[l2]);
      	   
              for(i = 1; i <= 10; i++)

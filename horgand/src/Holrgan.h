@@ -27,6 +27,7 @@
 #include <signal.h>
 #include <alsa/asoundlib.h>
 #include <sndfile.h>
+#include "../config.h"
 #define MPERIOD  128
 #define BUFSIZE 1024
 #define POLY 32
@@ -185,6 +186,8 @@ public:
   float Reverb_Volume;
   int combl[16];
   int combr[16];
+  int a_combl[16];
+  int a_combr[16];
   int apsg[16];
   float ready_apsg[16];
   int capsg;         

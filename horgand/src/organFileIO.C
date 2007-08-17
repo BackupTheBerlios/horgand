@@ -36,13 +36,9 @@ HOR::savefile (char *filename)
   fn = fopen (filename, "w");
   for (i = 1; i <= 10; i++)
     {
-
       bzero (buf, sizeof (buf));
       sprintf (buf, "%d,%f,%f,%d\n", Operator[i].harmonic,
 	       Operator[i].harmonic_fine,Operator[i].volumen,Operator[i].marimba);
-
-
-
       fputs (buf, fn);
     }
 
@@ -80,15 +76,10 @@ HOR::loadfile (char *filename)
 
   for (i = 1; i <= 10; i++)
     {
-
       bzero (buf, sizeof (buf));
       fgets (buf, sizeof buf, fn);
       sscanf (buf, "%d,%f,%f,%d", &Operator[i].harmonic,
 	      &Operator[i].harmonic_fine,&Operator[i].volumen,&Operator[i].marimba);
-
-
-
-
     }
 
   bzero (buf, sizeof (buf));
@@ -129,18 +120,13 @@ HOR::savebank (char *filename)
 
   for (j = 1; j <= 32; j++)
     {
-
-
       for (i = 1; i <= 10; i++)
 	{
-
 	  bzero (buf, sizeof (buf));
 	  sprintf (buf, "%d,%f,%f,%d\n",
 		   Banco[j].Operator[i].harmonic,
 		   Banco[j].Operator[i].harmonic_fine,
 		   Banco[j].Operator[i].volumen,Banco[j].Operator[i].marimba);
-
-
 	  fputs (buf, fn);
 	}
 

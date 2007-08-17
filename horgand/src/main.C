@@ -220,13 +220,15 @@ int main(int argc, char *argv[])
       }
       // If MIDI Program Change Message arrives change preset
 
-       if (preset != 0)
+       if (horUI->CPrograma->active())
+       {
+        if (preset != 0)
         {
-
  	  horUI->PutCombi (preset);
 	  preset = 0;
 	}
-
+          
+       } else preset = 0; 
          
  }
 

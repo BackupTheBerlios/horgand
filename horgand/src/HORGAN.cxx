@@ -261,9 +261,11 @@ CL->deactivate();
 MFile->deactivate();
 MBank->deactivate();
 MEdit->deactivate();
+CPrograma->deactivate();
 }
 else {
 CL->activate();
+CPrograma->activate();
 MFile->activate();
 MBank->activate();
 MEdit->activate();
@@ -290,10 +292,12 @@ CF->deactivate();
 MFile->deactivate();
 MBank->deactivate();
 MEdit->deactivate();
+CPrograma->deactivate();
 }
 else{
 
 CF->activate();
+CPrograma->activate();
 MFile->activate();
 MBank->activate();
 MEdit->activate();
@@ -4339,11 +4343,12 @@ e version 2 of the \n GNU General Public License for details."));
 }
 
 void HORGAN::metelo() {
-  Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
-char *temp;
+  char *temp;
 int val=1;
 float valf=0;
 int x,y,w,h;
+
+Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
 
 horgand.get("Audio Out device",temp,"");
 DMIN2->label(temp);
@@ -4565,7 +4570,9 @@ void HORGAN::tick(void *v) {
 }
 
 void HORGAN::ponreverb() {
-  hor->Clean_Buffer_Effects();
+  int j;
+
+hor->Clean_Buffer_Effects();
 
 switch(hor->Reverb_Preset)
 {
@@ -4617,6 +4624,12 @@ hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
 }
+
+for (j=0; j<16; j++)
+  {
+   hor->a_combl[j]=(hor->Reverb_Time * hor->combl[j]);
+   hor->a_combr[j]=(hor->Reverb_Time * hor->combr[j]);
+  }
 }
 
 void HORGAN::GetRit(int Selected_Rhythm) {

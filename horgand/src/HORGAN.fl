@@ -329,9 +329,11 @@ CL->deactivate();
 MFile->deactivate();
 MBank->deactivate();
 MEdit->deactivate();
+CPrograma->deactivate();
 }
 else {
 CL->activate();
+CPrograma->activate();
 MFile->activate();
 MBank->activate();
 MEdit->activate();
@@ -356,10 +358,12 @@ CF->deactivate();
 MFile->deactivate();
 MBank->deactivate();
 MEdit->deactivate();
+CPrograma->deactivate();
 }
 else{
 
 CF->activate();
+CPrograma->activate();
 MFile->activate();
 MBank->activate();
 MEdit->activate();
@@ -2090,11 +2094,12 @@ meteval();}
     }
   }
   Function {metelo()} {} {
-    code {Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
-char *temp;
+    code {char *temp;
 int val=1;
 float valf=0;
 int x,y,w,h;
+
+Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
 
 horgand.get("Audio Out device",temp,"");
 DMIN2->label(temp);
@@ -2315,7 +2320,9 @@ meteprog();} {}
     code {Fl::add_timeout(1.0 * 0.04,tick);} {}
   }
   Function {ponreverb()} {} {
-    code {hor->Clean_Buffer_Effects();
+    code {int j;
+
+hor->Clean_Buffer_Effects();
 
 switch(hor->Reverb_Preset)
 {
@@ -2366,7 +2373,13 @@ hor->Reverb_Time = 34;
 hor->Reverb_Volume = 0.65;
 hor->Reverb_Diffussion = 0.16;
 break;
-}} {selected
+}
+
+for (j=0; j<16; j++)
+  {
+   hor->a_combl[j]=(hor->Reverb_Time * hor->combl[j]);
+   hor->a_combr[j]=(hor->Reverb_Time * hor->combr[j]);
+  }} {selected
     }
   }
   Function {GetRit(int Selected_Rhythm)} {} {
