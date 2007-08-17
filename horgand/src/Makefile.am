@@ -1,9 +1,5 @@
 datadir = $(prefix)/share/${PACKAGE}
-helpdir = $(prefix)/share/doc/${PACKAGE}
-website = "horgand.berlios.de"
-package = "horgand"
-version = "1.10"
-DEFS =  -DHELPDIR=\"$(helpdir)\" -DDATADIR=\"$(datadir)\" -DWEBSITE=\"$(website)\"  @DEFS@
+DEFS = -DDATADIR=\"$(datadir)\" @DEFS@
 bin_PROGRAMS = horgand
 horgand_SOURCES = main.C \
         organ.C \

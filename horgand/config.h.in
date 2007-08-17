@@ -136,6 +136,9 @@
 /* Version number of package */
 #undef VERSION
 
+/* WEBSITE */
+#undef WEBSITE
+
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const
 
