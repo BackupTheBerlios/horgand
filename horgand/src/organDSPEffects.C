@@ -33,8 +33,7 @@ HOR::Chorus_LFO (float *Chorus_X)
 
   float out;
 
- 
-  *Chorus_X += Chorus_LFO_Speed * increment * 3.0;
+   *Chorus_X += Chorus_LFO_Speed * increment * 3.0;
 
   if (*Chorus_X > 1) *Chorus_X = 0;
 
@@ -83,8 +82,10 @@ HOR::Effect_Chorus()
       dell=(ldelay1*(uPERIOD-j)+ldelay*j)/uPERIOD;
       elkel=cl_counter-(int)dell;
       if (elkel<0) elkel +=8192;
+      if (elkel>=8192) elkel -=8192;
       elkel2=elkel-1;
       if (elkel2<0) elkel2 +=8192;
+      if (elkel2>=8192) elkel2 -=8192;
       dllo=1.0-fmod(dell,1.0);
       valorl=(dllo*cldelay[elkel])+(cldelay[elkel2]*(1-dllo));
       buf[i] +=valorl*chor_vol;
@@ -95,8 +96,10 @@ HOR::Effect_Chorus()
       dell=(rdelay1*(uPERIOD-j)+rdelay*j)/uPERIOD;
       elkel=cl_counter-(int)dell;
       if (elkel<0) elkel +=8192;
+      if (elkel>=8192) elkel -=8192;
       elkel2=elkel-1;
       if (elkel2<0) elkel2 +=8192;
+      if (elkel2>=8192) elkel2 -=8192;
       dllo=1.0-fmod(dell,1.0);
       valorl = (dllo*crdelay[elkel])+(crdelay[elkel2]*(1-dllo));
       buf[i+1] +=valorl*chor_vol;
@@ -146,7 +149,7 @@ HOR::Effect_Rotary ()
   for (i = 0; i <PERIOD; i +=2)
     {
 
-      a = Rotary_LFO (Rotary_X)*.5;
+      a = Rotary_LFO (Rotary_X)*.25;
 
       l =  buf[i];
       r =  buf[i + 1];

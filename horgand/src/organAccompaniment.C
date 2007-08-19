@@ -109,13 +109,9 @@ return(0);
 void
 HOR::Select_Bass(char *nombass)
 {
-
-   
    if (! (infileb = sf_open (nombass, SFM_READ, &sfinfob)))
         printf ("Not able to open input file %s.\n", nombass) ;
         
-      
-
 };
 
 
@@ -130,7 +126,6 @@ int i,j,readcounts,readcountr;
 int longi;
 
 memset (bbuf, 0, PERIOD4);
-
 
 longi  = (int) (length_bass_note * PERIOD * .5);
 
