@@ -27,7 +27,7 @@
 #include <signal.h>
 #include <alsa/asoundlib.h>
 #include <sndfile.h>
-#include "../config.h"
+#include "config.h"
 #define MPERIOD  128
 #define BUFSIZE 1024
 #define POLY 32

@@ -1,5 +1,8 @@
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
+/* DATADIR */
+#undef DATADIR
+
 /* Define to 1 if you have the `bzero' function. */
 #undef HAVE_BZERO
 
@@ -120,6 +123,9 @@
 
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
+
+/* Install prefix */
+#undef PREFIX
 
 /* Define to the type of arg 1 for `select'. */
 #undef SELECT_TYPE_ARG1

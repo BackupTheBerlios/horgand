@@ -2200,7 +2200,7 @@ am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'
 
 
 
-ac_config_headers="$ac_config_headers config.h"
+ac_config_headers="$ac_config_headers src/config.h"
 
 
 # Checks for programs.
@@ -6103,13 +6103,19 @@ _ACEOF
 fi
 
 
+if test "x$prefix" = "xNONE"; then
 
-
-cat >>confdefs.h <<\_ACEOF
-#define WEBSITE "horgand.berlios.de"
+cat >>confdefs.h <<_ACEOF
+#define PREFIX "/usr/local"
 _ACEOF
 
+else
 
+cat >>confdefs.h <<_ACEOF
+#define PREFIX "$prefix"
+_ACEOF
+
+fi
 
 { echo "$as_me:$LINENO: checking for ANSI C header files" >&5
 echo $ECHO_N "checking for ANSI C header files... $ECHO_C" >&6; }
@@ -6572,6 +6578,28 @@ else
 echo "$as_me: error: Alsa is required" >&2;}
    { (exit 1); exit 1; }; }
 fi
+
+
+
+
+if test "x$prefix" == "xNONE"; then
+prefix=/usr/local
+fi
+
+
+DATADIR="$prefix/share/${PACKAGE}"
+
+
+cat >>confdefs.h <<_ACEOF
+#define DATADIR "$DATADIR"
+_ACEOF
+
+
+cat >>confdefs.h <<\_ACEOF
+#define WEBSITE "horgand.berlios.de"
+_ACEOF
+
+
 
 
 CXXFLAGS="-O3 -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer -msse -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
@@ -7161,7 +7189,7 @@ cat >>$CONFIG_STATUS <<\_ACEOF
 for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
-    "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
+    "src/config.h") CONFIG_HEADERS="$CONFIG_HEADERS src/config.h" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;

@@ -1,5 +1,3 @@
-datadir = $(prefix)/share/${PACKAGE}
-DEFS = -DDATADIR=\"$(datadir)\" @DEFS@
 bin_PROGRAMS = horgand
 horgand_SOURCES = main.C \
         organ.C \
