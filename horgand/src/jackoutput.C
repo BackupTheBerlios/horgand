@@ -83,6 +83,8 @@ JACKstart(HOR *hor_)
                 "alsa_pcm:playback_2");
 
 
+  pthread_mutex_init (&jmutex, NULL);
+
 };
 
 

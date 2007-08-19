@@ -1221,7 +1221,7 @@ HOR::Get_Partial (int nota)
   float partial=0;
   float freq_note=0; 
   
-  l = note[nota] + transpose +12 ;
+  l = note[nota] + transpose + 12 ;
   freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
   partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if (partial > D_PI) partial=fmod(partial,D_PI);

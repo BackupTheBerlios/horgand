@@ -181,6 +181,7 @@ int main(int argc, char *argv[])
   // Launch MIDI thread
 
   pthread_mutex_init (&mutex, NULL);
+  pthread_mutex_init (&m_mutex, NULL);
 
   pthread_create (&thr1, NULL, thread1, NULL);
 
