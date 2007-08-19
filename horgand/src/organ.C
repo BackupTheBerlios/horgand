@@ -1162,7 +1162,7 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
           if (release>t)
           {
           Env = Envelope_Volume[nota] * (1.0 - t / release);
-          if (Env < 0.000015)
+          if (Env < 0.00015)
              {
                if (*note_active) *note_active=0;
                 env_time[nota] = 0;
@@ -1303,6 +1303,7 @@ HOR::Alg1s (int nframes, void *)
                      f[i].phi[l2] += f[i].dphi;
                      if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
                      sound += Env_Vol*Operator[i].con1*Fsin(f[i].phi[l2]);
+                  
                    }                
               }  
                 

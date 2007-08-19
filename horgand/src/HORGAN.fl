@@ -2379,8 +2379,7 @@ for (j=0; j<16; j++)
   {
    hor->a_combl[j]=(hor->Reverb_Time * hor->combl[j]);
    hor->a_combr[j]=(hor->Reverb_Time * hor->combr[j]);
-  }} {selected
-    }
+  }} {}
   }
   Function {GetRit(int Selected_Rhythm)} {} {
     code {int i;
@@ -2760,8 +2759,8 @@ hor->Calc_Chorus_LFO_Frequency();
 POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
-ponreverb();
-memset(hor->f,0,sizeof hor->f);} {}
+ponreverb();} {selected
+    }
   }
   Function {SetBassType(int type)} {return_type void
   } {

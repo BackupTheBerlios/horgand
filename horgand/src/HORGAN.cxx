@@ -5019,7 +5019,6 @@ POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
 ponreverb();
-memset(hor->f,0,sizeof hor->f);
 }
 
 void HORGAN::SetBassType(int type) {
