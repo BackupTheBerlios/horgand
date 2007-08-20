@@ -4524,7 +4524,8 @@ Banco32->label(hor->Banco[32].Name);
 }
 
 HORGAN::HORGAN(HOR *hor_) {
-  Fl::visual(FL_DOUBLE|FL_INDEX);
+  Fl::scheme("plastic");
+Fl::visual(FL_DOUBLE|FL_INDEX);
 Fl::visual(FL_RGB);
 hor=hor_;
 make_window();

@@ -125,6 +125,13 @@ public:
   float p_decay;
   float p_sustain;
   float p_release;
+  float u_attack;
+  float u_p_attack;
+  float u_decay;
+  float u_p_decay;
+  float u_release;
+  float u_p_release;
+  
   int PERIOD;
   unsigned int SAMPLE_RATE;
   int PERIOD2;

@@ -137,13 +137,19 @@ HOR::HOR()
 
   mastertune = 1;
   attack = 0.001;
+  u_attack = 1.0 /attack;
   decay = 0.20;
+  u_decay = 1.0 / decay;
   sustain = 0.8;
   release = 0.12;
+  u_release = 1.0 / release;
   p_attack= 0.001;
+  u_p_attack = 1.0 / attack;
   p_decay = 0.24;
+  u_p_decay = 1.0 / p_decay;
   p_sustain=0.00;
   p_release=0.12;
+  u_p_release = 1.0 / p_release;
   E_Delay_On = 0;
   Delay_Delay = 0;
   Delay_Volume = 0;
@@ -1158,10 +1164,10 @@ HOR::Penvelope (int *note_active, int gate, float t, int nota)
        if (gate)
        {    
        if (t > p_attack + p_decay )  return (p_sustain);
-       if (t > p_attack) return(1.0 - (1.0 - p_sustain) * (t - p_attack) / p_decay);
-       return(t / p_attack);
+       if (t > p_attack) return(1.0 - (1.0 - p_sustain) * (t - p_attack) * u_p_decay);
+       return(t * u_p_attack);
        }
-       else return Perc_Volume[nota] * ( 1.0 - t / p_release);
+       else return Perc_Volume[nota] * ( 1.0 - t * u_p_release);
 };
 
 
@@ -1175,9 +1181,9 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
     if (gate)
     {
        if (t > attack + decay )  return (sustain);
-       if (t > attack) return(1.0 - (1.0 - sustain) * (t - attack) / decay);
+       if (t > attack) return(1.0 - (1.0 - sustain) * (t - attack) * u_decay);
        
-       return(t / attack);
+       return(t * u_attack);
     }
   else
     {
@@ -1186,7 +1192,7 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
       {  
           if (release>t)
           {
-          Env = Envelope_Volume[nota] * (1.0 - t / release);
+          Env = Envelope_Volume[nota] * (1.0 - t * u_release);
           if (Env < 0.00015)
              {
                if (*note_active) *note_active=0;

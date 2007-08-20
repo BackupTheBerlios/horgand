@@ -149,7 +149,7 @@ HOR::Effect_Rotary ()
   for (i = 0; i <PERIOD; i +=2)
     {
 
-      a = Rotary_LFO (Rotary_X)*.25;
+      a = Rotary_LFO (Rotary_X)*.5;
 
       l =  buf[i];
       r =  buf[i + 1];
@@ -174,7 +174,7 @@ HOR::Effect_Reverb ()
   float efxoutr;
   float stmp; 
   int a_rperhis=rperhis;
-  float rev_vol = Reverb_Volume*.05;
+  float rev_vol = Reverb_Volume*.4;
    
     
   for (i = 0; i <PERIOD; i +=2)
@@ -195,10 +195,10 @@ HOR::Effect_Reverb ()
  
          stmp += Reverb_Diffussion*ready_apsg[capsg];
          if (++capsg >15) capsg =0;
-         efxoutl += (history[elke]+history[elke+2]+history[elke+4]+history[elke+6])*stmp;
+         efxoutl += history[elke]*stmp;
          stmp += Reverb_Diffussion*ready_apsg[capsg];
          if (++capsg >15) capsg =0;
-         efxoutr += (history[elke1]+history[elke1+2]+history[elke1+4]+history[elke1+6])*stmp;
+         efxoutr += history[elke1]*stmp;
          }
 
                  
