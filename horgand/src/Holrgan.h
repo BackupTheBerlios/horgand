@@ -147,7 +147,8 @@ public:
   float Perc_Volume[POLY];
   int  note_active[POLY];
   float  mastertune;
-  float lasfreq[64];
+  float lasfreq[24];
+  float Normalize[24];
   int E_Rotary_On;
   float  Master_Volume;
   float Organ_Master_Volume;

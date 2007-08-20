@@ -64,7 +64,7 @@ HOR::HOR()
 
 // FM Operator frequencys
 
-  lasfreq[1] = 0.5;
+  lasfreq[1] = 0.5; 
   lasfreq[2] = 0.75;
   lasfreq[3] = 1.0;
   lasfreq[4] = 1.5;
@@ -87,6 +87,31 @@ HOR::HOR()
   lasfreq[21] = 14.0;
   lasfreq[22] = 16.0;
 
+// Normalize volums
+
+  Normalize[1] = 1.0;
+  Normalize[2] = 1.0;
+  Normalize[3] = 1.0;
+  Normalize[4] = .06667;
+  Normalize[5] = .5;
+  Normalize[6] = .4;
+  Normalize[7] = .3;
+  Normalize[8] = .25;
+  Normalize[9] = .22;
+  Normalize[10] = .2;
+  Normalize[11] = .166;
+  Normalize[12] = .142;
+  Normalize[13] = .133;
+  Normalize[14] = .125;
+  Normalize[15] = .111;
+  Normalize[16] = .1;
+  Normalize[17] = 0.095;
+  Normalize[18] = 0.090;
+  Normalize[19] = 0.083;
+  Normalize[20] = 0.076;
+  Normalize[21] = 0.071;
+  Normalize[22] = .066;
+  
 
 
 // Init FM Operators 
@@ -1095,7 +1120,7 @@ return (lasfreq[Operator[i].harmonic] + Operator[i].harmonic_fine);
 void
 HOR::volume_Operator (int i, int l2)
 {
-  Operator[i].con1 = Operator[i].volumen * velocity[l2] / lasfreq[Operator[i].harmonic];
+  Operator[i].con1 = Operator[i].volumen * velocity[l2] * Normalize[Operator[i].harmonic];
   
 };
 
