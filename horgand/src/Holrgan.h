@@ -67,6 +67,7 @@ public:
   float Get_Keyb_Level_Scaling(int note);
   void midievents (int i);
   float pitch_Operator(int i, int note);      
+  float pitch_Operator2(int i, int note);      
   void volume_Operator(int i, int note);
   void Effect_Delay();
   void Effect_Reverb();
@@ -396,6 +397,9 @@ struct Todolo
   {   
     float phi[POLY];
     float dphi;
+    float phi2[POLY];
+    float dphi2; 
+
   } f[11];
   
 

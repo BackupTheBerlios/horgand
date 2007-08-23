@@ -7,7 +7,7 @@ horgand ChangeLog
 
 == v1.11 (  /09/2007) ==
 --------------------------------------------------------------------------------------------
-
+- Drawbars in stereo mode for better sound.
 - Presets adjusted.
 - Format files has changed.
 - Synthesizer parameters can be edited and stored for each preset.

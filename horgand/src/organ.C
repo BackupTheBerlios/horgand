@@ -1145,6 +1145,16 @@ HOR::pitch_Operator (int i, int note)
 return (lasfreq[Operator[i].harmonic] + Operator[i].harmonic_fine);
 }
 
+
+float
+HOR::pitch_Operator2 (int i, int note)
+{
+return (lasfreq[Operator[i].harmonic] - Operator[i].harmonic_fine);
+}
+
+
+
+
 // Returns The FM Operator Volume 
 
 void
@@ -1318,15 +1328,19 @@ HOR::Alg1s (int nframes, void *)
  pthread_mutex_lock(&mutex);
   int l1, l2, i;
   int put_eff=0;
-  float sound;
+  float sound,sound2;
   float Env_Vol=0;
   float m_partial;
   float p_op[11];
+  float p_op2[11];
   float organ_master = Organ_Master_Volume * .5;
 
   memset (buf, 0, PERIOD4);
  
-    for (i=1;i<=10;i++) p_op[i]=pitch_Operator (i, 0);
+    for (i=1;i<=10;i++)
+    { p_op[i]=pitch_Operator (i, 0);
+      p_op2[i]=pitch_Operator2(i,0);
+    }  
         
     for (l2 = 0; l2 < POLY; l2++)
     {
@@ -1340,6 +1354,7 @@ HOR::Alg1s (int nframes, void *)
           for (l1 = 0; l1 < PERIOD; l1 +=2)
           {
      	    sound=0;
+     	    sound2=0;
                        
             Envelope_Volume[l2] = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
      	    Perc_Volume[l2] = Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
@@ -1347,23 +1362,29 @@ HOR::Alg1s (int nframes, void *)
      	   
              for(i = 1; i <= 10; i++)
 	      {
-	        if (Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2];
-                     else Env_Vol=Perc_Volume[l2]; 
+	        if (Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2]*Operator[i].con1;
+                     else Env_Vol=Perc_Volume[l2]*Operator[i].con1; 
                    
 	      
-                if ((Operator[i].con1 > 0) && (Env_Vol > 0))
+                if (Env_Vol > 0)
                    { 
                      f[i].dphi = m_partial * (p_op[i] + LFO_Volume);
                      if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
                      f[i].phi[l2] += f[i].dphi;
                      if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
-                     sound += Env_Vol*Operator[i].con1*Fsin(f[i].phi[l2]);
-                  
+                    
+                     f[i].dphi2 = m_partial * (p_op2[i] + LFO_Volume);
+                     if (f[i].dphi2 > D_PI) f[i].dphi2 = fmod(f[i].dphi2,D_PI);
+                     f[i].phi2[l2] += f[i].dphi2;
+                     if (f[i].phi2[l2] > D_PI) f[i].phi2[l2]=fmod(f[i].phi2[l2],D_PI);
+                     
+                     sound += Env_Vol*Fsin(f[i].phi[l2]);
+                     sound2 +=Env_Vol*Fsin(f[i].phi2[l2]);                  
                    }                
               }  
                 
                 buf[l1] += sound * organ_master;
-                buf[l1+1] = buf[l1];
+                buf[l1+1] += sound2 * organ_master;
                 env_time[l2] +=increment;                
                       
            }
