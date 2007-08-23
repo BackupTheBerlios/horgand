@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0107 
+version 1.0108 
 i18n_type 1 
 i18n_include <libintl.h> 
 i18n_function gettext 
@@ -93,7 +93,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {219 303 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
+      xywh {1426 247 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -133,12 +133,12 @@ exit(0);}
         callback {hor->panic();}
         xywh {5 275 95 30} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labelsize 15 labelcolor 7
       }
-      Fl_Menu_Bar MenuPrincipal {
+      Fl_Menu_Bar MenuPrincipal {open
         xywh {0 0 1030 25} box THIN_UP_BOX
       } {
         Submenu MFile {
           label {&File}
-          callback {Fl::focus(PANICO);} open
+          callback {Fl::focus(PANICO);}
           xywh {0 0 100 20} labelsize 14
         } {
           MenuItem {} {
@@ -236,7 +236,31 @@ aboutwindow->show();}
           MenuItem {} {
             label {&Redo}
             callback {Redo();}
-            xywh {0 0 100 20} shortcut 0x40072 labelsize 14
+            xywh {0 0 100 20} shortcut 0x40072 labelsize 14 divider
+          }
+          MenuItem {} {
+            label {&Synthesizer}
+            callback {ADSRwin->hide();
+
+
+
+
+D_Freq->value(1);
+D_Freq_F->value(1);
+D_FFval->lstep(0.001);
+
+metesynth();
+
+Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
+
+int x,y;
+
+horgand.get("Synth X",x,1);
+horgand.get("Synth Y",y,1);
+
+ADSRwin->position(x,y);
+ADSRwin->show();}
+            xywh {0 0 100 20} shortcut 0x40073 labelsize 14
           }
         }
         MenuItem MBank {
@@ -374,7 +398,7 @@ if ( o->value() != 0 ) Undo(); else Redo();}
       }
       Fl_Slider VUI1 {
         callback {o->value(MidiInLevel);}
-        xywh {795 35 25 50} type {Vert Fill} color 30 selection_color 207 minimum 127 maximum 0 step 1
+        xywh {795 35 25 50} type {Vert Fill} color 30 selection_color 79 minimum 127 maximum 0 step 1
       }
       Fl_Box {} {
         label {MIDI IN}
@@ -521,6 +545,7 @@ Signal_for_Cb_Sliders = 0;
       Fl_Dial Detune {
         label Detune
         callback {hor->detune = (float) o->value();
+D_FFval->value(hor->Operator[(int)D_Freq_F->value()].harmonic_fine);
 int i;
 for (i=1; i<=10; i++)
 {
@@ -554,7 +579,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {115 245 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 100 step 0.01
+        xywh {115 245 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 200 step 1
         class Rueda
       }
       Fl_Dial PLFOSpeed {
@@ -2092,6 +2117,138 @@ meteval();}
         xywh {325 65 50 25} labeltype ENGRAVED_LABEL
       }
     }
+    Fl_Window ADSRwin {
+      label Synthesizer
+      callback {Guarda_Pref(3);
+o->hide();} selected
+      xywh {1536 200 380 210} type Double hide
+    } {
+      Fl_Box {} {
+        label Drawbar
+        xywh {1 1 140 78} box PLASTIC_UP_BOX color 32 labelsize 13 align 17
+      }
+      Fl_Dial D_attack {
+        label Attack
+        callback {hor->attack=o->value();
+hor->u_attack = 1.0 / hor->attack;
+ponvalor(o->value());
+if (Signal_for_Cb_Sliders == 1)
+{ 
+Actu();
+Signal_for_Cb_Sliders = 0;
+}}
+        xywh {10 27 35 35} labelsize 9 minimum 0.001 maximum 0.01 step 0.001 value 0.001
+        class Rueda
+      }
+      Fl_Dial D_decay {
+        label Decay
+        callback {hor->decay=o->value();
+hor->u_decay= 1.0 / hor->decay;
+ponvalor(o->value());
+if (Signal_for_Cb_Sliders == 1)
+{ 
+Actu();
+Signal_for_Cb_Sliders = 0;
+}}
+        xywh {50 27 35 35} labelsize 9 minimum 0.1 maximum 0.6 step 0.01 value 0.2
+        class Rueda
+      }
+      Fl_Dial D_sustain {
+        label Sustain
+        callback {hor->sustain=o->value();
+ponvalor(o->value());
+if (Signal_for_Cb_Sliders == 1)
+{ 
+Actu();
+Signal_for_Cb_Sliders = 0;
+}}
+        xywh {90 27 35 35} labelsize 9 maximum 0.99 step 0.01 value 0.8
+        class Rueda
+      }
+      Fl_Box {} {
+        label Percussion
+        xywh {135 1 95 81} box PLASTIC_UP_BOX color 32 labelsize 13 align 17
+      }
+      Fl_Dial D_p_attack {
+        label Attack
+        callback {hor->p_attack=o->value();
+hor->u_p_attack= 1.0 / hor->p_attack;
+ponvalor(o->value());
+if (Signal_for_Cb_Sliders == 1)
+{ 
+Actu();
+Signal_for_Cb_Sliders = 0;
+}}
+        xywh {145 25 35 35} labelsize 9 minimum 5e-05 maximum 0.0005 step 1e-05 value 0.0001
+        class Rueda
+      }
+      Fl_Dial D_p_decay {
+        label Decay
+        callback {hor->p_decay=o->value();
+hor->u_p_decay= 1.0 / hor->p_decay;
+ponvalor(o->value());
+if (Signal_for_Cb_Sliders == 1)
+{ 
+Actu();
+Signal_for_Cb_Sliders = 0;
+}}
+        xywh {185 25 35 35} labelsize 9 minimum 0.001 maximum 0.3 step 0.001 value 0.24
+        class Rueda
+      }
+      Fl_Box Saca {
+        xywh {0 75 230 32} box DOWN_BOX color 0 labelcolor 1
+      }
+      Fl_Box {} {
+        label Normalize
+        xywh {230 1 150 105} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
+      }
+      Fl_Counter D_Freq {
+        label Frequency
+        callback {D_Att->value(hor->Normalize[(int)o->value()]);
+
+char temp[32];
+bzero(temp,sizeof(temp));
+sprintf(temp,"Drawbar %.1f",hor->lasfreq[(int)o->value()]);
+Saca->copy_label(temp);}
+        xywh {240 30 70 25} type Simple labelsize 9 align 8 minimum 1 maximum 22 step 1 value 1
+      }
+      Fl_Counter D_Att {
+        label Attenuation
+        callback {hor->Normalize[(int) D_Freq->value()]=o->value();
+Actu();}
+        xywh {240 65 70 25} type Simple labelsize 9 align 8 when 4 minimum 0.001 maximum 1 step 0.01 value 1
+      }
+      Fl_Box {} {
+        label {Frequency Fine}
+        xywh {1 105 210 105} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
+      }
+      Fl_Counter D_Freq_F {
+        label Frequency
+        callback {D_FFval->value(hor->Operator[(int)o->value()].harmonic_fine);
+
+char temp[32];
+bzero(temp,sizeof(temp));
+sprintf(temp,"Drawbar %d",(int)o->value());
+Saca->copy_label(temp);}
+        xywh {45 135 70 25} type Simple labelsize 9 align 8 minimum 1 maximum 10 step 1 value 1
+      }
+      Fl_Counter D_FFval {
+        label {Freq. Fine}
+        callback {hor->Operator[(int) D_Freq_F->value()].harmonic_fine=o->value();
+Actu();}
+        xywh {10 170 145 25} labelsize 9 align 8 when 4 minimum -0.5 maximum 0.5 step 1e-05
+      }
+      Fl_Box {} {
+        label {Rotary Amplitude}
+        xywh {210 105 170 105} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
+      }
+      Fl_Counter D_Rot_Amp {
+        label Amplitude
+        callback {hor->Rotary_LFO_Amplitude=o->value();
+Actu();}
+        xywh {220 150 90 25} type Simple labelsize 9 align 8 when 4 minimum 100 maximum 30000 step 100 value 12800
+      }
+    }
   }
   Function {metelo()} {} {
     code {char *temp;
@@ -2293,8 +2450,7 @@ Actu();
 hor->PutPrim();
 meteritmos();
 HORwindow->show();
-Fl::add_timeout(1.0 * 0.04,tick);} {selected
-    }
+Fl::add_timeout(1.0 * 0.04,tick);} {}
   }
   decl {HOR *hor;} {}
   Function {Undo()} {} {
@@ -2761,7 +2917,9 @@ hor->Calc_Chorus_LFO_Frequency();
 POPO->value(hor->Chorus_Delay);
 ELFOSpeed->value(hor->Chorus_LFO_Speed);
 ChorVol->value(hor->Chorus_Volume * 100);
-ponreverb();} {}
+ponreverb();
+metesynth();
+hor->syncadsr();} {}
   }
   Function {SetBassType(int type)} {return_type void
   } {
@@ -2826,6 +2984,31 @@ horgand.set("HORBank X",HORBank->x());
 horgand.set("HORBank Y",HORBank->y());
 horgand.set("HORBank W",HORBank->w());
 horgand.set("HORBank H",HORBank->h());
+}
+
+if (parte==3)
+{
+horgand.set("Synth X",ADSRwin->x());
+horgand.set("Synth Y",ADSRwin->y());
+horgand.set("Synth W",ADSRwin->w());
+horgand.set("Synth H",ADSRwin->h());
 }} {}
+  }
+  Function {ponvalor(float a)} {} {
+    code {char temp[32];
+bzero(temp,sizeof(temp));
+sprintf(temp,"%f",a);
+Saca->copy_label(temp);} {}
+  }
+  Function {metesynth()} {} {
+    code {D_attack->value(hor->attack);
+D_decay->value(hor->decay);
+D_sustain->value(hor->sustain);
+D_p_attack->value(hor->p_attack);
+D_p_decay->value(hor->p_decay);
+D_Att->value(hor->Normalize[(int)D_Freq->value()]);
+D_FFval->value(hor->Operator[(int)D_Freq_F->value()].harmonic_fine);
+D_FFval->lstep(0.001);
+D_Rot_Amp->value(hor->Rotary_LFO_Amplitude);} {}
   }
 } 

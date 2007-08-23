@@ -104,7 +104,7 @@ public:
   void CloseAudio(int i);
   void Get_Combi_t(int i);
   void Put_Combi_t(int i);
-
+  void syncadsr();
 
   snd_seq_t *midi_in;
   
@@ -339,6 +339,7 @@ struct Todolo
 
    char Name[36];
 
+   float Normalize[24];
    float modulation;
    float Delay_Volume;
    float Pitch_LFO_Speed;
@@ -346,6 +347,10 @@ struct Todolo
    float Rotary_LFO_Speed;
    float LFOpitch;
    float attack;
+   float decay;
+   float sustain;
+   float p_attack;
+   float p_decay;
    float detune;
    float Organ_Master_Volume;
    float Delay_Delay;
@@ -353,6 +358,7 @@ struct Todolo
    float Chorus_LFO_Amplitude;
    float Chorus_LFO_Speed;
    float Chorus_Volume;
+   float Rotary_LFO_Amplitude;
    int E_Reverb_On;
    int transpose;
    int E_Rotary_On;

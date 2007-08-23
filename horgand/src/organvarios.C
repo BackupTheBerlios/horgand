@@ -265,6 +265,44 @@ HOR::New ()
   E_Reverb_On=0;
   bzero (Name, sizeof (Name));
   c_name = Name;
+  Normalize[1] = 1.0;
+  Normalize[2] = 1.0;
+  Normalize[3] = 1.0;
+  Normalize[4] = .06667;
+  Normalize[5] = .5;
+  Normalize[6] = .4;
+  Normalize[7] = .3;
+  Normalize[8] = .25;
+  Normalize[9] = .22;
+  Normalize[10] = .2;
+  Normalize[11] = .166;
+  Normalize[12] = .142;
+  Normalize[13] = .133;
+  Normalize[14] = .125;
+  Normalize[15] = .111;
+  Normalize[16] = .1;
+  Normalize[17] = 0.095;
+  Normalize[18] = 0.090;
+  Normalize[19] = 0.083;
+  Normalize[20] = 0.076;
+  Normalize[21] = 0.071;
+  Normalize[22] = .066;
+  attack = 0.001;
+  u_attack = 1.0 /attack;
+  decay = 0.20;
+  u_decay = 1.0 / decay;
+  sustain = 0.8;
+  p_attack= 0.0001;
+  u_p_attack = 1.0 / p_attack;
+  p_decay = 0.24;
+  u_p_decay = 1.0 / p_decay;
+  p_sustain=0.00;
+  p_release=0.12;
+  u_p_release = 1.0 / p_release;
+  Rotary_LFO_Amplitude = 12800;
+
+
+
 }
 
 
@@ -314,6 +352,15 @@ Chorus_LFO_Amplitude=Undo[UndoCount].Chorus_LFO_Amplitude;
 Chorus_Delay=Undo[UndoCount].Chorus_Delay;
 Chorus_LFO_Speed=Undo[UndoCount].Chorus_LFO_Speed;
 Chorus_Volume=Undo[UndoCount].Chorus_Volume;
+attack=Undo[UndoCount].attack;
+decay=Undo[UndoCount].decay;
+sustain=Undo[UndoCount].sustain;
+p_attack=Undo[UndoCount].p_attack;
+p_decay=Undo[UndoCount].p_decay;
+for (k=1;k<=22;k++) Normalize[k]=Undo[UndoCount].Normalize[k];
+Rotary_LFO_Amplitude=Undo[UndoCount].Rotary_LFO_Amplitude;
+
+
 
 };
 
@@ -373,6 +420,14 @@ Undo[UndoCount].Chorus_LFO_Amplitude=Chorus_LFO_Amplitude;
 Undo[UndoCount].Chorus_Delay=Chorus_Delay;
 Undo[UndoCount].Chorus_LFO_Speed=Chorus_LFO_Speed;
 Undo[UndoCount].Chorus_Volume=Chorus_Volume;
+Undo[UndoCount].attack=attack;
+Undo[UndoCount].decay=decay;
+Undo[UndoCount].sustain=sustain;
+Undo[UndoCount].p_attack=p_attack;
+Undo[UndoCount].p_decay=p_decay;
+for (k=0; k<=22; k++) Undo[UndoCount].Normalize[k]=Normalize[k];
+Undo[UndoCount].Rotary_LFO_Amplitude=Rotary_LFO_Amplitude;
+
 
 
 };
@@ -418,6 +473,17 @@ Prim[1].Chorus_LFO_Amplitude=Chorus_LFO_Amplitude;
 Prim[1].Chorus_Delay=Chorus_Delay;
 Prim[1].Chorus_LFO_Speed=Chorus_LFO_Speed;
 Prim[1].Chorus_Volume=Chorus_Volume;
+Prim[1].attack=attack;
+Prim[1].decay=decay;
+Prim[1].sustain=sustain;
+Prim[1].p_attack=p_attack;
+Prim[1].p_decay=p_decay;
+for (k=0; k<=22; k++) Prim[1].Normalize[k]=Normalize[k];
+Prim[1].Rotary_LFO_Amplitude=Rotary_LFO_Amplitude;
+
+
+
+
 };
 
 
@@ -460,6 +526,13 @@ Chorus_LFO_Amplitude=Prim[1].Chorus_LFO_Amplitude;
 Chorus_Delay=Prim[1].Chorus_Delay;
 Chorus_LFO_Speed=Prim[1].Chorus_LFO_Speed;
 Chorus_Volume=Prim[1].Chorus_Volume;
+attack=Prim[1].attack;
+decay=Prim[1].decay;
+sustain=Prim[1].sustain;
+p_attack=Prim[1].p_attack;
+p_decay=Prim[1].p_decay;
+for (k=1;k<=22;k++) Normalize[k]=Prim[1].Normalize[k];
+Rotary_LFO_Amplitude=Prim[1].Rotary_LFO_Amplitude;
 
 
 };
@@ -499,6 +572,16 @@ Banco[i].Chorus_LFO_Amplitude=Chorus_LFO_Amplitude;
 Banco[i].Chorus_Delay=Chorus_Delay;
 Banco[i].Chorus_LFO_Speed=Chorus_LFO_Speed;
 Banco[i].Chorus_Volume=Chorus_Volume;
+Banco[i].attack=attack;
+Banco[i].decay=decay;
+Banco[i].sustain=sustain;
+Banco[i].p_attack=p_attack;
+Banco[i].p_decay=p_decay;
+for (k=0; k<=22; k++) Banco[i].Normalize[k]=Normalize[k];
+Banco[i].Rotary_LFO_Amplitude=Rotary_LFO_Amplitude;
+
+
+
 };
 
 
@@ -537,9 +620,26 @@ Chorus_LFO_Amplitude=Banco[i].Chorus_LFO_Amplitude;
 Chorus_Delay=Banco[i].Chorus_Delay;
 Chorus_LFO_Speed=Banco[i].Chorus_LFO_Speed;
 Chorus_Volume=Banco[i].Chorus_Volume;
+attack=Banco[i].attack;
+decay=Banco[i].decay;
+sustain=Banco[i].sustain;
+p_attack=Banco[i].p_attack;
+p_decay=Banco[i].p_decay;
+for (k=1;k<=22;k++) Normalize[k]=Banco[i].Normalize[k];
+Rotary_LFO_Amplitude=Banco[i].Rotary_LFO_Amplitude;
 
 Prim[1] = Banco[i];
 
 };
 
+
+void
+HOR::syncadsr()
+{
+ u_attack = 1.0 /attack;
+ u_decay = 1.0 / decay;
+ u_p_attack = 1.0 / p_attack;
+ u_p_decay = 1.0 / p_decay;
+ 
+};
 

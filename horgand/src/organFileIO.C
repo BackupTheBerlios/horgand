@@ -56,6 +56,17 @@ HOR::savefile (char *filename)
 	   Chorus_LFO_Speed, Chorus_LFO_Amplitude, Chorus_Volume);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
+  sprintf (buf, "%f,%f,%f,%f,%f\n", decay, sustain, p_attack, p_decay,
+             Rotary_LFO_Amplitude);
+  fputs (buf, fn);
+  for (i = 1; i <= 22; i++)
+  {           
+  bzero (buf, sizeof (buf));
+  sprintf (buf, "%f\n",Normalize[i]);
+  fputs (buf, fn);
+  }
+
+  bzero (buf, sizeof (buf));
   fputs (c_name, fn);
   fputs ("\n", fn);
   fclose (fn);
@@ -98,6 +109,21 @@ HOR::loadfile (char *filename)
   sscanf
     (buf, "%d,%d,%f,%d,%f,%f,%f\n", &split, &E_Chorus_On, &Chorus_Delay, &Reverb_Preset,
      &Chorus_LFO_Speed, &Chorus_LFO_Amplitude, &Chorus_Volume);
+
+
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf (buf, "%f,%f,%f,%f,%f\n", &decay, &sustain, &p_attack, &p_decay,
+             &Rotary_LFO_Amplitude);
+  
+  for (i = 1; i <= 22; i++)
+  {           
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf (buf, "%f\n",&Normalize[i]);
+  
+  }
+
 
   bzero (buf, sizeof (buf));
   bzero (Name, sizeof (Name));
@@ -149,6 +175,17 @@ HOR::savebank (char *filename)
 	 Banco[j].Chorus_Delay, Banco[j].Reverb_Preset, Banco[j].Chorus_LFO_Speed,
 	 Banco[j].Chorus_LFO_Amplitude, Banco[j].Chorus_Volume);
       fputs (buf, fn);
+
+     bzero (buf, sizeof (buf));
+     sprintf (buf, "%f,%f,%f,%f,%f\n", Banco[j].decay, Banco[j].sustain, Banco[j].p_attack, Banco[j].p_decay,
+             Banco[j].Rotary_LFO_Amplitude);
+     fputs (buf, fn);
+     for (i = 1; i <= 22; i++)
+        {           
+          bzero (buf, sizeof (buf));
+          sprintf (buf, "%f\n",Banco[j].Normalize[i]);
+          fputs (buf, fn);
+        }
 
 
       bzero (buf, sizeof (buf));
@@ -211,6 +248,17 @@ HOR::loadbank (char *filename)
 	 &Banco[j].Chorus_Delay, &Banco[j].Reverb_Preset, &Banco[j].Chorus_LFO_Speed,
 	 &Banco[j].Chorus_LFO_Amplitude, &Banco[j].Chorus_Volume);
 
+
+     bzero (buf, sizeof (buf));
+     fgets (buf, sizeof buf, fn);
+     sscanf (buf, "%f,%f,%f,%f,%f\n", &Banco[j].decay, &Banco[j].sustain, &Banco[j].p_attack, &Banco[j].p_decay,
+             &Banco[j].Rotary_LFO_Amplitude);
+     for (i = 1; i <= 22; i++)
+        {           
+          bzero (buf, sizeof (buf));
+          fgets (buf, sizeof buf, fn);
+          sscanf (buf, "%f\n",&Banco[j].Normalize[i]);
+        }
 
 
 

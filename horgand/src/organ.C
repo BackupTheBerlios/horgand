@@ -143,8 +143,8 @@ HOR::HOR()
   sustain = 0.8;
   release = 0.12;
   u_release = 1.0 / release;
-  p_attack= 0.001;
-  u_p_attack = 1.0 / attack;
+  p_attack= 0.0001;
+  u_p_attack = 1.0 / p_attack;
   p_decay = 0.24;
   u_p_decay = 1.0 / p_decay;
   p_sustain=0.00;
@@ -839,7 +839,15 @@ for (j = 1; j<= 20; j++)
       Banco[j].Reverb_Preset = 1;
       Banco[j].E_Reverb_On = 0;
       Banco[j].Chorus_Volume = 0.60;
+      Banco[j].attack=attack;
+      Banco[j].decay=decay;
+      Banco[j].sustain=sustain;
+      Banco[j].p_attack=p_attack;
+      Banco[j].p_decay=p_decay;
+      
+      for(i=1;i<=22;i++) Banco[j].Normalize[i]=Normalize[i];
 
+      Banco[j].Rotary_LFO_Amplitude=Rotary_LFO_Amplitude;
 
     }
 
@@ -878,6 +886,14 @@ for (j = 1; j<= 20; j++)
       Undo[j].Reverb_Preset = 1;
       Undo[j].E_Reverb_On = 0;
       Undo[j].Chorus_Volume = 0.60;
+      Undo[j].attack=attack;
+      Undo[j].decay=decay;
+      Undo[j].sustain=sustain;
+      Undo[j].p_attack=p_attack;
+      Undo[j].p_decay=p_decay;
+                 
+      for(i=1;i<=22;i++) Undo[j].Normalize[i]=Normalize[i];
+                                    
 
 
     }
@@ -918,6 +934,14 @@ for (j = 1; j<= 20; j++)
       Prim[j].Reverb_Preset = 1;
       Prim[j].E_Reverb_On = 0;
       Prim[j].Chorus_Volume = 0.30;
+      Prim[j].attack=attack;
+      Prim[j].decay=decay;
+      Prim[j].sustain=sustain;
+      Prim[j].p_attack=p_attack;
+      Prim[j].p_decay=p_decay;
+
+      for(i=1;i<=22;i++) Prim[j].Normalize[i]=Normalize[i];
+
 
     }
 
