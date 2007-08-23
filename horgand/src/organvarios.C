@@ -268,7 +268,7 @@ HOR::New ()
   Normalize[1] = 1.0;
   Normalize[2] = 1.0;
   Normalize[3] = 1.0;
-  Normalize[4] = .06667;
+  Normalize[4] = .66;
   Normalize[5] = .5;
   Normalize[6] = .4;
   Normalize[7] = .3;
