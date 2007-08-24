@@ -721,6 +721,7 @@ void HORGAN::cb_ELFOAmplitude(Drawbar* o, void* v) {
 
 void HORGAN::cb_POPO_i(Drawbar* o, void*) {
   hor->Chorus_Delay = (float) o->value();
+
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -3772,7 +3773,7 @@ e version 2 of the \n GNU General Public License for details."));
   { HORBank = new Fl_Double_Window(710, 360, gettext("DXEmulator Bank"));
     HORBank->tooltip(gettext("Right Click Get  - Left Click Put"));
     HORBank->callback((Fl_Callback*)cb_HORBank, (void*)(this));
-    { BClose = new Fl_Button(275, 310, 145, 40, gettext("Close"));
+    { BClose = new Fl_Button(290, 310, 145, 40, gettext("Close"));
       BClose->box(FL_PLASTIC_UP_BOX);
       BClose->shortcut(0xff0d);
       BClose->labeltype(FL_ENGRAVED_LABEL);

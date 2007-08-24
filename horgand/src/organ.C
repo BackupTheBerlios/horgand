@@ -92,11 +92,11 @@ HOR::HOR()
   Normalize[1] = 1.0;
   Normalize[2] = 1.0;
   Normalize[3] = 1.0;
-  Normalize[4] = .66;
-  Normalize[5] = .5;
-  Normalize[6] = .4;
-  Normalize[7] = .3;
-  Normalize[8] = .25;
+  Normalize[4] = 1.0;
+  Normalize[5] = 1.0;
+  Normalize[6] = 1.0;
+  Normalize[7] = 1.0;
+  Normalize[8] = 1.0;
   Normalize[9] = .22;
   Normalize[10] = .2;
   Normalize[11] = .166;
@@ -1393,11 +1393,14 @@ HOR::Alg1s (int nframes, void *)
 
     }
      
+
+if (E_Chorus_On) Effect_Chorus();
+
+
 if (put_eff)
 {
 if (E_Rotary_On) Effect_Rotary();
 }
-if (E_Chorus_On) Effect_Chorus();
 if (E_Delay_On)  Effect_Delay();
 if (E_Reverb_On) Effect_Reverb();
 

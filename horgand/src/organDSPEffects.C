@@ -66,9 +66,10 @@ HOR::Effect_Chorus()
   float ldelay1,rdelay1,dell,valorl;
   int i,j;
   float chor_vol=Chorus_Volume*.5;
-  float ms=SAMPLE_RATE/1000.0*20.0;
+  float ms=(SAMPLE_RATE/1000.0)*20.0;
   float dllo;
   int uPERIOD=PERIOD/2;
+    
     
   for (i = 0; i < PERIOD; i +=2)
 

@@ -86,14 +86,15 @@ return 1;
   }
 } 
 
-class HORGAN {} {
+class HORGAN {open
+} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1426 247 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
+      xywh {1696 130 825 595} type Double color 50 labelcolor 208 resizable hotspot visible
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -518,7 +519,7 @@ if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
 Signal_for_Cb_Sliders = 0;
-}}
+}} selected
         xywh {415 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
@@ -714,6 +715,7 @@ Signal_for_Cb_Sliders = 0;
       Fl_Slider POPO {
         label S
         callback {hor->Chorus_Delay = (float) o->value();
+
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -1434,7 +1436,7 @@ Fl::focus(PANICO);}
       Fl_Button BClose {
         label Close
         callback {HORBank->do_callback();}
-        xywh {275 310 145 40} box PLASTIC_UP_BOX shortcut 0xff0d labeltype ENGRAVED_LABEL
+        xywh {290 310 145 40} box PLASTIC_UP_BOX shortcut 0xff0d labeltype ENGRAVED_LABEL
       }
       Fl_Menu_Bar {} {
         xywh {0 0 760 30}
@@ -2120,7 +2122,7 @@ meteval();}
     Fl_Window ADSRwin {
       label Synthesizer
       callback {Guarda_Pref(3);
-o->hide();} selected
+o->hide();}
       xywh {1536 200 380 210} type Double hide
     } {
       Fl_Box {} {
