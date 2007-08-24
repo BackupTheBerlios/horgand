@@ -37,7 +37,7 @@ HOR::Chorus_LFO (float *Chorus_X)
 
   if (*Chorus_X > 1) *Chorus_X = 0;
 
-  out=Fsin(*Chorus_X*D_PI ) * Chorus_LFO_Frequency;
+  out=Fsin(*Chorus_X*D_PI)*Chorus_LFO_Frequency;
   
   return (out);
   

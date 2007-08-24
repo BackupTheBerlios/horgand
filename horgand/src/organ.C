@@ -1186,6 +1186,7 @@ HOR::panic()
     {
       note_active[i] = 0;
       env_time[i] = 0;
+      gate[i]=0;
     }
 
 };
@@ -1270,7 +1271,7 @@ HOR::Pitch_LFO (float t)
 
   x = fmod(Pitch_LFO_Speed * t,1.0); 
 
-  out = Fsin (x * D_PI) * LFO_Frequency;
+  out = Fsin(x*D_PI) * LFO_Frequency;
      
   return (out);
 
@@ -1378,8 +1379,8 @@ HOR::Alg1s (int nframes, void *)
                      f[i].phi2[l2] += f[i].dphi2;
                      if (f[i].phi2[l2] > D_PI) f[i].phi2[l2]=fmod(f[i].phi2[l2],D_PI);
                      
-                     sound += Env_Vol*Fsin(f[i].phi[l2]);
-                     sound2 +=Env_Vol*Fsin(f[i].phi2[l2]);                  
+                     sound += Env_Vol*lsin[(int)(1000*f[i].phi[l2])];
+                     sound2 +=Env_Vol*lsin[(int)(1000*f[i].phi2[l2])];                  
                    }                
               }  
                 
