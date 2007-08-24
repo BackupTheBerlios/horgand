@@ -636,10 +636,14 @@ Prim[1] = Banco[i];
 void
 HOR::syncadsr()
 {
+
+ memset(f ,0, sizeof f);
+
  u_attack = 1.0 /attack;
  u_decay = 1.0 / decay;
  u_p_attack = 1.0 / p_attack;
  u_p_decay = 1.0 / p_decay;
+
  
 };
 
