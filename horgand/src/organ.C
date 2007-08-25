@@ -61,7 +61,6 @@ HOR::HOR()
   Ccin=0;
   Pcin=0;
 
-
 // FM Operator frequencys
 
   lasfreq[1] = 0.5; 

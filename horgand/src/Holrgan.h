@@ -133,6 +133,7 @@ public:
   float u_release;
   float u_p_release;
   
+
   int PERIOD;
   unsigned int SAMPLE_RATE;
   int PERIOD2;
