@@ -86,16 +86,14 @@ return 1;
   }
 } 
 
-class HORGAN {open
-} {
-  Function {make_window()} {open
-  } {
+class HORGAN {} {
+  Function {make_window()} {} {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1696 130 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
+      xywh {1696 130 825 595} type Double color 50 labelcolor 208 resizable hotspot visible
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -708,7 +706,7 @@ Signal_for_Cb_Sliders = 0;
         class Rueda
       }
       Fl_Slider ELFOAmplitude {
-        label D
+        label Amp
         callback {hor->Chorus_LFO_Amplitude = (float) o->value();
 hor->Calc_Chorus_LFO_Frequency();
 if (Signal_for_Cb_Sliders == 1)
@@ -720,15 +718,15 @@ Signal_for_Cb_Sliders = 0;
         class Drawbar
       }
       Fl_Slider POPO {
-        label S
+        label {Del.}
         callback {hor->Chorus_Delay = (float) o->value();
 
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
 Signal_for_Cb_Sliders = 0;
-}}
-        xywh {345 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 65 maximum 99 step 1
+}} selected
+        xywh {345 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 65 maximum 99 step 0.1
         class Drawbar
       }
       Fl_Counter ChorVol {
@@ -2130,7 +2128,7 @@ meteval();}
       label Synthesizer
       callback {Guarda_Pref(3);
 o->hide();}
-      xywh {1536 200 380 225} type Double visible
+      xywh {1536 200 380 225} type Double hide
     } {
       Fl_Box {} {
         label Drawbar
@@ -2263,7 +2261,7 @@ Actu();}
       }
       Fl_Counter D_O_Transpose {
         callback {hor->organ_transpose=(int)o->value();
-Actu();} selected
+Actu();}
         xywh {260 190 70 25} type Simple labelsize 9 align 8 when 4 minimum -36 maximum 24 step 1
       }
     }

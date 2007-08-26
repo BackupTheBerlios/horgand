@@ -2990,7 +2990,7 @@ Fl_Double_Window* HORGAN::make_window() {
       ELFOSpeed->align(FL_ALIGN_BOTTOM);
       ELFOSpeed->when(FL_WHEN_CHANGED);
     } // Rueda* ELFOSpeed
-    { ELFOAmplitude = new Drawbar(310, 115, 30, 90, gettext("D"));
+    { ELFOAmplitude = new Drawbar(310, 115, 30, 90, gettext("Amp"));
       ELFOAmplitude->type(4);
       ELFOAmplitude->box(FL_PLASTIC_DOWN_BOX);
       ELFOAmplitude->color((Fl_Color)24);
@@ -3005,7 +3005,7 @@ Fl_Double_Window* HORGAN::make_window() {
       ELFOAmplitude->align(65);
       ELFOAmplitude->when(FL_WHEN_CHANGED);
     } // Drawbar* ELFOAmplitude
-    { POPO = new Drawbar(345, 115, 30, 90, gettext("S"));
+    { POPO = new Drawbar(345, 115, 30, 90, gettext("Del."));
       POPO->type(4);
       POPO->box(FL_PLASTIC_DOWN_BOX);
       POPO->color((Fl_Color)24);
@@ -3015,7 +3015,7 @@ Fl_Double_Window* HORGAN::make_window() {
       POPO->labelsize(12);
       POPO->labelcolor((Fl_Color)4);
       POPO->maximum(99);
-      POPO->step(1);
+      POPO->step(0.1);
       POPO->callback((Fl_Callback*)cb_POPO);
       POPO->align(65);
       POPO->when(FL_WHEN_CHANGED);

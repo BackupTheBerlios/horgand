@@ -51,7 +51,7 @@ void
 HOR::Calc_Chorus_LFO_Frequency()
 
 {
-Chorus_LFO_Frequency = .5*modulation*Chorus_LFO_Amplitude;
+Chorus_LFO_Frequency = modulation*Chorus_LFO_Amplitude;
 
 };
 
@@ -62,13 +62,11 @@ HOR::Effect_Chorus()
 {
 
   int elkel,elkel2;
-  float ch_delay= Chorus_Delay * SAMPLE_RATE / 10000.0;
+  float ch_delay= Chorus_Delay*SAMPLE_RATE/10000.0*3.0;
   float ldelay1,rdelay1,dell,valorl;
   int i;
   float chor_vol=Chorus_Volume*.5;
-  float ms=SAMPLE_RATE/1000.0*20.0;
-  float maxdelay=SAMPLE_RATE/1000.0*30.0;
-  float mi;
+  float ms=SAMPLE_RATE/1000.0;
   float dllo;
     
     
@@ -79,12 +77,11 @@ HOR::Effect_Chorus()
       ldelay1=ldelay;
       rdelay1=rdelay;
 
-      mi=maxdelay/PERIOD*i;
-
       // L Channel
 
       ldelay=ms+ch_delay+Chorus_LFO(&Chorus_X_L);
-      dell=(ldelay1*(maxdelay-mi)+ldelay*mi)/maxdelay;
+
+      dell=(ldelay1*(PERIOD-i)+ldelay*i)/PERIOD;
       elkel=cl_counter-(int)dell;
       if (elkel<0) elkel +=8192;
       if (elkel>=8192) elkel -=8192;
@@ -100,7 +97,7 @@ HOR::Effect_Chorus()
       
       // R Channel
       rdelay=ms+ch_delay+Chorus_LFO(&Chorus_X_R);
-      dell=(rdelay1*(maxdelay-mi)+rdelay*mi)/maxdelay;
+      dell=(rdelay1*(PERIOD-i)+rdelay*i)/PERIOD;
       elkel=cl_counter-(int)dell;
       if (elkel<0) elkel +=8192;
       if (elkel>=8192) elkel -=8192;
