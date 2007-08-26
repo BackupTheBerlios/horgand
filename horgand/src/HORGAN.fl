@@ -86,15 +86,14 @@ return 1;
   }
 } 
 
-class HORGAN {open
-} {
+class HORGAN {} {
   Function {make_window()} {} {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1696 130 825 595} type Double color 50 labelcolor 208 resizable hotspot visible
+      xywh {1696 130 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -519,7 +518,7 @@ if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
 Signal_for_Cb_Sliders = 0;
-}} selected
+}}
         xywh {415 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
@@ -2123,7 +2122,7 @@ meteval();}
       label Synthesizer
       callback {Guarda_Pref(3);
 o->hide();}
-      xywh {1536 200 380 210} type Double hide
+      xywh {1536 200 380 225} type Double hide
     } {
       Fl_Box {} {
         label Drawbar
@@ -2222,7 +2221,7 @@ Actu();}
       }
       Fl_Box {} {
         label {Frequency Fine}
-        xywh {1 105 210 105} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
+        xywh {1 105 210 120} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
       }
       Fl_Counter D_Freq_F {
         label Frequency
@@ -2242,13 +2241,22 @@ Actu();}
       }
       Fl_Box {} {
         label {Rotary Amplitude}
-        xywh {210 105 170 105} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
+        xywh {210 105 170 60} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
       }
       Fl_Counter D_Rot_Amp {
         label Amplitude
         callback {hor->Rotary_LFO_Amplitude=o->value();
 Actu();}
-        xywh {220 150 90 25} type Simple labelsize 9 align 8 when 4 minimum 100 maximum 30000 step 100 value 12800
+        xywh {220 135 90 25} type Simple labelsize 9 align 8 when 4 minimum 100 maximum 30000 step 100 value 12800
+      }
+      Fl_Box {} {
+        label Transpose
+        xywh {210 165 170 60} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
+      }
+      Fl_Counter D_O_Transpose {
+        callback {hor->organ_transpose=(int)o->value();
+Actu();} selected
+        xywh {260 190 70 25} type Simple labelsize 9 align 8 when 4 minimum -24 maximum 24 step 1
       }
     }
   }
@@ -3011,6 +3019,7 @@ D_p_decay->value(hor->p_decay);
 D_Att->value(hor->Normalize[(int)D_Freq->value()]);
 D_FFval->value(hor->Operator[(int)D_Freq_F->value()].harmonic_fine);
 D_FFval->lstep(0.001);
-D_Rot_Amp->value(hor->Rotary_LFO_Amplitude);} {}
+D_Rot_Amp->value(hor->Rotary_LFO_Amplitude);
+D_O_Transpose->value(hor->organ_transpose);} {}
   }
 } 

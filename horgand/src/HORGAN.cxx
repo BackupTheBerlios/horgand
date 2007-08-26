@@ -2307,6 +2307,14 @@ void HORGAN::cb_D_Rot_Amp(Fl_Counter* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_D_Rot_Amp_i(o,v);
 }
 
+void HORGAN::cb_D_O_Transpose_i(Fl_Counter* o, void*) {
+  hor->organ_transpose=(int)o->value();
+Actu();
+}
+void HORGAN::cb_D_O_Transpose(Fl_Counter* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_D_O_Transpose_i(o,v);
+}
+
 Fl_Double_Window* HORGAN::make_window() {
   { HORwindow = new Fl_Double_Window(825, 595);
     HORwindow->color(FL_LIGHT1);
@@ -4488,7 +4496,7 @@ e version 2 of the \n GNU General Public License for details."));
     } // Fl_Box* o
     RitEdit->end();
   } // Fl_Double_Window* RitEdit
-  { ADSRwin = new Fl_Double_Window(380, 210, gettext("Synthesizer"));
+  { ADSRwin = new Fl_Double_Window(380, 225, gettext("Synthesizer"));
     ADSRwin->callback((Fl_Callback*)cb_ADSRwin, (void*)(this));
     { Fl_Box* o = new Fl_Box(1, 1, 140, 78, gettext("Drawbar"));
       o->box(FL_PLASTIC_UP_BOX);
@@ -4613,7 +4621,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Att->align(FL_ALIGN_RIGHT);
       D_Att->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_Att
-    { Fl_Box* o = new Fl_Box(1, 105, 210, 105, gettext("Frequency Fine"));
+    { Fl_Box* o = new Fl_Box(1, 105, 210, 120, gettext("Frequency Fine"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
@@ -4638,13 +4646,13 @@ e version 2 of the \n GNU General Public License for details."));
       D_FFval->align(FL_ALIGN_RIGHT);
       D_FFval->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_FFval
-    { Fl_Box* o = new Fl_Box(210, 105, 170, 105, gettext("Rotary Amplitude"));
+    { Fl_Box* o = new Fl_Box(210, 105, 170, 60, gettext("Rotary Amplitude"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { D_Rot_Amp = new Fl_Counter(220, 150, 90, 25, gettext("Amplitude"));
+    { D_Rot_Amp = new Fl_Counter(220, 135, 90, 25, gettext("Amplitude"));
       D_Rot_Amp->type(1);
       D_Rot_Amp->labelsize(9);
       D_Rot_Amp->minimum(100);
@@ -4655,6 +4663,22 @@ e version 2 of the \n GNU General Public License for details."));
       D_Rot_Amp->align(FL_ALIGN_RIGHT);
       D_Rot_Amp->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_Rot_Amp
+    { Fl_Box* o = new Fl_Box(210, 165, 170, 60, gettext("Transpose"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->color(FL_FOREGROUND_COLOR);
+      o->labelsize(13);
+      o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
+    } // Fl_Box* o
+    { D_O_Transpose = new Fl_Counter(260, 190, 70, 25);
+      D_O_Transpose->type(1);
+      D_O_Transpose->labelsize(9);
+      D_O_Transpose->minimum(-24);
+      D_O_Transpose->maximum(24);
+      D_O_Transpose->step(1);
+      D_O_Transpose->callback((Fl_Callback*)cb_D_O_Transpose);
+      D_O_Transpose->align(FL_ALIGN_RIGHT);
+      D_O_Transpose->when(FL_WHEN_RELEASE);
+    } // Fl_Counter* D_O_Transpose
     ADSRwin->end();
   } // Fl_Double_Window* ADSRwin
   return ADSRwin;
@@ -5433,4 +5457,5 @@ D_Att->value(hor->Normalize[(int)D_Freq->value()]);
 D_FFval->value(hor->Operator[(int)D_Freq_F->value()].harmonic_fine);
 D_FFval->lstep(0.001);
 D_Rot_Amp->value(hor->Rotary_LFO_Amplitude);
+D_O_Transpose->value(hor->organ_transpose);
 }

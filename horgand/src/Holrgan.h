@@ -133,7 +133,7 @@ public:
   float u_release;
   float u_p_release;
   
-
+  
   int PERIOD;
   unsigned int SAMPLE_RATE;
   int PERIOD2;
@@ -167,6 +167,7 @@ public:
   char Name[64];  
   int E_Delay_On;
   int transpose;
+  int organ_transpose;
   float Delay_Volume;
   float Delay_Delay;
   float Stereo_Side; 
@@ -362,7 +363,7 @@ struct Todolo
    float Chorus_Volume;
    float Rotary_LFO_Amplitude;
    int E_Reverb_On;
-   int transpose;
+   int organ_transpose;
    int E_Rotary_On;
    int E_Delay_On;
    int split;

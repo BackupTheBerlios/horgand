@@ -160,6 +160,7 @@ HOR::HOR()
   Keyb_Level_Scaling=1;
   modulation = .99;
   transpose = 0;
+  organ_transpose=0;
   pitch = 0;
   pedal = 0;
   UndoCount = 0;
@@ -827,7 +828,7 @@ for (j = 1; j<= 20; j++)
       Banco[j].LFOpitch = 0;
       Banco[j].E_Rotary_On = 0;
       Banco[j].modulation = 0;
-      Banco[j].transpose = 0;
+      Banco[j].organ_transpose = 0;
       Banco[j].Organ_Master_Volume = 0.70;
       Banco[j].detune = 0;
       Banco[j].E_Chorus_On = 0;
@@ -874,7 +875,7 @@ for (j = 1; j<= 20; j++)
       Undo[j].LFOpitch = 0;
       Undo[j].E_Rotary_On = 0;
       Undo[j].modulation = 0;
-      Undo[j].transpose = 0;
+      Undo[j].organ_transpose = 0;
       Undo[j].Organ_Master_Volume = 0.70;
       Undo[j].detune = 0;
       Undo[j].E_Chorus_On = 0;
@@ -922,7 +923,7 @@ for (j = 1; j<= 20; j++)
       Prim[j].LFOpitch = 0;
       Prim[j].E_Rotary_On = 0;
       Prim[j].modulation = 0;
-      Prim[j].transpose = 0;
+      Prim[j].organ_transpose = 0;
       Prim[j].Organ_Master_Volume = 0.70;
       Prim[j].detune = 0;
       Prim[j].E_Chorus_On = 0;
@@ -1227,7 +1228,7 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
           if (release>t)
           {
           Env = Envelope_Volume[nota] * (1.0 - t * u_release);
-          if (Env < 0.00015)
+          if (Env < 0.0015)
              {
                if (*note_active) *note_active=0;
                 env_time[nota] = 0;
@@ -1286,7 +1287,7 @@ HOR::Get_Partial (int nota)
   float partial=0;
   float freq_note=0; 
   
-  l = note[nota] + transpose + 12 ;
+  l = note[nota] + transpose + organ_transpose +12;
   freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
   partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if (partial > D_PI) partial=fmod(partial,D_PI);
@@ -1327,13 +1328,12 @@ HOR::Alg1s (int nframes, void *)
 
  pthread_mutex_lock(&mutex);
   int l1, l2, i;
-  int put_eff=0;
   float sound,sound2;
   float Env_Vol=0;
   float m_partial;
   float p_op[11];
   float p_op2[11];
-  float organ_master = Organ_Master_Volume * .5;
+  float organ_master = Organ_Master_Volume*.5;
 
   memset (buf, 0, PERIOD4);
  
@@ -1347,7 +1347,6 @@ HOR::Alg1s (int nframes, void *)
 
       if (note_active[l2])
 	{
-	  put_eff=1;
 	  m_partial=Get_Partial(l2);
           for (i=1;i<=10;i++) volume_Operator(i, l2);
         
@@ -1395,12 +1394,7 @@ HOR::Alg1s (int nframes, void *)
      
 
 if (E_Chorus_On) Effect_Chorus();
-
-
-if (put_eff)
-{
 if (E_Rotary_On) Effect_Rotary();
-}
 if (E_Delay_On)  Effect_Delay();
 if (E_Reverb_On) Effect_Reverb();
 

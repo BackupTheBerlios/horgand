@@ -1052,6 +1052,11 @@ private:
   void cb_D_Rot_Amp_i(Fl_Counter*, void*);
   static void cb_D_Rot_Amp(Fl_Counter*, void*);
 public:
+  Fl_Counter *D_O_Transpose;
+private:
+  void cb_D_O_Transpose_i(Fl_Counter*, void*);
+  static void cb_D_O_Transpose(Fl_Counter*, void*);
+public:
   void metelo();
   void GetCombi(int i);
   void PutCombi(int i);

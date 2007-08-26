@@ -44,7 +44,7 @@ HOR::savefile (char *filename)
 
   bzero (buf, sizeof (buf));
   sprintf (buf, "%f,%d,%f,%f,%f,%d,%f,%f\n",
-	   Organ_Master_Volume, transpose, Pitch_LFO_Speed, Pitch_LFO_Delay, Rotary_LFO_Speed, E_Rotary_On, LFOpitch,
+	   Organ_Master_Volume, organ_transpose, Pitch_LFO_Speed, Pitch_LFO_Delay, Rotary_LFO_Speed, E_Rotary_On, LFOpitch,
 	   modulation);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
@@ -96,7 +96,7 @@ HOR::loadfile (char *filename)
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf (buf,
-	  "%f,%d,%f,%f,%f,%d,%f,%f", &Organ_Master_Volume, &transpose, &Pitch_LFO_Speed,
+	  "%f,%d,%f,%f,%f,%d,%f,%f", &Organ_Master_Volume, &organ_transpose, &Pitch_LFO_Speed,
 	  &Pitch_LFO_Delay, &Rotary_LFO_Speed, &E_Rotary_On, &LFOpitch, &modulation);
 
   bzero (buf, sizeof (buf));
@@ -158,7 +158,7 @@ HOR::savebank (char *filename)
 
       bzero (buf, sizeof (buf));
       sprintf (buf, "%f,%d,%f,%f,%f,%d,%f,%f\n",
-	       Banco[j].Organ_Master_Volume, Banco[j].transpose, Banco[j].Pitch_LFO_Speed,
+	       Banco[j].Organ_Master_Volume, Banco[j].organ_transpose, Banco[j].Pitch_LFO_Speed,
 	       Banco[j].Pitch_LFO_Delay, Banco[j].Rotary_LFO_Speed, Banco[j].E_Rotary_On,
 	       Banco[j].LFOpitch, Banco[j].modulation);
 
@@ -230,7 +230,7 @@ HOR::loadbank (char *filename)
       fgets (buf, sizeof buf, fn);
       sscanf (buf,
 	      "%f,%d,%f,%f,%f,%d,%f,%f", &Banco[j].Organ_Master_Volume,
-	      &Banco[j].transpose, &Banco[j].Pitch_LFO_Speed, &Banco[j].Pitch_LFO_Delay,
+	      &Banco[j].organ_transpose, &Banco[j].Pitch_LFO_Speed, &Banco[j].Pitch_LFO_Delay,
 	      &Banco[j].Rotary_LFO_Speed, &Banco[j].E_Rotary_On, &Banco[j].LFOpitch,
 	      &Banco[j].modulation);
 
