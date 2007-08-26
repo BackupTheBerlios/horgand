@@ -512,9 +512,15 @@ void HORGAN::cb_Detune_i(Rueda* o, void*) {
   hor->detune = (float) o->value();
 D_FFval->value(hor->Operator[(int)D_Freq_F->value()].harmonic_fine);
 int i;
+float k;
 for (i=1; i<=10; i++)
 {
-hor->Operator[i].harmonic_fine = (float) ((o->value()) / ((16 -hor->Operator[i].harmonic) * i * 1000.0));
+
+k = (16 -hor->Operator[i].harmonic);
+if (k==0) k=1.0;
+
+hor->Operator[i].harmonic_fine = (float) ((o->value()) / (k * i * 1000.0));
+ 
 }
 if (Signal_for_Cb_Sliders == 1)
 { 
@@ -1436,7 +1442,7 @@ void HORGAN::cb_SClose(Fl_Button* o, void* v) {
 
 void HORGAN::cb_Save3_i(Fl_Button*, void*) {
   Guarda_Pref(1);
-fl_message("Changes will take effect the next time you restart the program");
+fl_message("Audio device changes will take effect the next time you restart the program");
 Settingswindow->hide();
 }
 void HORGAN::cb_Save3(Fl_Button* o, void* v) {
@@ -4672,7 +4678,7 @@ e version 2 of the \n GNU General Public License for details."));
     { D_O_Transpose = new Fl_Counter(260, 190, 70, 25);
       D_O_Transpose->type(1);
       D_O_Transpose->labelsize(9);
-      D_O_Transpose->minimum(-24);
+      D_O_Transpose->minimum(-36);
       D_O_Transpose->maximum(24);
       D_O_Transpose->step(1);
       D_O_Transpose->callback((Fl_Callback*)cb_D_O_Transpose);

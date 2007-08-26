@@ -86,8 +86,10 @@ return 1;
   }
 } 
 
-class HORGAN {} {
-  Function {make_window()} {} {
+class HORGAN {open
+} {
+  Function {make_window()} {open
+  } {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
@@ -547,9 +549,15 @@ Signal_for_Cb_Sliders = 0;
         callback {hor->detune = (float) o->value();
 D_FFval->value(hor->Operator[(int)D_Freq_F->value()].harmonic_fine);
 int i;
+float k;
 for (i=1; i<=10; i++)
 {
-hor->Operator[i].harmonic_fine = (float) ((o->value()) / ((16 -hor->Operator[i].harmonic) * i * 1000.0));
+
+k = (16 -hor->Operator[i].harmonic);
+if (k==0) k=1.0;
+
+hor->Operator[i].harmonic_fine = (float) ((o->value()) / (k * i * 1000.0));
+ 
 }
 if (Signal_for_Cb_Sliders == 1)
 { 
@@ -1366,7 +1374,7 @@ Signal_for_Cb_Sliders = 0;
       Fl_Button {} {
         label Save
         callback {Guarda_Pref(1);
-fl_message("Changes will take effect the next time you restart the program");
+fl_message("Audio device changes will take effect the next time you restart the program");
 Settingswindow->hide();}
         xywh {350 145 120 30}
       }
@@ -2122,7 +2130,7 @@ meteval();}
       label Synthesizer
       callback {Guarda_Pref(3);
 o->hide();}
-      xywh {1536 200 380 225} type Double hide
+      xywh {1536 200 380 225} type Double visible
     } {
       Fl_Box {} {
         label Drawbar
@@ -2256,7 +2264,7 @@ Actu();}
       Fl_Counter D_O_Transpose {
         callback {hor->organ_transpose=(int)o->value();
 Actu();} selected
-        xywh {260 190 70 25} type Simple labelsize 9 align 8 when 4 minimum -24 maximum 24 step 1
+        xywh {260 190 70 25} type Simple labelsize 9 align 8 when 4 minimum -36 maximum 24 step 1
       }
     }
   }
@@ -2794,7 +2802,8 @@ Rit18->value(0);
 Rit19->value(0);
 Rit20->value(0);} {}
   }
-  Function {meteprog()} {} {
+  Function {meteprog()} {open
+  } {
     code {OMaster->value(hor->Organ_Master_Volume * 100.0);
 RitVol->value(hor->Rhythm_Volume);
 BassVol->value(hor->Bass_Volume);

@@ -1142,7 +1142,7 @@ HOR::Adjust_Audio()
 float
 HOR::pitch_Operator (int i, int note)
 {
-return (lasfreq[Operator[i].harmonic] + Operator[i].harmonic_fine);
+return (lasfreq[Operator[i].harmonic]+Operator[i].harmonic_fine);
 }
 
 
@@ -1189,6 +1189,7 @@ HOR::panic()
       gate[i]=0;
     }
 
+  memset ( f, 0 ,sizeof f);  
 };
 
 
@@ -1287,7 +1288,7 @@ HOR::Get_Partial (int nota)
   float partial=0;
   float freq_note=0; 
   
-  l = note[nota] + transpose + organ_transpose +12;
+  l = note[nota] + transpose + organ_transpose + 12;
   freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
   partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if (partial > D_PI) partial=fmod(partial,D_PI);
@@ -1338,7 +1339,7 @@ HOR::Alg1s (int nframes, void *)
   memset (buf, 0, PERIOD4);
  
     for (i=1;i<=10;i++)
-    { p_op[i]=pitch_Operator (i, 0);
+    { p_op[i]=pitch_Operator(i,0);
       p_op2[i]=pitch_Operator2(i,0);
     }  
         
