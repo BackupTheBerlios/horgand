@@ -4662,7 +4662,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Rot_Amp->type(1);
       D_Rot_Amp->labelsize(9);
       D_Rot_Amp->minimum(100);
-      D_Rot_Amp->maximum(30000);
+      D_Rot_Amp->maximum(18000);
       D_Rot_Amp->step(100);
       D_Rot_Amp->value(12800);
       D_Rot_Amp->callback((Fl_Callback*)cb_D_Rot_Amp);
@@ -4750,6 +4750,7 @@ calbtune();
 
 horgand.get("Master Volume",valf,.7);
 Master->value((int)(valf*100));
+hor->Master_Volume=valf;
 
 horgand.get("HORwindow X",x,1);
 horgand.get("HORwindow Y",y,1);

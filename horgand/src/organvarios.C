@@ -299,7 +299,7 @@ HOR::New ()
   p_sustain=0.00;
   p_release=0.12;
   u_p_release = 1.0 / p_release;
-  Rotary_LFO_Amplitude = 12800;
+  Rotary_LFO_Amplitude = 9980;
 
 
 

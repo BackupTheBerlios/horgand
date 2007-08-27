@@ -101,8 +101,8 @@ HOR::midievents (int keIN)
 		  note[l1] = rnote[l1];
 		  LastMidiInLevel = MidiInLevel;
 		  MidiInLevel = midievent->data.note.velocity;
-		  velocity[l1] = midievent->data.note.velocity /128.0;
-		  velocity[l1] = Get_Keyb_Level_Scaling(l1);
+		  velocity[l1] = midievent->data.note.velocity /126.0;
+                  if (velocity[l1] > 1.0) velocity[l1]=1.0;
 		  if ((split) && (rnote[l1] < 60))
 		    {
                      

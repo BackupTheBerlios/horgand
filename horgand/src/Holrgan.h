@@ -64,7 +64,6 @@ public:
   void Calc_LFO_Frequency();
   void Calc_Chorus_LFO_Frequency();
   void Write_Buffer_Effects();
-  float Get_Keyb_Level_Scaling(int note);
   void midievents (int i);
   float pitch_Operator(int i, int note);      
   float pitch_Operator2(int i, int note);      

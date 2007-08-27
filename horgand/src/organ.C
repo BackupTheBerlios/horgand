@@ -156,7 +156,7 @@ HOR::HOR()
   Pitch_LFO_Speed = 0;
   Pitch_LFO_Delay = 0;
   LFOpitch = 0;
-  Rotary_LFO_Amplitude = 12800;
+  Rotary_LFO_Amplitude = 9980;
   Keyb_Level_Scaling=1;
   modulation = .99;
   transpose = 0;
@@ -976,15 +976,11 @@ for (j = 1; j<= 20; j++)
 
 
    float x_sin;
-
    for (i = 0; i < (int) sizesin; i++)
 
     {
       x_sin = (float) ( i * D_PI / sizesin);
       lsin[i] =sin (x_sin);
-      
-            
-      
       if( i > 0) lsin[i-1] = (lsin[i-1] *  ( 1.0 +  lsin[i] - lsin[i-1]));
       if( i > 1) lsin[i-2] = (lsin[i-2] *  ( 1.0 +  lsin[i-1] - lsin[i-2]));
       if( i > 2) lsin[i-3] = (lsin[i-3] *  ( 1.0 +  lsin[i-2] - lsin[i-3]));
@@ -1166,15 +1162,6 @@ HOR::volume_Operator (int i, int l2)
 
 
 
-// Return Keyboard Level Scaling (High Note ...less volume)
-
-float
-HOR::Get_Keyb_Level_Scaling(int nota)
-{
- return(velocity[nota] * (1 - ((note[nota]+transpose) / 120.0)));
-};
-
-
 // Turn Off all the sound
 
 
@@ -1329,20 +1316,25 @@ HOR::Alg1s (int nframes, void *)
 
  pthread_mutex_lock(&mutex);
   int l1, l2, i;
+  float total_vol=0;
   float sound,sound2;
   float Env_Vol=0;
   float m_partial;
   float p_op[11];
   float p_op2[11];
-  float organ_master = Organ_Master_Volume*.5;
+  float organ_master=Organ_Master_Volume*.1;
 
   memset (buf, 0, PERIOD4);
- 
+   
+  
     for (i=1;i<=10;i++)
     { p_op[i]=pitch_Operator(i,0);
       p_op2[i]=pitch_Operator2(i,0);
+      total_vol += Operator[i].volumen;
     }  
-        
+             
+    if (total_vol>0) organ_master=Organ_Master_Volume*(float)(1.0/total_vol);
+
     for (l2 = 0; l2 < POLY; l2++)
     {
 

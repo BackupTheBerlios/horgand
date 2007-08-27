@@ -725,7 +725,7 @@ if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
 Signal_for_Cb_Sliders = 0;
-}} selected
+}}
         xywh {345 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 65 maximum 99 step 0.1
         class Drawbar
       }
@@ -2253,7 +2253,7 @@ Actu();}
         label Amplitude
         callback {hor->Rotary_LFO_Amplitude=o->value();
 Actu();}
-        xywh {220 135 90 25} type Simple labelsize 9 align 8 when 4 minimum 100 maximum 30000 step 100 value 12800
+        xywh {220 135 90 25} type Simple labelsize 9 align 8 when 4 minimum 100 maximum 18000 step 100 value 12800
       }
       Fl_Box {} {
         label Transpose
@@ -2276,9 +2276,6 @@ Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
 
 horgand.get("Audio Out device",temp,"");
 DMIN2->label(temp);
-
-
-
 
 horgand.get("Rhythm Selected",val,2);
 Fl_Button *pepe;
@@ -2326,6 +2323,7 @@ calbtune();
 
 horgand.get("Master Volume",valf,.7);
 Master->value((int)(valf*100));
+hor->Master_Volume=valf;
 
 horgand.get("HORwindow X",x,1);
 horgand.get("HORwindow Y",y,1);
@@ -2339,7 +2337,7 @@ sprintf(tmp, "%2.1f", hor->lasfreq[(int) o->value()]);
 V1->label(tmp);
 Actu();
 Bass1->value(1);
-SetBassType(0);}
+SetBassType(0);} selected
     }
   }
   Function {GetCombi(int i)} {} {
@@ -2800,8 +2798,7 @@ Rit18->value(0);
 Rit19->value(0);
 Rit20->value(0);} {}
   }
-  Function {meteprog()} {open
-  } {
+  Function {meteprog()} {} {
     code {OMaster->value(hor->Organ_Master_Volume * 100.0);
 RitVol->value(hor->Rhythm_Volume);
 BassVol->value(hor->Bass_Volume);

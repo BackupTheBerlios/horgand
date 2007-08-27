@@ -208,14 +208,11 @@ HOR::loadbank (char *filename)
   FILE *fn;
   char buf[2048];
 
-  if ((fn = fopen (filename, "r")) == NULL)
-    return;
+  if ((fn = fopen (filename, "r")) == NULL) return;
   for (j = 1; j <= 32; j++)
     {
-
       for (i = 1; i <= 10; i++)
 	{
-
 	  bzero (buf, sizeof (buf));
 	  fgets (buf, sizeof buf, fn);
 
@@ -223,7 +220,6 @@ HOR::loadbank (char *filename)
 		  &Banco[j].Operator[i].harmonic,
 		  &Banco[j].Operator[i].harmonic_fine,
 		  &Banco[j].Operator[i].volumen,&Banco[j].Operator[i].marimba);
- 
 	}
 
       bzero (buf, sizeof (buf));
@@ -259,8 +255,6 @@ HOR::loadbank (char *filename)
           fgets (buf, sizeof buf, fn);
           sscanf (buf, "%f\n",&Banco[j].Normalize[i]);
         }
-
-
 
       bzero (buf, sizeof (buf));
       bzero (Banco[j].Name, sizeof (Banco[j].Name));
