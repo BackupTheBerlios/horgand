@@ -67,7 +67,7 @@ HOR::Effect_Chorus()
   int i;
   float chor_vol=Chorus_Volume*.5;
   float ms=SAMPLE_RATE/1000.0;
-  float maxdelay=SAMPLE_RATE/1000.0*271.0;
+  float maxdelay=8192.0;
   float dllo,mi;
     
     

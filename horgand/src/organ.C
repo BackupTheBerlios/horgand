@@ -1081,7 +1081,7 @@ if (val==0)
  bzero(orden,sizeof(orden));
  sprintf(orden,"%s","Alsa");
  horgand.set("Audio Out device",orden);
-                    
+ horgand.set("Preset",1);                    
 }
 
 
