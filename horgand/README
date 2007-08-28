@@ -1,15 +1,18 @@
-Horgand v1.09
+Horgand v1.11
 ---------------------
 
 Sorry for the english :-)
 
-Note about v1.09
+Note about v1.11
 ----------------
 
-This version is released because horgand will change a lot in the future
-thanks to Krzysztof Foltman <krzysztof@foltman.com> incorporation to the
-project, at least we have a DSP guru in the project and sure will we good. 
-New version will be complete rewrited, and promise a lot.
+Well the promised guru disappeared :-) , then I continue alone developping
+this package, anyway this is the first release that I'm relative happy with the organ
+sound.
+File format has changed, if you have v1.10 installed, please copy the
+Default.horeb bank file released with this version to the user horgand work
+directory located at $HOME/.horgand. 
+
 
 ------------------------------------------------------------------------
 
