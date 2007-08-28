@@ -34,6 +34,11 @@ HOR::savefile (char *filename)
   FILE *fn;
   char buf[2048];
   fn = fopen (filename, "w");
+
+  bzero(buf,sizeof(buf));
+  sprintf(buf,"%s\n",VERSION);
+  fputs(buf,fn);
+
   for (i = 1; i <= 10; i++)
     {
       bzero (buf, sizeof (buf));
@@ -81,8 +86,18 @@ HOR::loadfile (char *filename)
   FILE *fn;
   char buf[2048];
 
-  if ((fn = fopen (filename, "r")) == NULL)
-    return;
+  if ((fn = fopen (filename, "r")) == NULL) return;
+
+  
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+            
+  if ( strncmp(buf,"1.11",4) != 0)
+     {
+      printf("old file format\n");     
+      fclose(fn);
+      return;
+     } 
 
 
   for (i = 1; i <= 10; i++)
@@ -143,6 +158,10 @@ HOR::savebank (char *filename)
   FILE *fn;
   char buf[2048];
   fn = fopen (filename, "w");
+
+  bzero(buf,sizeof(buf));
+  sprintf(buf,"%s\n",VERSION);
+  fputs(buf,fn);
 
   for (j = 1; j <= 32; j++)
     {
@@ -209,6 +228,17 @@ HOR::loadbank (char *filename)
   char buf[2048];
 
   if ((fn = fopen (filename, "r")) == NULL) return;
+
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+            
+  if ( strncmp(buf,"1.11",4) != 0)
+     {
+      printf("old file format, please install the default bank file\n");     
+      fclose(fn);
+      return;
+     } 
+
   for (j = 1; j <= 32; j++)
     {
       for (i = 1; i <= 10; i++)
