@@ -19,12 +19,13 @@ fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
+AC_TYPE_SIZE_T
 
 # Checks for library functions.
 AC_PROG_GCC_TRADITIONAL
 AC_FUNC_MALLOC
 AC_FUNC_SELECT_ARGTYPES
-AC_CHECK_FUNCS([bzero floor memset select strdup strstr])
+AC_CHECK_FUNCS([bzero memset select strdup strstr])
 
 # Checks for libraries.
 AC_CHECK_LIB([Xft], [main])

@@ -9,9 +9,6 @@
 /* Define to 1 if you have the <fcntl.h> header file. */
 #undef HAVE_FCNTL_H
 
-/* Define to 1 if you have the `floor' function. */
-#undef HAVE_FLOOR
-
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
@@ -150,3 +147,6 @@
 
 /* Define to rpl_malloc if the replacement function should be used. */
 #undef malloc
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t

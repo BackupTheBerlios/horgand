@@ -7,12 +7,18 @@ horgand ChangeLog
 
 == v1.11 (  /09/2007) ==
 --------------------------------------------------------------------------------------------
+- 
+- Normalize volumes.
+- Removed Keyboard Level Scaling.
+- Prevent to load old format files.
+- Fixed Preset at first time bug.
+- Fixed Master Volume bug.
 - Added organ transpose.
-- Less clicks in Chorus
+- Adjust linear interpolation in chorus effect. 
 - Drawbars in stereo mode for better sound.
-- Presets adjusted.
-- Format files has changed.
-- Synthesizer parameters can be edited and stored for each preset.
+- Preset adjust.
+- Bank/Sound format file changed.
+- Synth engine parameters can be edited and stored for each preset.
 - More tremolo power.
 
 
