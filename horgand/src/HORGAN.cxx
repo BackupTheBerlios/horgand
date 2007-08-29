@@ -2220,6 +2220,7 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,".horeb");
 hor->loadbank(filename);
 metebanco();
+PutCombi(1);
 }
 void HORGAN::cb_BLoad(Fl_Menu_* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_BLoad_i(o,v);

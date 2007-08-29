@@ -1321,7 +1321,7 @@ Signal_for_Cb_Sliders = 0;
       callback {aboutwindow->hide();}
       xywh {1630 88 380 350} type Double box PLASTIC_DOWN_BOX color 32 hide
     } {
-      Fl_Box {} {selected
+      Fl_Box {} {
         image {horgand128.xpm} xywh {175 13 195 107} labelsize 18
       }
       Fl_Box {} {
@@ -1450,7 +1450,8 @@ filename=fl_file_chooser("Load:","(*.horeb)",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,".horeb");
 hor->loadbank(filename);
-metebanco()}
+metebanco();
+PutCombi(1);}
             xywh {0 0 100 20} labelsize 14
           }
           MenuItem BSave {
@@ -2468,7 +2469,8 @@ Banco28->label(hor->Banco[28].Name);
 Banco29->label(hor->Banco[29].Name);
 Banco30->label(hor->Banco[30].Name);
 Banco31->label(hor->Banco[31].Name);
-Banco32->label(hor->Banco[32].Name);} {}
+Banco32->label(hor->Banco[32].Name);} {selected
+    }
   }
   Function {Undo()} {} {
     code {hor->MUndo();
