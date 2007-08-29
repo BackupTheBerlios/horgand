@@ -6728,9 +6728,17 @@ _ACEOF
 
 
 
+SSE=$(cat /proc/cpuinfo | grep sse)
+
+if test -z "$SSE"; then
+SSE=""
+else
+SSE="-msse"
+fi
+
 LIBS="`$FLTKCONFIG --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile` -lXpm"
 
-CXXFLAGS="-O3 -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer -msse -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
+CXXFLAGS="-O3 -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer $SSE -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
 
 ac_config_files="$ac_config_files Makefile src/Makefile data/Makefile man/Makefile"
 

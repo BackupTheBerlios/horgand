@@ -174,7 +174,6 @@ int main(int argc, char *argv[])
       return (0);
     };
     
-  
     
   //Locks memory
 
@@ -215,7 +214,6 @@ int main(int argc, char *argv[])
   while (Pexitprogram == 0)
  { 
 
- 
       // Refresh GUI
      Fl::wait(0.01);
       

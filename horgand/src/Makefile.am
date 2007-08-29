@@ -11,5 +11,6 @@ horgand_SOURCES = main.C \
         HORGAN.cxx \
         Holrgan.h \
         jackoutput.h \
+        horgand128.xpm \
         HORGAN.h 
 

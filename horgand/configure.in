@@ -65,9 +65,17 @@ AC_DEFINE_UNQUOTED(DATADIR,"$DATADIR",[DATADIR])
 AC_DEFINE([WEBSITE],["horgand.berlios.de"],[WEBSITE])
 
 
+SSE=$(cat /proc/cpuinfo | grep sse) 
+
+if test -z "$SSE"; then 
+SSE=""
+else
+SSE="-msse"
+fi
+
 LIBS="`$FLTKCONFIG --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile` -lXpm"
 
-CXXFLAGS="-O3 -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer -msse -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
+CXXFLAGS="-O3 -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer $SSE -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
 
 AC_CONFIG_FILES([Makefile src/Makefile data/Makefile man/Makefile])
 AC_OUTPUT
