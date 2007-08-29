@@ -7,7 +7,8 @@ horgand ChangeLog
 
 == v1.11 (  /09/2007) ==
 --------------------------------------------------------------------------------------------
-- 
+- Added FLTK options on command line.
+- Added window icon. 
 - Normalize volumes.
 - Removed Keyboard Level Scaling.
 - Prevent to load old format files.

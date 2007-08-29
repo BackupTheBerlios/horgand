@@ -40,7 +40,7 @@ extern int Pexitprogram, UndoCount, preset,MidiInLevel,LastMidiInLevel,BarLead,c
 extern int Signal_for_Cb_Sliders,commandline;
 extern char NameChord[16];
 extern int Selected_Rhythm,exitwithhelp;
-extern Pixmap p,mask;
+
 
 class HOR
 {

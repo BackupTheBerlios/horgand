@@ -3,10 +3,10 @@
 #ifndef HORGAN_h
 #define HORGAN_h
 #include <FL/Fl.H>
+#include "Holrgan.h"
 #include <FL/x.H>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_Dial.H>
-#include "Holrgan.h"
 
 class Drawbar : public Fl_Slider {
 public:
@@ -36,6 +36,11 @@ public:
 #include <FL/Fl_Value_Input.H>
 
 class HORGAN {
+public:
+  Pixmap p,mask; 
+  XWMHints *hints; 
+private:
+  HOR *hor; 
 public:
   Fl_Double_Window* make_window();
   Fl_Double_Window *HORwindow;
@@ -1058,16 +1063,13 @@ private:
   void cb_D_O_Transpose_i(Fl_Counter*, void*);
   static void cb_D_O_Transpose(Fl_Counter*, void*);
 public:
+  HORGAN(int argc, char **argv,HOR *hor_);
   void metelo();
   void GetCombi(int i);
   void PutCombi(int i);
   void MiraClientes();
   void MiraConfig();
   void metebanco();
-  HORGAN(int argc, char **argv,HOR *hor_);
-private:
-  HOR *hor; 
-public:
   void Undo();
   void Actu();
   void Redo();
@@ -1087,5 +1089,6 @@ public:
   void Guarda_Pref(int parte);
   void ponvalor(float a);
   void metesynth();
+  void put_icon(Fl_Window* window);
 };
 #endif

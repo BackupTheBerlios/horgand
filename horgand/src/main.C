@@ -22,9 +22,6 @@
 */
 
 
-
-
-
 #include <getopt.h>
 #include <sched.h>
 #include <sys/mman.h>
@@ -36,7 +33,6 @@
 
 HOR hor;
 pthread_t thr1, thr2;
-
 
 
 // Put Kernel RT priority to a thread
@@ -157,9 +153,24 @@ int main(int argc, char *argv[])
       fprintf (stderr, "  -h ,     --help \t\t\t display command-line help and exit\n");
       fprintf (stderr, "  -l File, --load=File \t\t\t loads sound\n");
       fprintf (stderr, "  -b File, --bank=File \t\t\t loads bank\n");
-      fprintf (stderr, "  -r File, --rhyt=File \t\t\t loads rhythm\n");
-
-      fprintf (stderr, "\n\n");
+      fprintf (stderr, "  -r File, --rhyt=File \t\t\t loads rhythm\n\n");
+      fprintf (stderr, "FLTK options are:\n\n");
+      fprintf (stderr, "  -bg2 color\n");
+      fprintf (stderr, "  -bg color\n");
+      fprintf (stderr, "  -di[splay] host:n.n\n");
+      fprintf (stderr, "  -dn[d]\n");
+      fprintf (stderr, "  -fg color\n");
+      fprintf (stderr, "  -g[eometry] WxH+X+Y\n");
+      fprintf (stderr, "  -i[conic]\n");
+      fprintf (stderr, "  -k[bd]\n");
+      fprintf (stderr, "  -na[me] classname\n");
+      fprintf (stderr, "  -nod[nd]\n");
+      fprintf (stderr, "  -nok[bd]\n");
+      fprintf (stderr, "  -not[ooltips]\n");
+      fprintf (stderr, "  -s[cheme] scheme (pastic,none,gtk+)\n");
+      fprintf (stderr, "  -ti[tle] windowtitle\n");
+      fprintf (stderr, "  -to[oltips]\n");
+      fprintf (stderr, "\n");
       return (0);
     };
     

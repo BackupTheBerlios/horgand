@@ -9,19 +9,19 @@ decl {//Copyright (c) 2003-2004 Josep Andreu (Holborn)} {}
 
 decl {//License: GNU GPL version 2} {} 
 
+decl {\#include "Holrgan.h"} {public
+} 
+
 decl {\#include <FL/x.H>} {public global
 } 
+
+decl {\#include "horgand128.xpm"} {} 
 
 decl {\#include <FL/Fl_File_Chooser.H>} {public
 } 
 
 decl {\#include <FL/Fl_Dial.H>} {public
 } 
-
-decl {\#include "Holrgan.h"} {public
-} 
-
-decl {\#include <horgand128.xpm>} {} 
 
 class Drawbar {: {public Fl_Slider}
 } {
@@ -92,13 +92,18 @@ return 1;
 } 
 
 class HORGAN {} {
+  decl {Pixmap p,mask;} {public global
+  }
+  decl {XWMHints *hints;} {public global
+  }
+  decl {HOR *hor;} {}
   Function {make_window()} {} {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1445 142 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
+      xywh {409 139 825 595} type Double color 33 selection_color 47 hide resizable
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -220,7 +225,8 @@ hor->saverhyt(filename);}
           MenuItem {} {
             label {&About...}
             callback {aboutwindow->position(HORwindow->x()+200,HORwindow->y()+200);
-aboutwindow->show();}
+aboutwindow->show();
+put_icon(aboutwindow);}
             xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
@@ -264,7 +270,8 @@ horgand.get("Synth X",x,1);
 horgand.get("Synth Y",y,1);
 
 ADSRwin->position(x,y);
-ADSRwin->show();}
+ADSRwin->show();
+put_icon(ADSRwin);}
             xywh {0 0 100 20} shortcut 0x40073 labelsize 14
           }
         }
@@ -275,8 +282,8 @@ Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
 horgand.get("HORBank X",x,1);
 horgand.get("HORBank Y",y,1);
 HORBank->position(x,y);
-
 HORBank->show();
+put_icon(HORBank);
 Fl::focus(BClose);}
           xywh {0 0 100 20} shortcut 0x80062 labelsize 14
         }
@@ -286,6 +293,7 @@ Fl::focus(BClose);}
 MiraConfig();
 Settingswindow->position(HORwindow->x(),HORwindow->y());
 Settingswindow->show();
+put_icon(Settingswindow);
 Fl::focus(SClose);}
           xywh {0 0 100 20} shortcut 0x80073 labelsize 14
         }
@@ -1311,17 +1319,20 @@ Signal_for_Cb_Sliders = 0;
     Fl_Window aboutwindow {
       label {About...}
       callback {aboutwindow->hide();}
-      xywh {1630 117 380 300} type Double hide
+      xywh {1630 88 380 350} type Double box PLASTIC_DOWN_BOX color 32 hide
     } {
+      Fl_Box {} {selected
+        image {horgand128.xpm} xywh {175 13 195 107} labelsize 18
+      }
       Fl_Box {} {
         label Horgand
-        xywh {65 5 260 40} labelfont 1 labelsize 24 align 64
+        xywh {75 75 135 40} labelfont 1 labelsize 24 align 64
       }
       Fl_Box {} {
         label {Copyright (C) 2003-2007 by Josep Andreu
      (Holborn) 
       holborn@@telefonica.net }
-        xywh {15 45 345 70} labelfont 1 align 80
+        xywh {10 115 345 70} labelfont 1 labelcolor 18 align 80
       }
       Fl_Box {} {
         label {This is free software. you may redistribute and/or modify it under the terms of the version 2 of the GNU General Public License as published by the Free Software Fundation.
@@ -1329,12 +1340,12 @@ Signal_for_Cb_Sliders = 0;
  ABSOLUTE NO WARRANTY. 
  See the version 2 of the 
  GNU General Public License for details.}
-        xywh {20 115 340 130} labelfont 1 labelsize 11 align 210
+        xywh {20 165 340 130} labelfont 1 labelsize 11 align 210
       }
       Fl_Button {} {
         label OK
         callback {aboutwindow->do_callback();}
-        xywh {150 250 70 40} shortcut 0xff0d
+        xywh {160 300 65 40} shortcut 0xff0d
       }
     }
     Fl_Window Settingswindow {
@@ -2248,6 +2259,36 @@ Actu();}
       }
     }
   }
+  Function {HORGAN(int argc, char **argv,HOR *hor_)} {C
+  } {
+    code {Fl::scheme("gtk+");
+fl_open_display();
+XpmCreatePixmapFromData(fl_display, DefaultRootWindow(fl_display),(char **)horgand128,&p ,&mask, NULL);
+Fl::visual(FL_RGB);
+Fl::visual(FL_DOUBLE|FL_INDEX);
+
+hor=hor_;
+make_window();
+HORwindow->icon((char *)p);
+HORBank->icon((char *)p);
+RitEdit->icon((char *)p);
+ADSRwin->icon((char *)p);
+aboutwindow->icon((char *)p);
+Settingswindow->icon((char *)p);
+char tmp[64];
+sprintf(tmp,"%s v%s",PACKAGE,VERSION); 
+HORwindow->copy_label(tmp);
+Fl::focus(PANICO);
+metebanco();
+metelo();
+Actu();
+hor->PutPrim();
+meteritmos();
+Fl::background(163,163,163);
+HORwindow->show(argc,argv);
+put_icon(HORwindow);
+Fl::add_timeout(1.0 * 0.04,tick);} {}
+  }
   Function {metelo()} {} {
     code {char *temp;
 int val=1;
@@ -2429,35 +2470,6 @@ Banco30->label(hor->Banco[30].Name);
 Banco31->label(hor->Banco[31].Name);
 Banco32->label(hor->Banco[32].Name);} {}
   }
-  Function {HORGAN(int argc, char **argv,HOR *hor_)} {C
-  } {
-    code {Fl::scheme("plastic");
-fl_open_display();
-XpmCreatePixmapFromData(fl_display, DefaultRootWindow(fl_display),(char **)horgand128,&p ,&mask, NULL);
-Fl::visual(FL_DOUBLE|FL_INDEX);
-Fl::visual(FL_RGB);
-hor=hor_;
-make_window();
-HORwindow->icon((char *)p);
-HORBank->icon((char *)p);
-RitEdit->icon((char *)p);
-ADSRwin->icon((char *)p);
-aboutwindow->icon((char *)p);
-Settingswindow->icon((char *)p);
-char tmp[64];
-sprintf(tmp,"%s v%s",PACKAGE,VERSION); 
-HORwindow->copy_label(tmp);
-Fl::focus(PANICO);
-metebanco();
-metelo();
-Actu();
-hor->PutPrim();
-meteritmos();
-HORwindow->show(argc,argv);
-Fl::add_timeout(1.0 * 0.04,tick);} {selected
-    }
-  }
-  decl {HOR *hor;} {}
   Function {Undo()} {} {
     code {hor->MUndo();
 meteprog();} {}
@@ -2648,6 +2660,7 @@ sprintf(temp,"%s - Bass Line Editor",hor->Rt[i].Nom);
 RitEdit->label(temp);
 RitEdit->position(HORwindow->x(),HORwindow->y()+40);
 RitEdit->show();
+put_icon(RitEdit);
 Fl::focus(CloRit);} {}
   }
   Function {QuitaPon()} {} {
@@ -3017,5 +3030,14 @@ D_FFval->lstep(0.001);
 D_Rot_Amp->value(hor->Rotary_LFO_Amplitude);
 D_O_Transpose->value(hor->organ_transpose);
 D_Freq_F->do_callback();} {}
+  }
+  Function {put_icon(Fl_Window* window)} {} {
+    code {if (hints == NULL)
+hints = XGetWMHints(fl_display, fl_xid(window));
+
+hints->icon_pixmap=p;
+hints->icon_mask=mask; 
+hints->flags = IconPixmapHint | IconMaskHint;
+XSetWMHints(fl_display, fl_xid(window), hints);} {}
   }
 } 

@@ -104,7 +104,7 @@ Horgand has a velocity metter, you can see your midi input events.
 
 How to add more loops? 
 ----------------------
-Put your loops in  installed prefix /share/horgand and after you can edit your bass line
+Put your loops in  the user work directory and after you can edit your bass line
 pressing right click inside an empy pattern. Sorry but is responsability of
 the user to put the correrct numbers of bars and nominator for the loop. A
 mistake on this can produce unexpected results.
