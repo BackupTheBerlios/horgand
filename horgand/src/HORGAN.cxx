@@ -4,6 +4,7 @@
 #include "HORGAN.h"
 //Copyright (c) 2003-2004 Josep Andreu (Holborn)
 //License: GNU GPL version 2
+#include <horgand128.xpm>
 
 Drawbar::Drawbar(int x,int y, int w, int h, const char *label):Fl_Slider(x,y,w,h,label) {
 }
@@ -239,6 +240,7 @@ Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
 horgand.get("HORBank X",x,1);
 horgand.get("HORBank Y",y,1);
 HORBank->position(x,y);
+
 HORBank->show();
 Fl::focus(BClose);
 }
@@ -2430,9 +2432,6 @@ Fl_Double_Window* HORGAN::make_window() {
     { Fl_Box* o = new Fl_Box(115, 244, 46, 46);
       o->box(FL_OVAL_FRAME);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(180, 169, 46, 31);
-      o->box(FL_DOWN_FRAME);
-    } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(305, 115, 31, 90);
       o->box(FL_DOWN_FRAME);
     } // Fl_Box* o
@@ -2459,9 +2458,6 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)208);
       o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(180, 204, 46, 31);
-      o->box(FL_DOWN_FRAME);
-    } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(385, 240, 75, 15, gettext("Master Tune"));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
@@ -2474,7 +2470,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)208);
       o->align(192|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(385, 275, 75, 15, gettext("Transpose"));
+    { Fl_Box* o = new Fl_Box(385, 273, 75, 15, gettext("Transpose"));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
@@ -2483,10 +2479,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { Fl_Box* o = new Fl_Box(240, 139, 46, 46);
       o->box(FL_OVAL_FRAME);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(240, 99, 46, 31);
-      o->box(FL_DOWN_FRAME);
-    } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(315, 275, 50, 15, gettext("Volume"));
+    { Fl_Box* o = new Fl_Box(315, 273, 50, 15, gettext("Volume"));
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
@@ -2494,9 +2487,6 @@ Fl_Double_Window* HORGAN::make_window() {
     } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(655, 525, 46, 45);
       o->box(FL_OVAL_FRAME);
-    } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(240, 244, 46, 31);
-      o->box(FL_DOWN_FRAME);
     } // Fl_Box* o
     { CF = new Fl_Light_Button(5, 235, 95, 40, gettext("Compare First"));
       CF->box(FL_PLASTIC_UP_BOX);
@@ -2823,7 +2813,7 @@ Fl_Double_Window* HORGAN::make_window() {
       EchoVol->callback((Fl_Callback*)cb_EchoVol);
       EchoVol->when(FL_WHEN_RELEASE);
     } // Fl_Counter* EchoVol
-    { EchoDelay = new Fl_Counter(310, 250, 65, 25);
+    { EchoDelay = new Fl_Counter(310, 255, 65, 20);
       EchoDelay->type(1);
       EchoDelay->labelcolor((Fl_Color)208);
       EchoDelay->minimum(0);
@@ -2832,9 +2822,6 @@ Fl_Double_Window* HORGAN::make_window() {
       EchoDelay->callback((Fl_Callback*)cb_EchoDelay);
       EchoDelay->when(FL_WHEN_RELEASE);
     } // Fl_Counter* EchoDelay
-    { Fl_Box* o = new Fl_Box(650, 464, 52, 36);
-      o->box(FL_DOWN_FRAME);
-    } // Fl_Box* o
     { H1 = new Fl_Slider(2, 563, 55, 25);
       H1->type(5);
       H1->box(FL_PLASTIC_DOWN_BOX);
@@ -3149,10 +3136,6 @@ Fl_Double_Window* HORGAN::make_window() {
       } // Fl_Button* R8
       o->end();
     } // Fl_Group* o
-    { Fl_Box* o = new Fl_Box(400, 99, 46, 31);
-      o->box(FL_DOWN_FRAME);
-      o->align(FL_ALIGN_CLIP);
-    } // Fl_Box* o
     { Rev = new Fl_Button(395, 100, 55, 30, gettext("Reverb"));
       Rev->type(1);
       Rev->box(FL_PLASTIC_UP_BOX);
@@ -3211,9 +3194,6 @@ Fl_Double_Window* HORGAN::make_window() {
       RitOn->callback((Fl_Callback*)cb_RitOn);
       RitOn->align(FL_ALIGN_CLIP);
     } // Fl_Button* RitOn
-    { Fl_Box* o = new Fl_Box(650, 424, 51, 36);
-      o->box(FL_DOWN_FRAME);
-    } // Fl_Box* o
     { StStRiton = new Fl_Button(650, 425, 50, 35, gettext("Start/Stop"));
       StStRiton->type(1);
       StStRiton->box(FL_PLASTIC_UP_BOX);
@@ -3470,10 +3450,7 @@ Fl_Double_Window* HORGAN::make_window() {
       BassVol->callback((Fl_Callback*)cb_BassVol);
       BassVol->align(194);
     } // Fl_Slider* BassVol
-    { Fl_Box* o = new Fl_Box(765, 424, 51, 36);
-      o->box(FL_DOWN_FRAME);
-    } // Fl_Box* o
-    { Basson = new Fl_Button(765, 425, 50, 35, gettext("Bass"));
+    { Basson = new Fl_Button(755, 425, 50, 35, gettext("Bass"));
       Basson->type(1);
       Basson->box(FL_PLASTIC_UP_BOX);
       Basson->color((Fl_Color)31);
@@ -3784,7 +3761,7 @@ e version 2 of the \n GNU General Public License for details."));
     } // Fl_Button* o
     Settingswindow->end();
   } // Fl_Double_Window* Settingswindow
-  { HORBank = new Fl_Double_Window(710, 360, gettext("DXEmulator Bank"));
+  { HORBank = new Fl_Double_Window(710, 360, gettext("horgand Bank"));
     HORBank->tooltip(gettext("Right Click Get  - Left Click Put"));
     HORBank->callback((Fl_Callback*)cb_HORBank, (void*)(this));
     { BClose = new Fl_Button(290, 310, 145, 40, gettext("Close"));
@@ -4701,9 +4678,6 @@ Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
 horgand.get("Audio Out device",temp,"");
 DMIN2->label(temp);
 
-
-
-
 horgand.get("Rhythm Selected",val,2);
 Fl_Button *pepe;
 pepe = (Fl_Button*) RitButtons->child(val-1);
@@ -4872,12 +4846,20 @@ Banco31->label(hor->Banco[31].Name);
 Banco32->label(hor->Banco[32].Name);
 }
 
-HORGAN::HORGAN(HOR *hor_) {
+HORGAN::HORGAN(int argc, char **argv,HOR *hor_) {
   Fl::scheme("plastic");
+fl_open_display();
+XpmCreatePixmapFromData(fl_display, DefaultRootWindow(fl_display),(char **)horgand128,&p ,&mask, NULL);
 Fl::visual(FL_DOUBLE|FL_INDEX);
 Fl::visual(FL_RGB);
 hor=hor_;
 make_window();
+HORwindow->icon((char *)p);
+HORBank->icon((char *)p);
+RitEdit->icon((char *)p);
+ADSRwin->icon((char *)p);
+aboutwindow->icon((char *)p);
+Settingswindow->icon((char *)p);
 char tmp[64];
 sprintf(tmp,"%s v%s",PACKAGE,VERSION); 
 HORwindow->copy_label(tmp);
@@ -4887,7 +4869,7 @@ metelo();
 Actu();
 hor->PutPrim();
 meteritmos();
-HORwindow->show();
+HORwindow->show(argc,argv);
 Fl::add_timeout(1.0 * 0.04,tick);
 }
 
@@ -5465,4 +5447,5 @@ D_FFval->value(hor->Operator[(int)D_Freq_F->value()].harmonic_fine);
 D_FFval->lstep(0.001);
 D_Rot_Amp->value(hor->Rotary_LFO_Amplitude);
 D_O_Transpose->value(hor->organ_transpose);
+D_Freq_F->do_callback();
 }

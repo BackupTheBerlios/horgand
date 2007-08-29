@@ -48,6 +48,9 @@
 /* Define to 1 if you have the `Xft' library (-lXft). */
 #undef HAVE_LIBXFT
 
+/* Define to 1 if you have the `Xpm' library (-lXpm). */
+#undef HAVE_LIBXPM
+
 /* Define to 1 if you have the `Xrender' library (-lXrender). */
 #undef HAVE_LIBXRENDER
 

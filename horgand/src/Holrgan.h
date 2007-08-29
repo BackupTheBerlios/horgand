@@ -27,6 +27,7 @@
 #include <signal.h>
 #include <alsa/asoundlib.h>
 #include <sndfile.h>
+#include <X11/xpm.h>
 #include "config.h"
 #define MPERIOD  128
 #define BUFSIZE 1024
@@ -38,8 +39,8 @@ extern pthread_mutex_t mutex, m_mutex;
 extern int Pexitprogram, UndoCount, preset,MidiInLevel,LastMidiInLevel,BarLead,changeNameChord;
 extern int Signal_for_Cb_Sliders,commandline;
 extern char NameChord[16];
-extern int Selected_Rhythm;
-
+extern int Selected_Rhythm,exitwithhelp;
+extern Pixmap p,mask;
 
 class HOR
 {

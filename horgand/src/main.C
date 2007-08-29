@@ -108,7 +108,8 @@ int main(int argc, char *argv[])
 
 
   opterr = 0;
-  int option_index = 0, opt, exitwithhelp = 0;
+  int option_index = 0, opt;
+  exitwithhelp = 0;
   while (1)
     {
       opt = getopt_long (argc, argv, "l:b:r:h", opts, &option_index);
@@ -162,6 +163,7 @@ int main(int argc, char *argv[])
       return (0);
     };
     
+  
     
   //Locks memory
 
@@ -175,7 +177,7 @@ int main(int argc, char *argv[])
 
   // Launch GUI
   
-  HORGAN *horUI = new HORGAN(&hor);
+  HORGAN *horUI = new HORGAN(argc,argv,&hor);
  
   
   // Launch MIDI thread

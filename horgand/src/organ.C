@@ -36,8 +36,8 @@ int i,j,l1,k,Pexitprogram, MidiInLevel, LastMidiInLevel,UndoCount,preset,Signal_
 char NameChord[16];
 int Selected_Rhythm,commandline;
 const char *FilePreset;
-
-
+Pixmap p,mask;
+int exitwithhelp;
 
 HOR::HOR()
 {
@@ -1025,7 +1025,7 @@ for (j = 1; j<= 20; j++)
 
 HOR::~HOR ()
 {
-  snd_seq_close (midi_in);
+if (exitwithhelp==0)  snd_seq_close (midi_in);
 
 };
 

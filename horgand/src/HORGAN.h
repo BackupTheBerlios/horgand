@@ -3,6 +3,7 @@
 #ifndef HORGAN_h
 #define HORGAN_h
 #include <FL/Fl.H>
+#include <FL/x.H>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_Dial.H>
 #include "Holrgan.h"
@@ -1063,7 +1064,7 @@ public:
   void MiraClientes();
   void MiraConfig();
   void metebanco();
-  HORGAN(HOR *hor_);
+  HORGAN(int argc, char **argv,HOR *hor_);
 private:
   HOR *hor; 
 public:

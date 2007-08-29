@@ -9,6 +9,9 @@ decl {//Copyright (c) 2003-2004 Josep Andreu (Holborn)} {}
 
 decl {//License: GNU GPL version 2} {} 
 
+decl {\#include <FL/x.H>} {public global
+} 
+
 decl {\#include <FL/Fl_File_Chooser.H>} {public
 } 
 
@@ -17,6 +20,8 @@ decl {\#include <FL/Fl_Dial.H>} {public
 
 decl {\#include "Holrgan.h"} {public
 } 
+
+decl {\#include <horgand128.xpm>} {} 
 
 class Drawbar {: {public Fl_Slider}
 } {
@@ -93,7 +98,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1696 130 825 595} type Double color 50 labelcolor 208 resizable hotspot visible
+      xywh {1445 142 825 595} type Double color 50 labelcolor 208 hide resizable hotspot
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -270,6 +275,7 @@ Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
 horgand.get("HORBank X",x,1);
 horgand.get("HORBank Y",y,1);
 HORBank->position(x,y);
+
 HORBank->show();
 Fl::focus(BClose);}
           xywh {0 0 100 20} shortcut 0x80062 labelsize 14
@@ -294,9 +300,6 @@ Fl::focus(SClose);}
         xywh {115 244 46 46} box OVAL_FRAME
       }
       Fl_Box {} {
-        xywh {180 169 46 31} box DOWN_FRAME
-      }
-      Fl_Box {} {
         xywh {305 115 31 90} box DOWN_FRAME
       }
       Fl_Box {} {
@@ -316,9 +319,6 @@ Fl::focus(SClose);}
         xywh {250 210 55 20} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 16
       }
       Fl_Box {} {
-        xywh {180 204 46 31} box DOWN_FRAME
-      }
-      Fl_Box {} {
         label {Master Tune}
         xywh {385 240 75 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
       }
@@ -328,23 +328,17 @@ Fl::focus(SClose);}
       }
       Fl_Box {} {
         label Transpose
-        xywh {385 275 75 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
+        xywh {385 273 75 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
         xywh {240 139 46 46} box OVAL_FRAME
       }
       Fl_Box {} {
-        xywh {240 99 46 31} box DOWN_FRAME
-      }
-      Fl_Box {} {
         label Volume
-        xywh {315 275 50 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
+        xywh {315 273 50 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
         xywh {655 525 46 45} box OVAL_FRAME
-      }
-      Fl_Box {} {
-        xywh {240 244 46 31} box DOWN_FRAME
       }
       Fl_Light_Button CF {
         label {Compare First}
@@ -618,10 +612,7 @@ Actu();}
       Fl_Counter EchoDelay {
         callback {hor->Delay_Delay = (float) o->value() * 131200;
 Actu();}
-        xywh {310 250 65 25} type Simple labelcolor 208 when 4 minimum 0 maximum 1 step 0.01
-      }
-      Fl_Box {} {
-        xywh {650 464 52 36} box DOWN_FRAME
+        xywh {310 255 65 20} type Simple labelcolor 208 when 4 minimum 0 maximum 1 step 0.01
       }
       Fl_Slider H1 {
         callback {hor->Operator[1].harmonic = (int) o->value();
@@ -829,9 +820,6 @@ Actu();}
           xywh {425 210 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
       }
-      Fl_Box {} {
-        xywh {400 99 46 31} box DOWN_FRAME align 64
-      }
       Fl_Button Rev {
         label Reverb
         callback {if (o->value()== 0) 
@@ -924,9 +912,6 @@ BarLead = 0;
 hor->Rhythm_On =  o->value();
 VUI2->value(0);}
         xywh {650 465 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 8 align 64
-      }
-      Fl_Box {} {
-        xywh {650 424 51 36} box DOWN_FRAME
       }
       Fl_Button StStRiton {
         label {Start/Stop}
@@ -1194,9 +1179,6 @@ if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
         callback {hor->Bass_Volume = o->value();}
         xywh {710 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
       }
-      Fl_Box {} {
-        xywh {765 424 51 36} box DOWN_FRAME
-      }
       Fl_Button Basson {
         label Bass
         callback {//int readcounts = sf_seek (hor->infileb, 0, SEEK_SET);
@@ -1204,7 +1186,7 @@ BarLead = 0;
 hor->split = o->value();
 Split->value(o->value());
 hor->Bass_On =  o->value();}
-        xywh {765 425 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {755 425 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
       Fl_Group {} {
         xywh {755 470 70 85}
@@ -1432,7 +1414,7 @@ strcpy(hor->RhythmFilename,filename);}
       }
     }
     Fl_Window HORBank {
-      label {DXEmulator Bank}
+      label {horgand Bank}
       callback {Guarda_Pref(2);
 HORBank->hide();
 Fl::focus(PANICO);}
@@ -2337,7 +2319,7 @@ sprintf(tmp, "%2.1f", hor->lasfreq[(int) o->value()]);
 V1->label(tmp);
 Actu();
 Bass1->value(1);
-SetBassType(0);} selected
+SetBassType(0);}
     }
   }
   Function {GetCombi(int i)} {} {
@@ -2447,13 +2429,21 @@ Banco30->label(hor->Banco[30].Name);
 Banco31->label(hor->Banco[31].Name);
 Banco32->label(hor->Banco[32].Name);} {}
   }
-  Function {HORGAN(HOR *hor_)} {C
+  Function {HORGAN(int argc, char **argv,HOR *hor_)} {C
   } {
     code {Fl::scheme("plastic");
+fl_open_display();
+XpmCreatePixmapFromData(fl_display, DefaultRootWindow(fl_display),(char **)horgand128,&p ,&mask, NULL);
 Fl::visual(FL_DOUBLE|FL_INDEX);
 Fl::visual(FL_RGB);
 hor=hor_;
 make_window();
+HORwindow->icon((char *)p);
+HORBank->icon((char *)p);
+RitEdit->icon((char *)p);
+ADSRwin->icon((char *)p);
+aboutwindow->icon((char *)p);
+Settingswindow->icon((char *)p);
 char tmp[64];
 sprintf(tmp,"%s v%s",PACKAGE,VERSION); 
 HORwindow->copy_label(tmp);
@@ -2463,8 +2453,9 @@ metelo();
 Actu();
 hor->PutPrim();
 meteritmos();
-HORwindow->show();
-Fl::add_timeout(1.0 * 0.04,tick);} {}
+HORwindow->show(argc,argv);
+Fl::add_timeout(1.0 * 0.04,tick);} {selected
+    }
   }
   decl {HOR *hor;} {}
   Function {Undo()} {} {
@@ -3024,6 +3015,7 @@ D_Att->value(hor->Normalize[(int)D_Freq->value()]);
 D_FFval->value(hor->Operator[(int)D_Freq_F->value()].harmonic_fine);
 D_FFval->lstep(0.001);
 D_Rot_Amp->value(hor->Rotary_LFO_Amplitude);
-D_O_Transpose->value(hor->organ_transpose);} {}
+D_O_Transpose->value(hor->organ_transpose);
+D_Freq_F->do_callback();} {}
   }
 } 
