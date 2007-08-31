@@ -37,6 +37,8 @@ char NameChord[16];
 int Selected_Rhythm,commandline;
 const char *FilePreset;
 int exitwithhelp;
+Pixmap p,mask;
+XWMHints *hints;
 
 
 HOR::HOR()

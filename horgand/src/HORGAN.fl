@@ -91,11 +91,8 @@ return 1;
   }
 } 
 
-class HORGAN {} {
-  decl {Pixmap p,mask;} {public global
-  }
-  decl {XWMHints *hints;} {public global
-  }
+class HORGAN {open selected
+} {
   decl {HOR *hor;} {}
   Function {make_window()} {} {
     Fl_Window HORwindow {
@@ -2469,8 +2466,7 @@ Banco28->label(hor->Banco[28].Name);
 Banco29->label(hor->Banco[29].Name);
 Banco30->label(hor->Banco[30].Name);
 Banco31->label(hor->Banco[31].Name);
-Banco32->label(hor->Banco[32].Name);} {selected
-    }
+Banco32->label(hor->Banco[32].Name);} {}
   }
   Function {Undo()} {} {
     code {hor->MUndo();

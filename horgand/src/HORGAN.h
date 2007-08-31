@@ -36,10 +36,6 @@ public:
 #include <FL/Fl_Value_Input.H>
 
 class HORGAN {
-public:
-  Pixmap p,mask; 
-  XWMHints *hints; 
-private:
   HOR *hor; 
 public:
   Fl_Double_Window* make_window();
