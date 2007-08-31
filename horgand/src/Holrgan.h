@@ -29,7 +29,7 @@
 #include <sndfile.h>
 #include <X11/xpm.h>
 #include "config.h"
-#define MPERIOD  128
+#define MPERIOD  256
 #define BUFSIZE 1024
 #define POLY 32
 #define DSAMPLE_RATE 44100
