@@ -3,9 +3,16 @@ horgand ChangeLog
 
 
 
+== v1.12 (  /  /2007) ==
+--------------------------------------------------------------------------------------------
+- Fixed bug initiating ryhthms.
+- Default buffer 256
+- Fixed jack crash for non-statig libxpm hints.
 
 
-== v1.11 (30/09/2007) ==
+
+
+== v1.11 (30/08/2007) ==
 --------------------------------------------------------------------------------------------
 - Added FLTK options on command line.
 - Added window icon. 

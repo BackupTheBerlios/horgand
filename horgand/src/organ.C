@@ -797,8 +797,8 @@ for (j = 1; j<= 20; j++)
 { 
    strcpy(Rt[j].Nom,"Empty");
    strcpy(Rt[j].Nfile,"Empty");
-   Rt[j].bars = 0;
-   Rt[j].quarter_note = 0;
+   Rt[j].bars = 1;
+   Rt[j].quarter_note = 4;
    for (i=0; i<=64; i++)
    {
     Rt[j].Line_Bass_Note[i] = 0;
