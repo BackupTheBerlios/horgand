@@ -238,6 +238,7 @@ public:
   int file_ok;
   int TypeRecChord;
   int Bass_Type;
+  char SavedBank[128];
   char BankFilename[128];
   char RhythmFilename[128];
   SNDFILE *infile;

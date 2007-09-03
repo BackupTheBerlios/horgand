@@ -5,6 +5,8 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- Remember last saved Bank.
+- Fixed bug in command line.
 - Fixed bug initiating ryhthms.
 - Default buffer 256
 - Fixed jack crash for non-statig libxpm hints.

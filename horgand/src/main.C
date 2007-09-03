@@ -138,6 +138,7 @@ int main(int argc, char *argv[])
 	case 'b':
 	  if (optarguments != NULL)
 	    {
+              commandline = 2;
 	      hor.loadbank (optarguments);
 
 	      break;

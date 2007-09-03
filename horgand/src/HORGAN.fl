@@ -91,8 +91,7 @@ return 1;
   }
 } 
 
-class HORGAN {open selected
-} {
+class HORGAN {} {
   decl {HOR *hor;} {}
   Function {make_window()} {} {
     Fl_Window HORwindow {
@@ -100,7 +99,7 @@ class HORGAN {open selected
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {409 139 825 595} type Double color 33 selection_color 47 hide resizable
+      xywh {1355 166 825 595} type Double color 33 selection_color 47 hide resizable
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -109,7 +108,7 @@ exit(0);}
         xywh {0 310 595 285} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL align 5
       }
       Fl_Box {} {
-        xywh {385 235 75 75} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
+        xywh {385 235 80 75} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Box {} {
         xywh {530 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -121,7 +120,7 @@ exit(0);}
         xywh {-30 25 855 70} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL align 5
       }
       Fl_Box {} {
-        xywh {460 95 70 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL align 5
+        xywh {465 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL align 5
       }
       Fl_Box {} {
         xywh {105 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
@@ -130,7 +129,7 @@ exit(0);}
         xywh {235 235 150 75} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Box {} {
-        xywh {385 95 75 140} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
+        xywh {385 95 80 140} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Box {} {
         xywh {170 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
@@ -416,7 +415,7 @@ if ( o->value() != 0 ) Undo(); else Redo();}
         callback {hor->transpose = (int) o->value();
 calbtrans();
 Actu();}
-        xywh {395 285 55 20} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum -48 maximum 48 step 1
+        xywh {395 285 60 20} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum -48 maximum 48 step 1
       }
       Fl_Slider Master {
         label Volume
@@ -439,7 +438,7 @@ Actu();}
       Fl_Counter MasterT {
         callback {hor->mastertune = 1 + (float) (o->value() / 1600);
 calbtune();}
-        xywh {395 255 55 20} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 minimum -99 maximum 99 step 1
+        xywh {395 255 60 20} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 minimum -99 maximum 99 step 1
       }
       Fl_Slider V1 {
         callback {hor->Operator[1].volumen = (float) o->value() / 100.0;
@@ -766,63 +765,63 @@ Actu();}
         xywh {240 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
       Fl_Group {} {
-        xywh {385 135 75 100}
+        xywh {390 135 72 100}
       } {
         Fl_Button R1 {
           label 1
           callback {hor->Reverb_Preset = 1;
 ponreverb();
 Actu();}
-          xywh {395 135 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
+          xywh {397 135 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R2 {
           label 2
           callback {hor->Reverb_Preset = 2;
 ponreverb();
 Actu();}
-          xywh {425 135 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
+          xywh {427 135 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R3 {
           label 3
           callback {hor->Reverb_Preset = 3;
 ponreverb();
 Actu();}
-          xywh {395 160 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
+          xywh {397 160 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R4 {
           label 4
           callback {hor->Reverb_Preset = 4;
 ponreverb();
 Actu();}
-          xywh {425 160 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
+          xywh {427 160 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R5 {
           label 5
           callback {hor->Reverb_Preset = 5;
 ponreverb();
 Actu();}
-          xywh {395 185 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
+          xywh {397 185 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R6 {
           label 6
           callback {hor->Reverb_Preset = 6;
 ponreverb();
 Actu();}
-          xywh {425 185 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
+          xywh {427 185 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R7 {
           label 7
           callback {hor->Reverb_Preset = 7;
 ponreverb();
 Actu();}
-          xywh {395 210 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
+          xywh {397 210 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R8 {
           label 8
           callback {hor->Reverb_Preset = 8;
 ponreverb();
 Actu();}
-          xywh {425 210 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
+          xywh {427 210 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
       }
       Fl_Button Rev {
@@ -892,7 +891,7 @@ break;
 }
 hor->Clean_Buffer_Effects();
 Actu();}
-        xywh {395 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {398 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labeltype ENGRAVED_LABEL labelsize 10 align 64
       }
       Fl_Slider RitVol {
         label {Vol.}
@@ -1426,7 +1425,7 @@ strcpy(hor->RhythmFilename,filename);}
       callback {Guarda_Pref(2);
 HORBank->hide();
 Fl::focus(PANICO);}
-      tooltip {Right Click Get  - Left Click Put} xywh {4 29 710 360} type Double hide
+      tooltip {Right Click Get  - Left Click Put} xywh {1541 118 710 360} type Double hide
     } {
       Fl_Button BClose {
         label Close
@@ -1455,11 +1454,11 @@ PutCombi(1);}
             label {&Save Bank}
             callback {char *filename;
 \#define EXT ".horeb"
-filename=fl_file_chooser("Save:","(*"EXT")",NULL,0);
+filename=fl_file_chooser("Save:","(*"EXT")",hor->SavedBank,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
-hor->savebank(filename);}
+hor->savebank(filename);} selected
             xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
@@ -2330,7 +2329,7 @@ hor->Bass_Volume=valf;
 
 horgand.get("Preset",val,0);
 hor->cpreset=val;
-if(commandline == 0) PutCombi(hor->cpreset);
+if(commandline != 1) PutCombi(hor->cpreset);
 else meteprog();
 
 horgand.get("Split Point",val,0);

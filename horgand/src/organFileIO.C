@@ -36,7 +36,7 @@ HOR::savefile (char *filename)
   fn = fopen (filename, "w");
 
   bzero(buf,sizeof(buf));
-  sprintf(buf,"%s\n",VERSION);
+  sprintf(buf,"1.11\n");
   fputs(buf,fn);
 
   for (i = 1; i <= 10; i++)
@@ -157,10 +157,11 @@ HOR::savebank (char *filename)
   int i,j;
   FILE *fn;
   char buf[2048];
+  strcpy(SavedBank,filename); 
   fn = fopen (filename, "w");
 
   bzero(buf,sizeof(buf));
-  sprintf(buf,"%s\n",VERSION);
+  sprintf(buf,"1.11\n");
   fputs(buf,fn);
 
   for (j = 1; j <= 32; j++)

@@ -45,6 +45,7 @@ HOR::HOR()
 {
 
   //Init de vars
+  commandline=0;
   Bass_Type=0;
   TypeRecChord=0;
   Selected_Rhythm = 0;
@@ -186,6 +187,7 @@ HOR::HOR()
   lpos = 100;
   length_bass_note = 2.0;
   changeNameChord = 0;
+  bzero(SavedBank,sizeof(SavedBank));
 
 // Init Reverb Taps 
 
@@ -1110,7 +1112,7 @@ if (val==0)
 // Load Preset Bank File
     
        horgand.get("Bank Filename",BankFilename,"",127);                     
-       loadbank(BankFilename);
+       if (commandline==0)loadbank(BankFilename);
                 
 
 // Load Rhythm File

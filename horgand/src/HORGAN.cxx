@@ -2229,7 +2229,7 @@ void HORGAN::cb_BLoad(Fl_Menu_* o, void* v) {
 void HORGAN::cb_BSave_i(Fl_Menu_*, void*) {
   char *filename;
 #define EXT ".horeb"
-filename=fl_file_chooser("Save:","(*"EXT")",NULL,0);
+filename=fl_file_chooser("Save:","(*"EXT")",hor->SavedBank,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 #undef EXT
@@ -3053,7 +3053,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labeltype(FL_ENGRAVED_LABEL);
       o->align(FL_ALIGN_TOP_LEFT);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(385, 235, 75, 75);
+    { Fl_Box* o = new Fl_Box(385, 235, 80, 75);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -3083,7 +3083,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labeltype(FL_ENGRAVED_LABEL);
       o->align(FL_ALIGN_TOP_LEFT);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(460, 95, 70, 215);
+    { Fl_Box* o = new Fl_Box(465, 95, 65, 215);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -3105,7 +3105,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(385, 95, 75, 140);
+    { Fl_Box* o = new Fl_Box(385, 95, 80, 140);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -3245,7 +3245,7 @@ Fl_Double_Window* HORGAN::make_window() {
       DispNumber->labelcolor((Fl_Color)128);
       DispNumber->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     } // Fl_Box* DispNumber
-    { Transpose = new Fl_Counter(395, 285, 55, 20);
+    { Transpose = new Fl_Counter(395, 285, 60, 20);
       Transpose->type(1);
       Transpose->labeltype(FL_EMBOSSED_LABEL);
       Transpose->labelcolor((Fl_Color)208);
@@ -3284,7 +3284,7 @@ Fl_Double_Window* HORGAN::make_window() {
       Nombre->callback((Fl_Callback*)cb_Nombre);
       Nombre->align(68);
     } // Fl_Input* Nombre
-    { MasterT = new Fl_Counter(395, 255, 55, 20);
+    { MasterT = new Fl_Counter(395, 255, 60, 20);
       MasterT->type(1);
       MasterT->labeltype(FL_EMBOSSED_LABEL);
       MasterT->labelcolor((Fl_Color)208);
@@ -3763,8 +3763,8 @@ Fl_Double_Window* HORGAN::make_window() {
       ChorusOn->callback((Fl_Callback*)cb_ChorusOn);
       ChorusOn->align(FL_ALIGN_CLIP);
     } // Fl_Button* ChorusOn
-    { Fl_Group* o = new Fl_Group(385, 135, 75, 100);
-      { R1 = new Fl_Button(395, 135, 25, 20, gettext("1"));
+    { Fl_Group* o = new Fl_Group(390, 135, 72, 100);
+      { R1 = new Fl_Button(397, 135, 25, 20, gettext("1"));
         R1->type(102);
         R1->box(FL_PLASTIC_UP_BOX);
         R1->color((Fl_Color)31);
@@ -3774,7 +3774,7 @@ Fl_Double_Window* HORGAN::make_window() {
         R1->callback((Fl_Callback*)cb_R1);
         R1->deactivate();
       } // Fl_Button* R1
-      { R2 = new Fl_Button(425, 135, 25, 20, gettext("2"));
+      { R2 = new Fl_Button(427, 135, 25, 20, gettext("2"));
         R2->type(102);
         R2->box(FL_PLASTIC_UP_BOX);
         R2->color((Fl_Color)31);
@@ -3784,7 +3784,7 @@ Fl_Double_Window* HORGAN::make_window() {
         R2->callback((Fl_Callback*)cb_R2);
         R2->deactivate();
       } // Fl_Button* R2
-      { R3 = new Fl_Button(395, 160, 25, 20, gettext("3"));
+      { R3 = new Fl_Button(397, 160, 25, 20, gettext("3"));
         R3->type(102);
         R3->box(FL_PLASTIC_UP_BOX);
         R3->color((Fl_Color)31);
@@ -3794,7 +3794,7 @@ Fl_Double_Window* HORGAN::make_window() {
         R3->callback((Fl_Callback*)cb_R3);
         R3->deactivate();
       } // Fl_Button* R3
-      { R4 = new Fl_Button(425, 160, 25, 20, gettext("4"));
+      { R4 = new Fl_Button(427, 160, 25, 20, gettext("4"));
         R4->type(102);
         R4->box(FL_PLASTIC_UP_BOX);
         R4->color((Fl_Color)31);
@@ -3804,7 +3804,7 @@ Fl_Double_Window* HORGAN::make_window() {
         R4->callback((Fl_Callback*)cb_R4);
         R4->deactivate();
       } // Fl_Button* R4
-      { R5 = new Fl_Button(395, 185, 25, 20, gettext("5"));
+      { R5 = new Fl_Button(397, 185, 25, 20, gettext("5"));
         R5->type(102);
         R5->box(FL_PLASTIC_UP_BOX);
         R5->color((Fl_Color)31);
@@ -3814,7 +3814,7 @@ Fl_Double_Window* HORGAN::make_window() {
         R5->callback((Fl_Callback*)cb_R5);
         R5->deactivate();
       } // Fl_Button* R5
-      { R6 = new Fl_Button(425, 185, 25, 20, gettext("6"));
+      { R6 = new Fl_Button(427, 185, 25, 20, gettext("6"));
         R6->type(102);
         R6->box(FL_PLASTIC_UP_BOX);
         R6->color((Fl_Color)31);
@@ -3824,7 +3824,7 @@ Fl_Double_Window* HORGAN::make_window() {
         R6->callback((Fl_Callback*)cb_R6);
         R6->deactivate();
       } // Fl_Button* R6
-      { R7 = new Fl_Button(395, 210, 25, 20, gettext("7"));
+      { R7 = new Fl_Button(397, 210, 25, 20, gettext("7"));
         R7->type(102);
         R7->box(FL_PLASTIC_UP_BOX);
         R7->color((Fl_Color)31);
@@ -3834,7 +3834,7 @@ Fl_Double_Window* HORGAN::make_window() {
         R7->callback((Fl_Callback*)cb_R7);
         R7->deactivate();
       } // Fl_Button* R7
-      { R8 = new Fl_Button(425, 210, 25, 20, gettext("8"));
+      { R8 = new Fl_Button(427, 210, 25, 20, gettext("8"));
         R8->type(102);
         R8->box(FL_PLASTIC_UP_BOX);
         R8->color((Fl_Color)31);
@@ -3846,7 +3846,7 @@ Fl_Double_Window* HORGAN::make_window() {
       } // Fl_Button* R8
       o->end();
     } // Fl_Group* o
-    { Rev = new Fl_Button(395, 100, 55, 30, gettext("Reverb"));
+    { Rev = new Fl_Button(398, 100, 55, 30, gettext("Reverb"));
       Rev->type(1);
       Rev->box(FL_PLASTIC_UP_BOX);
       Rev->color((Fl_Color)31);
@@ -5457,7 +5457,7 @@ hor->Bass_Volume=valf;
 
 horgand.get("Preset",val,0);
 hor->cpreset=val;
-if(commandline == 0) PutCombi(hor->cpreset);
+if(commandline != 1) PutCombi(hor->cpreset);
 else meteprog();
 
 horgand.get("Split Point",val,0);
