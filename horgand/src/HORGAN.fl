@@ -99,7 +99,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1355 166 825 595} type Double color 33 selection_color 47 hide resizable
+      xywh {1355 166 825 595} type Double color 33 selection_color 47 resizable visible
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -125,7 +125,7 @@ exit(0);}
       Fl_Box {} {
         xywh {105 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
       }
-      Fl_Box {} {
+      Fl_Box {} {selected
         xywh {235 235 150 75} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Box {} {
@@ -477,7 +477,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {180 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {179 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V5 {
@@ -497,7 +497,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {295 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {297 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V7 {
@@ -507,7 +507,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {355 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {356 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V8 {
@@ -605,7 +605,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {115 175 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 99 step 1
+        xywh {115 173 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 99 step 1
         class Rueda
       }
       Fl_Counter EchoVol {
@@ -934,7 +934,7 @@ VUI2->value(0);}
         xywh {595 95 230 310} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Group RitButtons {
-        xywh {595 93 230 312}
+        xywh {595 93 230 312} box PLASTIC_UP_BOX color 0
       } {
         Fl_Button Rit1 {
           callback {ApagaTodo();
@@ -1264,52 +1264,52 @@ Signal_for_Cb_Sliders = 0;
       Fl_Light_Button Mar1 {
         label Perc
         callback {hor->Operator[1].marimba=o->value();}
-        xywh {5 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {2 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
       Fl_Light_Button Mar2 {
         label Perc
         callback {hor->Operator[2].marimba=o->value();}
-        xywh {64 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {61 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
       Fl_Light_Button Mar3 {
         label Perc
         callback {hor->Operator[3].marimba=o->value();}
-        xywh {120 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {120 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
       Fl_Light_Button Mar4 {
         label Perc
         callback {hor->Operator[4].marimba=o->value();}
-        xywh {180 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {179 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
       Fl_Light_Button Mar5 {
         label Perc
         callback {hor->Operator[5].marimba=o->value();}
-        xywh {240 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {238 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
       Fl_Light_Button Mar6 {
         label Perc
         callback {hor->Operator[6].marimba=o->value();}
-        xywh {295 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {297 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
       Fl_Light_Button Mar7 {
         label Perc
         callback {hor->Operator[7].marimba=o->value();}
-        xywh {355 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {356 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
       Fl_Light_Button Mar8 {
         label Perc
         callback {hor->Operator[8].marimba=o->value();}
-        xywh {415 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {415 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
       Fl_Light_Button Mar9 {
         label Perc
         callback {hor->Operator[9].marimba=o->value();}
-        xywh {475 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {474 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
       Fl_Light_Button Mar10 {
         label Perc
         callback {hor->Operator[10].marimba=o->value();}
-        xywh {535 317 50 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {533 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
       }
     }
     Fl_Window aboutwindow {
@@ -1458,7 +1458,7 @@ filename=fl_file_chooser("Save:","(*"EXT")",hor->SavedBank,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
-hor->savebank(filename);} selected
+hor->savebank(filename);}
             xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {

@@ -3339,7 +3339,7 @@ Fl_Double_Window* HORGAN::make_window() {
       V3->align(66);
       V3->when(FL_WHEN_CHANGED);
     } // Drawbar* V3
-    { V4 = new Drawbar(180, 335, 55, 205);
+    { V4 = new Drawbar(179, 335, 55, 205);
       V4->type(4);
       V4->box(FL_PLASTIC_DOWN_BOX);
       V4->color((Fl_Color)24);
@@ -3369,7 +3369,7 @@ Fl_Double_Window* HORGAN::make_window() {
       V5->align(66);
       V5->when(FL_WHEN_CHANGED);
     } // Drawbar* V5
-    { V6 = new Drawbar(295, 335, 55, 205);
+    { V6 = new Drawbar(297, 335, 55, 205);
       V6->type(4);
       V6->box(FL_PLASTIC_DOWN_BOX);
       V6->color((Fl_Color)24);
@@ -3384,7 +3384,7 @@ Fl_Double_Window* HORGAN::make_window() {
       V6->align(66);
       V6->when(FL_WHEN_CHANGED);
     } // Drawbar* V6
-    { V7 = new Drawbar(355, 335, 55, 205);
+    { V7 = new Drawbar(356, 335, 55, 205);
       V7->type(4);
       V7->box(FL_PLASTIC_DOWN_BOX);
       V7->color((Fl_Color)24);
@@ -3500,7 +3500,7 @@ Fl_Double_Window* HORGAN::make_window() {
       PLFOSpeed->align(FL_ALIGN_BOTTOM);
       PLFOSpeed->when(FL_WHEN_CHANGED);
     } // Rueda* PLFOSpeed
-    { PLFODelay = new Rueda(115, 175, 45, 45, gettext("Delay"));
+    { PLFODelay = new Rueda(115, 173, 45, 45, gettext("Delay"));
       PLFODelay->box(FL_OSHADOW_BOX);
       PLFODelay->color(FL_DARK1);
       PLFODelay->selection_color(FL_INACTIVE_COLOR);
@@ -3923,6 +3923,8 @@ Fl_Double_Window* HORGAN::make_window() {
       o->align(FL_ALIGN_TOP);
     } // Fl_Box* o
     { RitButtons = new Fl_Group(595, 93, 230, 312);
+      RitButtons->box(FL_PLASTIC_UP_BOX);
+      RitButtons->color(FL_FOREGROUND_COLOR);
       { Rit1 = new Fl_Button(605, 105, 95, 25);
         Rit1->tooltip(gettext("Right Click Edit -  Left Click Select"));
         Rit1->type(1);
@@ -4330,61 +4332,61 @@ Fl_Double_Window* HORGAN::make_window() {
       OMaster->align(FL_ALIGN_BOTTOM);
       OMaster->when(FL_WHEN_CHANGED);
     } // Drawbar* OMaster
-    { Mar1 = new Fl_Light_Button(5, 317, 50, 15, gettext("Perc"));
+    { Mar1 = new Fl_Light_Button(2, 317, 55, 15, gettext("Perc"));
       Mar1->box(FL_PLASTIC_UP_BOX);
       Mar1->labelsize(11);
       Mar1->callback((Fl_Callback*)cb_Mar1);
       Mar1->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar1
-    { Mar2 = new Fl_Light_Button(64, 317, 50, 15, gettext("Perc"));
+    { Mar2 = new Fl_Light_Button(61, 317, 55, 15, gettext("Perc"));
       Mar2->box(FL_PLASTIC_UP_BOX);
       Mar2->labelsize(11);
       Mar2->callback((Fl_Callback*)cb_Mar2);
       Mar2->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar2
-    { Mar3 = new Fl_Light_Button(120, 317, 50, 15, gettext("Perc"));
+    { Mar3 = new Fl_Light_Button(120, 317, 55, 15, gettext("Perc"));
       Mar3->box(FL_PLASTIC_UP_BOX);
       Mar3->labelsize(11);
       Mar3->callback((Fl_Callback*)cb_Mar3);
       Mar3->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar3
-    { Mar4 = new Fl_Light_Button(180, 317, 50, 15, gettext("Perc"));
+    { Mar4 = new Fl_Light_Button(179, 317, 55, 15, gettext("Perc"));
       Mar4->box(FL_PLASTIC_UP_BOX);
       Mar4->labelsize(11);
       Mar4->callback((Fl_Callback*)cb_Mar4);
       Mar4->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar4
-    { Mar5 = new Fl_Light_Button(240, 317, 50, 15, gettext("Perc"));
+    { Mar5 = new Fl_Light_Button(238, 317, 55, 15, gettext("Perc"));
       Mar5->box(FL_PLASTIC_UP_BOX);
       Mar5->labelsize(11);
       Mar5->callback((Fl_Callback*)cb_Mar5);
       Mar5->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar5
-    { Mar6 = new Fl_Light_Button(295, 317, 50, 15, gettext("Perc"));
+    { Mar6 = new Fl_Light_Button(297, 317, 55, 15, gettext("Perc"));
       Mar6->box(FL_PLASTIC_UP_BOX);
       Mar6->labelsize(11);
       Mar6->callback((Fl_Callback*)cb_Mar6);
       Mar6->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar6
-    { Mar7 = new Fl_Light_Button(355, 317, 50, 15, gettext("Perc"));
+    { Mar7 = new Fl_Light_Button(356, 317, 55, 15, gettext("Perc"));
       Mar7->box(FL_PLASTIC_UP_BOX);
       Mar7->labelsize(11);
       Mar7->callback((Fl_Callback*)cb_Mar7);
       Mar7->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar7
-    { Mar8 = new Fl_Light_Button(415, 317, 50, 15, gettext("Perc"));
+    { Mar8 = new Fl_Light_Button(415, 317, 55, 15, gettext("Perc"));
       Mar8->box(FL_PLASTIC_UP_BOX);
       Mar8->labelsize(11);
       Mar8->callback((Fl_Callback*)cb_Mar8);
       Mar8->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar8
-    { Mar9 = new Fl_Light_Button(475, 317, 50, 15, gettext("Perc"));
+    { Mar9 = new Fl_Light_Button(474, 317, 55, 15, gettext("Perc"));
       Mar9->box(FL_PLASTIC_UP_BOX);
       Mar9->labelsize(11);
       Mar9->callback((Fl_Callback*)cb_Mar9);
       Mar9->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar9
-    { Mar10 = new Fl_Light_Button(535, 317, 50, 15, gettext("Perc"));
+    { Mar10 = new Fl_Light_Button(533, 317, 55, 15, gettext("Perc"));
       Mar10->box(FL_PLASTIC_UP_BOX);
       Mar10->labelsize(11);
       Mar10->callback((Fl_Callback*)cb_Mar10);
