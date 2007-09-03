@@ -997,6 +997,8 @@ public:
 private:
   void cb_CloRit_i(Fl_Button*, void*);
   static void cb_CloRit(Fl_Button*, void*);
+  void cb_Browse2_i(Fl_Button*, void*);
+  static void cb_Browse2(Fl_Button*, void*);
 public:
   Fl_Double_Window *ADSRwin;
 private:

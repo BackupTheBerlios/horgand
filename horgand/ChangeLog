@@ -5,6 +5,7 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- Added browse for rhythm files. 
 - Fix widget positions.
 - Remember last saved Bank.
 - Fixed bug in command line.

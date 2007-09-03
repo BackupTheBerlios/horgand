@@ -99,7 +99,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1355 166 825 595} type Double color 33 selection_color 47 resizable visible
+      xywh {355 123 825 595} type Double color 33 selection_color 47 hide resizable
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -125,7 +125,7 @@ exit(0);}
       Fl_Box {} {
         xywh {105 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
       }
-      Fl_Box {} {selected
+      Fl_Box {} {
         xywh {235 235 150 75} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Box {} {
@@ -1805,29 +1805,29 @@ if (hor->file_ok == 1)
 {
 GetRit(hor->ae);
 }
-RitEdit->hide();}
-      xywh {1448 239 615 175} type Double hide
+RitEdit->hide();} selected
+      xywh {1440 512 615 175} type Double hide
     } {
       Fl_Input RtName {
         label Name
         callback {strcpy(hor->Rt[hor->ae].Nom , o->value());}
-        xywh {60 20 115 25} labeltype ENGRAVED_LABEL
+        xywh {50 20 115 25} labeltype ENGRAVED_LABEL
       }
       Fl_Input RtFile {
         label File
         callback {strcpy(hor->Rt[hor->ae].Nfile, o->value());}
-        xywh {215 20 215 25} labeltype ENGRAVED_LABEL
+        xywh {195 20 215 25} labeltype ENGRAVED_LABEL
       }
       Fl_Value_Input RtBars {
         label Bars
         callback {hor->Rt[hor->ae].bars = (int) o->value();}
-        xywh {480 20 20 25} labeltype ENGRAVED_LABEL minimum 1 maximum 4 step 1 value 1
+        xywh {520 20 20 25} labeltype ENGRAVED_LABEL minimum 1 maximum 4 step 1 value 1
       }
       Fl_Value_Input RtDen {
         label {Nom.}
         callback {hor->Rt[hor->ae].quarter_note = (int)o->value();
 QuitaPon();}
-        xywh {545 20 20 25} labeltype ENGRAVED_LABEL minimum 2 maximum 4 step 1 value 4
+        xywh {585 20 20 25} labeltype ENGRAVED_LABEL minimum 2 maximum 4 step 1 value 4
       }
       Fl_Group B1G1 {
         xywh {40 115 140 60}
@@ -2042,7 +2042,7 @@ hor->Rt[hor->ae].Line_Bass_Velocity[pos] = (int) o->value();}
         callback {if (o->value() > hor->Rt[hor->ae].bars) o->value(hor->Rt[hor->ae].bars);
 hor->pattern_bars = (int) o->value();
 meteval();}
-        xywh {45 70 65 25} type Simple labeltype ENGRAVED_LABEL align 4 minimum 1 maximum 4 step 1 value 1
+        xywh {35 70 65 25} type Simple labeltype ENGRAVED_LABEL align 4 minimum 1 maximum 4 step 1 value 1
         code0 {o->value(hor->pattern_bars);}
       }
       Fl_Button CloRit {
@@ -2112,6 +2112,15 @@ meteval();}
       Fl_Box {} {
         label {Notes:}
         xywh {325 65 50 25} labeltype ENGRAVED_LABEL
+      }
+      Fl_Button {} {
+        label Browse
+        callback {char *filename;
+filename=fl_file_chooser("Browse:","(*.wav)",NULL,0);
+if (filename==NULL) return;
+filename=fl_filename_setext(filename,".wav");
+RtFile->value(filename);}
+        xywh {415 20 60 25}
       }
     }
     Fl_Window ADSRwin {

@@ -81,7 +81,7 @@ HOR::Effect_Chorus()
 
       ldelay=ms+ch_delay+Chorus_LFO(&Chorus_X_L);
       dell=(ldelay1*(PERIOD-i)+ldelay*i)/PERIOD;
-      elkel=cl_counter-(int)ceilf(dell-1.0);
+      elkel=cl_counter-(int)ceil(dell-1.0);
       if (elkel<0) elkel +=8192;
       if (elkel>=8192) elkel -=8192;
       elkel2=elkel-1;
@@ -97,7 +97,7 @@ HOR::Effect_Chorus()
       // R Channel
       rdelay=ms+ch_delay+Chorus_LFO(&Chorus_X_R);
       dell=(rdelay1*(PERIOD-i)+rdelay*i)/PERIOD;
-      elkel=cl_counter-(int)ceilf(dell-1.0);
+      elkel=cl_counter-(int)ceil(dell-1.0);
       if (elkel<0) elkel +=8192;
       if (elkel>=8192) elkel -=8192;
       elkel2=elkel-1;
@@ -178,7 +178,7 @@ HOR::Effect_Reverb ()
   float tmprvol;
   int a_rperhis=rperhis;
   float rev_vol = Reverb_Volume*.42;
-   
+  
     
   for (i = 0; i <PERIOD; i +=2)
 
@@ -187,7 +187,6 @@ HOR::Effect_Reverb ()
      efxoutl = 0.0;
      efxoutr = 0.0;
      stmp = 0;
-  
      
      for (j = 0; j<16; j++)
         {

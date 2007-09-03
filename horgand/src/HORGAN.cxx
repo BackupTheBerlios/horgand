@@ -2901,6 +2901,17 @@ void HORGAN::cb_CloRit(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_CloRit_i(o,v);
 }
 
+void HORGAN::cb_Browse2_i(Fl_Button*, void*) {
+  char *filename;
+filename=fl_file_chooser("Browse:","(*.wav)",NULL,0);
+if (filename==NULL) return;
+filename=fl_filename_setext(filename,".wav");
+RtFile->value(filename);
+}
+void HORGAN::cb_Browse2(Fl_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_Browse2_i(o,v);
+}
+
 void HORGAN::cb_ADSRwin_i(Fl_Double_Window* o, void*) {
   Guarda_Pref(3);
 o->hide();
@@ -4912,15 +4923,15 @@ e version 2 of the \n GNU General Public License for details."));
   } // Fl_Double_Window* HORBank
   { RitEdit = new Fl_Double_Window(615, 175);
     RitEdit->callback((Fl_Callback*)cb_RitEdit, (void*)(this));
-    { RtName = new Fl_Input(60, 20, 115, 25, gettext("Name"));
+    { RtName = new Fl_Input(50, 20, 115, 25, gettext("Name"));
       RtName->labeltype(FL_ENGRAVED_LABEL);
       RtName->callback((Fl_Callback*)cb_RtName);
     } // Fl_Input* RtName
-    { RtFile = new Fl_Input(215, 20, 215, 25, gettext("File"));
+    { RtFile = new Fl_Input(195, 20, 215, 25, gettext("File"));
       RtFile->labeltype(FL_ENGRAVED_LABEL);
       RtFile->callback((Fl_Callback*)cb_RtFile);
     } // Fl_Input* RtFile
-    { RtBars = new Fl_Value_Input(480, 20, 20, 25, gettext("Bars"));
+    { RtBars = new Fl_Value_Input(520, 20, 20, 25, gettext("Bars"));
       RtBars->labeltype(FL_ENGRAVED_LABEL);
       RtBars->minimum(1);
       RtBars->maximum(4);
@@ -4928,7 +4939,7 @@ e version 2 of the \n GNU General Public License for details."));
       RtBars->value(1);
       RtBars->callback((Fl_Callback*)cb_RtBars);
     } // Fl_Value_Input* RtBars
-    { RtDen = new Fl_Value_Input(545, 20, 20, 25, gettext("Nom."));
+    { RtDen = new Fl_Value_Input(585, 20, 20, 25, gettext("Nom."));
       RtDen->labeltype(FL_ENGRAVED_LABEL);
       RtDen->minimum(2);
       RtDen->maximum(4);
@@ -5108,7 +5119,7 @@ e version 2 of the \n GNU General Public License for details."));
       } // Fl_Value_Input* lbv16
       B1G4->end();
     } // Fl_Group* B1G4
-    { Fl_Counter* o = SBar = new Fl_Counter(45, 70, 65, 25, gettext("Bar "));
+    { Fl_Counter* o = SBar = new Fl_Counter(35, 70, 65, 25, gettext("Bar "));
       SBar->type(1);
       SBar->labeltype(FL_ENGRAVED_LABEL);
       SBar->minimum(1);
@@ -5196,6 +5207,9 @@ e version 2 of the \n GNU General Public License for details."));
     { Fl_Box* o = new Fl_Box(325, 65, 50, 25, gettext("Notes:"));
       o->labeltype(FL_ENGRAVED_LABEL);
     } // Fl_Box* o
+    { Fl_Button* o = new Fl_Button(415, 20, 60, 25, gettext("Browse"));
+      o->callback((Fl_Callback*)cb_Browse2);
+    } // Fl_Button* o
     RitEdit->end();
   } // Fl_Double_Window* RitEdit
   { ADSRwin = new Fl_Double_Window(380, 225, gettext("Synthesizer"));
