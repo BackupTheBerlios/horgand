@@ -985,6 +985,8 @@ for (j = 1; j<= 20; j++)
     {
       x_sin = (float) ( i * D_PI / sizesin);
       lsin[i] =sin (x_sin);
+
+
       if( i > 0) lsin[i-1] = (lsin[i-1] *  ( 1.0 +  lsin[i] - lsin[i-1]));
       if( i > 1) lsin[i-2] = (lsin[i-2] *  ( 1.0 +  lsin[i-1] - lsin[i-2]));
       if( i > 2) lsin[i-3] = (lsin[i-3] *  ( 1.0 +  lsin[i-2] - lsin[i-3]));
@@ -993,7 +995,6 @@ for (j = 1; j<= 20; j++)
       if( i > 5) lsin[i-6] = (lsin[i-6] *  ( 1.0 +  lsin[i-5] - lsin[i-6]));
       if( i > 6) lsin[i-7] = (lsin[i-7] *  ( 1.0 +  lsin[i-6] - lsin[i-7]));
       if( i > 7) lsin[i-8] = (lsin[i-8] *  ( 1.0 +  lsin[i-7] - lsin[i-8]));
-
 
     }
 
@@ -1338,6 +1339,9 @@ HOR::Alg1s (int nframes, void *)
     }  
              
     if (total_vol>0) organ_master=Organ_Master_Volume*(float)(1.0/total_vol);
+
+
+
 
     for (l2 = 0; l2 < POLY; l2++)
     {

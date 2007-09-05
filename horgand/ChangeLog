@@ -5,6 +5,7 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- Adjust Rotary LFO Amplitude.
 - Added browse for rhythm files. 
 - Fix widget positions.
 - Remember last saved Bank.

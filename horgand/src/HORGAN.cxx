@@ -5372,7 +5372,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Rot_Amp->type(1);
       D_Rot_Amp->labelsize(9);
       D_Rot_Amp->minimum(100);
-      D_Rot_Amp->maximum(18000);
+      D_Rot_Amp->maximum(14100);
       D_Rot_Amp->step(100);
       D_Rot_Amp->value(12800);
       D_Rot_Amp->callback((Fl_Callback*)cb_D_Rot_Amp);
