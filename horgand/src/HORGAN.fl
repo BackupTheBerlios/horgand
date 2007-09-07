@@ -99,7 +99,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {355 123 825 595} type Double color 33 selection_color 47 hide resizable
+      xywh {1438 264 825 595} type Double color 33 selection_color 47 hide resizable
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -111,33 +111,33 @@ exit(0);}
         xywh {385 235 80 75} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Box {} {
-        xywh {530 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
+        xywh {530 90 65 220} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Box {} {
-        xywh {0 95 105 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
+        xywh {0 90 105 220} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
       }
       Fl_Box {} {
-        xywh {-30 25 855 70} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL align 5
+        xywh {-30 25 855 65} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL align 5
       }
       Fl_Box {} {
-        xywh {465 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL align 5
+        xywh {465 90 65 220} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL align 5
       }
       Fl_Box {} {
-        xywh {105 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
+        xywh {105 90 65 220} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
       }
       Fl_Box {} {
         xywh {235 235 150 75} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Box {} {
-        xywh {385 95 80 140} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
+        xywh {385 90 80 145} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Box {} {
-        xywh {170 95 65 215} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
+        xywh {170 90 65 220} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
       }
       Fl_Button PANICO {
         label {Panic!!}
         callback {hor->panic();}
-        xywh {5 275 95 30} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labelsize 15 labelcolor 7
+        xywh {5 275 95 30} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labelcolor 7
       }
       Fl_Menu_Bar MenuPrincipal {open
         xywh {0 0 1030 25} box THIN_UP_BOX
@@ -256,6 +256,7 @@ D_Freq->value(1);
 D_Freq_F->value(1);
 D_FFval->lstep(0.001);
 
+
 metesynth();
 
 Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
@@ -267,7 +268,7 @@ horgand.get("Synth Y",y,1);
 
 ADSRwin->position(x,y);
 ADSRwin->show();
-put_icon(ADSRwin);}
+put_icon(ADSRwin);} selected
             xywh {0 0 100 20} shortcut 0x40073 labelsize 14
           }
         }
@@ -301,48 +302,30 @@ Fl::focus(SClose);}
         xywh {240 139 46 46} box OVAL_FRAME
       }
       Fl_Box {} {
-        xywh {115 244 46 46} box OVAL_FRAME
-      }
-      Fl_Box {} {
         xywh {305 115 31 90} box DOWN_FRAME
       }
       Fl_Box {} {
-        xywh {180 99 46 46} box OVAL_FRAME
-      }
-      Fl_Box {} {
-        xywh {235 95 150 140} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
-      }
-      Fl_Box {} {
-        xywh {115 99 46 46} box OVAL_FRAME
-      }
-      Fl_Box {} {
-        xywh {115 174 46 46} box OVAL_FRAME
+        xywh {235 90 150 145} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 19 labelcolor 4 align 1
       }
       Fl_Box {} {
         label Volume
-        xywh {250 210 55 20} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 16
+        xywh {250 210 55 20} labelsize 10 labelcolor 208 align 16
       }
       Fl_Box {} {
         label {Master Tune}
-        xywh {385 240 75 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
+        xywh {385 240 75 15} labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
         label Delay
-        xywh {320 240 45 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
+        xywh {320 240 45 15} labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
         label Transpose
-        xywh {385 273 75 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
-      }
-      Fl_Box {} {
-        xywh {240 139 46 46} box OVAL_FRAME
+        xywh {385 273 75 15} labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
         label Volume
-        xywh {315 273 50 15} labeltype ENGRAVED_LABEL labelsize 10 labelcolor 208 align 208
-      }
-      Fl_Box {} {
-        xywh {655 525 46 45} box OVAL_FRAME
+        xywh {315 273 50 15} labelsize 10 labelcolor 208 align 208
       }
       Fl_Light_Button CF {
         label {Compare First}
@@ -371,7 +354,7 @@ else
 UndoCount++;
 Undo();
 }}
-        xywh {5 235 95 40} box PLASTIC_UP_BOX color 0 labelcolor 7 align 212 when 1
+        xywh {5 235 95 40} box PLASTIC_UP_BOX color 0 labelsize 12 labelcolor 7 align 212 when 1
       }
       Fl_Light_Button CL {
         label {Compare Last}
@@ -392,7 +375,7 @@ MEdit->activate();
 }
 
 if ( o->value() != 0 ) Undo(); else Redo();}
-        xywh {5 195 95 40} box PLASTIC_UP_BOX color 0 labelcolor 7 align 212 when 1
+        xywh {5 195 95 40} box PLASTIC_UP_BOX color 0 labelsize 12 labelcolor 7 align 212 when 1
       }
       Fl_Slider VUI1 {
         callback {o->value(MidiInLevel);}
@@ -425,7 +408,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {535 100 55 190} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 1 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 100 maximum 0 step 1 value 70
+        xywh {535 100 55 190} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 1 labelsize 10 labelcolor 4 minimum 100 maximum 0 step 1 value 70
         class Drawbar
       }
       Fl_Input Nombre {
@@ -560,7 +543,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {180 245 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 when 4 maximum 100 step 0.1
+        xywh {180 245 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 when 4 maximum 100 step 0.1
         class Rueda
       }
       Fl_Dial LFOSpeed {
@@ -571,7 +554,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {180 100 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 40 step 0.1
+        xywh {180 95 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 40 step 0.1
         class Rueda
       }
       Fl_Dial LFOPitch {
@@ -583,7 +566,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {115 245 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 200 step 1
+        xywh {115 245 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 200 step 1
         class Rueda
       }
       Fl_Dial PLFOSpeed {
@@ -594,7 +577,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {115 100 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 30 step 0.01
+        xywh {115 95 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 30 step 0.01
         class Rueda
       }
       Fl_Dial PLFODelay {
@@ -605,7 +588,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {115 173 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 99 step 1
+        xywh {115 170 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 99 step 1
         class Rueda
       }
       Fl_Counter EchoVol {
@@ -687,7 +670,7 @@ Actu();}
         label Rotary
         callback {if (hor->E_Rotary_On == 0) hor->E_Rotary_On = 1; else hor->E_Rotary_On = 0;
 Actu();}
-        xywh {180 170 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {180 160 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
       }
       Fl_Dial ELFOSpeed {
         label Speed
@@ -697,7 +680,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {240 140 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 maximum 5 step 0.01
+        xywh {245 140 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 5 step 0.01
         class Rueda
       }
       Fl_Slider ELFOAmplitude {
@@ -709,7 +692,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {310 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 1 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 65 maximum 99 step 1
+        xywh {310 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 1 labelsize 10 labelcolor 4 align 65 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider POPO {
@@ -721,7 +704,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {345 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 65 maximum 99 step 0.1
+        xywh {345 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labelsize 10 labelcolor 4 align 65 maximum 99 step 0.1
         class Drawbar
       }
       Fl_Counter ChorVol {
@@ -733,7 +716,7 @@ Actu();}
         label Split
         callback {if (hor->split == 0) hor->split = 1; else hor->split = 0;
 Actu();}
-        xywh {180 205 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {180 200 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
       }
       Fl_Box DMIN2 {
         callback {switch (hor->Salida)
@@ -755,14 +738,14 @@ Actu();}
         callback {hor->E_Delay_On =  o->value();
 hor->Clean_Buffer_Effects();
 Actu();}
-        xywh {240 245 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {240 245 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
       }
       Fl_Button ChorusOn {
         label Chorus
         callback {hor->E_Chorus_On =  o->value();
 hor->Clean_Buffer_Effects();
 Actu();}
-        xywh {240 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {240 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 8 align 64
       }
       Fl_Group {} {
         xywh {390 135 72 100}
@@ -891,23 +874,23 @@ break;
 }
 hor->Clean_Buffer_Effects();
 Actu();}
-        xywh {398 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {397 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labelsize 8 align 64
       }
       Fl_Slider RitVol {
         label {Vol.}
         callback {hor->Rhythm_Volume = o->value();}
-        xywh {605 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
+        xywh {600 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labelsize 10 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
       }
       Fl_Dial Tempo {
         label Tempo
         callback {hor->tempo = (float) o->value();
 hor->frame_total_size = (int) (hor->tempo * hor->sfinfo.frames);
 hor->fractional_position = hor->frame_total_size /(4 * hor->quarter_note * hor->bars);}
-        xywh {655 525 45 45} box OSHADOW_BOX color 47 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 194 minimum 1.7 maximum 2.7 step 0.01 value 2 deactivate
+        xywh {650 525 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 align 194 minimum 1.7 maximum 2.7 step 0.01 value 2 deactivate
       }
       Fl_Slider VUI2 {
         callback {o->value(BarLead);}
-        xywh {650 510 15 15} type {Vert Fill} color 30 selection_color 1 minimum 127 maximum 0 step 1
+        xywh {645 510 15 15} type {Vert Fill} color 30 selection_color 1 minimum 127 maximum 0 step 1
       }
       Fl_Button RitOn {
         label {Stop/Cont}
@@ -915,7 +898,7 @@ hor->fractional_position = hor->frame_total_size /(4 * hor->quarter_note * hor->
 BarLead = 0;
 hor->Rhythm_On =  o->value();
 VUI2->value(0);}
-        xywh {650 465 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 8 align 64
+        xywh {645 465 60 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 8 align 64
       }
       Fl_Button StStRiton {
         label {Start/Stop}
@@ -928,13 +911,13 @@ hor->Rhythm_On =  o->value();
 }
 
 VUI2->value(0);}
-        xywh {650 425 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 8 align 64
+        xywh {645 425 60 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 8 align 64
       }
       Fl_Box {} {
         xywh {595 95 230 310} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
       }
       Fl_Group RitButtons {
-        xywh {595 93 230 312} box PLASTIC_UP_BOX color 0
+        xywh {595 88 230 317} box PLASTIC_UP_BOX color 0
       } {
         Fl_Button Rit1 {
           callback {ApagaTodo();
@@ -946,7 +929,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 105 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 105 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit2 {
           callback {ApagaTodo();
@@ -958,7 +941,7 @@ if (Fl::event_button()==3)
  EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 135 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 135 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit3 {
           callback {ApagaTodo();
@@ -970,7 +953,7 @@ if (Fl::event_button()==3)
  EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 165 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 165 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit4 {
           callback {ApagaTodo();
@@ -982,7 +965,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 195 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 195 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit5 {
           callback {ApagaTodo();
@@ -994,7 +977,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 225 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 225 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit6 {
           callback {ApagaTodo();
@@ -1006,7 +989,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 255 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 255 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit7 {
           callback {ApagaTodo();
@@ -1019,7 +1002,7 @@ GetRit(Selected_Rhythm);
 }
 
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 285 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 285 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit8 {
           callback {ApagaTodo();
@@ -1031,7 +1014,7 @@ EditRit(Selected_Rhythm);
 GetRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 315 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 315 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit9 {
           callback {ApagaTodo();
@@ -1043,7 +1026,7 @@ EditRit(Selected_Rhythm);
 GetRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 345 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 345 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit10 {
           callback {ApagaTodo();
@@ -1055,7 +1038,7 @@ EditRit(Selected_Rhythm);
 GetRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {605 375 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {605 375 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit11 {
           callback {ApagaTodo();
@@ -1067,7 +1050,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 105 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 105 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit12 {
           callback {ApagaTodo();
@@ -1079,7 +1062,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 135 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 135 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit13 {
           callback {ApagaTodo();
@@ -1091,7 +1074,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 165 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 165 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit14 {
           callback {ApagaTodo();
@@ -1103,7 +1086,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 195 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 195 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit15 {
           callback {ApagaTodo();
@@ -1115,7 +1098,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 226 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 226 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit16 {
           callback {ApagaTodo();
@@ -1127,7 +1110,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 255 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 255 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit17 {
           callback {ApagaTodo();
@@ -1139,7 +1122,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 285 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 285 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit18 {
           callback {ApagaTodo();
@@ -1151,7 +1134,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 315 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 315 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit19 {
           callback {ApagaTodo();
@@ -1163,7 +1146,7 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 345 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 345 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Rit20 {
           callback {ApagaTodo();
@@ -1175,13 +1158,13 @@ GetRit(Selected_Rhythm);
 EditRit(Selected_Rhythm);
 }
 if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
-          tooltip {Right Click Edit -  Left Click Select} xywh {720 375 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          tooltip {Right Click Edit -  Left Click Select} xywh {720 375 95 25} type Toggle box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
       }
       Fl_Slider BassVol {
         label {Vol.}
         callback {hor->Bass_Volume = o->value();}
-        xywh {710 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
+        xywh {710 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labelsize 10 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
       }
       Fl_Button Basson {
         label Bass
@@ -1190,59 +1173,59 @@ BarLead = 0;
 hor->split = o->value();
 Split->value(o->value());
 hor->Bass_On =  o->value();}
-        xywh {755 425 50 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labeltype ENGRAVED_LABEL labelsize 10 align 64
+        xywh {755 425 65 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 8 align 64
       }
       Fl_Group {} {
-        xywh {755 470 70 85}
+        xywh {755 470 70 90}
       } {
         Fl_Button Bass1 {
           label Acoustic
           callback {SetBassType(0);}
-          xywh {755 470 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          xywh {755 470 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Bass2 {
           label Electric
           callback {SetBassType(1);}
-          xywh {755 500 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          xywh {755 500 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Bass3 {
           label Fretless
           callback {SetBassType(2);}
-          xywh {755 530 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 12 align 64
+          xywh {755 530 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
       }
       Fl_Box ACI {
         xywh {315 35 205 50} box PLASTIC_DOWN_BOX color 219 labeltype ENGRAVED_LABEL labelfont 1 labelsize 22 align 80
       }
       Fl_Value_Output NV1 {
-        xywh {2 543 55 20} color 47 selection_color 1 labelfont 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {2 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Value_Output NV2 {
-        xywh {61 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {61 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Value_Output NV3 {
-        xywh {120 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {120 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Value_Output NV4 {
-        xywh {179 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {179 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Value_Output NV5 {
-        xywh {238 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {238 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Value_Output NV6 {
-        xywh {297 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {297 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Value_Output NV7 {
-        xywh {356 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {356 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Value_Output NV8 {
-        xywh {415 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {415 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Value_Output NV9 {
-        xywh {474 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {474 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Value_Output NV10 {
-        xywh {533 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textfont 1 textcolor 4
+        xywh {533 543 55 20} color 47 selection_color 1 align 216 maximum 16 step 0.5 textsize 12 textcolor 4
       }
       Fl_Counter CPrograma {
         callback {hor->cpreset = (int) o->value();
@@ -1258,58 +1241,58 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {470 100 55 190} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 2 labeltype ENGRAVED_LABEL labelsize 12 labelcolor 4 minimum 100 maximum 0 step 1 value 70
+        xywh {470 100 55 190} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 2 labelsize 10 labelcolor 4 minimum 100 maximum 0 step 1 value 70
         class Drawbar
       }
       Fl_Light_Button Mar1 {
         label Perc
         callback {hor->Operator[1].marimba=o->value();}
-        xywh {2 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {2 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
       Fl_Light_Button Mar2 {
         label Perc
         callback {hor->Operator[2].marimba=o->value();}
-        xywh {61 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {61 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
       Fl_Light_Button Mar3 {
         label Perc
         callback {hor->Operator[3].marimba=o->value();}
-        xywh {120 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {120 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
       Fl_Light_Button Mar4 {
         label Perc
         callback {hor->Operator[4].marimba=o->value();}
-        xywh {179 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {179 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
       Fl_Light_Button Mar5 {
         label Perc
         callback {hor->Operator[5].marimba=o->value();}
-        xywh {238 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {238 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
       Fl_Light_Button Mar6 {
         label Perc
         callback {hor->Operator[6].marimba=o->value();}
-        xywh {297 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {297 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
       Fl_Light_Button Mar7 {
         label Perc
         callback {hor->Operator[7].marimba=o->value();}
-        xywh {356 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {356 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
       Fl_Light_Button Mar8 {
         label Perc
         callback {hor->Operator[8].marimba=o->value();}
-        xywh {415 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {415 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
       Fl_Light_Button Mar9 {
         label Perc
         callback {hor->Operator[9].marimba=o->value();}
-        xywh {474 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {474 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
       Fl_Light_Button Mar10 {
         label Perc
         callback {hor->Operator[10].marimba=o->value();}
-        xywh {533 317 55 15} box PLASTIC_UP_BOX labelsize 11 align 212
+        xywh {533 317 55 15} box PLASTIC_UP_BOX labelsize 9 align 212
       }
     }
     Fl_Window aboutwindow {
@@ -2127,7 +2110,7 @@ RtFile->value(filename);}
       label Synthesizer
       callback {Guarda_Pref(3);
 o->hide();}
-      xywh {1536 200 380 225} type Double visible
+      xywh {1827 180 380 210} type Double hide
     } {
       Fl_Box {} {
         label Drawbar
@@ -2226,7 +2209,7 @@ Actu();}
       }
       Fl_Box {} {
         label {Frequency Fine}
-        xywh {1 105 210 120} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
+        xywh {1 105 209 105} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
       }
       Fl_Counter D_Freq_F {
         label Frequency
@@ -2242,26 +2225,26 @@ Saca->copy_label(temp);}
         label {Freq. Fine}
         callback {hor->Operator[(int) D_Freq_F->value()].harmonic_fine=o->value();
 Actu();}
-        xywh {10 170 145 25} labelsize 9 align 8 when 4 minimum -0.5 maximum 0.5 step 1e-05
+        xywh {10 175 145 25} labelsize 9 align 8 when 4 minimum -0.5 maximum 0.5 step 1e-05
       }
       Fl_Box {} {
         label {Rotary Amplitude}
-        xywh {210 105 170 60} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
+        xywh {210 105 170 55} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
       }
       Fl_Counter D_Rot_Amp {
         label Amplitude
         callback {hor->Rotary_LFO_Amplitude=o->value();
-Actu();} selected
-        xywh {220 135 90 25} type Simple labelsize 9 align 8 when 4 minimum 100 maximum 14100 step 100 value 12800
+Actu();}
+        xywh {220 130 90 25} type Simple labelsize 9 align 8 when 4 minimum 100 maximum 14100 step 100 value 12800
       }
       Fl_Box {} {
         label Transpose
-        xywh {210 165 170 60} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
+        xywh {210 160 170 50} box PLASTIC_UP_BOX color 0 labelsize 13 align 17
       }
       Fl_Counter D_O_Transpose {
         callback {hor->organ_transpose=(int)o->value();
 Actu();}
-        xywh {260 190 70 25} type Simple labelsize 9 align 8 when 4 minimum -36 maximum 24 step 1
+        xywh {260 180 70 25} type Simple labelsize 9 align 8 when 4 minimum -36 maximum 24 step 1
       }
     }
   }

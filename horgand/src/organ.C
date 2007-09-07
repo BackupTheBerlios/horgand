@@ -147,7 +147,7 @@ HOR::HOR()
   u_release = 1.0 / release;
   p_attack= 0.0001;
   u_p_attack = 1.0 / p_attack;
-  p_decay = 0.24;
+  p_decay = 0.018;
   u_p_decay = 1.0 / p_decay;
   p_sustain=0.00;
   p_release=0.12;
@@ -986,7 +986,6 @@ for (j = 1; j<= 20; j++)
       x_sin = (float) ( i * D_PI / sizesin);
       lsin[i] =sin (x_sin);
 
-
       if( i > 0) lsin[i-1] = (lsin[i-1] *  ( 1.0 +  lsin[i] - lsin[i-1]));
       if( i > 1) lsin[i-2] = (lsin[i-2] *  ( 1.0 +  lsin[i-1] - lsin[i-2]));
       if( i > 2) lsin[i-3] = (lsin[i-3] *  ( 1.0 +  lsin[i-2] - lsin[i-3]));
@@ -1335,7 +1334,7 @@ HOR::Alg1s (int nframes, void *)
     for (i=1;i<=10;i++)
     { p_op[i]=pitch_Operator(i,0);
       p_op2[i]=pitch_Operator2(i,0);
-      total_vol += Operator[i].volumen;
+      total_vol += Operator[i].volumen*Normalize[Operator[i].harmonic];
     }  
              
     if (total_vol>0) organ_master=Organ_Master_Volume*(float)(1.0/total_vol);
@@ -1392,16 +1391,21 @@ HOR::Alg1s (int nframes, void *)
 	}
 
     }
-     
+
+    
 
 if (E_Chorus_On) Effect_Chorus();
 if (E_Rotary_On) Effect_Rotary();
 if (E_Delay_On)  Effect_Delay();
 if (E_Reverb_On) Effect_Reverb();
 
+
 Write_Buffer_Effects();
 
+
+
 if (Rhythm_On) Get_Rhythm();
+
 
 if (Salida < 3) Final_Output(Salida);
 

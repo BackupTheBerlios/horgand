@@ -5,6 +5,8 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- Adjust initial state settings. 
+- Normalize Volumes.
 - Adjust Rotary LFO Amplitude.
 - Added browse for rhythm files. 
 - Fix widget positions.

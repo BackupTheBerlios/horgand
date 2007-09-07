@@ -185,6 +185,7 @@ public:
   float Chorus_LFO_Frequency;
   float Chorus_Volume;  
   int E_Chorus_On;            
+  int E_Overdrive_On;
   int cl_counter;
   float Chorus_Delay;
   int split;

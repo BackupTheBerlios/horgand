@@ -294,7 +294,7 @@ HOR::New ()
   sustain = 0.8;
   p_attack= 0.0001;
   u_p_attack = 1.0 / p_attack;
-  p_decay = 0.24;
+  p_decay = 0.018;
   u_p_decay = 1.0 / p_decay;
   p_sustain=0.00;
   p_release=0.12;

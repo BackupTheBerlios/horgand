@@ -219,6 +219,7 @@ D_Freq->value(1);
 D_Freq_F->value(1);
 D_FFval->lstep(0.001);
 
+
 metesynth();
 
 Fl_Preferences horgand (Fl_Preferences::USER, WEBSITE , PACKAGE);
@@ -3072,7 +3073,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(530, 95, 65, 215);
+    { Fl_Box* o = new Fl_Box(530, 90, 65, 220);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -3080,7 +3081,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(0, 95, 105, 215);
+    { Fl_Box* o = new Fl_Box(0, 90, 105, 220);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -3088,19 +3089,19 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(-30, 25, 855, 70);
+    { Fl_Box* o = new Fl_Box(-30, 25, 855, 65);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
       o->align(FL_ALIGN_TOP_LEFT);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(465, 95, 65, 215);
+    { Fl_Box* o = new Fl_Box(465, 90, 65, 220);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
       o->align(FL_ALIGN_TOP_LEFT);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(105, 95, 65, 215);
+    { Fl_Box* o = new Fl_Box(105, 90, 65, 220);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -3116,7 +3117,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(385, 95, 80, 140);
+    { Fl_Box* o = new Fl_Box(385, 90, 80, 145);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -3124,7 +3125,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(170, 95, 65, 215);
+    { Fl_Box* o = new Fl_Box(170, 90, 65, 220);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -3136,7 +3137,6 @@ Fl_Double_Window* HORGAN::make_window() {
       PANICO->box(FL_PLASTIC_UP_BOX);
       PANICO->shortcut(0xff0d);
       PANICO->color((Fl_Color)1);
-      PANICO->labelsize(15);
       PANICO->labelcolor(FL_BACKGROUND2_COLOR);
       PANICO->callback((Fl_Callback*)cb_PANICO);
     } // Fl_Button* PANICO
@@ -3150,16 +3150,10 @@ Fl_Double_Window* HORGAN::make_window() {
     { Fl_Box* o = new Fl_Box(240, 139, 46, 46);
       o->box(FL_OVAL_FRAME);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(115, 244, 46, 46);
-      o->box(FL_OVAL_FRAME);
-    } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(305, 115, 31, 90);
       o->box(FL_DOWN_FRAME);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(180, 99, 46, 46);
-      o->box(FL_OVAL_FRAME);
-    } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(235, 95, 150, 140);
+    { Fl_Box* o = new Fl_Box(235, 90, 150, 145);
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -3167,51 +3161,35 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(115, 99, 46, 46);
-      o->box(FL_OVAL_FRAME);
-    } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(115, 174, 46, 46);
-      o->box(FL_OVAL_FRAME);
-    } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(250, 210, 55, 20, gettext("Volume"));
-      o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
       o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
     } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(385, 240, 75, 15, gettext("Master Tune"));
-      o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
       o->align(192|FL_ALIGN_INSIDE);
     } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(320, 240, 45, 15, gettext("Delay"));
-      o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
       o->align(192|FL_ALIGN_INSIDE);
     } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(385, 273, 75, 15, gettext("Transpose"));
-      o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
       o->align(192|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(240, 139, 46, 46);
-      o->box(FL_OVAL_FRAME);
     } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(315, 273, 50, 15, gettext("Volume"));
-      o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
       o->align(192|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(655, 525, 46, 45);
-      o->box(FL_OVAL_FRAME);
     } // Fl_Box* o
     { CF = new Fl_Light_Button(5, 235, 95, 40, gettext("Compare First"));
       CF->box(FL_PLASTIC_UP_BOX);
       CF->color(FL_FOREGROUND_COLOR);
+      CF->labelsize(12);
       CF->labelcolor(FL_BACKGROUND2_COLOR);
       CF->callback((Fl_Callback*)cb_CF);
       CF->align(196|FL_ALIGN_INSIDE);
@@ -3220,6 +3198,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { CL = new Fl_Light_Button(5, 195, 95, 40, gettext("Compare Last"));
       CL->box(FL_PLASTIC_UP_BOX);
       CL->color(FL_FOREGROUND_COLOR);
+      CL->labelsize(12);
       CL->labelcolor(FL_BACKGROUND2_COLOR);
       CL->callback((Fl_Callback*)cb_CL);
       CL->align(196|FL_ALIGN_INSIDE);
@@ -3272,9 +3251,9 @@ Fl_Double_Window* HORGAN::make_window() {
       Master->box(FL_PLASTIC_DOWN_BOX);
       Master->color(FL_FOREGROUND_COLOR);
       Master->selection_color((Fl_Color)1);
-      Master->labeltype(FL_ENGRAVED_LABEL);
+      Master->labeltype(FL_NORMAL_LABEL);
       Master->labelfont(0);
-      Master->labelsize(12);
+      Master->labelsize(10);
       Master->labelcolor((Fl_Color)4);
       Master->minimum(100);
       Master->maximum(0);
@@ -3459,9 +3438,9 @@ Fl_Double_Window* HORGAN::make_window() {
       Detune->box(FL_OSHADOW_BOX);
       Detune->color(FL_DARK1);
       Detune->selection_color(FL_INACTIVE_COLOR);
-      Detune->labeltype(FL_ENGRAVED_LABEL);
+      Detune->labeltype(FL_NORMAL_LABEL);
       Detune->labelfont(0);
-      Detune->labelsize(12);
+      Detune->labelsize(10);
       Detune->labelcolor((Fl_Color)4);
       Detune->maximum(100);
       Detune->step(0.1);
@@ -3469,13 +3448,13 @@ Fl_Double_Window* HORGAN::make_window() {
       Detune->align(FL_ALIGN_BOTTOM);
       Detune->when(FL_WHEN_RELEASE);
     } // Rueda* Detune
-    { LFOSpeed = new Rueda(180, 100, 45, 45, gettext("Speed"));
+    { LFOSpeed = new Rueda(180, 95, 45, 45, gettext("Speed"));
       LFOSpeed->box(FL_OSHADOW_BOX);
       LFOSpeed->color(FL_DARK1);
       LFOSpeed->selection_color(FL_INACTIVE_COLOR);
-      LFOSpeed->labeltype(FL_ENGRAVED_LABEL);
+      LFOSpeed->labeltype(FL_NORMAL_LABEL);
       LFOSpeed->labelfont(0);
-      LFOSpeed->labelsize(12);
+      LFOSpeed->labelsize(10);
       LFOSpeed->labelcolor((Fl_Color)4);
       LFOSpeed->maximum(40);
       LFOSpeed->step(0.1);
@@ -3487,9 +3466,9 @@ Fl_Double_Window* HORGAN::make_window() {
       LFOPitch->box(FL_OSHADOW_BOX);
       LFOPitch->color(FL_DARK1);
       LFOPitch->selection_color(FL_INACTIVE_COLOR);
-      LFOPitch->labeltype(FL_ENGRAVED_LABEL);
+      LFOPitch->labeltype(FL_NORMAL_LABEL);
       LFOPitch->labelfont(0);
-      LFOPitch->labelsize(12);
+      LFOPitch->labelsize(10);
       LFOPitch->labelcolor((Fl_Color)4);
       LFOPitch->maximum(200);
       LFOPitch->step(1);
@@ -3497,13 +3476,13 @@ Fl_Double_Window* HORGAN::make_window() {
       LFOPitch->align(FL_ALIGN_BOTTOM);
       LFOPitch->when(FL_WHEN_CHANGED);
     } // Rueda* LFOPitch
-    { PLFOSpeed = new Rueda(115, 100, 45, 45, gettext("Speed"));
+    { PLFOSpeed = new Rueda(115, 95, 45, 45, gettext("Speed"));
       PLFOSpeed->box(FL_OSHADOW_BOX);
       PLFOSpeed->color(FL_DARK1);
       PLFOSpeed->selection_color(FL_INACTIVE_COLOR);
-      PLFOSpeed->labeltype(FL_ENGRAVED_LABEL);
+      PLFOSpeed->labeltype(FL_NORMAL_LABEL);
       PLFOSpeed->labelfont(0);
-      PLFOSpeed->labelsize(12);
+      PLFOSpeed->labelsize(10);
       PLFOSpeed->labelcolor((Fl_Color)4);
       PLFOSpeed->maximum(30);
       PLFOSpeed->step(0.01);
@@ -3511,13 +3490,13 @@ Fl_Double_Window* HORGAN::make_window() {
       PLFOSpeed->align(FL_ALIGN_BOTTOM);
       PLFOSpeed->when(FL_WHEN_CHANGED);
     } // Rueda* PLFOSpeed
-    { PLFODelay = new Rueda(115, 173, 45, 45, gettext("Delay"));
+    { PLFODelay = new Rueda(115, 170, 45, 45, gettext("Delay"));
       PLFODelay->box(FL_OSHADOW_BOX);
       PLFODelay->color(FL_DARK1);
       PLFODelay->selection_color(FL_INACTIVE_COLOR);
-      PLFODelay->labeltype(FL_ENGRAVED_LABEL);
+      PLFODelay->labeltype(FL_NORMAL_LABEL);
       PLFODelay->labelfont(0);
-      PLFODelay->labelsize(12);
+      PLFODelay->labelsize(10);
       PLFODelay->labelcolor((Fl_Color)4);
       PLFODelay->maximum(99);
       PLFODelay->step(1);
@@ -3674,23 +3653,22 @@ Fl_Double_Window* HORGAN::make_window() {
       H10->callback((Fl_Callback*)cb_H10);
       H10->when(FL_WHEN_RELEASE);
     } // Fl_Slider* H10
-    { Rota = new Fl_Button(180, 170, 45, 30, gettext("Rotary"));
+    { Rota = new Fl_Button(180, 160, 45, 30, gettext("Rotary"));
       Rota->type(1);
       Rota->box(FL_PLASTIC_UP_BOX);
       Rota->color((Fl_Color)31);
       Rota->selection_color((Fl_Color)135);
-      Rota->labeltype(FL_ENGRAVED_LABEL);
-      Rota->labelsize(10);
+      Rota->labelsize(9);
       Rota->callback((Fl_Callback*)cb_Rota);
       Rota->align(FL_ALIGN_CLIP);
     } // Fl_Button* Rota
-    { ELFOSpeed = new Rueda(240, 140, 45, 45, gettext("Speed"));
+    { ELFOSpeed = new Rueda(245, 140, 45, 45, gettext("Speed"));
       ELFOSpeed->box(FL_OSHADOW_BOX);
       ELFOSpeed->color(FL_DARK1);
       ELFOSpeed->selection_color(FL_INACTIVE_COLOR);
-      ELFOSpeed->labeltype(FL_ENGRAVED_LABEL);
+      ELFOSpeed->labeltype(FL_NORMAL_LABEL);
       ELFOSpeed->labelfont(0);
-      ELFOSpeed->labelsize(12);
+      ELFOSpeed->labelsize(10);
       ELFOSpeed->labelcolor((Fl_Color)4);
       ELFOSpeed->maximum(5);
       ELFOSpeed->step(0.01);
@@ -3703,9 +3681,9 @@ Fl_Double_Window* HORGAN::make_window() {
       ELFOAmplitude->box(FL_PLASTIC_DOWN_BOX);
       ELFOAmplitude->color((Fl_Color)24);
       ELFOAmplitude->selection_color((Fl_Color)1);
-      ELFOAmplitude->labeltype(FL_ENGRAVED_LABEL);
+      ELFOAmplitude->labeltype(FL_NORMAL_LABEL);
       ELFOAmplitude->labelfont(0);
-      ELFOAmplitude->labelsize(12);
+      ELFOAmplitude->labelsize(10);
       ELFOAmplitude->labelcolor((Fl_Color)4);
       ELFOAmplitude->maximum(99);
       ELFOAmplitude->step(1);
@@ -3718,9 +3696,9 @@ Fl_Double_Window* HORGAN::make_window() {
       POPO->box(FL_PLASTIC_DOWN_BOX);
       POPO->color((Fl_Color)24);
       POPO->selection_color((Fl_Color)3);
-      POPO->labeltype(FL_ENGRAVED_LABEL);
+      POPO->labeltype(FL_NORMAL_LABEL);
       POPO->labelfont(0);
-      POPO->labelsize(12);
+      POPO->labelsize(10);
       POPO->labelcolor((Fl_Color)4);
       POPO->maximum(99);
       POPO->step(0.1);
@@ -3737,13 +3715,12 @@ Fl_Double_Window* HORGAN::make_window() {
       ChorVol->callback((Fl_Callback*)cb_ChorVol);
       ChorVol->when(FL_WHEN_RELEASE);
     } // Fl_Counter* ChorVol
-    { Split = new Fl_Button(180, 205, 45, 30, gettext("Split"));
+    { Split = new Fl_Button(180, 200, 45, 30, gettext("Split"));
       Split->type(1);
       Split->box(FL_PLASTIC_UP_BOX);
       Split->color((Fl_Color)31);
       Split->selection_color((Fl_Color)135);
-      Split->labeltype(FL_ENGRAVED_LABEL);
-      Split->labelsize(10);
+      Split->labelsize(9);
       Split->callback((Fl_Callback*)cb_Split);
       Split->align(FL_ALIGN_CLIP);
     } // Fl_Button* Split
@@ -3759,8 +3736,7 @@ Fl_Double_Window* HORGAN::make_window() {
       EchoOn->box(FL_PLASTIC_UP_BOX);
       EchoOn->color((Fl_Color)31);
       EchoOn->selection_color((Fl_Color)135);
-      EchoOn->labeltype(FL_ENGRAVED_LABEL);
-      EchoOn->labelsize(10);
+      EchoOn->labelsize(9);
       EchoOn->callback((Fl_Callback*)cb_EchoOn);
       EchoOn->align(FL_ALIGN_CLIP);
     } // Fl_Button* EchoOn
@@ -3769,8 +3745,7 @@ Fl_Double_Window* HORGAN::make_window() {
       ChorusOn->box(FL_PLASTIC_UP_BOX);
       ChorusOn->color((Fl_Color)31);
       ChorusOn->selection_color((Fl_Color)135);
-      ChorusOn->labeltype(FL_ENGRAVED_LABEL);
-      ChorusOn->labelsize(10);
+      ChorusOn->labelsize(8);
       ChorusOn->callback((Fl_Callback*)cb_ChorusOn);
       ChorusOn->align(FL_ALIGN_CLIP);
     } // Fl_Button* ChorusOn
@@ -3857,23 +3832,21 @@ Fl_Double_Window* HORGAN::make_window() {
       } // Fl_Button* R8
       o->end();
     } // Fl_Group* o
-    { Rev = new Fl_Button(398, 100, 55, 30, gettext("Reverb"));
+    { Rev = new Fl_Button(397, 100, 55, 30, gettext("Reverb"));
       Rev->type(1);
       Rev->box(FL_PLASTIC_UP_BOX);
       Rev->color((Fl_Color)31);
       Rev->selection_color((Fl_Color)3);
-      Rev->labeltype(FL_ENGRAVED_LABEL);
-      Rev->labelsize(10);
+      Rev->labelsize(8);
       Rev->callback((Fl_Callback*)cb_Rev);
       Rev->align(FL_ALIGN_CLIP);
     } // Fl_Button* Rev
-    { RitVol = new Fl_Slider(605, 415, 40, 155, gettext("Vol."));
+    { RitVol = new Fl_Slider(600, 415, 40, 155, gettext("Vol."));
       RitVol->type(4);
       RitVol->box(FL_PLASTIC_DOWN_BOX);
       RitVol->color((Fl_Color)24);
       RitVol->selection_color((Fl_Color)3);
-      RitVol->labeltype(FL_ENGRAVED_LABEL);
-      RitVol->labelsize(12);
+      RitVol->labelsize(10);
       RitVol->labelcolor((Fl_Color)4);
       RitVol->minimum(0.99);
       RitVol->maximum(0);
@@ -3882,11 +3855,10 @@ Fl_Double_Window* HORGAN::make_window() {
       RitVol->callback((Fl_Callback*)cb_RitVol);
       RitVol->align(194);
     } // Fl_Slider* RitVol
-    { Tempo = new Fl_Dial(655, 525, 45, 45, gettext("Tempo"));
+    { Tempo = new Fl_Dial(650, 525, 45, 45, gettext("Tempo"));
       Tempo->box(FL_OSHADOW_BOX);
       Tempo->color(FL_DARK1);
-      Tempo->labeltype(FL_ENGRAVED_LABEL);
-      Tempo->labelsize(12);
+      Tempo->labelsize(10);
       Tempo->labelcolor((Fl_Color)4);
       Tempo->minimum(1.7);
       Tempo->maximum(2.7);
@@ -3896,7 +3868,7 @@ Fl_Double_Window* HORGAN::make_window() {
       Tempo->align(194);
       Tempo->deactivate();
     } // Fl_Dial* Tempo
-    { VUI2 = new Fl_Slider(650, 510, 15, 15);
+    { VUI2 = new Fl_Slider(645, 510, 15, 15);
       VUI2->type(2);
       VUI2->color((Fl_Color)30);
       VUI2->selection_color((Fl_Color)1);
@@ -3905,22 +3877,20 @@ Fl_Double_Window* HORGAN::make_window() {
       VUI2->step(1);
       VUI2->callback((Fl_Callback*)cb_VUI2);
     } // Fl_Slider* VUI2
-    { RitOn = new Fl_Button(650, 465, 50, 35, gettext("Stop/Cont"));
+    { RitOn = new Fl_Button(645, 465, 60, 35, gettext("Stop/Cont"));
       RitOn->type(1);
       RitOn->box(FL_PLASTIC_UP_BOX);
       RitOn->color((Fl_Color)31);
       RitOn->selection_color((Fl_Color)135);
-      RitOn->labeltype(FL_ENGRAVED_LABEL);
       RitOn->labelsize(8);
       RitOn->callback((Fl_Callback*)cb_RitOn);
       RitOn->align(FL_ALIGN_CLIP);
     } // Fl_Button* RitOn
-    { StStRiton = new Fl_Button(650, 425, 50, 35, gettext("Start/Stop"));
+    { StStRiton = new Fl_Button(645, 425, 60, 35, gettext("Start/Stop"));
       StStRiton->type(1);
       StStRiton->box(FL_PLASTIC_UP_BOX);
       StStRiton->color((Fl_Color)31);
       StStRiton->selection_color((Fl_Color)135);
-      StStRiton->labeltype(FL_ENGRAVED_LABEL);
       StStRiton->labelsize(8);
       StStRiton->callback((Fl_Callback*)cb_StStRiton);
       StStRiton->align(FL_ALIGN_CLIP);
@@ -3933,7 +3903,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP);
     } // Fl_Box* o
-    { RitButtons = new Fl_Group(595, 93, 230, 312);
+    { RitButtons = new Fl_Group(595, 88, 230, 317);
       RitButtons->box(FL_PLASTIC_UP_BOX);
       RitButtons->color(FL_FOREGROUND_COLOR);
       { Rit1 = new Fl_Button(605, 105, 95, 25);
@@ -3943,7 +3913,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit1->color((Fl_Color)31);
         Rit1->selection_color(FL_GREEN);
         Rit1->labeltype(FL_ENGRAVED_LABEL);
-        Rit1->labelsize(12);
+        Rit1->labelsize(11);
         Rit1->callback((Fl_Callback*)cb_Rit1);
         Rit1->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit1
@@ -3954,7 +3924,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit2->color((Fl_Color)31);
         Rit2->selection_color(FL_GREEN);
         Rit2->labeltype(FL_ENGRAVED_LABEL);
-        Rit2->labelsize(12);
+        Rit2->labelsize(11);
         Rit2->callback((Fl_Callback*)cb_Rit2);
         Rit2->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit2
@@ -3965,7 +3935,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit3->color((Fl_Color)31);
         Rit3->selection_color(FL_GREEN);
         Rit3->labeltype(FL_ENGRAVED_LABEL);
-        Rit3->labelsize(12);
+        Rit3->labelsize(11);
         Rit3->callback((Fl_Callback*)cb_Rit3);
         Rit3->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit3
@@ -3976,7 +3946,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit4->color((Fl_Color)31);
         Rit4->selection_color(FL_GREEN);
         Rit4->labeltype(FL_ENGRAVED_LABEL);
-        Rit4->labelsize(12);
+        Rit4->labelsize(11);
         Rit4->callback((Fl_Callback*)cb_Rit4);
         Rit4->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit4
@@ -3987,7 +3957,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit5->color((Fl_Color)31);
         Rit5->selection_color(FL_GREEN);
         Rit5->labeltype(FL_ENGRAVED_LABEL);
-        Rit5->labelsize(12);
+        Rit5->labelsize(11);
         Rit5->callback((Fl_Callback*)cb_Rit5);
         Rit5->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit5
@@ -3998,7 +3968,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit6->color((Fl_Color)31);
         Rit6->selection_color(FL_GREEN);
         Rit6->labeltype(FL_ENGRAVED_LABEL);
-        Rit6->labelsize(12);
+        Rit6->labelsize(11);
         Rit6->callback((Fl_Callback*)cb_Rit6);
         Rit6->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit6
@@ -4009,7 +3979,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit7->color((Fl_Color)31);
         Rit7->selection_color(FL_GREEN);
         Rit7->labeltype(FL_ENGRAVED_LABEL);
-        Rit7->labelsize(12);
+        Rit7->labelsize(11);
         Rit7->callback((Fl_Callback*)cb_Rit7);
         Rit7->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit7
@@ -4020,7 +3990,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit8->color((Fl_Color)31);
         Rit8->selection_color(FL_GREEN);
         Rit8->labeltype(FL_ENGRAVED_LABEL);
-        Rit8->labelsize(12);
+        Rit8->labelsize(11);
         Rit8->callback((Fl_Callback*)cb_Rit8);
         Rit8->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit8
@@ -4031,7 +4001,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit9->color((Fl_Color)31);
         Rit9->selection_color(FL_GREEN);
         Rit9->labeltype(FL_ENGRAVED_LABEL);
-        Rit9->labelsize(12);
+        Rit9->labelsize(11);
         Rit9->callback((Fl_Callback*)cb_Rit9);
         Rit9->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit9
@@ -4042,7 +4012,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit10->color((Fl_Color)31);
         Rit10->selection_color(FL_GREEN);
         Rit10->labeltype(FL_ENGRAVED_LABEL);
-        Rit10->labelsize(12);
+        Rit10->labelsize(11);
         Rit10->callback((Fl_Callback*)cb_Rit10);
         Rit10->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit10
@@ -4053,7 +4023,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit11->color((Fl_Color)31);
         Rit11->selection_color(FL_GREEN);
         Rit11->labeltype(FL_ENGRAVED_LABEL);
-        Rit11->labelsize(12);
+        Rit11->labelsize(11);
         Rit11->callback((Fl_Callback*)cb_Rit11);
         Rit11->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit11
@@ -4064,7 +4034,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit12->color((Fl_Color)31);
         Rit12->selection_color(FL_GREEN);
         Rit12->labeltype(FL_ENGRAVED_LABEL);
-        Rit12->labelsize(12);
+        Rit12->labelsize(11);
         Rit12->callback((Fl_Callback*)cb_Rit12);
         Rit12->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit12
@@ -4075,7 +4045,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit13->color((Fl_Color)31);
         Rit13->selection_color(FL_GREEN);
         Rit13->labeltype(FL_ENGRAVED_LABEL);
-        Rit13->labelsize(12);
+        Rit13->labelsize(11);
         Rit13->callback((Fl_Callback*)cb_Rit13);
         Rit13->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit13
@@ -4086,7 +4056,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit14->color((Fl_Color)31);
         Rit14->selection_color(FL_GREEN);
         Rit14->labeltype(FL_ENGRAVED_LABEL);
-        Rit14->labelsize(12);
+        Rit14->labelsize(11);
         Rit14->callback((Fl_Callback*)cb_Rit14);
         Rit14->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit14
@@ -4097,7 +4067,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit15->color((Fl_Color)31);
         Rit15->selection_color(FL_GREEN);
         Rit15->labeltype(FL_ENGRAVED_LABEL);
-        Rit15->labelsize(12);
+        Rit15->labelsize(11);
         Rit15->callback((Fl_Callback*)cb_Rit15);
         Rit15->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit15
@@ -4108,7 +4078,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit16->color((Fl_Color)31);
         Rit16->selection_color(FL_GREEN);
         Rit16->labeltype(FL_ENGRAVED_LABEL);
-        Rit16->labelsize(12);
+        Rit16->labelsize(11);
         Rit16->callback((Fl_Callback*)cb_Rit16);
         Rit16->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit16
@@ -4119,7 +4089,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit17->color((Fl_Color)31);
         Rit17->selection_color(FL_GREEN);
         Rit17->labeltype(FL_ENGRAVED_LABEL);
-        Rit17->labelsize(12);
+        Rit17->labelsize(11);
         Rit17->callback((Fl_Callback*)cb_Rit17);
         Rit17->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit17
@@ -4130,7 +4100,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit18->color((Fl_Color)31);
         Rit18->selection_color(FL_GREEN);
         Rit18->labeltype(FL_ENGRAVED_LABEL);
-        Rit18->labelsize(12);
+        Rit18->labelsize(11);
         Rit18->callback((Fl_Callback*)cb_Rit18);
         Rit18->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit18
@@ -4141,7 +4111,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit19->color((Fl_Color)31);
         Rit19->selection_color(FL_GREEN);
         Rit19->labeltype(FL_ENGRAVED_LABEL);
-        Rit19->labelsize(12);
+        Rit19->labelsize(11);
         Rit19->callback((Fl_Callback*)cb_Rit19);
         Rit19->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit19
@@ -4152,7 +4122,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Rit20->color((Fl_Color)31);
         Rit20->selection_color(FL_GREEN);
         Rit20->labeltype(FL_ENGRAVED_LABEL);
-        Rit20->labelsize(12);
+        Rit20->labelsize(11);
         Rit20->callback((Fl_Callback*)cb_Rit20);
         Rit20->align(FL_ALIGN_CLIP);
       } // Fl_Button* Rit20
@@ -4163,8 +4133,7 @@ Fl_Double_Window* HORGAN::make_window() {
       BassVol->box(FL_PLASTIC_DOWN_BOX);
       BassVol->color((Fl_Color)24);
       BassVol->selection_color((Fl_Color)3);
-      BassVol->labeltype(FL_ENGRAVED_LABEL);
-      BassVol->labelsize(12);
+      BassVol->labelsize(10);
       BassVol->labelcolor((Fl_Color)4);
       BassVol->minimum(0.99);
       BassVol->maximum(0);
@@ -4173,24 +4142,23 @@ Fl_Double_Window* HORGAN::make_window() {
       BassVol->callback((Fl_Callback*)cb_BassVol);
       BassVol->align(194);
     } // Fl_Slider* BassVol
-    { Basson = new Fl_Button(755, 425, 50, 35, gettext("Bass"));
+    { Basson = new Fl_Button(755, 425, 65, 35, gettext("Bass"));
       Basson->type(1);
       Basson->box(FL_PLASTIC_UP_BOX);
       Basson->color((Fl_Color)31);
       Basson->selection_color((Fl_Color)135);
-      Basson->labeltype(FL_ENGRAVED_LABEL);
-      Basson->labelsize(10);
+      Basson->labelsize(8);
       Basson->callback((Fl_Callback*)cb_Basson);
       Basson->align(FL_ALIGN_CLIP);
     } // Fl_Button* Basson
-    { Fl_Group* o = new Fl_Group(755, 470, 70, 85);
+    { Fl_Group* o = new Fl_Group(755, 470, 70, 90);
       { Bass1 = new Fl_Button(755, 470, 65, 25, gettext("Acoustic"));
         Bass1->type(102);
         Bass1->box(FL_PLASTIC_UP_BOX);
         Bass1->color((Fl_Color)31);
         Bass1->selection_color(FL_GREEN);
         Bass1->labeltype(FL_ENGRAVED_LABEL);
-        Bass1->labelsize(12);
+        Bass1->labelsize(11);
         Bass1->callback((Fl_Callback*)cb_Bass1);
         Bass1->align(FL_ALIGN_CLIP);
       } // Fl_Button* Bass1
@@ -4200,7 +4168,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Bass2->color((Fl_Color)31);
         Bass2->selection_color(FL_GREEN);
         Bass2->labeltype(FL_ENGRAVED_LABEL);
-        Bass2->labelsize(12);
+        Bass2->labelsize(11);
         Bass2->callback((Fl_Callback*)cb_Bass2);
         Bass2->align(FL_ALIGN_CLIP);
       } // Fl_Button* Bass2
@@ -4210,7 +4178,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Bass3->color((Fl_Color)31);
         Bass3->selection_color(FL_GREEN);
         Bass3->labeltype(FL_ENGRAVED_LABEL);
-        Bass3->labelsize(12);
+        Bass3->labelsize(11);
         Bass3->callback((Fl_Callback*)cb_Bass3);
         Bass3->align(FL_ALIGN_CLIP);
       } // Fl_Button* Bass3
@@ -4227,10 +4195,9 @@ Fl_Double_Window* HORGAN::make_window() {
     { NV1 = new Fl_Value_Output(2, 543, 55, 20);
       NV1->color(FL_DARK1);
       NV1->selection_color((Fl_Color)1);
-      NV1->labelfont(1);
       NV1->maximum(16);
       NV1->step(0.5);
-      NV1->textfont(1);
+      NV1->textsize(12);
       NV1->textcolor(4);
       NV1->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV1
@@ -4239,7 +4206,7 @@ Fl_Double_Window* HORGAN::make_window() {
       NV2->selection_color((Fl_Color)1);
       NV2->maximum(16);
       NV2->step(0.5);
-      NV2->textfont(1);
+      NV2->textsize(12);
       NV2->textcolor(4);
       NV2->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV2
@@ -4248,7 +4215,7 @@ Fl_Double_Window* HORGAN::make_window() {
       NV3->selection_color((Fl_Color)1);
       NV3->maximum(16);
       NV3->step(0.5);
-      NV3->textfont(1);
+      NV3->textsize(12);
       NV3->textcolor(4);
       NV3->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV3
@@ -4257,7 +4224,7 @@ Fl_Double_Window* HORGAN::make_window() {
       NV4->selection_color((Fl_Color)1);
       NV4->maximum(16);
       NV4->step(0.5);
-      NV4->textfont(1);
+      NV4->textsize(12);
       NV4->textcolor(4);
       NV4->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV4
@@ -4266,7 +4233,7 @@ Fl_Double_Window* HORGAN::make_window() {
       NV5->selection_color((Fl_Color)1);
       NV5->maximum(16);
       NV5->step(0.5);
-      NV5->textfont(1);
+      NV5->textsize(12);
       NV5->textcolor(4);
       NV5->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV5
@@ -4275,7 +4242,7 @@ Fl_Double_Window* HORGAN::make_window() {
       NV6->selection_color((Fl_Color)1);
       NV6->maximum(16);
       NV6->step(0.5);
-      NV6->textfont(1);
+      NV6->textsize(12);
       NV6->textcolor(4);
       NV6->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV6
@@ -4284,7 +4251,7 @@ Fl_Double_Window* HORGAN::make_window() {
       NV7->selection_color((Fl_Color)1);
       NV7->maximum(16);
       NV7->step(0.5);
-      NV7->textfont(1);
+      NV7->textsize(12);
       NV7->textcolor(4);
       NV7->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV7
@@ -4293,7 +4260,7 @@ Fl_Double_Window* HORGAN::make_window() {
       NV8->selection_color((Fl_Color)1);
       NV8->maximum(16);
       NV8->step(0.5);
-      NV8->textfont(1);
+      NV8->textsize(12);
       NV8->textcolor(4);
       NV8->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV8
@@ -4302,7 +4269,7 @@ Fl_Double_Window* HORGAN::make_window() {
       NV9->selection_color((Fl_Color)1);
       NV9->maximum(16);
       NV9->step(0.5);
-      NV9->textfont(1);
+      NV9->textsize(12);
       NV9->textcolor(4);
       NV9->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV9
@@ -4311,7 +4278,7 @@ Fl_Double_Window* HORGAN::make_window() {
       NV10->selection_color((Fl_Color)1);
       NV10->maximum(16);
       NV10->step(0.5);
-      NV10->textfont(1);
+      NV10->textsize(12);
       NV10->textcolor(4);
       NV10->align(200|FL_ALIGN_INSIDE);
     } // Fl_Value_Output* NV10
@@ -4331,9 +4298,9 @@ Fl_Double_Window* HORGAN::make_window() {
       OMaster->box(FL_PLASTIC_DOWN_BOX);
       OMaster->color((Fl_Color)24);
       OMaster->selection_color((Fl_Color)2);
-      OMaster->labeltype(FL_ENGRAVED_LABEL);
+      OMaster->labeltype(FL_NORMAL_LABEL);
       OMaster->labelfont(0);
-      OMaster->labelsize(12);
+      OMaster->labelsize(10);
       OMaster->labelcolor((Fl_Color)4);
       OMaster->minimum(100);
       OMaster->maximum(0);
@@ -4345,61 +4312,61 @@ Fl_Double_Window* HORGAN::make_window() {
     } // Drawbar* OMaster
     { Mar1 = new Fl_Light_Button(2, 317, 55, 15, gettext("Perc"));
       Mar1->box(FL_PLASTIC_UP_BOX);
-      Mar1->labelsize(11);
+      Mar1->labelsize(9);
       Mar1->callback((Fl_Callback*)cb_Mar1);
       Mar1->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar1
     { Mar2 = new Fl_Light_Button(61, 317, 55, 15, gettext("Perc"));
       Mar2->box(FL_PLASTIC_UP_BOX);
-      Mar2->labelsize(11);
+      Mar2->labelsize(9);
       Mar2->callback((Fl_Callback*)cb_Mar2);
       Mar2->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar2
     { Mar3 = new Fl_Light_Button(120, 317, 55, 15, gettext("Perc"));
       Mar3->box(FL_PLASTIC_UP_BOX);
-      Mar3->labelsize(11);
+      Mar3->labelsize(9);
       Mar3->callback((Fl_Callback*)cb_Mar3);
       Mar3->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar3
     { Mar4 = new Fl_Light_Button(179, 317, 55, 15, gettext("Perc"));
       Mar4->box(FL_PLASTIC_UP_BOX);
-      Mar4->labelsize(11);
+      Mar4->labelsize(9);
       Mar4->callback((Fl_Callback*)cb_Mar4);
       Mar4->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar4
     { Mar5 = new Fl_Light_Button(238, 317, 55, 15, gettext("Perc"));
       Mar5->box(FL_PLASTIC_UP_BOX);
-      Mar5->labelsize(11);
+      Mar5->labelsize(9);
       Mar5->callback((Fl_Callback*)cb_Mar5);
       Mar5->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar5
     { Mar6 = new Fl_Light_Button(297, 317, 55, 15, gettext("Perc"));
       Mar6->box(FL_PLASTIC_UP_BOX);
-      Mar6->labelsize(11);
+      Mar6->labelsize(9);
       Mar6->callback((Fl_Callback*)cb_Mar6);
       Mar6->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar6
     { Mar7 = new Fl_Light_Button(356, 317, 55, 15, gettext("Perc"));
       Mar7->box(FL_PLASTIC_UP_BOX);
-      Mar7->labelsize(11);
+      Mar7->labelsize(9);
       Mar7->callback((Fl_Callback*)cb_Mar7);
       Mar7->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar7
     { Mar8 = new Fl_Light_Button(415, 317, 55, 15, gettext("Perc"));
       Mar8->box(FL_PLASTIC_UP_BOX);
-      Mar8->labelsize(11);
+      Mar8->labelsize(9);
       Mar8->callback((Fl_Callback*)cb_Mar8);
       Mar8->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar8
     { Mar9 = new Fl_Light_Button(474, 317, 55, 15, gettext("Perc"));
       Mar9->box(FL_PLASTIC_UP_BOX);
-      Mar9->labelsize(11);
+      Mar9->labelsize(9);
       Mar9->callback((Fl_Callback*)cb_Mar9);
       Mar9->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar9
     { Mar10 = new Fl_Light_Button(533, 317, 55, 15, gettext("Perc"));
       Mar10->box(FL_PLASTIC_UP_BOX);
-      Mar10->labelsize(11);
+      Mar10->labelsize(9);
       Mar10->callback((Fl_Callback*)cb_Mar10);
       Mar10->align(196|FL_ALIGN_INSIDE);
     } // Fl_Light_Button* Mar10
@@ -5212,7 +5179,7 @@ e version 2 of the \n GNU General Public License for details."));
     } // Fl_Button* o
     RitEdit->end();
   } // Fl_Double_Window* RitEdit
-  { ADSRwin = new Fl_Double_Window(380, 225, gettext("Synthesizer"));
+  { ADSRwin = new Fl_Double_Window(380, 210, gettext("Synthesizer"));
     ADSRwin->callback((Fl_Callback*)cb_ADSRwin, (void*)(this));
     { Fl_Box* o = new Fl_Box(1, 1, 140, 78, gettext("Drawbar"));
       o->box(FL_PLASTIC_UP_BOX);
@@ -5337,7 +5304,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Att->align(FL_ALIGN_RIGHT);
       D_Att->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_Att
-    { Fl_Box* o = new Fl_Box(1, 105, 210, 120, gettext("Frequency Fine"));
+    { Fl_Box* o = new Fl_Box(1, 105, 209, 105, gettext("Frequency Fine"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
@@ -5353,7 +5320,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Freq_F->callback((Fl_Callback*)cb_D_Freq_F);
       D_Freq_F->align(FL_ALIGN_RIGHT);
     } // Fl_Counter* D_Freq_F
-    { D_FFval = new Fl_Counter(10, 170, 145, 25, gettext("Freq. Fine"));
+    { D_FFval = new Fl_Counter(10, 175, 145, 25, gettext("Freq. Fine"));
       D_FFval->labelsize(9);
       D_FFval->minimum(-0.5);
       D_FFval->maximum(0.5);
@@ -5362,13 +5329,13 @@ e version 2 of the \n GNU General Public License for details."));
       D_FFval->align(FL_ALIGN_RIGHT);
       D_FFval->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_FFval
-    { Fl_Box* o = new Fl_Box(210, 105, 170, 60, gettext("Rotary Amplitude"));
+    { Fl_Box* o = new Fl_Box(210, 105, 170, 55, gettext("Rotary Amplitude"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { D_Rot_Amp = new Fl_Counter(220, 135, 90, 25, gettext("Amplitude"));
+    { D_Rot_Amp = new Fl_Counter(220, 130, 90, 25, gettext("Amplitude"));
       D_Rot_Amp->type(1);
       D_Rot_Amp->labelsize(9);
       D_Rot_Amp->minimum(100);
@@ -5379,13 +5346,13 @@ e version 2 of the \n GNU General Public License for details."));
       D_Rot_Amp->align(FL_ALIGN_RIGHT);
       D_Rot_Amp->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_Rot_Amp
-    { Fl_Box* o = new Fl_Box(210, 165, 170, 60, gettext("Transpose"));
+    { Fl_Box* o = new Fl_Box(210, 160, 170, 50, gettext("Transpose"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { D_O_Transpose = new Fl_Counter(260, 190, 70, 25);
+    { D_O_Transpose = new Fl_Counter(260, 180, 70, 25);
       D_O_Transpose->type(1);
       D_O_Transpose->labelsize(9);
       D_O_Transpose->minimum(-36);

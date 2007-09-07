@@ -25,6 +25,7 @@
 #include "Holrgan.h"
 #include <math.h>
 
+
 // LFO for chorus
 
 float
@@ -154,11 +155,13 @@ HOR::Effect_Rotary ()
 
       a = Rotary_LFO (Rotary_X)*.5;
 
-      l =  buf[i];
-      r =  buf[i + 1];
-       
+         l = buf[i];
+         r =  buf[i + 1];
+        
       buf[i] -= (l * a);
       buf[i + 1] += (r * a);
+      
+       
        
     }
 };
@@ -297,4 +300,6 @@ int i;
 
 
 };
+
+
 
