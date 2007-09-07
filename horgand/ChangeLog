@@ -5,6 +5,7 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- sustain pedal now sustain '0' sustain sounds.
 - Adjust initial state settings. 
 - Normalize Volumes.
 - Adjust Rotary LFO Amplitude.

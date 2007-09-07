@@ -1240,7 +1240,8 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
        
       else
         {
-        return(sustain);
+        if (sustain != 0) return(sustain);
+        else return (Envelope_Volume[nota]);
         }
      }     
 

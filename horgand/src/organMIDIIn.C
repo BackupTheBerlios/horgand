@@ -76,6 +76,8 @@ HOR::midievents (int keIN)
 
       if (midievent->data.control.param == 64)
 	{
+          
+
 	  if (midievent->data.control.value < 64)
 	    pedal = 0;
 	  if (midievent->data.control.value > 63)
