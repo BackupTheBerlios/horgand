@@ -100,6 +100,9 @@ public:
   void loadfile(char *filename);
   void savebank(char *filename);
   void saverhyt(char *filename);
+  void ScanDir();
+  void ReadNames(char *filename, char *bankname);
+  void LoadSoundBank(int i);
   void Conecta();
   void disconectaaconnect();
   void conectaaconnect();
@@ -252,7 +255,7 @@ public:
   int Pyoin;
   int Ccin;
   int Pcin;
-
+  int Nums;
   
 struct Rhythm
 {
@@ -415,6 +418,25 @@ struct Todolo
     float f1,f2,f3;
   }  h[192];
 
+
+
+
+  struct NombreBancoPos
+  
+{
+  char Name[36];
+  char Bank[36];
+  int pos;
+} NBP[324];  
+
+
 };
 
+
+
+
+
+
 #endif
+
+

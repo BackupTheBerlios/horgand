@@ -91,7 +91,8 @@ return 1;
   }
 } 
 
-class HORGAN {} {
+class HORGAN {open
+} {
   decl {HOR *hor;} {}
   Function {make_window()} {} {
     Fl_Window HORwindow {
@@ -167,11 +168,7 @@ filename=fl_file_chooser("Load:","(*.hor)",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,".hor");
 hor->loadfile(filename);
-meteprog();
-Actu();
-hor->PutPrim();
-sprintf(hor->temporal,"--");
-DispNumber->label(hor->temporal);}
+PutLoaded();}
             xywh {0 0 100 20} labelsize 14
           }
           MenuItem {} {
@@ -268,7 +265,7 @@ horgand.get("Synth Y",y,1);
 
 ADSRwin->position(x,y);
 ADSRwin->show();
-put_icon(ADSRwin);} selected
+put_icon(ADSRwin);}
             xywh {0 0 100 20} shortcut 0x40073 labelsize 14
           }
         }
@@ -1408,15 +1405,15 @@ strcpy(hor->RhythmFilename,filename);}
       callback {Guarda_Pref(2);
 HORBank->hide();
 Fl::focus(PANICO);}
-      tooltip {Right Click Get  - Left Click Put} xywh {1541 118 710 360} type Double hide
+      tooltip {Right Click Get  - Left Click Put} xywh {1352 161 745 420} type Double hide
     } {
       Fl_Button BClose {
         label Close
         callback {HORBank->do_callback();}
-        xywh {290 310 145 40} box PLASTIC_UP_BOX shortcut 0xff0d labeltype ENGRAVED_LABEL
+        xywh {330 375 145 40} box PLASTIC_UP_BOX shortcut 0xff0d labeltype ENGRAVED_LABEL
       }
       Fl_Menu_Bar {} {
-        xywh {0 0 760 30}
+        xywh {0 0 745 30}
       } {
         Submenu BFile {
           label {&File} open
@@ -1451,325 +1448,362 @@ hor->savebank(filename);}
           }
         }
       }
-      Fl_Button Banco1 {
-        callback {if (Fl::event_button()==3) GetCombi(1);
+      Fl_Tabs {} {open
+        xywh {0 30 745 335} labelsize 18
+      } {
+        Fl_Group {} {
+          label {Active Bank}
+          xywh {10 55 720 305}
+        } {
+          Fl_Group {} {
+            xywh {20 125 710 235}
+          } {
+            Fl_Button Banco1 {
+              callback {if (Fl::event_button()==3) GetCombi(1);
 if (Fl::event_button()==1) PutCombi(1);
 o->label(hor->Banco[1].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {30 60 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 1
-        xywh {0 60 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco2 {
-        callback {if (Fl::event_button()==3) GetCombi(2);
+              tooltip {Right Click Get -  Left Click Put} xywh {60 125 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 1
+              xywh {20 125 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco2 {
+              callback {if (Fl::event_button()==3) GetCombi(2);
 if (Fl::event_button()==1) PutCombi(2);
 o->label(hor->Banco[2].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {205 60 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 2
-        xywh {175 60 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco3 {
-        callback {if (Fl::event_button()==3) GetCombi(3);
+              tooltip {Right Click Get -  Left Click Put} xywh {235 125 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 2
+              xywh {205 125 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco3 {
+              callback {if (Fl::event_button()==3) GetCombi(3);
 if (Fl::event_button()==1) PutCombi(3);
 o->label(hor->Banco[3].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {380 60 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 3
-        xywh {350 60 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco4 {
-        callback {if (Fl::event_button()==3) GetCombi(4);
+              tooltip {Right Click Get -  Left Click Put} xywh {410 125 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 3
+              xywh {380 125 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco4 {
+              callback {if (Fl::event_button()==3) GetCombi(4);
 if (Fl::event_button()==1) PutCombi(4);
 o->label(hor->Banco[4].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {555 60 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 4
-        xywh {525 60 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco5 {
-        callback {if (Fl::event_button()==3) GetCombi(5);
+              tooltip {Right Click Get -  Left Click Put} xywh {585 125 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 4
+              xywh {555 125 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco5 {
+              callback {if (Fl::event_button()==3) GetCombi(5);
 if (Fl::event_button()==1) PutCombi(5);
 o->label(hor->Banco[5].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {30 90 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 5
-        xywh {0 90 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco6 {
-        callback {if (Fl::event_button()==3) GetCombi(6);
+              tooltip {Right Click Get -  Left Click Put} xywh {60 155 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 5
+              xywh {20 155 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco6 {
+              callback {if (Fl::event_button()==3) GetCombi(6);
 if (Fl::event_button()==1) PutCombi(6);
 o->label(hor->Banco[6].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {205 90 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 6
-        xywh {175 90 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco7 {
-        callback {if (Fl::event_button()==3) GetCombi(7);
+              tooltip {Right Click Get -  Left Click Put} xywh {235 155 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 6
+              xywh {205 155 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco7 {
+              callback {if (Fl::event_button()==3) GetCombi(7);
 if (Fl::event_button()==1) PutCombi(7);
 o->label(hor->Banco[7].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {380 90 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 7
-        xywh {350 90 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco8 {
-        callback {if (Fl::event_button()==3) GetCombi(8);
+              tooltip {Right Click Get -  Left Click Put} xywh {410 155 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 7
+              xywh {380 155 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco8 {
+              callback {if (Fl::event_button()==3) GetCombi(8);
 if (Fl::event_button()==1) PutCombi(8);
 o->label(hor->Banco[8].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {555 90 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 8
-        xywh {525 90 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco9 {
-        callback {if (Fl::event_button()==3) GetCombi(9);
+              tooltip {Right Click Get -  Left Click Put} xywh {585 155 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 8
+              xywh {555 155 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco9 {
+              callback {if (Fl::event_button()==3) GetCombi(9);
 if (Fl::event_button()==1) PutCombi(9);
 o->label(hor->Banco[9].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {30 120 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 9
-        xywh {0 120 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco10 {
-        callback {if (Fl::event_button()==3) GetCombi(10);
+              tooltip {Right Click Get -  Left Click Put} xywh {60 185 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 9
+              xywh {20 185 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco10 {
+              callback {if (Fl::event_button()==3) GetCombi(10);
 if (Fl::event_button()==1) PutCombi(10);
 o->label(hor->Banco[10].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {205 120 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 10
-        xywh {175 120 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco11 {
-        callback {if (Fl::event_button()==3) GetCombi(11);
+              tooltip {Right Click Get -  Left Click Put} xywh {235 185 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 10
+              xywh {205 185 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco11 {
+              callback {if (Fl::event_button()==3) GetCombi(11);
 if (Fl::event_button()==1) PutCombi(11);
 o->label(hor->Banco[11].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {380 120 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 11
-        xywh {350 120 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco12 {
-        callback {if (Fl::event_button()==3) GetCombi(12);
+              tooltip {Right Click Get -  Left Click Put} xywh {410 185 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 11
+              xywh {380 185 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco12 {
+              callback {if (Fl::event_button()==3) GetCombi(12);
 if (Fl::event_button()==1) PutCombi(12);
 o->label(hor->Banco[12].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {555 120 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 12
-        xywh {525 120 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco13 {
-        callback {if (Fl::event_button()==3) GetCombi(13);
+              tooltip {Right Click Get -  Left Click Put} xywh {585 185 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 12
+              xywh {555 185 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco13 {
+              callback {if (Fl::event_button()==3) GetCombi(13);
 if (Fl::event_button()==1) PutCombi(13);
 o->label(hor->Banco[13].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {30 150 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 13
-        xywh {0 150 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco14 {
-        callback {if (Fl::event_button()==3) GetCombi(14);
+              tooltip {Right Click Get -  Left Click Put} xywh {60 215 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 13
+              xywh {20 215 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco14 {
+              callback {if (Fl::event_button()==3) GetCombi(14);
 if (Fl::event_button()==1) PutCombi(14);
 o->label(hor->Banco[14].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {205 150 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 14
-        xywh {175 150 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco15 {
-        callback {if (Fl::event_button()==3) GetCombi(15);
+              tooltip {Right Click Get -  Left Click Put} xywh {235 215 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 14
+              xywh {205 215 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco15 {
+              callback {if (Fl::event_button()==3) GetCombi(15);
 if (Fl::event_button()==1) PutCombi(15);
 o->label(hor->Banco[15].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {380 150 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 15
-        xywh {350 150 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco16 {
-        callback {if (Fl::event_button()==3) GetCombi(16);
+              tooltip {Right Click Get -  Left Click Put} xywh {410 215 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 15
+              xywh {380 215 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco16 {
+              callback {if (Fl::event_button()==3) GetCombi(16);
 if (Fl::event_button()==1) PutCombi(16);
 o->label(hor->Banco[16].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {555 150 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 16
-        xywh {525 150 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco17 {
-        callback {if (Fl::event_button()==3) GetCombi(17);
+              tooltip {Right Click Get -  Left Click Put} xywh {585 215 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 16
+              xywh {555 215 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco17 {
+              callback {if (Fl::event_button()==3) GetCombi(17);
 if (Fl::event_button()==1) PutCombi(17);
 o->label(hor->Banco[17].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {30 180 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 17
-        xywh {0 180 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco18 {
-        callback {if (Fl::event_button()==3) GetCombi(18);
+              tooltip {Right Click Get -  Left Click Put} xywh {60 245 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 17
+              xywh {20 245 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco18 {
+              callback {if (Fl::event_button()==3) GetCombi(18);
 if (Fl::event_button()==1) PutCombi(18);
 o->label(hor->Banco[18].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {205 180 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 18
-        xywh {175 180 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco19 {
-        callback {if (Fl::event_button()==3) GetCombi(19);
+              tooltip {Right Click Get -  Left Click Put} xywh {235 245 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 18
+              xywh {205 245 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco19 {
+              callback {if (Fl::event_button()==3) GetCombi(19);
 if (Fl::event_button()==1) PutCombi(19);
 o->label(hor->Banco[19].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {380 180 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 19
-        xywh {350 180 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco20 {
-        callback {if (Fl::event_button()==3) GetCombi(20);
+              tooltip {Right Click Get -  Left Click Put} xywh {410 245 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 19
+              xywh {380 245 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco20 {
+              callback {if (Fl::event_button()==3) GetCombi(20);
 if (Fl::event_button()==1) PutCombi(20);
 o->label(hor->Banco[20].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {555 180 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 20
-        xywh {525 180 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco21 {
-        callback {if (Fl::event_button()==3) GetCombi(21);
+              tooltip {Right Click Get -  Left Click Put} xywh {585 245 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 20
+              xywh {555 245 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco21 {
+              callback {if (Fl::event_button()==3) GetCombi(21);
 if (Fl::event_button()==1) PutCombi(21);
 o->label(hor->Banco[21].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {30 210 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 21
-        xywh {0 210 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco22 {
-        callback {if (Fl::event_button()==3) GetCombi(22);
+              tooltip {Right Click Get -  Left Click Put} xywh {60 275 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 21
+              xywh {20 275 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco22 {
+              callback {if (Fl::event_button()==3) GetCombi(22);
 if (Fl::event_button()==1) PutCombi(22);
 o->label(hor->Banco[22].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {205 210 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 22
-        xywh {175 210 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco23 {
-        callback {if (Fl::event_button()==3) GetCombi(23);
+              tooltip {Right Click Get -  Left Click Put} xywh {235 275 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 22
+              xywh {205 275 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco23 {
+              callback {if (Fl::event_button()==3) GetCombi(23);
 if (Fl::event_button()==1) PutCombi(23);
 o->label(hor->Banco[23].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {380 210 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 23
-        xywh {350 210 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco24 {
-        callback {if (Fl::event_button()==3) GetCombi(24);
+              tooltip {Right Click Get -  Left Click Put} xywh {410 275 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 23
+              xywh {380 275 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco24 {
+              callback {if (Fl::event_button()==3) GetCombi(24);
 if (Fl::event_button()==1) PutCombi(24);
 o->label(hor->Banco[24].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {555 210 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 24
-        xywh {525 210 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco25 {
-        callback {if (Fl::event_button()==3) GetCombi(25);
+              tooltip {Right Click Get -  Left Click Put} xywh {585 275 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 24
+              xywh {555 275 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco25 {
+              callback {if (Fl::event_button()==3) GetCombi(25);
 if (Fl::event_button()==1) PutCombi(25);
 o->label(hor->Banco[25].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {30 240 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 25
-        xywh {0 240 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco26 {
-        callback {if (Fl::event_button()==3) GetCombi(26);
+              tooltip {Right Click Get -  Left Click Put} xywh {60 305 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 25
+              xywh {20 305 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco26 {
+              callback {if (Fl::event_button()==3) GetCombi(26);
 if (Fl::event_button()==1) PutCombi(26);
 o->label(hor->Banco[26].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {205 240 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 26
-        xywh {175 240 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco27 {
-        callback {if (Fl::event_button()==3) GetCombi(27);
+              tooltip {Right Click Get -  Left Click Put} xywh {235 305 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 26
+              xywh {205 305 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco27 {
+              callback {if (Fl::event_button()==3) GetCombi(27);
 if (Fl::event_button()==1) PutCombi(27);
 o->label(hor->Banco[27].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {380 240 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 27
-        xywh {350 240 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco28 {
-        callback {if (Fl::event_button()==3) GetCombi(28);
+              tooltip {Right Click Get -  Left Click Put} xywh {410 305 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 27
+              xywh {380 305 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco28 {
+              callback {if (Fl::event_button()==3) GetCombi(28);
 if (Fl::event_button()==1) PutCombi(28);
 o->label(hor->Banco[28].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {555 240 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 28
-        xywh {525 240 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco29 {
-        callback {if (Fl::event_button()==3) GetCombi(29);
+              tooltip {Right Click Get -  Left Click Put} xywh {585 305 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 28
+              xywh {555 305 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco29 {
+              callback {if (Fl::event_button()==3) GetCombi(29);
 if (Fl::event_button()==1) PutCombi(29);
 o->label(hor->Banco[29].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {30 270 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 29
-        xywh {0 270 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco30 {
-        callback {if (Fl::event_button()==3) GetCombi(30);
+              tooltip {Right Click Get -  Left Click Put} xywh {60 335 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 29
+              xywh {20 335 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco30 {
+              callback {if (Fl::event_button()==3) GetCombi(30);
 if (Fl::event_button()==1) PutCombi(30);
 o->label(hor->Banco[30].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {205 270 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 30
-        xywh {175 270 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco31 {
-        callback {if (Fl::event_button()==3) GetCombi(31);
+              tooltip {Right Click Get -  Left Click Put} xywh {235 335 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 30
+              xywh {205 335 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco31 {
+              callback {if (Fl::event_button()==3) GetCombi(31);
 if (Fl::event_button()==1) PutCombi(31);
 o->label(hor->Banco[31].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {380 270 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 31
-        xywh {350 270 30 25} labeltype ENGRAVED_LABEL align 80
-      }
-      Fl_Button Banco32 {
-        callback {if (Fl::event_button()==3) GetCombi(32);
+              tooltip {Right Click Get -  Left Click Put} xywh {410 335 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 31
+              xywh {380 335 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+            Fl_Button Banco32 {
+              callback {if (Fl::event_button()==3) GetCombi(32);
 if (Fl::event_button()==1) PutCombi(32);
 o->label(hor->Banco[32].Name)}
-        tooltip {Right Click Get -  Left Click Put} xywh {555 270 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
-      }
-      Fl_Box {} {
-        label 32
-        xywh {525 270 30 25} labeltype ENGRAVED_LABEL align 80
+              tooltip {Right Click Get -  Left Click Put} xywh {585 335 145 25} box PLASTIC_UP_BOX color 6 labeltype ENGRAVED_LABEL labelsize 12 align 80
+            }
+            Fl_Box {} {
+              label 32
+              xywh {555 335 30 25} labeltype ENGRAVED_LABEL align 80
+            }
+          }
+        }
+        Fl_Group {} {
+          label {More Sounds} selected
+          xywh {10 55 720 305} hide
+        } {
+          Fl_Browser MoreSounds {
+            xywh {30 60 514 295} type Hold
+          }
+          Fl_Button {} {
+            label Load
+            callback {if (MoreSounds->size()>2)
+{
+hor->LoadSoundBank(MoreSounds->value()-2);
+PutLoaded();
+
+}}
+            xywh {575 90 90 25}
+          }
+          Fl_Button {} {
+            label Rescan
+            callback {hor->ScanDir();
+putmoresounds();}
+            xywh {575 130 90 25}
+          }
+        }
       }
     }
     Fl_Window RitEdit {
@@ -2269,6 +2303,7 @@ sprintf(tmp,"%s v%s",PACKAGE,VERSION);
 HORwindow->copy_label(tmp);
 Fl::focus(PANICO);
 metebanco();
+putmoresounds();
 metelo();
 Actu();
 hor->PutPrim();
@@ -3028,5 +3063,38 @@ hints->icon_pixmap=p;
 hints->icon_mask=mask; 
 hints->flags = IconPixmapHint | IconMaskHint;
 XSetWMHints(fl_display, fl_xid(window), hints);} {}
+  }
+  Function {putmoresounds()} {} {
+    code {char temp[256];
+int i=0;
+static const int sizes[]= {257,257,0};
+
+MoreSounds->column_widths(sizes);
+MoreSounds->clear();
+
+
+bzero(temp,sizeof(temp));
+sprintf(temp,"@c@b@B52@C1@_%s\\t@c@b@B54@C1@_%s","Name","Bank");
+MoreSounds->add(temp);
+
+
+while (i < hor->Nums)
+{ 
+
+ bzero(temp,sizeof(temp));
+ sprintf(temp,"@l@B52@_%s\\t@c@B54@_%s",hor->NBP[i].Name,hor->NBP[i].Bank);
+
+  MoreSounds->add(temp);
+  i++;
+}
+
+if (i>1) MoreSounds->select(2);} {}
+  }
+  Function {PutLoaded()} {} {
+    code {meteprog();
+Actu();
+hor->PutPrim();
+sprintf(hor->temporal,"--");
+DispNumber->label(hor->temporal);} {}
   }
 } 

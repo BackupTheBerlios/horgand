@@ -115,11 +115,7 @@ filename=fl_file_chooser("Load:","(*.hor)",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,".hor");
 hor->loadfile(filename);
-meteprog();
-Actu();
-hor->PutPrim();
-sprintf(hor->temporal,"--");
-DispNumber->label(hor->temporal);
+PutLoaded();
 }
 void HORGAN::cb_Load(Fl_Menu_* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Load_i(o,v);
@@ -2265,7 +2261,7 @@ if (Fl::event_button()==1) PutCombi(1);
 o->label(hor->Banco[1].Name);
 }
 void HORGAN::cb_Banco1(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco1_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco1_i(o,v);
 }
 
 void HORGAN::cb_Banco2_i(Fl_Button* o, void*) {
@@ -2274,7 +2270,7 @@ if (Fl::event_button()==1) PutCombi(2);
 o->label(hor->Banco[2].Name);
 }
 void HORGAN::cb_Banco2(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco2_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco2_i(o,v);
 }
 
 void HORGAN::cb_Banco3_i(Fl_Button* o, void*) {
@@ -2283,7 +2279,7 @@ if (Fl::event_button()==1) PutCombi(3);
 o->label(hor->Banco[3].Name);
 }
 void HORGAN::cb_Banco3(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco3_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco3_i(o,v);
 }
 
 void HORGAN::cb_Banco4_i(Fl_Button* o, void*) {
@@ -2292,7 +2288,7 @@ if (Fl::event_button()==1) PutCombi(4);
 o->label(hor->Banco[4].Name);
 }
 void HORGAN::cb_Banco4(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco4_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco4_i(o,v);
 }
 
 void HORGAN::cb_Banco5_i(Fl_Button* o, void*) {
@@ -2301,7 +2297,7 @@ if (Fl::event_button()==1) PutCombi(5);
 o->label(hor->Banco[5].Name);
 }
 void HORGAN::cb_Banco5(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco5_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco5_i(o,v);
 }
 
 void HORGAN::cb_Banco6_i(Fl_Button* o, void*) {
@@ -2310,7 +2306,7 @@ if (Fl::event_button()==1) PutCombi(6);
 o->label(hor->Banco[6].Name);
 }
 void HORGAN::cb_Banco6(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco6_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco6_i(o,v);
 }
 
 void HORGAN::cb_Banco7_i(Fl_Button* o, void*) {
@@ -2319,7 +2315,7 @@ if (Fl::event_button()==1) PutCombi(7);
 o->label(hor->Banco[7].Name);
 }
 void HORGAN::cb_Banco7(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco7_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco7_i(o,v);
 }
 
 void HORGAN::cb_Banco8_i(Fl_Button* o, void*) {
@@ -2328,7 +2324,7 @@ if (Fl::event_button()==1) PutCombi(8);
 o->label(hor->Banco[8].Name);
 }
 void HORGAN::cb_Banco8(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco8_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco8_i(o,v);
 }
 
 void HORGAN::cb_Banco9_i(Fl_Button* o, void*) {
@@ -2337,7 +2333,7 @@ if (Fl::event_button()==1) PutCombi(9);
 o->label(hor->Banco[9].Name);
 }
 void HORGAN::cb_Banco9(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco9_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco9_i(o,v);
 }
 
 void HORGAN::cb_Banco10_i(Fl_Button* o, void*) {
@@ -2346,7 +2342,7 @@ if (Fl::event_button()==1) PutCombi(10);
 o->label(hor->Banco[10].Name);
 }
 void HORGAN::cb_Banco10(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco10_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco10_i(o,v);
 }
 
 void HORGAN::cb_Banco11_i(Fl_Button* o, void*) {
@@ -2355,7 +2351,7 @@ if (Fl::event_button()==1) PutCombi(11);
 o->label(hor->Banco[11].Name);
 }
 void HORGAN::cb_Banco11(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco11_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco11_i(o,v);
 }
 
 void HORGAN::cb_Banco12_i(Fl_Button* o, void*) {
@@ -2364,7 +2360,7 @@ if (Fl::event_button()==1) PutCombi(12);
 o->label(hor->Banco[12].Name);
 }
 void HORGAN::cb_Banco12(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco12_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco12_i(o,v);
 }
 
 void HORGAN::cb_Banco13_i(Fl_Button* o, void*) {
@@ -2373,7 +2369,7 @@ if (Fl::event_button()==1) PutCombi(13);
 o->label(hor->Banco[13].Name);
 }
 void HORGAN::cb_Banco13(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco13_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco13_i(o,v);
 }
 
 void HORGAN::cb_Banco14_i(Fl_Button* o, void*) {
@@ -2382,7 +2378,7 @@ if (Fl::event_button()==1) PutCombi(14);
 o->label(hor->Banco[14].Name);
 }
 void HORGAN::cb_Banco14(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco14_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco14_i(o,v);
 }
 
 void HORGAN::cb_Banco15_i(Fl_Button* o, void*) {
@@ -2391,7 +2387,7 @@ if (Fl::event_button()==1) PutCombi(15);
 o->label(hor->Banco[15].Name);
 }
 void HORGAN::cb_Banco15(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco15_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco15_i(o,v);
 }
 
 void HORGAN::cb_Banco16_i(Fl_Button* o, void*) {
@@ -2400,7 +2396,7 @@ if (Fl::event_button()==1) PutCombi(16);
 o->label(hor->Banco[16].Name);
 }
 void HORGAN::cb_Banco16(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco16_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco16_i(o,v);
 }
 
 void HORGAN::cb_Banco17_i(Fl_Button* o, void*) {
@@ -2409,7 +2405,7 @@ if (Fl::event_button()==1) PutCombi(17);
 o->label(hor->Banco[17].Name);
 }
 void HORGAN::cb_Banco17(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco17_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco17_i(o,v);
 }
 
 void HORGAN::cb_Banco18_i(Fl_Button* o, void*) {
@@ -2418,7 +2414,7 @@ if (Fl::event_button()==1) PutCombi(18);
 o->label(hor->Banco[18].Name);
 }
 void HORGAN::cb_Banco18(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco18_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco18_i(o,v);
 }
 
 void HORGAN::cb_Banco19_i(Fl_Button* o, void*) {
@@ -2427,7 +2423,7 @@ if (Fl::event_button()==1) PutCombi(19);
 o->label(hor->Banco[19].Name);
 }
 void HORGAN::cb_Banco19(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco19_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco19_i(o,v);
 }
 
 void HORGAN::cb_Banco20_i(Fl_Button* o, void*) {
@@ -2436,7 +2432,7 @@ if (Fl::event_button()==1) PutCombi(20);
 o->label(hor->Banco[20].Name);
 }
 void HORGAN::cb_Banco20(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco20_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco20_i(o,v);
 }
 
 void HORGAN::cb_Banco21_i(Fl_Button* o, void*) {
@@ -2445,7 +2441,7 @@ if (Fl::event_button()==1) PutCombi(21);
 o->label(hor->Banco[21].Name);
 }
 void HORGAN::cb_Banco21(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco21_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco21_i(o,v);
 }
 
 void HORGAN::cb_Banco22_i(Fl_Button* o, void*) {
@@ -2454,7 +2450,7 @@ if (Fl::event_button()==1) PutCombi(22);
 o->label(hor->Banco[22].Name);
 }
 void HORGAN::cb_Banco22(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco22_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco22_i(o,v);
 }
 
 void HORGAN::cb_Banco23_i(Fl_Button* o, void*) {
@@ -2463,7 +2459,7 @@ if (Fl::event_button()==1) PutCombi(23);
 o->label(hor->Banco[23].Name);
 }
 void HORGAN::cb_Banco23(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco23_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco23_i(o,v);
 }
 
 void HORGAN::cb_Banco24_i(Fl_Button* o, void*) {
@@ -2472,7 +2468,7 @@ if (Fl::event_button()==1) PutCombi(24);
 o->label(hor->Banco[24].Name);
 }
 void HORGAN::cb_Banco24(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco24_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco24_i(o,v);
 }
 
 void HORGAN::cb_Banco25_i(Fl_Button* o, void*) {
@@ -2481,7 +2477,7 @@ if (Fl::event_button()==1) PutCombi(25);
 o->label(hor->Banco[25].Name);
 }
 void HORGAN::cb_Banco25(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco25_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco25_i(o,v);
 }
 
 void HORGAN::cb_Banco26_i(Fl_Button* o, void*) {
@@ -2490,7 +2486,7 @@ if (Fl::event_button()==1) PutCombi(26);
 o->label(hor->Banco[26].Name);
 }
 void HORGAN::cb_Banco26(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco26_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco26_i(o,v);
 }
 
 void HORGAN::cb_Banco27_i(Fl_Button* o, void*) {
@@ -2499,7 +2495,7 @@ if (Fl::event_button()==1) PutCombi(27);
 o->label(hor->Banco[27].Name);
 }
 void HORGAN::cb_Banco27(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco27_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco27_i(o,v);
 }
 
 void HORGAN::cb_Banco28_i(Fl_Button* o, void*) {
@@ -2508,7 +2504,7 @@ if (Fl::event_button()==1) PutCombi(28);
 o->label(hor->Banco[28].Name);
 }
 void HORGAN::cb_Banco28(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco28_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco28_i(o,v);
 }
 
 void HORGAN::cb_Banco29_i(Fl_Button* o, void*) {
@@ -2517,7 +2513,7 @@ if (Fl::event_button()==1) PutCombi(29);
 o->label(hor->Banco[29].Name);
 }
 void HORGAN::cb_Banco29(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco29_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco29_i(o,v);
 }
 
 void HORGAN::cb_Banco30_i(Fl_Button* o, void*) {
@@ -2526,7 +2522,7 @@ if (Fl::event_button()==1) PutCombi(30);
 o->label(hor->Banco[30].Name);
 }
 void HORGAN::cb_Banco30(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco30_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco30_i(o,v);
 }
 
 void HORGAN::cb_Banco31_i(Fl_Button* o, void*) {
@@ -2535,7 +2531,7 @@ if (Fl::event_button()==1) PutCombi(31);
 o->label(hor->Banco[31].Name);
 }
 void HORGAN::cb_Banco31(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco31_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco31_i(o,v);
 }
 
 void HORGAN::cb_Banco32_i(Fl_Button* o, void*) {
@@ -2544,7 +2540,27 @@ if (Fl::event_button()==1) PutCombi(32);
 o->label(hor->Banco[32].Name);
 }
 void HORGAN::cb_Banco32(Fl_Button* o, void* v) {
-  ((HORGAN*)(o->parent()->user_data()))->cb_Banco32_i(o,v);
+  ((HORGAN*)(o->parent()->parent()->parent()->parent()->user_data()))->cb_Banco32_i(o,v);
+}
+
+void HORGAN::cb_Load3_i(Fl_Button*, void*) {
+  if (MoreSounds->size()>2)
+{
+hor->LoadSoundBank(MoreSounds->value()-2);
+PutLoaded();
+
+};
+}
+void HORGAN::cb_Load3(Fl_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->parent()->parent()->user_data()))->cb_Load3_i(o,v);
+}
+
+void HORGAN::cb_Rescan_i(Fl_Button*, void*) {
+  hor->ScanDir();
+putmoresounds();
+}
+void HORGAN::cb_Rescan(Fl_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->parent()->parent()->user_data()))->cb_Rescan_i(o,v);
 }
 
 void HORGAN::cb_RitEdit_i(Fl_Double_Window*, void*) {
@@ -4458,434 +4474,457 @@ e version 2 of the \n GNU General Public License for details."));
     } // Fl_Button* o
     Settingswindow->end();
   } // Fl_Double_Window* Settingswindow
-  { HORBank = new Fl_Double_Window(710, 360, gettext("horgand Bank"));
+  { HORBank = new Fl_Double_Window(745, 420, gettext("horgand Bank"));
     HORBank->tooltip(gettext("Right Click Get  - Left Click Put"));
     HORBank->callback((Fl_Callback*)cb_HORBank, (void*)(this));
-    { BClose = new Fl_Button(290, 310, 145, 40, gettext("Close"));
+    { BClose = new Fl_Button(330, 375, 145, 40, gettext("Close"));
       BClose->box(FL_PLASTIC_UP_BOX);
       BClose->shortcut(0xff0d);
       BClose->labeltype(FL_ENGRAVED_LABEL);
       BClose->callback((Fl_Callback*)cb_BClose);
     } // Fl_Button* BClose
-    { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 760, 30);
+    { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 745, 30);
       o->menu(menu_);
     } // Fl_Menu_Bar* o
-    { Banco1 = new Fl_Button(30, 60, 145, 25);
-      Banco1->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco1->box(FL_PLASTIC_UP_BOX);
-      Banco1->color((Fl_Color)6);
-      Banco1->labeltype(FL_ENGRAVED_LABEL);
-      Banco1->labelsize(12);
-      Banco1->callback((Fl_Callback*)cb_Banco1);
-      Banco1->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco1
-    { Fl_Box* o = new Fl_Box(0, 60, 30, 25, gettext("1"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco2 = new Fl_Button(205, 60, 145, 25);
-      Banco2->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco2->box(FL_PLASTIC_UP_BOX);
-      Banco2->color((Fl_Color)6);
-      Banco2->labeltype(FL_ENGRAVED_LABEL);
-      Banco2->labelsize(12);
-      Banco2->callback((Fl_Callback*)cb_Banco2);
-      Banco2->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco2
-    { Fl_Box* o = new Fl_Box(175, 60, 30, 25, gettext("2"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco3 = new Fl_Button(380, 60, 145, 25);
-      Banco3->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco3->box(FL_PLASTIC_UP_BOX);
-      Banco3->color((Fl_Color)6);
-      Banco3->labeltype(FL_ENGRAVED_LABEL);
-      Banco3->labelsize(12);
-      Banco3->callback((Fl_Callback*)cb_Banco3);
-      Banco3->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco3
-    { Fl_Box* o = new Fl_Box(350, 60, 30, 25, gettext("3"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco4 = new Fl_Button(555, 60, 145, 25);
-      Banco4->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco4->box(FL_PLASTIC_UP_BOX);
-      Banco4->color((Fl_Color)6);
-      Banco4->labeltype(FL_ENGRAVED_LABEL);
-      Banco4->labelsize(12);
-      Banco4->callback((Fl_Callback*)cb_Banco4);
-      Banco4->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco4
-    { Fl_Box* o = new Fl_Box(525, 60, 30, 25, gettext("4"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco5 = new Fl_Button(30, 90, 145, 25);
-      Banco5->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco5->box(FL_PLASTIC_UP_BOX);
-      Banco5->color((Fl_Color)6);
-      Banco5->labeltype(FL_ENGRAVED_LABEL);
-      Banco5->labelsize(12);
-      Banco5->callback((Fl_Callback*)cb_Banco5);
-      Banco5->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco5
-    { Fl_Box* o = new Fl_Box(0, 90, 30, 25, gettext("5"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco6 = new Fl_Button(205, 90, 145, 25);
-      Banco6->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco6->box(FL_PLASTIC_UP_BOX);
-      Banco6->color((Fl_Color)6);
-      Banco6->labeltype(FL_ENGRAVED_LABEL);
-      Banco6->labelsize(12);
-      Banco6->callback((Fl_Callback*)cb_Banco6);
-      Banco6->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco6
-    { Fl_Box* o = new Fl_Box(175, 90, 30, 25, gettext("6"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco7 = new Fl_Button(380, 90, 145, 25);
-      Banco7->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco7->box(FL_PLASTIC_UP_BOX);
-      Banco7->color((Fl_Color)6);
-      Banco7->labeltype(FL_ENGRAVED_LABEL);
-      Banco7->labelsize(12);
-      Banco7->callback((Fl_Callback*)cb_Banco7);
-      Banco7->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco7
-    { Fl_Box* o = new Fl_Box(350, 90, 30, 25, gettext("7"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco8 = new Fl_Button(555, 90, 145, 25);
-      Banco8->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco8->box(FL_PLASTIC_UP_BOX);
-      Banco8->color((Fl_Color)6);
-      Banco8->labeltype(FL_ENGRAVED_LABEL);
-      Banco8->labelsize(12);
-      Banco8->callback((Fl_Callback*)cb_Banco8);
-      Banco8->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco8
-    { Fl_Box* o = new Fl_Box(525, 90, 30, 25, gettext("8"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco9 = new Fl_Button(30, 120, 145, 25);
-      Banco9->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco9->box(FL_PLASTIC_UP_BOX);
-      Banco9->color((Fl_Color)6);
-      Banco9->labeltype(FL_ENGRAVED_LABEL);
-      Banco9->labelsize(12);
-      Banco9->callback((Fl_Callback*)cb_Banco9);
-      Banco9->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco9
-    { Fl_Box* o = new Fl_Box(0, 120, 30, 25, gettext("9"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco10 = new Fl_Button(205, 120, 145, 25);
-      Banco10->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco10->box(FL_PLASTIC_UP_BOX);
-      Banco10->color((Fl_Color)6);
-      Banco10->labeltype(FL_ENGRAVED_LABEL);
-      Banco10->labelsize(12);
-      Banco10->callback((Fl_Callback*)cb_Banco10);
-      Banco10->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco10
-    { Fl_Box* o = new Fl_Box(175, 120, 30, 25, gettext("10"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco11 = new Fl_Button(380, 120, 145, 25);
-      Banco11->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco11->box(FL_PLASTIC_UP_BOX);
-      Banco11->color((Fl_Color)6);
-      Banco11->labeltype(FL_ENGRAVED_LABEL);
-      Banco11->labelsize(12);
-      Banco11->callback((Fl_Callback*)cb_Banco11);
-      Banco11->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco11
-    { Fl_Box* o = new Fl_Box(350, 120, 30, 25, gettext("11"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco12 = new Fl_Button(555, 120, 145, 25);
-      Banco12->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco12->box(FL_PLASTIC_UP_BOX);
-      Banco12->color((Fl_Color)6);
-      Banco12->labeltype(FL_ENGRAVED_LABEL);
-      Banco12->labelsize(12);
-      Banco12->callback((Fl_Callback*)cb_Banco12);
-      Banco12->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco12
-    { Fl_Box* o = new Fl_Box(525, 120, 30, 25, gettext("12"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco13 = new Fl_Button(30, 150, 145, 25);
-      Banco13->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco13->box(FL_PLASTIC_UP_BOX);
-      Banco13->color((Fl_Color)6);
-      Banco13->labeltype(FL_ENGRAVED_LABEL);
-      Banco13->labelsize(12);
-      Banco13->callback((Fl_Callback*)cb_Banco13);
-      Banco13->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco13
-    { Fl_Box* o = new Fl_Box(0, 150, 30, 25, gettext("13"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco14 = new Fl_Button(205, 150, 145, 25);
-      Banco14->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco14->box(FL_PLASTIC_UP_BOX);
-      Banco14->color((Fl_Color)6);
-      Banco14->labeltype(FL_ENGRAVED_LABEL);
-      Banco14->labelsize(12);
-      Banco14->callback((Fl_Callback*)cb_Banco14);
-      Banco14->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco14
-    { Fl_Box* o = new Fl_Box(175, 150, 30, 25, gettext("14"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco15 = new Fl_Button(380, 150, 145, 25);
-      Banco15->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco15->box(FL_PLASTIC_UP_BOX);
-      Banco15->color((Fl_Color)6);
-      Banco15->labeltype(FL_ENGRAVED_LABEL);
-      Banco15->labelsize(12);
-      Banco15->callback((Fl_Callback*)cb_Banco15);
-      Banco15->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco15
-    { Fl_Box* o = new Fl_Box(350, 150, 30, 25, gettext("15"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco16 = new Fl_Button(555, 150, 145, 25);
-      Banco16->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco16->box(FL_PLASTIC_UP_BOX);
-      Banco16->color((Fl_Color)6);
-      Banco16->labeltype(FL_ENGRAVED_LABEL);
-      Banco16->labelsize(12);
-      Banco16->callback((Fl_Callback*)cb_Banco16);
-      Banco16->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco16
-    { Fl_Box* o = new Fl_Box(525, 150, 30, 25, gettext("16"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco17 = new Fl_Button(30, 180, 145, 25);
-      Banco17->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco17->box(FL_PLASTIC_UP_BOX);
-      Banco17->color((Fl_Color)6);
-      Banco17->labeltype(FL_ENGRAVED_LABEL);
-      Banco17->labelsize(12);
-      Banco17->callback((Fl_Callback*)cb_Banco17);
-      Banco17->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco17
-    { Fl_Box* o = new Fl_Box(0, 180, 30, 25, gettext("17"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco18 = new Fl_Button(205, 180, 145, 25);
-      Banco18->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco18->box(FL_PLASTIC_UP_BOX);
-      Banco18->color((Fl_Color)6);
-      Banco18->labeltype(FL_ENGRAVED_LABEL);
-      Banco18->labelsize(12);
-      Banco18->callback((Fl_Callback*)cb_Banco18);
-      Banco18->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco18
-    { Fl_Box* o = new Fl_Box(175, 180, 30, 25, gettext("18"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco19 = new Fl_Button(380, 180, 145, 25);
-      Banco19->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco19->box(FL_PLASTIC_UP_BOX);
-      Banco19->color((Fl_Color)6);
-      Banco19->labeltype(FL_ENGRAVED_LABEL);
-      Banco19->labelsize(12);
-      Banco19->callback((Fl_Callback*)cb_Banco19);
-      Banco19->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco19
-    { Fl_Box* o = new Fl_Box(350, 180, 30, 25, gettext("19"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco20 = new Fl_Button(555, 180, 145, 25);
-      Banco20->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco20->box(FL_PLASTIC_UP_BOX);
-      Banco20->color((Fl_Color)6);
-      Banco20->labeltype(FL_ENGRAVED_LABEL);
-      Banco20->labelsize(12);
-      Banco20->callback((Fl_Callback*)cb_Banco20);
-      Banco20->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco20
-    { Fl_Box* o = new Fl_Box(525, 180, 30, 25, gettext("20"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco21 = new Fl_Button(30, 210, 145, 25);
-      Banco21->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco21->box(FL_PLASTIC_UP_BOX);
-      Banco21->color((Fl_Color)6);
-      Banco21->labeltype(FL_ENGRAVED_LABEL);
-      Banco21->labelsize(12);
-      Banco21->callback((Fl_Callback*)cb_Banco21);
-      Banco21->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco21
-    { Fl_Box* o = new Fl_Box(0, 210, 30, 25, gettext("21"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco22 = new Fl_Button(205, 210, 145, 25);
-      Banco22->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco22->box(FL_PLASTIC_UP_BOX);
-      Banco22->color((Fl_Color)6);
-      Banco22->labeltype(FL_ENGRAVED_LABEL);
-      Banco22->labelsize(12);
-      Banco22->callback((Fl_Callback*)cb_Banco22);
-      Banco22->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco22
-    { Fl_Box* o = new Fl_Box(175, 210, 30, 25, gettext("22"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco23 = new Fl_Button(380, 210, 145, 25);
-      Banco23->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco23->box(FL_PLASTIC_UP_BOX);
-      Banco23->color((Fl_Color)6);
-      Banco23->labeltype(FL_ENGRAVED_LABEL);
-      Banco23->labelsize(12);
-      Banco23->callback((Fl_Callback*)cb_Banco23);
-      Banco23->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco23
-    { Fl_Box* o = new Fl_Box(350, 210, 30, 25, gettext("23"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco24 = new Fl_Button(555, 210, 145, 25);
-      Banco24->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco24->box(FL_PLASTIC_UP_BOX);
-      Banco24->color((Fl_Color)6);
-      Banco24->labeltype(FL_ENGRAVED_LABEL);
-      Banco24->labelsize(12);
-      Banco24->callback((Fl_Callback*)cb_Banco24);
-      Banco24->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco24
-    { Fl_Box* o = new Fl_Box(525, 210, 30, 25, gettext("24"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco25 = new Fl_Button(30, 240, 145, 25);
-      Banco25->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco25->box(FL_PLASTIC_UP_BOX);
-      Banco25->color((Fl_Color)6);
-      Banco25->labeltype(FL_ENGRAVED_LABEL);
-      Banco25->labelsize(12);
-      Banco25->callback((Fl_Callback*)cb_Banco25);
-      Banco25->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco25
-    { Fl_Box* o = new Fl_Box(0, 240, 30, 25, gettext("25"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco26 = new Fl_Button(205, 240, 145, 25);
-      Banco26->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco26->box(FL_PLASTIC_UP_BOX);
-      Banco26->color((Fl_Color)6);
-      Banco26->labeltype(FL_ENGRAVED_LABEL);
-      Banco26->labelsize(12);
-      Banco26->callback((Fl_Callback*)cb_Banco26);
-      Banco26->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco26
-    { Fl_Box* o = new Fl_Box(175, 240, 30, 25, gettext("26"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco27 = new Fl_Button(380, 240, 145, 25);
-      Banco27->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco27->box(FL_PLASTIC_UP_BOX);
-      Banco27->color((Fl_Color)6);
-      Banco27->labeltype(FL_ENGRAVED_LABEL);
-      Banco27->labelsize(12);
-      Banco27->callback((Fl_Callback*)cb_Banco27);
-      Banco27->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco27
-    { Fl_Box* o = new Fl_Box(350, 240, 30, 25, gettext("27"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco28 = new Fl_Button(555, 240, 145, 25);
-      Banco28->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco28->box(FL_PLASTIC_UP_BOX);
-      Banco28->color((Fl_Color)6);
-      Banco28->labeltype(FL_ENGRAVED_LABEL);
-      Banco28->labelsize(12);
-      Banco28->callback((Fl_Callback*)cb_Banco28);
-      Banco28->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco28
-    { Fl_Box* o = new Fl_Box(525, 240, 30, 25, gettext("28"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco29 = new Fl_Button(30, 270, 145, 25);
-      Banco29->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco29->box(FL_PLASTIC_UP_BOX);
-      Banco29->color((Fl_Color)6);
-      Banco29->labeltype(FL_ENGRAVED_LABEL);
-      Banco29->labelsize(12);
-      Banco29->callback((Fl_Callback*)cb_Banco29);
-      Banco29->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco29
-    { Fl_Box* o = new Fl_Box(0, 270, 30, 25, gettext("29"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco30 = new Fl_Button(205, 270, 145, 25);
-      Banco30->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco30->box(FL_PLASTIC_UP_BOX);
-      Banco30->color((Fl_Color)6);
-      Banco30->labeltype(FL_ENGRAVED_LABEL);
-      Banco30->labelsize(12);
-      Banco30->callback((Fl_Callback*)cb_Banco30);
-      Banco30->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco30
-    { Fl_Box* o = new Fl_Box(175, 270, 30, 25, gettext("30"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco31 = new Fl_Button(380, 270, 145, 25);
-      Banco31->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco31->box(FL_PLASTIC_UP_BOX);
-      Banco31->color((Fl_Color)6);
-      Banco31->labeltype(FL_ENGRAVED_LABEL);
-      Banco31->labelsize(12);
-      Banco31->callback((Fl_Callback*)cb_Banco31);
-      Banco31->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco31
-    { Fl_Box* o = new Fl_Box(350, 270, 30, 25, gettext("31"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
-    { Banco32 = new Fl_Button(555, 270, 145, 25);
-      Banco32->tooltip(gettext("Right Click Get -  Left Click Put"));
-      Banco32->box(FL_PLASTIC_UP_BOX);
-      Banco32->color((Fl_Color)6);
-      Banco32->labeltype(FL_ENGRAVED_LABEL);
-      Banco32->labelsize(12);
-      Banco32->callback((Fl_Callback*)cb_Banco32);
-      Banco32->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Button* Banco32
-    { Fl_Box* o = new Fl_Box(525, 270, 30, 25, gettext("32"));
-      o->labeltype(FL_ENGRAVED_LABEL);
-      o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
+    { Fl_Tabs* o = new Fl_Tabs(0, 30, 745, 335);
+      o->labelsize(18);
+      { Fl_Group* o = new Fl_Group(10, 55, 720, 305, gettext("Active Bank"));
+        { Fl_Group* o = new Fl_Group(20, 125, 710, 235);
+          { Banco1 = new Fl_Button(60, 125, 145, 25);
+            Banco1->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco1->box(FL_PLASTIC_UP_BOX);
+            Banco1->color((Fl_Color)6);
+            Banco1->labeltype(FL_ENGRAVED_LABEL);
+            Banco1->labelsize(12);
+            Banco1->callback((Fl_Callback*)cb_Banco1);
+            Banco1->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco1
+          { Fl_Box* o = new Fl_Box(20, 125, 30, 25, gettext("1"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco2 = new Fl_Button(235, 125, 145, 25);
+            Banco2->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco2->box(FL_PLASTIC_UP_BOX);
+            Banco2->color((Fl_Color)6);
+            Banco2->labeltype(FL_ENGRAVED_LABEL);
+            Banco2->labelsize(12);
+            Banco2->callback((Fl_Callback*)cb_Banco2);
+            Banco2->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco2
+          { Fl_Box* o = new Fl_Box(205, 125, 30, 25, gettext("2"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco3 = new Fl_Button(410, 125, 145, 25);
+            Banco3->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco3->box(FL_PLASTIC_UP_BOX);
+            Banco3->color((Fl_Color)6);
+            Banco3->labeltype(FL_ENGRAVED_LABEL);
+            Banco3->labelsize(12);
+            Banco3->callback((Fl_Callback*)cb_Banco3);
+            Banco3->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco3
+          { Fl_Box* o = new Fl_Box(380, 125, 30, 25, gettext("3"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco4 = new Fl_Button(585, 125, 145, 25);
+            Banco4->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco4->box(FL_PLASTIC_UP_BOX);
+            Banco4->color((Fl_Color)6);
+            Banco4->labeltype(FL_ENGRAVED_LABEL);
+            Banco4->labelsize(12);
+            Banco4->callback((Fl_Callback*)cb_Banco4);
+            Banco4->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco4
+          { Fl_Box* o = new Fl_Box(555, 125, 30, 25, gettext("4"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco5 = new Fl_Button(60, 155, 145, 25);
+            Banco5->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco5->box(FL_PLASTIC_UP_BOX);
+            Banco5->color((Fl_Color)6);
+            Banco5->labeltype(FL_ENGRAVED_LABEL);
+            Banco5->labelsize(12);
+            Banco5->callback((Fl_Callback*)cb_Banco5);
+            Banco5->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco5
+          { Fl_Box* o = new Fl_Box(20, 155, 30, 25, gettext("5"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco6 = new Fl_Button(235, 155, 145, 25);
+            Banco6->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco6->box(FL_PLASTIC_UP_BOX);
+            Banco6->color((Fl_Color)6);
+            Banco6->labeltype(FL_ENGRAVED_LABEL);
+            Banco6->labelsize(12);
+            Banco6->callback((Fl_Callback*)cb_Banco6);
+            Banco6->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco6
+          { Fl_Box* o = new Fl_Box(205, 155, 30, 25, gettext("6"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco7 = new Fl_Button(410, 155, 145, 25);
+            Banco7->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco7->box(FL_PLASTIC_UP_BOX);
+            Banco7->color((Fl_Color)6);
+            Banco7->labeltype(FL_ENGRAVED_LABEL);
+            Banco7->labelsize(12);
+            Banco7->callback((Fl_Callback*)cb_Banco7);
+            Banco7->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco7
+          { Fl_Box* o = new Fl_Box(380, 155, 30, 25, gettext("7"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco8 = new Fl_Button(585, 155, 145, 25);
+            Banco8->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco8->box(FL_PLASTIC_UP_BOX);
+            Banco8->color((Fl_Color)6);
+            Banco8->labeltype(FL_ENGRAVED_LABEL);
+            Banco8->labelsize(12);
+            Banco8->callback((Fl_Callback*)cb_Banco8);
+            Banco8->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco8
+          { Fl_Box* o = new Fl_Box(555, 155, 30, 25, gettext("8"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco9 = new Fl_Button(60, 185, 145, 25);
+            Banco9->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco9->box(FL_PLASTIC_UP_BOX);
+            Banco9->color((Fl_Color)6);
+            Banco9->labeltype(FL_ENGRAVED_LABEL);
+            Banco9->labelsize(12);
+            Banco9->callback((Fl_Callback*)cb_Banco9);
+            Banco9->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco9
+          { Fl_Box* o = new Fl_Box(20, 185, 30, 25, gettext("9"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco10 = new Fl_Button(235, 185, 145, 25);
+            Banco10->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco10->box(FL_PLASTIC_UP_BOX);
+            Banco10->color((Fl_Color)6);
+            Banco10->labeltype(FL_ENGRAVED_LABEL);
+            Banco10->labelsize(12);
+            Banco10->callback((Fl_Callback*)cb_Banco10);
+            Banco10->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco10
+          { Fl_Box* o = new Fl_Box(205, 185, 30, 25, gettext("10"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco11 = new Fl_Button(410, 185, 145, 25);
+            Banco11->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco11->box(FL_PLASTIC_UP_BOX);
+            Banco11->color((Fl_Color)6);
+            Banco11->labeltype(FL_ENGRAVED_LABEL);
+            Banco11->labelsize(12);
+            Banco11->callback((Fl_Callback*)cb_Banco11);
+            Banco11->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco11
+          { Fl_Box* o = new Fl_Box(380, 185, 30, 25, gettext("11"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco12 = new Fl_Button(585, 185, 145, 25);
+            Banco12->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco12->box(FL_PLASTIC_UP_BOX);
+            Banco12->color((Fl_Color)6);
+            Banco12->labeltype(FL_ENGRAVED_LABEL);
+            Banco12->labelsize(12);
+            Banco12->callback((Fl_Callback*)cb_Banco12);
+            Banco12->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco12
+          { Fl_Box* o = new Fl_Box(555, 185, 30, 25, gettext("12"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco13 = new Fl_Button(60, 215, 145, 25);
+            Banco13->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco13->box(FL_PLASTIC_UP_BOX);
+            Banco13->color((Fl_Color)6);
+            Banco13->labeltype(FL_ENGRAVED_LABEL);
+            Banco13->labelsize(12);
+            Banco13->callback((Fl_Callback*)cb_Banco13);
+            Banco13->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco13
+          { Fl_Box* o = new Fl_Box(20, 215, 30, 25, gettext("13"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco14 = new Fl_Button(235, 215, 145, 25);
+            Banco14->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco14->box(FL_PLASTIC_UP_BOX);
+            Banco14->color((Fl_Color)6);
+            Banco14->labeltype(FL_ENGRAVED_LABEL);
+            Banco14->labelsize(12);
+            Banco14->callback((Fl_Callback*)cb_Banco14);
+            Banco14->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco14
+          { Fl_Box* o = new Fl_Box(205, 215, 30, 25, gettext("14"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco15 = new Fl_Button(410, 215, 145, 25);
+            Banco15->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco15->box(FL_PLASTIC_UP_BOX);
+            Banco15->color((Fl_Color)6);
+            Banco15->labeltype(FL_ENGRAVED_LABEL);
+            Banco15->labelsize(12);
+            Banco15->callback((Fl_Callback*)cb_Banco15);
+            Banco15->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco15
+          { Fl_Box* o = new Fl_Box(380, 215, 30, 25, gettext("15"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco16 = new Fl_Button(585, 215, 145, 25);
+            Banco16->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco16->box(FL_PLASTIC_UP_BOX);
+            Banco16->color((Fl_Color)6);
+            Banco16->labeltype(FL_ENGRAVED_LABEL);
+            Banco16->labelsize(12);
+            Banco16->callback((Fl_Callback*)cb_Banco16);
+            Banco16->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco16
+          { Fl_Box* o = new Fl_Box(555, 215, 30, 25, gettext("16"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco17 = new Fl_Button(60, 245, 145, 25);
+            Banco17->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco17->box(FL_PLASTIC_UP_BOX);
+            Banco17->color((Fl_Color)6);
+            Banco17->labeltype(FL_ENGRAVED_LABEL);
+            Banco17->labelsize(12);
+            Banco17->callback((Fl_Callback*)cb_Banco17);
+            Banco17->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco17
+          { Fl_Box* o = new Fl_Box(20, 245, 30, 25, gettext("17"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco18 = new Fl_Button(235, 245, 145, 25);
+            Banco18->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco18->box(FL_PLASTIC_UP_BOX);
+            Banco18->color((Fl_Color)6);
+            Banco18->labeltype(FL_ENGRAVED_LABEL);
+            Banco18->labelsize(12);
+            Banco18->callback((Fl_Callback*)cb_Banco18);
+            Banco18->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco18
+          { Fl_Box* o = new Fl_Box(205, 245, 30, 25, gettext("18"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco19 = new Fl_Button(410, 245, 145, 25);
+            Banco19->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco19->box(FL_PLASTIC_UP_BOX);
+            Banco19->color((Fl_Color)6);
+            Banco19->labeltype(FL_ENGRAVED_LABEL);
+            Banco19->labelsize(12);
+            Banco19->callback((Fl_Callback*)cb_Banco19);
+            Banco19->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco19
+          { Fl_Box* o = new Fl_Box(380, 245, 30, 25, gettext("19"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco20 = new Fl_Button(585, 245, 145, 25);
+            Banco20->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco20->box(FL_PLASTIC_UP_BOX);
+            Banco20->color((Fl_Color)6);
+            Banco20->labeltype(FL_ENGRAVED_LABEL);
+            Banco20->labelsize(12);
+            Banco20->callback((Fl_Callback*)cb_Banco20);
+            Banco20->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco20
+          { Fl_Box* o = new Fl_Box(555, 245, 30, 25, gettext("20"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco21 = new Fl_Button(60, 275, 145, 25);
+            Banco21->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco21->box(FL_PLASTIC_UP_BOX);
+            Banco21->color((Fl_Color)6);
+            Banco21->labeltype(FL_ENGRAVED_LABEL);
+            Banco21->labelsize(12);
+            Banco21->callback((Fl_Callback*)cb_Banco21);
+            Banco21->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco21
+          { Fl_Box* o = new Fl_Box(20, 275, 30, 25, gettext("21"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco22 = new Fl_Button(235, 275, 145, 25);
+            Banco22->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco22->box(FL_PLASTIC_UP_BOX);
+            Banco22->color((Fl_Color)6);
+            Banco22->labeltype(FL_ENGRAVED_LABEL);
+            Banco22->labelsize(12);
+            Banco22->callback((Fl_Callback*)cb_Banco22);
+            Banco22->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco22
+          { Fl_Box* o = new Fl_Box(205, 275, 30, 25, gettext("22"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco23 = new Fl_Button(410, 275, 145, 25);
+            Banco23->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco23->box(FL_PLASTIC_UP_BOX);
+            Banco23->color((Fl_Color)6);
+            Banco23->labeltype(FL_ENGRAVED_LABEL);
+            Banco23->labelsize(12);
+            Banco23->callback((Fl_Callback*)cb_Banco23);
+            Banco23->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco23
+          { Fl_Box* o = new Fl_Box(380, 275, 30, 25, gettext("23"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco24 = new Fl_Button(585, 275, 145, 25);
+            Banco24->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco24->box(FL_PLASTIC_UP_BOX);
+            Banco24->color((Fl_Color)6);
+            Banco24->labeltype(FL_ENGRAVED_LABEL);
+            Banco24->labelsize(12);
+            Banco24->callback((Fl_Callback*)cb_Banco24);
+            Banco24->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco24
+          { Fl_Box* o = new Fl_Box(555, 275, 30, 25, gettext("24"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco25 = new Fl_Button(60, 305, 145, 25);
+            Banco25->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco25->box(FL_PLASTIC_UP_BOX);
+            Banco25->color((Fl_Color)6);
+            Banco25->labeltype(FL_ENGRAVED_LABEL);
+            Banco25->labelsize(12);
+            Banco25->callback((Fl_Callback*)cb_Banco25);
+            Banco25->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco25
+          { Fl_Box* o = new Fl_Box(20, 305, 30, 25, gettext("25"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco26 = new Fl_Button(235, 305, 145, 25);
+            Banco26->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco26->box(FL_PLASTIC_UP_BOX);
+            Banco26->color((Fl_Color)6);
+            Banco26->labeltype(FL_ENGRAVED_LABEL);
+            Banco26->labelsize(12);
+            Banco26->callback((Fl_Callback*)cb_Banco26);
+            Banco26->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco26
+          { Fl_Box* o = new Fl_Box(205, 305, 30, 25, gettext("26"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco27 = new Fl_Button(410, 305, 145, 25);
+            Banco27->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco27->box(FL_PLASTIC_UP_BOX);
+            Banco27->color((Fl_Color)6);
+            Banco27->labeltype(FL_ENGRAVED_LABEL);
+            Banco27->labelsize(12);
+            Banco27->callback((Fl_Callback*)cb_Banco27);
+            Banco27->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco27
+          { Fl_Box* o = new Fl_Box(380, 305, 30, 25, gettext("27"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco28 = new Fl_Button(585, 305, 145, 25);
+            Banco28->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco28->box(FL_PLASTIC_UP_BOX);
+            Banco28->color((Fl_Color)6);
+            Banco28->labeltype(FL_ENGRAVED_LABEL);
+            Banco28->labelsize(12);
+            Banco28->callback((Fl_Callback*)cb_Banco28);
+            Banco28->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco28
+          { Fl_Box* o = new Fl_Box(555, 305, 30, 25, gettext("28"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco29 = new Fl_Button(60, 335, 145, 25);
+            Banco29->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco29->box(FL_PLASTIC_UP_BOX);
+            Banco29->color((Fl_Color)6);
+            Banco29->labeltype(FL_ENGRAVED_LABEL);
+            Banco29->labelsize(12);
+            Banco29->callback((Fl_Callback*)cb_Banco29);
+            Banco29->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco29
+          { Fl_Box* o = new Fl_Box(20, 335, 30, 25, gettext("29"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco30 = new Fl_Button(235, 335, 145, 25);
+            Banco30->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco30->box(FL_PLASTIC_UP_BOX);
+            Banco30->color((Fl_Color)6);
+            Banco30->labeltype(FL_ENGRAVED_LABEL);
+            Banco30->labelsize(12);
+            Banco30->callback((Fl_Callback*)cb_Banco30);
+            Banco30->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco30
+          { Fl_Box* o = new Fl_Box(205, 335, 30, 25, gettext("30"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco31 = new Fl_Button(410, 335, 145, 25);
+            Banco31->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco31->box(FL_PLASTIC_UP_BOX);
+            Banco31->color((Fl_Color)6);
+            Banco31->labeltype(FL_ENGRAVED_LABEL);
+            Banco31->labelsize(12);
+            Banco31->callback((Fl_Callback*)cb_Banco31);
+            Banco31->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco31
+          { Fl_Box* o = new Fl_Box(380, 335, 30, 25, gettext("31"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          { Banco32 = new Fl_Button(585, 335, 145, 25);
+            Banco32->tooltip(gettext("Right Click Get -  Left Click Put"));
+            Banco32->box(FL_PLASTIC_UP_BOX);
+            Banco32->color((Fl_Color)6);
+            Banco32->labeltype(FL_ENGRAVED_LABEL);
+            Banco32->labelsize(12);
+            Banco32->callback((Fl_Callback*)cb_Banco32);
+            Banco32->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Button* Banco32
+          { Fl_Box* o = new Fl_Box(555, 335, 30, 25, gettext("32"));
+            o->labeltype(FL_ENGRAVED_LABEL);
+            o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
+          } // Fl_Box* o
+          o->end();
+        } // Fl_Group* o
+        o->end();
+      } // Fl_Group* o
+      { Fl_Group* o = new Fl_Group(10, 55, 720, 305, gettext("More Sounds"));
+        o->hide();
+        { MoreSounds = new Fl_Browser(30, 60, 514, 295);
+          MoreSounds->type(2);
+        } // Fl_Browser* MoreSounds
+        { Fl_Button* o = new Fl_Button(575, 90, 90, 25, gettext("Load"));
+          o->callback((Fl_Callback*)cb_Load3);
+        } // Fl_Button* o
+        { Fl_Button* o = new Fl_Button(575, 130, 90, 25, gettext("Rescan"));
+          o->callback((Fl_Callback*)cb_Rescan);
+        } // Fl_Button* o
+        o->end();
+      } // Fl_Group* o
+      o->end();
+    } // Fl_Tabs* o
     HORBank->end();
   } // Fl_Double_Window* HORBank
   { RitEdit = new Fl_Double_Window(615, 175);
@@ -5387,6 +5426,7 @@ sprintf(tmp,"%s v%s",PACKAGE,VERSION);
 HORwindow->copy_label(tmp);
 Fl::focus(PANICO);
 metebanco();
+putmoresounds();
 metelo();
 Actu();
 hor->PutPrim();
@@ -6162,4 +6202,39 @@ hints->icon_pixmap=p;
 hints->icon_mask=mask; 
 hints->flags = IconPixmapHint | IconMaskHint;
 XSetWMHints(fl_display, fl_xid(window), hints);
+}
+
+void HORGAN::putmoresounds() {
+  char temp[256];
+int i=0;
+static const int sizes[]= {257,257,0};
+
+MoreSounds->column_widths(sizes);
+MoreSounds->clear();
+
+
+bzero(temp,sizeof(temp));
+sprintf(temp,"@c@b@B52@C1@_%s\t@c@b@B54@C1@_%s","Name","Bank");
+MoreSounds->add(temp);
+
+
+while (i < hor->Nums)
+{ 
+
+ bzero(temp,sizeof(temp));
+ sprintf(temp,"@l@B52@_%s\t@c@B54@_%s",hor->NBP[i].Name,hor->NBP[i].Bank);
+
+  MoreSounds->add(temp);
+  i++;
+}
+
+if (i>1) MoreSounds->select(2);
+}
+
+void HORGAN::PutLoaded() {
+  meteprog();
+Actu();
+hor->PutPrim();
+sprintf(hor->temporal,"--");
+DispNumber->label(hor->temporal);
 }

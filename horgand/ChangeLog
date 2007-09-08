@@ -5,11 +5,13 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- Added the posibility to load sounds from other banks
+  to manage/mix banks.
 - sustain pedal now sustain '0' sustain sounds.
 - Adjust initial state settings. 
 - Normalize Volumes.
 - Adjust Rotary LFO Amplitude.
-- Added browse for rhythm files. 
+- Added file browser to select wav rhythm files. 
 - Fix widget positions.
 - Remember last saved Bank.
 - Fixed bug in command line.

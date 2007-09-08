@@ -23,8 +23,9 @@
 
 
 #include "Holrgan.h"
+#include <dirent.h>
 
-
+#define BANK_EXTENSION ".horeb"
 
 void
 HOR::savefile (char *filename)
@@ -438,6 +439,202 @@ HOR::saverhyt(char *filename)
      fclose(fs);
   }
 };
+
+void
+HOR::ScanDir()
+{
+
+char nomdir[256];
+char nombank[256];
+
+Nums=0;
+
+bzero(nomdir,sizeof(nomdir));
+sprintf (nomdir, "%s%s", getenv ("HOME"), "/.horgand");
+
+DIR *dir=opendir(nomdir);
+if (dir==NULL) return;
+
+
+struct dirent *fs;
+
+while ((fs=readdir(dir)))
+{
+
+if (strstr(fs->d_name,BANK_EXTENSION)!=NULL)
+  { 
+    bzero(nombank,sizeof(nombank));
+    sprintf(nombank,"%s/%s",nomdir,fs->d_name);
+    ReadNames(nombank,fs->d_name);
+    if (Nums > 320) return;  
+   }
+
+   
+}
+
+
+closedir(dir);
+
+};
+
+
+void
+HOR::ReadNames(char *filename,char *bankname)
+{
+
+  int i,j;
+  FILE *fn;
+  char buf[2048];
+
+  if ((fn = fopen (filename, "r")) == NULL) return;
+
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+            
+  if ( strncmp(buf,"1.11",4) != 0)
+     {
+      printf("old file format, please install the default bank file\n");     
+      fclose(fn);
+      return;
+     } 
+
+  for (j = 1; j <= 32; j++)
+    {
+      for (i = 1; i <= 36; i++)
+	{
+	  bzero (buf, sizeof (buf));
+	  fgets (buf, sizeof buf, fn);
+
+	}
+
+
+      bzero (buf, sizeof (buf));
+      bzero (NBP[Nums].Name, sizeof (NBP[Nums].Name));
+      fgets (buf, sizeof buf, fn);
+      for (i = 0; i <= 24; i++)
+	if (buf[i] > 20)
+	  NBP[Nums].Name[i] = buf[i];
+      bzero (NBP[Nums].Bank, sizeof (NBP[Nums].Bank)); 	  
+          strcpy(NBP[Nums].Bank,bankname);
+          NBP[Nums].pos=j;
+          Nums++;
+          if (Nums > 320)
+           { 
+             printf("Sounds full\n");
+             fclose(fn);
+             return;
+           }
+           
+
+      bzero (buf, sizeof (buf));
+      fgets (buf, sizeof buf, fn);
+
+    }
+
+  fclose (fn);
+};
+
+
+void
+HOR::LoadSoundBank(int Num)
+{
+
+
+
+  int i,j;
+  FILE *fn;
+  char buf[2048];
+  char nomfile[256];
+  bzero(nomfile,sizeof(nomfile));
+  sprintf (nomfile, "%s%s%s", getenv ("HOME"), "/.horgand/",NBP[Num].Bank);
+
+
+  if ((fn = fopen (nomfile, "r")) == NULL) return;
+
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+            
+  if ( strncmp(buf,"1.11",4) != 0)
+     {
+      printf("old file format, please install the default bank file\n");     
+      fclose(fn);
+      return;
+     } 
+
+  j=1;
+  while (j < NBP[Num].pos)
+    {
+    
+     for (i = 1; i <= 38; i++)
+	{
+	  bzero (buf, sizeof (buf));
+	  fgets (buf, sizeof buf, fn);
+	}
+     j++;	
+    }
+
+
+  
+  for (i = 1; i <= 10; i++)
+    {
+      bzero (buf, sizeof (buf));
+      fgets (buf, sizeof buf, fn);
+      sscanf (buf, "%d,%f,%f,%d", &Operator[i].harmonic,
+	      &Operator[i].harmonic_fine,&Operator[i].volumen,&Operator[i].marimba);
+    }
+
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf (buf,
+	  "%f,%d,%f,%f,%f,%d,%f,%f", &Organ_Master_Volume, &organ_transpose, &Pitch_LFO_Speed,
+	  &Pitch_LFO_Delay, &Rotary_LFO_Speed, &E_Rotary_On, &LFOpitch, &modulation);
+
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf (buf, "%f,%d,%f,%d,%f,%f", &attack, &E_Reverb_On, &detune, &E_Delay_On,
+	  &Delay_Delay, &Delay_Volume);
+
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf
+    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &split, &E_Chorus_On, &Chorus_Delay, &Reverb_Preset,
+     &Chorus_LFO_Speed, &Chorus_LFO_Amplitude, &Chorus_Volume);
+
+
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf (buf, "%f,%f,%f,%f,%f\n", &decay, &sustain, &p_attack, &p_decay,
+             &Rotary_LFO_Amplitude);
+  
+  for (i = 1; i <= 22; i++)
+  {           
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf (buf, "%f\n",&Normalize[i]);
+  
+  }
+
+
+  bzero (buf, sizeof (buf));
+  bzero (Name, sizeof (Name));
+  fgets (buf, sizeof buf, fn);
+  for (i = 0; i <= 24; i++)
+    if (buf[i] > 20)
+      Name[i] = buf[i];
+  c_name = Name;
+  fclose (fn);
+  
+};
+
+
+
+
+
+
+
+
+
+
 
 
 

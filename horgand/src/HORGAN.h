@@ -33,6 +33,7 @@ public:
 #include <FL/Fl_Browser.H>
 #include <FL/Fl_Check_Button.H>
 #include <FL/Fl_File_Input.H>
+#include <FL/Fl_Tabs.H>
 #include <FL/Fl_Value_Input.H>
 
 class HORGAN {
@@ -799,6 +800,13 @@ private:
   void cb_Banco32_i(Fl_Button*, void*);
   static void cb_Banco32(Fl_Button*, void*);
 public:
+  Fl_Browser *MoreSounds;
+private:
+  void cb_Load3_i(Fl_Button*, void*);
+  static void cb_Load3(Fl_Button*, void*);
+  void cb_Rescan_i(Fl_Button*, void*);
+  static void cb_Rescan(Fl_Button*, void*);
+public:
   Fl_Double_Window *RitEdit;
 private:
   void cb_RitEdit_i(Fl_Double_Window*, void*);
@@ -1088,5 +1096,7 @@ public:
   void ponvalor(float a);
   void metesynth();
   void put_icon(Fl_Window* window);
+  void putmoresounds();
+  void PutLoaded();
 };
 #endif

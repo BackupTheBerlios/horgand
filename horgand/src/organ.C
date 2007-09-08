@@ -45,6 +45,7 @@ HOR::HOR()
 {
 
   //Init de vars
+  Nums=0;
   commandline=0;
   Bass_Type=0;
   TypeRecChord=0;
@@ -1113,7 +1114,7 @@ if (val==0)
     
        horgand.get("Bank Filename",BankFilename,"",127);                     
        if (commandline==0)loadbank(BankFilename);
-                
+       ScanDir();                
 
 // Load Rhythm File
 
