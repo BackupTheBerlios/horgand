@@ -59,6 +59,7 @@ public:
   void Alg1s (int frames, void*);
   float Jenvelope(int *note_active, int gate, float t, int nota);
   float Penvelope(int *note_active, int gate, float t, int nota);
+  float Cenvelope(int *note_active, int gate, float t, int nota);
   float Get_Partial(int note);
   float Chorus_LFO(float *t);
   float Rotary_LFO(float t);  
@@ -84,6 +85,7 @@ public:
   void Get_Chord();  
   void Get_Tempo();
   void New();
+  void New_Bank();
   void PonDATA_Undo(int Undonumber);
   void MUndo();
   void MRedo();
@@ -122,13 +124,7 @@ public:
   float *history;
   float *cldelay;
   float *crdelay;
-  float attack;
-  float decay;
-  float sustain;
   float release;
-  float p_attack;
-  float p_decay;
-  float p_sustain;
   float p_release;
   float u_attack;
   float u_p_attack;
@@ -136,8 +132,12 @@ public:
   float u_p_decay;
   float u_release;
   float u_p_release;
-  
-  
+  float c_release;
+  float u_c_attack;
+  float u_c_decay;
+  float u_c_release;  
+  float dcphi[POLY];
+  float dcphi2[POLY];
   int PERIOD;
   unsigned int SAMPLE_RATE;
   int PERIOD2;
@@ -145,14 +145,7 @@ public:
   int PERIOD8;
   float velocity[POLY];
   float pitch;
-  float modulation;
   float env_time[POLY];
-  float Rotary_LFO_Speed;
-  float Pitch_LFO_Speed;
-  float Pitch_LFO_Delay;
-  float Rotary_LFO_Amplitude;
-  float LFOpitch;
-  float Keyb_Level_Scaling;
   int  note[POLY];
   int rnote[POLY];
   int  gate[POLY];
@@ -161,42 +154,24 @@ public:
   int  note_active[POLY];
   float  mastertune;
   float lasfreq[24];
-  float Normalize[24];
-  int E_Rotary_On;
   float  Master_Volume;
-  float Organ_Master_Volume;
   int pedal;
   int rperhis;
-  char *c_name;  
-  char Name[64];  
-  int E_Delay_On;
   int transpose;
-  int organ_transpose;
-  float Delay_Volume;
-  float Delay_Delay;
   float Stereo_Side; 
   int To_Stereo_Side;
   float LFO_Volume;
-  float detune;
   float LFO_Frequency;
   float Rotary_LFO_Frequency;
   float Rotary_X;
   float Chorus_X_R;
   float Chorus_X_L;
-  float Chorus_LFO_Speed;
-  float Chorus_LFO_Amplitude;
   float Chorus_LFO_Frequency;
-  float Chorus_Volume;  
-  int E_Chorus_On;            
-  int E_Overdrive_On;
   int cl_counter;
   float Chorus_Delay;
-  int split;
-  int Reverb_Preset;  
   int Salida;
   float increment;
   float D_PI_to_SAMPLE_RATE; 
-  int E_Reverb_On;
   int Reverb_Time;
   float Reverb_Diffussion;
   float Reverb_Volume;
@@ -256,6 +231,8 @@ public:
   int Ccin;
   int Pcin;
   int Nums;
+
+
   
 struct Rhythm
 {
@@ -339,8 +316,8 @@ struct OperatorPar
  float con1;
  int harmonic;
  int marimba; 
-  }    
-   Operator[11];
+ };
+     
 
 struct Todolo
 
@@ -360,6 +337,14 @@ struct Todolo
    float sustain;
    float p_attack;
    float p_decay;
+   float c_attack;
+   float c_decay;
+   float Click_Vol;
+   float Click2_Vol; 
+   float Click_Freq;
+   float Click_Freq2;
+   float Click_Vol1;
+   float Click_Vol2;
    float detune;
    float Organ_Master_Volume;
    float Delay_Delay;
@@ -368,6 +353,7 @@ struct Todolo
    float Chorus_LFO_Speed;
    float Chorus_Volume;
    float Rotary_LFO_Amplitude;
+   int Click;
    int E_Reverb_On;
    int organ_transpose;
    int E_Rotary_On;
@@ -377,7 +363,7 @@ struct Todolo
    int Reverb_Preset;
    char *nombre;
 
-} Banco[35], Undo[100], Prim[2];
+} Banco[35], Undo[100], Prim[2], a[1];
     
   char temporal[8]; 
     
@@ -407,6 +393,8 @@ struct Todolo
     float dphi;
     float phi2[POLY];
     float dphi2; 
+    
+
 
   } f[11];
   

@@ -54,7 +54,6 @@ HOR::HOR()
   capsg=0;
   cl_counter=0;
   Master_Volume = 0.70;
-  Organ_Master_Volume = 0.70;
   pattern_bars = 1;
   ae = 1;
   file_ok = 0;  
@@ -90,81 +89,12 @@ HOR::HOR()
   lasfreq[21] = 14.0;
   lasfreq[22] = 16.0;
 
-// Normalize volums
+  New();
 
-  Normalize[1] = 1.0;
-  Normalize[2] = 1.0;
-  Normalize[3] = 1.0;
-  Normalize[4] = 1.0;
-  Normalize[5] = 1.0;
-  Normalize[6] = 1.0;
-  Normalize[7] = 1.0;
-  Normalize[8] = 1.0;
-  Normalize[9] = .22;
-  Normalize[10] = .2;
-  Normalize[11] = .166;
-  Normalize[12] = .142;
-  Normalize[13] = .133;
-  Normalize[14] = .125;
-  Normalize[15] = .111;
-  Normalize[16] = .1;
-  Normalize[17] = 0.095;
-  Normalize[18] = 0.090;
-  Normalize[19] = 0.083;
-  Normalize[20] = 0.076;
-  Normalize[21] = 0.071;
-  Normalize[22] = .066;
-  
-
-
-// Init FM Operators 
-
-  for (i = 1; i <= 10; i++)
-    {
-      Operator[i].harmonic_fine = 0.0;
-      Operator[i].volumen = 0.0;
-      Operator[i].marimba = 0;
-    }
-
-  Operator[1].harmonic = 1;
-  Operator[2].harmonic = 3;
-  Operator[3].harmonic = 4;
-  Operator[4].harmonic = 5;
-  Operator[5].harmonic = 7;
-  Operator[6].harmonic = 8;
-  Operator[7].harmonic = 11;
-  Operator[8].harmonic = 14;
-  Operator[9].harmonic = 19;
-  Operator[10].harmonic = 22;
-  
-
-  mastertune = 1;
-  attack = 0.001;
-  u_attack = 1.0 /attack;
-  decay = 0.20;
-  u_decay = 1.0 / decay;
-  sustain = 0.8;
-  release = 0.12;
-  u_release = 1.0 / release;
-  p_attack= 0.0001;
-  u_p_attack = 1.0 / p_attack;
-  p_decay = 0.018;
-  u_p_decay = 1.0 / p_decay;
-  p_sustain=0.00;
-  p_release=0.12;
-  u_p_release = 1.0 / p_release;
-  E_Delay_On = 0;
-  Delay_Delay = 0;
-  Delay_Volume = 0;
-  Rotary_LFO_Speed = 0;
-  Pitch_LFO_Speed = 0;
-  Pitch_LFO_Delay = 0;
-  LFOpitch = 0;
-  Rotary_LFO_Amplitude = 9980;
-  Keyb_Level_Scaling=1;
-  modulation = .99;
+  mastertune=1;
+  release=0.12;
+  u_release=1.0/release;
   transpose = 0;
-  organ_transpose=0;
   pitch = 0;
   pedal = 0;
   UndoCount = 0;
@@ -173,11 +103,6 @@ HOR::HOR()
   Rotary_X = 0;
   Chorus_X_L = 0.0;
   Chorus_X_R = 0.5;
-  Chorus_LFO_Speed = 0;
-  Chorus_Volume = 0.60;
-  split = 0;
-  Reverb_Preset = 1;
-  E_Reverb_On = 0;
   Reverb_Time = 10;
   Reverb_Diffussion = 0.1;
   Reverb_Volume = 0.20;
@@ -812,144 +737,16 @@ for (j = 1; j<= 20; j++)
 
 // Init Bank
 
-
-  for (j = 1; j <= 32; j++)
-    {
-      for (i = 1; i <= 10; i++)
-	{
-	  Banco[j].Operator[i].harmonic = Operator[i].harmonic;
-	  Banco[j].Operator[i].harmonic_fine = 0.0;
-	  Banco[j].Operator[i].volumen = 0.0;
-          Banco[j].Operator[i].marimba=0;
-	}
-
-
-      Banco[j].E_Delay_On = 0;
-      Banco[j].Delay_Delay = 0;
-      Banco[j].Delay_Volume = 0;
-      Banco[j].Pitch_LFO_Speed = 0;
-      Banco[j].Pitch_LFO_Delay = 0;
-      Banco[j].Rotary_LFO_Speed = 0;
-      Banco[j].LFOpitch = 0;
-      Banco[j].E_Rotary_On = 0;
-      Banco[j].modulation = 0;
-      Banco[j].organ_transpose = 0;
-      Banco[j].Organ_Master_Volume = 0.70;
-      Banco[j].detune = 0;
-      Banco[j].E_Chorus_On = 0;
-      Banco[j].split = 0;
-      Banco[j].Chorus_LFO_Amplitude = 0;
-      Banco[j].Chorus_LFO_Speed = 0;
-      Banco[j].Chorus_Delay = 0;
-      Banco[j].Reverb_Preset = 1;
-      Banco[j].E_Reverb_On = 0;
-      Banco[j].Chorus_Volume = 0.60;
-      Banco[j].attack=attack;
-      Banco[j].decay=decay;
-      Banco[j].sustain=sustain;
-      Banco[j].p_attack=p_attack;
-      Banco[j].p_decay=p_decay;
-      
-      for(i=1;i<=22;i++) Banco[j].Normalize[i]=Normalize[i];
-
-      Banco[j].Rotary_LFO_Amplitude=Rotary_LFO_Amplitude;
-
-    }
-
-
-
+  New_Bank();
+ 
 //  Init Undo/Redo
 
-  for (j = 0; j <= 100; j++)
-    {
-
-      for (i = 1; i <= 10; i++)
-	{
-	  Undo[j].Operator[i].harmonic = Operator[i].harmonic;
-	  Undo[j].Operator[i].harmonic_fine = 0.0;
-	  Undo[j].Operator[i].volumen = 0.0;
-	  Undo[j].Operator[i].marimba = 0;
-	}
-
-      Undo[j].E_Delay_On = 0;
-      Undo[j].Delay_Delay = 0;
-      Undo[j].Delay_Volume = 0;
-      Undo[j].Pitch_LFO_Speed = 0;
-      Undo[j].Pitch_LFO_Delay = 0;
-      Undo[j].Rotary_LFO_Speed = 0;
-      Undo[j].LFOpitch = 0;
-      Undo[j].E_Rotary_On = 0;
-      Undo[j].modulation = 0;
-      Undo[j].organ_transpose = 0;
-      Undo[j].Organ_Master_Volume = 0.70;
-      Undo[j].detune = 0;
-      Undo[j].E_Chorus_On = 0;
-      Undo[j].split = 0;
-      Undo[j].Chorus_LFO_Amplitude = 0;
-      Undo[j].Chorus_LFO_Speed = 0;
-      Undo[j].Chorus_Delay = 0;
-      Undo[j].Reverb_Preset = 1;
-      Undo[j].E_Reverb_On = 0;
-      Undo[j].Chorus_Volume = 0.60;
-      Undo[j].attack=attack;
-      Undo[j].decay=decay;
-      Undo[j].sustain=sustain;
-      Undo[j].p_attack=p_attack;
-      Undo[j].p_decay=p_decay;
-                 
-      for(i=1;i<=22;i++) Undo[j].Normalize[i]=Normalize[i];
-                                    
-
-
-    }
+  for (j = 0; j <= 100; j++) Undo[j]=a[0];
 
 
 // Init Initial state of Undo/Redo buffer
 
-  for (j = 0; j <= 3; j++)
-    {
-
-      for (i = 1; i <= 10; i++)
-	{
-	  Prim[j].Operator[i].harmonic = Operator[i].harmonic;
-	  Prim[j].Operator[i].harmonic_fine = 0.0;
-	  Prim[j].Operator[i].volumen = 0.0;
-	  Prim[j].Operator[i].marimba = 0;
-	}
-
-
-
-      Prim[j].E_Delay_On = 0;
-      Prim[j].Delay_Delay = 0;
-      Prim[j].Delay_Volume = 0;
-      Prim[j].Pitch_LFO_Speed = 0;
-      Prim[j].Pitch_LFO_Delay = 0;
-      Prim[j].Rotary_LFO_Speed = 0;
-      Prim[j].LFOpitch = 0;
-      Prim[j].E_Rotary_On = 0;
-      Prim[j].modulation = 0;
-      Prim[j].organ_transpose = 0;
-      Prim[j].Organ_Master_Volume = 0.70;
-      Prim[j].detune = 0;
-      Prim[j].E_Chorus_On = 0;
-      Prim[j].split = 0;
-      Prim[j].Chorus_LFO_Amplitude = 0;
-      Prim[j].Chorus_LFO_Speed = 0;
-      Prim[j].Chorus_Delay = 0;
-      Prim[j].Reverb_Preset = 1;
-      Prim[j].E_Reverb_On = 0;
-      Prim[j].Chorus_Volume = 0.30;
-      Prim[j].attack=attack;
-      Prim[j].decay=decay;
-      Prim[j].sustain=sustain;
-      Prim[j].p_attack=p_attack;
-      Prim[j].p_decay=p_decay;
-
-      for(i=1;i<=22;i++) Prim[j].Normalize[i]=Normalize[i];
-
-
-    }
-
+  for (j = 0; j <= 3; j++) Prim[j]=a[0];
 
 
   // Init gated notes
@@ -958,6 +755,7 @@ for (j = 1; j<= 20; j++)
     {
       note_active[i] = 0;
       env_time[i] = 0;
+      dcphi[i]=0.0; 
     }
 
   // Init frequency Notes 
@@ -1143,14 +941,14 @@ HOR::Adjust_Audio()
 float
 HOR::pitch_Operator (int i, int note)
 {
-return (lasfreq[Operator[i].harmonic]+Operator[i].harmonic_fine);
+return (lasfreq[a[0].Operator[i].harmonic]+a[0].Operator[i].harmonic_fine);
 }
 
 
 float
 HOR::pitch_Operator2 (int i, int note)
 {
-return (lasfreq[Operator[i].harmonic] - Operator[i].harmonic_fine);
+return (lasfreq[a[0].Operator[i].harmonic] - a[0].Operator[i].harmonic_fine);
 }
 
 
@@ -1161,7 +959,7 @@ return (lasfreq[Operator[i].harmonic] - Operator[i].harmonic_fine);
 void
 HOR::volume_Operator (int i, int l2)
 {
-  Operator[i].con1 = Operator[i].volumen * velocity[l2] * Normalize[Operator[i].harmonic];
+  a[0].Operator[i].con1 = a[0].Operator[i].volumen * velocity[l2] * a[0].Normalize[a[0].Operator[i].harmonic];
   
 };
 
@@ -1185,14 +983,39 @@ HOR::panic()
 };
 
 
+
 float
-HOR::Penvelope (int *note_active, int gate, float t, int nota)
+HOR::Cenvelope (int *note_active,int gate,float t,int nota)
+{
+
+float val=0;
+       
+           
+       if (t > a[0].c_attack + a[0].c_decay )  return 0;
+       if (t > a[0].c_attack) val=1.0 - (t - a[0].c_attack) * u_c_decay;
+       else
+       val=t * u_c_attack;
+       
+       if (gate) return (a[0].Click_Vol*val);  
+       return(a[0].Click2_Vol*val);
+       
+       
+       
+       
+       
+};
+
+
+
+
+float
+HOR::Penvelope (int *note_active,int gate,float t,int nota)
 {
 
        if (gate)
        {    
-       if (t > p_attack + p_decay )  return (p_sustain);
-       if (t > p_attack) return(1.0 - (1.0 - p_sustain) * (t - p_attack) * u_p_decay);
+       if (t > a[0].p_attack + a[0].p_decay )  return 0;
+       if (t > a[0].p_attack) return(1.0 - (t - a[0].p_attack) * u_p_decay);
        return(t * u_p_attack);
        }
        else return Perc_Volume[nota] * ( 1.0 - t * u_p_release);
@@ -1208,8 +1031,8 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
   
     if (gate)
     {
-       if (t > attack + decay )  return (sustain);
-       if (t > attack) return(1.0 - (1.0 - sustain) * (t - attack) * u_decay);
+       if (t > a[0].attack + a[0].decay )  return (a[0].sustain);
+       if (t > a[0].attack) return(1.0 - (1.0 - a[0].sustain) * (t - a[0].attack) * u_decay);
        
        return(t * u_attack);
     }
@@ -1241,7 +1064,7 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
        
       else
         {
-        if (sustain != 0) return(sustain);
+        if (a[0].sustain != 0) return(a[0].sustain);
         else return (Envelope_Volume[nota]);
         }
      }     
@@ -1260,10 +1083,10 @@ HOR::Pitch_LFO (float t)
 
   float x,out;
 
-  if (t * 20 < Pitch_LFO_Delay)
+  if (t * 20 < a[0].Pitch_LFO_Delay)
     return (0);
 
-  x = fmod(Pitch_LFO_Speed * t,1.0); 
+  x = fmod(a[0].Pitch_LFO_Speed * t,1.0); 
 
   out = Fsin(x*D_PI) * LFO_Frequency;
      
@@ -1281,7 +1104,7 @@ HOR::Get_Partial (int nota)
   float partial=0;
   float freq_note=0; 
   
-  l = note[nota] + transpose + organ_transpose + 12;
+  l = note[nota] + transpose + a[0].organ_transpose + 12;
   freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
   partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if (partial > D_PI) partial=fmod(partial,D_PI);
@@ -1306,7 +1129,7 @@ void
 HOR::Calc_LFO_Frequency()
 {
 
-LFO_Frequency =  modulation * LFOpitch * D_PI_to_SAMPLE_RATE;
+LFO_Frequency =  a[0].modulation * a[0].LFOpitch * D_PI_to_SAMPLE_RATE;
 
 };  
 
@@ -1322,13 +1145,18 @@ HOR::Alg1s (int nframes, void *)
 
  pthread_mutex_lock(&mutex);
   int l1, l2, i;
-  float total_vol=0;
+  float total_vol=.1;
   float sound,sound2;
   float Env_Vol=0;
+  float Am_Click=0;
+  float Click_TVol=0;
+  float Click_Env=0;
+  float Click_sFreq=a[0].Click_Freq*D_PI_to_SAMPLE_RATE;
+  float Click_2sFreq=a[0].Click_Freq2*D_PI_to_SAMPLE_RATE;
   float m_partial;
   float p_op[11];
   float p_op2[11];
-  float organ_master=Organ_Master_Volume*.1;
+  float organ_master=a[0].Organ_Master_Volume*.1;
 
   memset (buf, 0, PERIOD4);
    
@@ -1336,13 +1164,9 @@ HOR::Alg1s (int nframes, void *)
     for (i=1;i<=10;i++)
     { p_op[i]=pitch_Operator(i,0);
       p_op2[i]=pitch_Operator2(i,0);
-      total_vol += Operator[i].volumen*Normalize[Operator[i].harmonic];
+      total_vol += a[0].Operator[i].volumen*a[0].Normalize[a[0].Operator[i].harmonic];
     }  
-             
-    if (total_vol>0) organ_master=Organ_Master_Volume*(float)(1.0/total_vol);
-
-
-
+    organ_master=a[0].Organ_Master_Volume*(float)(1.0/total_vol);
 
     for (l2 = 0; l2 < POLY; l2++)
     {
@@ -1356,16 +1180,30 @@ HOR::Alg1s (int nframes, void *)
           {
      	    sound=0;
      	    sound2=0;
-                       
-            Envelope_Volume[l2] = Jenvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
+            Envelope_Volume[l2] = Jenvelope(&note_active[l2], gate[l2], env_time[l2], l2);        
      	    Perc_Volume[l2] = Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
      	    LFO_Volume=Pitch_LFO(env_time[l2]);
      	   
+            if (a[0].Click)
+            {
+     	    Click_Env=Cenvelope(&note_active[l2], gate[l2], env_time[l2], l2);                     
+            if (Click_Env>0)
+               {
+                dcphi[l2] +=Click_sFreq;
+                dcphi2[l2] +=Click_2sFreq;
+                if (dcphi[l2] > D_PI) dcphi[l2] = fmod(dcphi[l2],D_PI);
+                if (dcphi2[l2] > D_PI) dcphi2[l2] = fmod(dcphi2[l2],D_PI);
+                Click_TVol=Click_Env*velocity[l2]*organ_master;
+                Am_Click=a[0].Click_Vol1*Click_TVol*Fsin(dcphi[l2]);
+                Am_Click+=a[0].Click_Vol2*Click_TVol*Fsin(dcphi2[l2]);
+                buf[l1] +=Am_Click;
+                buf[l1+1] +=Am_Click;
+               }
+            }
              for(i = 1; i <= 10; i++)
 	      {
-	        if (Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2]*Operator[i].con1;
-                     else Env_Vol=Perc_Volume[l2]*Operator[i].con1; 
-                   
+	        if (a[0].Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2]*a[0].Operator[i].con1;
+                     else Env_Vol=Perc_Volume[l2]*a[0].Operator[i].con1; 
 	      
                 if (Env_Vol > 0)
                    { 
@@ -1383,11 +1221,9 @@ HOR::Alg1s (int nframes, void *)
                      sound2 +=Env_Vol*lsin[(int)(1000*f[i].phi2[l2])];                  
                    }                
               }  
-                
                 buf[l1] += sound * organ_master;
                 buf[l1+1] += sound2 * organ_master;
                 env_time[l2] +=increment;                
-                      
            }
              
 	}
@@ -1396,10 +1232,10 @@ HOR::Alg1s (int nframes, void *)
 
     
 
-if (E_Chorus_On) Effect_Chorus();
-if (E_Rotary_On) Effect_Rotary();
-if (E_Delay_On)  Effect_Delay();
-if (E_Reverb_On) Effect_Reverb();
+if (a[0].E_Chorus_On) Effect_Chorus();
+if (a[0].E_Rotary_On) Effect_Rotary();
+if (a[0].E_Delay_On)  Effect_Delay();
+if (a[0].E_Reverb_On) Effect_Reverb();
 
 
 Write_Buffer_Effects();

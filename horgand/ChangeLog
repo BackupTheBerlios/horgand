@@ -5,6 +5,9 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- Support for old file formats >=1.11.
+- Code optimized. 
+- Added Click.
 - Added the posibility to load sounds from other banks
   to manage/mix banks.
 - sustain pedal now sustain '0' sustain sounds.

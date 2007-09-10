@@ -37,43 +37,47 @@ HOR::savefile (char *filename)
   fn = fopen (filename, "w");
 
   bzero(buf,sizeof(buf));
-  sprintf(buf,"1.11\n");
+  sprintf(buf,"%s\n",VERSION);
   fputs(buf,fn);
 
   for (i = 1; i <= 10; i++)
     {
       bzero (buf, sizeof (buf));
-      sprintf (buf, "%d,%f,%f,%d\n", Operator[i].harmonic,
-	       Operator[i].harmonic_fine,Operator[i].volumen,Operator[i].marimba);
+      sprintf (buf, "%d,%f,%f,%d\n", a[0].Operator[i].harmonic,
+	       a[0].Operator[i].harmonic_fine,a[0].Operator[i].volumen,a[0].Operator[i].marimba);
       fputs (buf, fn);
     }
 
   bzero (buf, sizeof (buf));
   sprintf (buf, "%f,%d,%f,%f,%f,%d,%f,%f\n",
-	   Organ_Master_Volume, organ_transpose, Pitch_LFO_Speed, Pitch_LFO_Delay, Rotary_LFO_Speed, E_Rotary_On, LFOpitch,
-	   modulation);
+	   a[0].Organ_Master_Volume, a[0].organ_transpose, a[0].Pitch_LFO_Speed, a[0].Pitch_LFO_Delay, a[0].Rotary_LFO_Speed, a[0].E_Rotary_On, a[0].LFOpitch,
+	   a[0].modulation);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
-  sprintf (buf, "%f,%d,%f,%d,%f,%f\n", attack, E_Reverb_On, detune, E_Delay_On,
-	   Delay_Delay, Delay_Volume);
+  sprintf (buf, "%f,%d,%f,%d,%f,%f\n", a[0].attack, a[0].E_Reverb_On, a[0].detune, a[0].E_Delay_On,
+	   a[0].Delay_Delay, a[0].Delay_Volume);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
-  sprintf (buf, "%d,%d,%f,%d,%f,%f,%f\n", split, E_Chorus_On, Chorus_Delay, Reverb_Preset,
-	   Chorus_LFO_Speed, Chorus_LFO_Amplitude, Chorus_Volume);
+  sprintf (buf, "%d,%d,%f,%d,%f,%f,%f\n", a[0].split, a[0].E_Chorus_On, a[0].Chorus_Delay, a[0].Reverb_Preset,
+	   a[0].Chorus_LFO_Speed, a[0].Chorus_LFO_Amplitude, a[0].Chorus_Volume);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
-  sprintf (buf, "%f,%f,%f,%f,%f\n", decay, sustain, p_attack, p_decay,
-             Rotary_LFO_Amplitude);
+  sprintf (buf, "%f,%f,%f,%f,%f\n", a[0].decay, a[0].sustain, a[0].p_attack, a[0].p_decay,
+             a[0].Rotary_LFO_Amplitude);
   fputs (buf, fn);
   for (i = 1; i <= 22; i++)
   {           
   bzero (buf, sizeof (buf));
-  sprintf (buf, "%f\n",Normalize[i]);
+  sprintf (buf, "%f\n",a[0].Normalize[i]);
   fputs (buf, fn);
   }
 
   bzero (buf, sizeof (buf));
-  fputs (c_name, fn);
+  sprintf (buf, "%d,%f,%f,%f,%f,%f,%f\n", a[0].Click,a[0].Click_Vol,a[0].Click2_Vol,a[0].Click_Freq,a[0].Click_Freq2,a[0].Click_Vol1,a[0].Click_Vol2);
+  fputs (buf, fn);
+
+  bzero (buf, sizeof (buf));
+  fputs (a[0].nombre, fn);
   fputs ("\n", fn);
   fclose (fn);
 
@@ -86,68 +90,79 @@ HOR::loadfile (char *filename)
   int i;
   FILE *fn;
   char buf[2048];
+  float Data_Version;
 
   if ((fn = fopen (filename, "r")) == NULL) return;
 
   
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-            
-  if ( strncmp(buf,"1.11",4) != 0)
+  sscanf(buf, "%f\n",&Data_Version);          
+  
+  
+
+  if (Data_Version < 1.11)
      {
-      printf("old file format\n");     
+      printf("old file format not supported\n");     
       fclose(fn);
       return;
      } 
 
+  New();
 
   for (i = 1; i <= 10; i++)
     {
       bzero (buf, sizeof (buf));
       fgets (buf, sizeof buf, fn);
-      sscanf (buf, "%d,%f,%f,%d", &Operator[i].harmonic,
-	      &Operator[i].harmonic_fine,&Operator[i].volumen,&Operator[i].marimba);
+      sscanf (buf, "%d,%f,%f,%d", &a[0].Operator[i].harmonic,
+	      &a[0].Operator[i].harmonic_fine,&a[0].Operator[i].volumen,&a[0].Operator[i].marimba);
     }
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf (buf,
-	  "%f,%d,%f,%f,%f,%d,%f,%f", &Organ_Master_Volume, &organ_transpose, &Pitch_LFO_Speed,
-	  &Pitch_LFO_Delay, &Rotary_LFO_Speed, &E_Rotary_On, &LFOpitch, &modulation);
+	  "%f,%d,%f,%f,%f,%d,%f,%f", &a[0].Organ_Master_Volume, &a[0].organ_transpose, &a[0].Pitch_LFO_Speed,
+	  &a[0].Pitch_LFO_Delay, &a[0].Rotary_LFO_Speed, &a[0].E_Rotary_On, &a[0].LFOpitch, &a[0].modulation);
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%f,%d,%f,%d,%f,%f", &attack, &E_Reverb_On, &detune, &E_Delay_On,
-	  &Delay_Delay, &Delay_Volume);
+  sscanf (buf, "%f,%d,%f,%d,%f,%f", &a[0].attack, &a[0].E_Reverb_On, &a[0].detune, &a[0].E_Delay_On,
+	  &a[0].Delay_Delay, &a[0].Delay_Volume);
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf
-    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &split, &E_Chorus_On, &Chorus_Delay, &Reverb_Preset,
-     &Chorus_LFO_Speed, &Chorus_LFO_Amplitude, &Chorus_Volume);
+    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &a[0].split, &a[0].E_Chorus_On, &a[0].Chorus_Delay, &a[0].Reverb_Preset,
+     &a[0].Chorus_LFO_Speed, &a[0].Chorus_LFO_Amplitude, &a[0].Chorus_Volume);
 
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%f,%f,%f,%f,%f\n", &decay, &sustain, &p_attack, &p_decay,
-             &Rotary_LFO_Amplitude);
+  sscanf (buf, "%f,%f,%f,%f,%f\n", &a[0].decay, &a[0].sustain, &a[0].p_attack, &a[0].p_decay,
+             &a[0].Rotary_LFO_Amplitude);
   
   for (i = 1; i <= 22; i++)
   {           
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%f\n",&Normalize[i]);
+  sscanf (buf, "%f\n",&a[0].Normalize[i]);
   
   }
 
+  if (Data_Version >= 1.12)
+  {
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf (buf, "%d,%f,%f,%f,%f,%f,%f\n", &a[0].Click,&a[0].Click_Vol,&a[0].Click2_Vol,&a[0].Click_Freq,&a[0].Click_Freq2,&a[0].Click_Vol1,&a[0].Click_Vol2);
+  }
 
   bzero (buf, sizeof (buf));
-  bzero (Name, sizeof (Name));
+  bzero (a[0].Name, sizeof (a[0].Name));
   fgets (buf, sizeof buf, fn);
   for (i = 0; i <= 24; i++)
     if (buf[i] > 20)
-      Name[i] = buf[i];
-  c_name = Name;
+      a[0].Name[i] = buf[i];
+  a[0].nombre = a[0].Name;
   fclose (fn);
 
 };
@@ -162,7 +177,7 @@ HOR::savebank (char *filename)
   fn = fopen (filename, "w");
 
   bzero(buf,sizeof(buf));
-  sprintf(buf,"1.11\n");
+  sprintf(buf,"%s\n",VERSION);
   fputs(buf,fn);
 
   for (j = 1; j <= 32; j++)
@@ -208,6 +223,12 @@ HOR::savebank (char *filename)
           fputs (buf, fn);
         }
 
+     bzero (buf, sizeof (buf));
+     sprintf (buf, "%d,%f,%f,%f,%f,%f,%f\n", Banco[j].Click, Banco[j].Click_Vol, Banco[j].Click2_Vol, Banco[j].Click_Freq,
+             Banco[j].Click_Freq2,Banco[j].Click_Vol1,Banco[j].Click_Vol2);
+     fputs (buf, fn);
+    
+
 
       bzero (buf, sizeof (buf));
       for (i = 0; i <= 24; i++)
@@ -228,18 +249,22 @@ HOR::loadbank (char *filename)
   int i,j;
   FILE *fn;
   char buf[2048];
-
+  float Data_Version;
+  
+  
   if ((fn = fopen (filename, "r")) == NULL) return;
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
+  sscanf(buf, "%f\n",&Data_Version);
             
-  if ( strncmp(buf,"1.11",4) != 0)
+  if ( Data_Version<1.11)
      {
       printf("old file format, please install the default bank file\n");     
       fclose(fn);
       return;
      } 
+  New_Bank();
 
   for (j = 1; j <= 32; j++)
     {
@@ -288,12 +313,21 @@ HOR::loadbank (char *filename)
           sscanf (buf, "%f\n",&Banco[j].Normalize[i]);
         }
 
+      if (Data_Version>=1.12)
+      {
+       bzero (buf, sizeof (buf));
+       fgets (buf, sizeof buf, fn);
+       sscanf (buf, "%d,%f,%f,%f,%f,%f,%f\n", &Banco[j].Click, &Banco[j].Click_Vol, &Banco[j].Click2_Vol, &Banco[j].Click_Freq,
+             &Banco[j].Click_Freq2,&Banco[j].Click_Vol1,&Banco[j].Click_Vol2);
+      } 
+
       bzero (buf, sizeof (buf));
       bzero (Banco[j].Name, sizeof (Banco[j].Name));
       fgets (buf, sizeof buf, fn);
       for (i = 0; i <= 24; i++)
 	if (buf[i] > 20)
 	  Banco[j].Name[i] = buf[i];
+          Banco[j].nombre=Banco[j].Name;
       bzero (buf, sizeof (buf));
       fgets (buf, sizeof buf, fn);
 
@@ -482,25 +516,28 @@ void
 HOR::ReadNames(char *filename,char *bankname)
 {
 
-  int i,j;
+  int i,j,k;
   FILE *fn;
   char buf[2048];
+  float Data_Version;
 
   if ((fn = fopen (filename, "r")) == NULL) return;
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-            
-  if ( strncmp(buf,"1.11",4) != 0)
-     {
+  sscanf(buf,"%f\n",&Data_Version);          
+  if ( Data_Version<1.11)     {
       printf("old file format, please install the default bank file\n");     
       fclose(fn);
       return;
      } 
 
+  k=36;
+  if (Data_Version>=1.12) k=37;
+
   for (j = 1; j <= 32; j++)
     {
-      for (i = 1; i <= 36; i++)
+      for (i = 1; i <= k; i++)
 	{
 	  bzero (buf, sizeof (buf));
 	  fgets (buf, sizeof buf, fn);
@@ -540,8 +577,8 @@ HOR::LoadSoundBank(int Num)
 {
 
 
-
-  int i,j;
+  float Data_Version;
+  int i,j,k;
   FILE *fn;
   char buf[2048];
   char nomfile[256];
@@ -553,8 +590,8 @@ HOR::LoadSoundBank(int Num)
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-            
-  if ( strncmp(buf,"1.11",4) != 0)
+  sscanf(buf,"%f\n",&Data_Version);          
+  if (Data_Version<1.11)
      {
       printf("old file format, please install the default bank file\n");     
       fclose(fn);
@@ -562,10 +599,12 @@ HOR::LoadSoundBank(int Num)
      } 
 
   j=1;
+  k=38;
+  if (Data_Version>=1.12) k=39;
   while (j < NBP[Num].pos)
     {
     
-     for (i = 1; i <= 38; i++)
+     for (i = 1; i <= k; i++)
 	{
 	  bzero (buf, sizeof (buf));
 	  fgets (buf, sizeof buf, fn);
@@ -579,49 +618,55 @@ HOR::LoadSoundBank(int Num)
     {
       bzero (buf, sizeof (buf));
       fgets (buf, sizeof buf, fn);
-      sscanf (buf, "%d,%f,%f,%d", &Operator[i].harmonic,
-	      &Operator[i].harmonic_fine,&Operator[i].volumen,&Operator[i].marimba);
+      sscanf (buf, "%d,%f,%f,%d", &a[0].Operator[i].harmonic,
+	      &a[0].Operator[i].harmonic_fine,&a[0].Operator[i].volumen,&a[0].Operator[i].marimba);
     }
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf (buf,
-	  "%f,%d,%f,%f,%f,%d,%f,%f", &Organ_Master_Volume, &organ_transpose, &Pitch_LFO_Speed,
-	  &Pitch_LFO_Delay, &Rotary_LFO_Speed, &E_Rotary_On, &LFOpitch, &modulation);
+	  "%f,%d,%f,%f,%f,%d,%f,%f", &a[0].Organ_Master_Volume, &a[0].organ_transpose, &a[0].Pitch_LFO_Speed,
+	  &a[0].Pitch_LFO_Delay, &a[0].Rotary_LFO_Speed, &a[0].E_Rotary_On, &a[0].LFOpitch, &a[0].modulation);
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%f,%d,%f,%d,%f,%f", &attack, &E_Reverb_On, &detune, &E_Delay_On,
-	  &Delay_Delay, &Delay_Volume);
+  sscanf (buf, "%f,%d,%f,%d,%f,%f", &a[0].attack, &a[0].E_Reverb_On, &a[0].detune, &a[0].E_Delay_On,
+	  &a[0].Delay_Delay, &a[0].Delay_Volume);
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf
-    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &split, &E_Chorus_On, &Chorus_Delay, &Reverb_Preset,
-     &Chorus_LFO_Speed, &Chorus_LFO_Amplitude, &Chorus_Volume);
+    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &a[0].split, &a[0].E_Chorus_On, &a[0].Chorus_Delay, &a[0].Reverb_Preset,
+     &a[0].Chorus_LFO_Speed, &a[0].Chorus_LFO_Amplitude, &a[0].Chorus_Volume);
 
 
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%f,%f,%f,%f,%f\n", &decay, &sustain, &p_attack, &p_decay,
-             &Rotary_LFO_Amplitude);
+  sscanf (buf, "%f,%f,%f,%f,%f\n", &a[0].decay, &a[0].sustain, &a[0].p_attack, &a[0].p_decay,
+             &a[0].Rotary_LFO_Amplitude);
   
   for (i = 1; i <= 22; i++)
   {           
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%f\n",&Normalize[i]);
-  
+  sscanf (buf, "%f\n",&a[0].Normalize[i]);
+  }
+
+  if (Data_Version >= 1.12)
+  {
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf (buf, "%d,%f,%f,%f,%f,%f,%f\n", &a[0].Click,&a[0].Click_Vol,&a[0].Click2_Vol,&a[0].Click_Freq,&a[0].Click_Freq2,&a[0].Click_Vol1,&a[0].Click_Vol2);
   }
 
 
   bzero (buf, sizeof (buf));
-  bzero (Name, sizeof (Name));
+  bzero (a[0].Name, sizeof (a[0].Name));
   fgets (buf, sizeof buf, fn);
   for (i = 0; i <= 24; i++)
     if (buf[i] > 20)
-      Name[i] = buf[i];
-  c_name = Name;
+      a[0].Name[i] = buf[i];
+  a[0].nombre = a[0].Name;
   fclose (fn);
   
 };

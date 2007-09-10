@@ -579,6 +579,11 @@ private:
   void cb_Mar10_i(Fl_Light_Button*, void*);
   static void cb_Mar10(Fl_Light_Button*, void*);
 public:
+  Fl_Button *BClick;
+private:
+  void cb_BClick_i(Fl_Button*, void*);
+  static void cb_BClick(Fl_Button*, void*);
+public:
   Fl_Double_Window *aboutwindow;
 private:
   void cb_aboutwindow_i(Fl_Double_Window*, void*);
@@ -1068,6 +1073,46 @@ public:
 private:
   void cb_D_O_Transpose_i(Fl_Counter*, void*);
   static void cb_D_O_Transpose(Fl_Counter*, void*);
+public:
+  Rueda *D_c_attack;
+private:
+  void cb_D_c_attack_i(Rueda*, void*);
+  static void cb_D_c_attack(Rueda*, void*);
+public:
+  Rueda *D_c_decay;
+private:
+  void cb_D_c_decay_i(Rueda*, void*);
+  static void cb_D_c_decay(Rueda*, void*);
+public:
+  Fl_Counter *D_Click_Freq;
+private:
+  void cb_D_Click_Freq_i(Fl_Counter*, void*);
+  static void cb_D_Click_Freq(Fl_Counter*, void*);
+public:
+  Rueda *D_Click_Vol;
+private:
+  void cb_D_Click_Vol_i(Rueda*, void*);
+  static void cb_D_Click_Vol(Rueda*, void*);
+public:
+  Rueda *D_Click2_Vol;
+private:
+  void cb_D_Click2_Vol_i(Rueda*, void*);
+  static void cb_D_Click2_Vol(Rueda*, void*);
+public:
+  Fl_Counter *D_Click_Freq2;
+private:
+  void cb_D_Click_Freq2_i(Fl_Counter*, void*);
+  static void cb_D_Click_Freq2(Fl_Counter*, void*);
+public:
+  Rueda *D_Click_Vol1;
+private:
+  void cb_D_Click_Vol1_i(Rueda*, void*);
+  static void cb_D_Click_Vol1(Rueda*, void*);
+public:
+  Rueda *D_Click_Vol2;
+private:
+  void cb_D_Click_Vol2_i(Rueda*, void*);
+  static void cb_D_Click_Vol2(Rueda*, void*);
 public:
   HORGAN(int argc, char **argv,HOR *hor_);
   void metelo();

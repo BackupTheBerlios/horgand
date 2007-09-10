@@ -34,7 +34,7 @@ HOR::Chorus_LFO (float *Chorus_X)
 
   float out;
 
-  *Chorus_X += Chorus_LFO_Speed * increment * 3.0;
+  *Chorus_X += a[0].Chorus_LFO_Speed * increment * 3.0;
 
   if (*Chorus_X > 1) *Chorus_X = 0;
 
@@ -52,7 +52,7 @@ void
 HOR::Calc_Chorus_LFO_Frequency()
 
 {
-Chorus_LFO_Frequency = modulation*Chorus_LFO_Amplitude;
+Chorus_LFO_Frequency = a[0].modulation*a[0].Chorus_LFO_Amplitude;
 
 };
 
@@ -66,7 +66,7 @@ HOR::Effect_Chorus()
   float ch_delay= Chorus_Delay*SAMPLE_RATE/10000.0*3.0;
   float ldelay1,rdelay1,dell,valorl;
   int i;
-  float chor_vol=Chorus_Volume*.5;
+  float chor_vol=a[0].Chorus_Volume*.5;
   float ms=SAMPLE_RATE/1000.0;
   float dllo;
     
@@ -127,7 +127,7 @@ HOR::Rotary_LFO (float t)
 
   float out;
 
-  Rotary_X += Rotary_LFO_Speed * increment;
+  Rotary_X += a[0].Rotary_LFO_Speed * increment;
 
   if (Rotary_X > 1) Rotary_X = 0;
 
@@ -145,21 +145,21 @@ void
 HOR::Effect_Rotary ()
 {
   int i;
-  float a ,l, r;
+  float val ,l, r;
 
-  Rotary_LFO_Frequency = modulation * Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
+  Rotary_LFO_Frequency = a[0].modulation * a[0].Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
 
 
   for (i = 0; i <PERIOD; i +=2)
     {
 
-      a = Rotary_LFO (Rotary_X)*.5;
+      val = Rotary_LFO (Rotary_X)*.5;
 
          l = buf[i];
          r =  buf[i + 1];
         
-      buf[i] -= (l * a);
-      buf[i + 1] += (r * a);
+      buf[i] -= (l * val);
+      buf[i + 1] += (r * val);
       
        
        
@@ -226,7 +226,7 @@ HOR::Effect_Delay()
 {
   int i;  
   int elke, elke1;
-  int delay = (int) Delay_Delay;
+  int delay = (int) a[0].Delay_Delay;
   float voll, volr;
   float Delay_Volumer, Delay_Volumel;
   int a_rperhis=rperhis;
@@ -234,8 +234,8 @@ HOR::Effect_Delay()
 
   voll = 1 - Stereo_Side;
   volr = 1 - voll;
-  Delay_Volumel = voll * Delay_Volume;
-  Delay_Volumer = volr * Delay_Volume;
+  Delay_Volumel = voll * a[0].Delay_Volume;
+  Delay_Volumer = volr * a[0].Delay_Volume;
 
 
   
