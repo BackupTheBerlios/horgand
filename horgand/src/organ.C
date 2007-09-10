@@ -990,7 +990,6 @@ HOR::Cenvelope (int *note_active,int gate,float t,int nota)
 
 float val=0;
        
-           
        if (t > a[0].c_attack + a[0].c_decay )  return 0;
        if (t > a[0].c_attack) val=1.0 - (t - a[0].c_attack) * u_c_decay;
        else
@@ -998,11 +997,6 @@ float val=0;
        
        if (gate) return (a[0].Click_Vol*val);  
        return(a[0].Click2_Vol*val);
-       
-       
-       
-       
-       
 };
 
 
@@ -1107,7 +1101,7 @@ HOR::Get_Partial (int nota)
   l = note[nota] + transpose + a[0].organ_transpose + 12;
   freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
   partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
-  if (partial > D_PI) partial=fmod(partial,D_PI);
+//  if (partial > D_PI) partial=fmod(partial,D_PI);
   return(partial);
   
 
@@ -1166,7 +1160,7 @@ HOR::Alg1s (int nframes, void *)
       p_op2[i]=pitch_Operator2(i,0);
       total_vol += a[0].Operator[i].volumen*a[0].Normalize[a[0].Operator[i].harmonic];
     }  
-    organ_master=a[0].Organ_Master_Volume*(float)(1.0/total_vol);
+    organ_master=a[0].Organ_Master_Volume/total_vol;
 
     for (l2 = 0; l2 < POLY; l2++)
     {
