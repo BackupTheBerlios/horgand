@@ -168,7 +168,6 @@ public:
   float Chorus_X_L;
   float Chorus_LFO_Frequency;
   int cl_counter;
-  float Chorus_Delay;
   int Salida;
   float increment;
   float D_PI_to_SAMPLE_RATE; 

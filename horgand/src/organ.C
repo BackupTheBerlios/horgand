@@ -92,7 +92,7 @@ HOR::HOR()
   New();
 
   mastertune=1;
-  release=0.12;
+  release=0.2;
   u_release=1.0/release;
   transpose = 0;
   pitch = 0;
@@ -1065,7 +1065,7 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
       else
         {
         if (a[0].sustain != 0) return(a[0].sustain);
-        else return (Envelope_Volume[nota]);
+        else  return(1.0 -  (t - a[0].attack) * u_decay);
         }
      }     
 
