@@ -5625,7 +5625,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click_Vol1->align(FL_ALIGN_BOTTOM);
       D_Click_Vol1->when(FL_WHEN_CHANGED);
     } // Rueda* D_Click_Vol1
-    { D_Click_Vol2 = new Rueda(65, 320, 35, 35, gettext("V.Freq 1"));
+    { D_Click_Vol2 = new Rueda(65, 320, 35, 35, gettext("V.Freq 2"));
       D_Click_Vol2->box(FL_OSHADOW_BOX);
       D_Click_Vol2->color(FL_BACKGROUND_COLOR);
       D_Click_Vol2->selection_color(FL_INACTIVE_COLOR);
