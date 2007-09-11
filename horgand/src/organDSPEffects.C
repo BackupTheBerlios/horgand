@@ -36,7 +36,7 @@ HOR::Chorus_LFO (float *Chorus_X)
 
   *Chorus_X += a[0].Chorus_LFO_Speed * increment * 3.0;
 
-  if (*Chorus_X > 1) *Chorus_X = 0;
+  if (*Chorus_X > 1) *Chorus_X =0.0f;
 
   out=Fsin(*Chorus_X*D_PI)*Chorus_LFO_Frequency;
   
@@ -129,7 +129,7 @@ HOR::Rotary_LFO (float t)
 
   Rotary_X += a[0].Rotary_LFO_Speed * increment;
 
-  if (Rotary_X > 1) Rotary_X = 0;
+  if (Rotary_X > 1) Rotary_X =0.0f;
 
   out = Fsin (Rotary_X * D_PI) * Rotary_LFO_Frequency;
 
@@ -187,9 +187,9 @@ HOR::Effect_Reverb ()
 
     {
 
-     efxoutl = 0.0;
-     efxoutr = 0.0;
-     stmp = 0;
+     efxoutl = 0.0f;
+     efxoutr = 0.0f;
+     stmp = 0.0f;
      
      for (j = 0; j<16; j++)
         {
