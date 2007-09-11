@@ -1006,13 +1006,18 @@ float
 HOR::Penvelope (int *note_active,int gate,float t,int nota)
 {
 
-       if (gate)
+       if ((gate) || (pedal))
        {    
        if (t > a[0].p_attack + a[0].p_decay )  return 0;
        if (t > a[0].p_attack) return(1.0 - (t - a[0].p_attack) * u_p_decay);
        return(t * u_p_attack);
        }
-       else return Perc_Volume[nota] * ( 1.0 - t * u_p_release);
+       else 
+       return Perc_Volume[nota] * ( 1.0 - t * u_p_release);
+
+
+
+
 };
 
 
