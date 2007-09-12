@@ -92,7 +92,7 @@ HOR::HOR()
   New();
 
   mastertune=1;
-  release=0.2;
+  release=0.1;
   u_release=1.0/release;
   transpose = 0;
   pitch =0.0f;
@@ -794,6 +794,7 @@ for (j = 1; j<= 20; j++)
       if( i > 6) lsin[i-7] = (lsin[i-7] *  ( 1.0 +  lsin[i-6] - lsin[i-7]));
       if( i > 7) lsin[i-8] = (lsin[i-8] *  ( 1.0 +  lsin[i-7] - lsin[i-8]));
 
+
     }
 
 
@@ -1087,9 +1088,9 @@ HOR::Pitch_LFO (float t)
 
   x=fmod(a[0].Pitch_LFO_Speed*t,1.0); 
 
-  out = Fsin(x*D_PI) * LFO_Frequency;
-     
-  return (out);
+  out = Fsin(x*D_PI)*LFO_Frequency;
+
+  return(out);     
 
 }
 
@@ -1126,9 +1127,7 @@ return(lsin[(int)(x * 1000)]);
 void
 HOR::Calc_LFO_Frequency()
 {
-
 LFO_Frequency =  a[0].modulation * a[0].LFOpitch * D_PI_to_SAMPLE_RATE;
-
 };  
 
 
@@ -1181,8 +1180,8 @@ HOR::Alg1s (int nframes, void *)
      	    sound2=0.0f;
             Envelope_Volume[l2] = Jenvelope(&note_active[l2], gate[l2], env_time[l2], l2);        
             Perc_Volume[l2] = Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
-     	    LFO_Volume=Pitch_LFO(env_time[l2]);
-     	   
+     	    if (env_time[l2]>0.0) LFO_Volume=Pitch_LFO(env_time[l2]);
+     	         	   
             if (a[0].Click)
                {
       	       Click_Env=Cenvelope(&note_active[l2], gate[l2], env_time[l2], l2);                     
@@ -1216,13 +1215,12 @@ HOR::Alg1s (int nframes, void *)
                      if (f[i].dphi2 > D_PI) f[i].dphi2 = fmod(f[i].dphi2,D_PI);
                      f[i].phi2[l2] += f[i].dphi2;
                      if (f[i].phi2[l2] > D_PI) f[i].phi2[l2]=fmod(f[i].phi2[l2],D_PI);
-                     
                      sound += Env_Vol*lsin[(int)(1000*f[i].phi[l2])];
                      sound2 +=Env_Vol*lsin[(int)(1000*f[i].phi2[l2])];                  
                    }                
               }  
               
-                buf[l1] += sound * organ_master;
+                buf[l1] += sound  * organ_master;
                 buf[l1+1] += sound2 * organ_master;
                 env_time[l2] +=increment;                
            }

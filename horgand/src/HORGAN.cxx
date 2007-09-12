@@ -214,6 +214,8 @@ void HORGAN::cb_Synthesizer_i(Fl_Menu_*, void*) {
 D_Freq->value(1);
 D_Freq_F->value(1);
 D_FFval->lstep(0.001);
+D_Click_Freq->lstep(100);
+D_Click_Freq2->lstep(100);
 
 
 metesynth();
@@ -536,6 +538,7 @@ void HORGAN::cb_Detune(Rueda* o, void* v) {
 
 void HORGAN::cb_LFOSpeed_i(Rueda* o, void*) {
   hor->a[0].Rotary_LFO_Speed = (float) o->value();
+if (hor->a[0].Speed_Sync) Syncronize(2,(float) o->value());
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -561,6 +564,9 @@ void HORGAN::cb_LFOPitch(Rueda* o, void* v) {
 
 void HORGAN::cb_PLFOSpeed_i(Rueda* o, void*) {
   hor->a[0].Pitch_LFO_Speed = (float) o->value();
+
+if (hor->a[0].Speed_Sync) Syncronize(1,(float) o->value()); 
+
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -704,6 +710,7 @@ void HORGAN::cb_Rota(Fl_Button* o, void* v) {
 
 void HORGAN::cb_ELFOSpeed_i(Rueda* o, void*) {
   hor->a[0].Chorus_LFO_Speed = (float) o->value();
+if (hor->a[0].Speed_Sync) Syncronize(3,(float) o->value());
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -1420,6 +1427,15 @@ Actu();
 }
 void HORGAN::cb_BClick(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_BClick_i(o,v);
+}
+
+void HORGAN::cb_BSync_Speed_i(Fl_Button* o, void*) {
+  hor->a[0].Speed_Sync=o->value();
+if(o->value()) Syncronize(0,0);
+Actu();
+}
+void HORGAN::cb_BSync_Speed(Fl_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_BSync_Speed_i(o,v);
 }
 
 void HORGAN::cb_aboutwindow_i(Fl_Double_Window*, void*) {
@@ -3264,9 +3280,6 @@ Fl_Double_Window* HORGAN::make_window() {
       MenuPrincipal->box(FL_THIN_UP_BOX);
       MenuPrincipal->menu(menu_MenuPrincipal);
     } // Fl_Menu_Bar* MenuPrincipal
-    { Fl_Box* o = new Fl_Box(180, 245, 46, 46);
-      o->box(FL_OVAL_FRAME);
-    } // Fl_Box* o
     { Fl_Box* o = new Fl_Box(240, 139, 46, 46);
       o->box(FL_OVAL_FRAME);
     } // Fl_Box* o
@@ -3554,7 +3567,7 @@ Fl_Double_Window* HORGAN::make_window() {
       V10->align(66);
       V10->when(FL_WHEN_CHANGED);
     } // Drawbar* V10
-    { Detune = new Rueda(180, 245, 45, 45, gettext("Detune"));
+    { Detune = new Rueda(180, 250, 45, 45, gettext("Detune"));
       Detune->box(FL_OSHADOW_BOX);
       Detune->color(FL_DARK1);
       Detune->selection_color(FL_INACTIVE_COLOR);
@@ -3582,7 +3595,7 @@ Fl_Double_Window* HORGAN::make_window() {
       LFOSpeed->align(FL_ALIGN_BOTTOM);
       LFOSpeed->when(FL_WHEN_CHANGED);
     } // Rueda* LFOSpeed
-    { LFOPitch = new Rueda(115, 245, 45, 45, gettext("Tremolo"));
+    { LFOPitch = new Rueda(115, 250, 45, 45, gettext("Tremolo"));
       LFOPitch->box(FL_OSHADOW_BOX);
       LFOPitch->color(FL_DARK1);
       LFOPitch->selection_color(FL_INACTIVE_COLOR);
@@ -3604,13 +3617,13 @@ Fl_Double_Window* HORGAN::make_window() {
       PLFOSpeed->labelfont(0);
       PLFOSpeed->labelsize(10);
       PLFOSpeed->labelcolor((Fl_Color)4);
-      PLFOSpeed->maximum(30);
+      PLFOSpeed->maximum(40);
       PLFOSpeed->step(0.01);
       PLFOSpeed->callback((Fl_Callback*)cb_PLFOSpeed);
       PLFOSpeed->align(FL_ALIGN_BOTTOM);
       PLFOSpeed->when(FL_WHEN_CHANGED);
     } // Rueda* PLFOSpeed
-    { PLFODelay = new Rueda(115, 170, 45, 45, gettext("Delay"));
+    { PLFODelay = new Rueda(115, 190, 45, 45, gettext("Delay"));
       PLFODelay->box(FL_OSHADOW_BOX);
       PLFODelay->color(FL_DARK1);
       PLFODelay->selection_color(FL_INACTIVE_COLOR);
@@ -3790,7 +3803,7 @@ Fl_Double_Window* HORGAN::make_window() {
       ELFOSpeed->labelfont(0);
       ELFOSpeed->labelsize(10);
       ELFOSpeed->labelcolor((Fl_Color)4);
-      ELFOSpeed->maximum(5);
+      ELFOSpeed->maximum(40);
       ELFOSpeed->step(0.01);
       ELFOSpeed->callback((Fl_Callback*)cb_ELFOSpeed);
       ELFOSpeed->align(FL_ALIGN_BOTTOM);
@@ -4494,11 +4507,20 @@ Fl_Double_Window* HORGAN::make_window() {
       BClick->type(1);
       BClick->box(FL_PLASTIC_UP_BOX);
       BClick->color((Fl_Color)31);
-      BClick->selection_color((Fl_Color)135);
+      BClick->selection_color((Fl_Color)5);
       BClick->labelsize(9);
       BClick->callback((Fl_Callback*)cb_BClick);
       BClick->align(FL_ALIGN_CLIP);
     } // Fl_Button* BClick
+    { BSync_Speed = new Fl_Button(115, 160, 45, 20, gettext("Sync"));
+      BSync_Speed->type(1);
+      BSync_Speed->box(FL_PLASTIC_UP_BOX);
+      BSync_Speed->color((Fl_Color)31);
+      BSync_Speed->selection_color((Fl_Color)4);
+      BSync_Speed->labelsize(9);
+      BSync_Speed->callback((Fl_Callback*)cb_BSync_Speed);
+      BSync_Speed->align(FL_ALIGN_CLIP);
+    } // Fl_Button* BSync_Speed
     HORwindow->end();
     HORwindow->resizable(HORwindow);
   } // Fl_Double_Window* HORwindow
@@ -5558,8 +5580,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->labelsize(13);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { D_Click_Freq = new Fl_Counter(170, 300, 90, 25, gettext("Frequency1"));
-      D_Click_Freq->type(1);
+    { D_Click_Freq = new Fl_Counter(115, 300, 150, 25, gettext("Frequency1"));
       D_Click_Freq->labelsize(9);
       D_Click_Freq->minimum(10);
       D_Click_Freq->maximum(20000);
@@ -5599,8 +5620,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click2_Vol->align(FL_ALIGN_BOTTOM);
       D_Click2_Vol->when(FL_WHEN_CHANGED);
     } // Rueda* D_Click2_Vol
-    { D_Click_Freq2 = new Fl_Counter(170, 335, 90, 25, gettext("Frequency2"));
-      D_Click_Freq2->type(1);
+    { D_Click_Freq2 = new Fl_Counter(115, 335, 150, 25, gettext("Frequency2"));
       D_Click_Freq2->labelsize(9);
       D_Click_Freq2->minimum(10);
       D_Click_Freq2->maximum(20000);
@@ -6334,6 +6354,7 @@ hor->Calc_Chorus_LFO_Frequency();
 POPO->value(hor->a[0].Chorus_Delay);
 ELFOSpeed->value(hor->a[0].Chorus_LFO_Speed);
 ChorVol->value(hor->a[0].Chorus_Volume * 100);
+BSync_Speed->value(hor->a[0].Speed_Sync);
 ponreverb();
 metesynth();
 hor->syncadsr();
@@ -6485,4 +6506,39 @@ Actu();
 hor->PutPrim();
 sprintf(hor->temporal,"--");
 DispNumber->label(hor->temporal);
+}
+
+void HORGAN::Syncronize(int i, float val) {
+  switch(i)
+{
+  case 0:
+      val=hor->a[0].Pitch_LFO_Speed;
+      hor->a[0].Chorus_LFO_Speed = val;
+      hor->a[0].Rotary_LFO_Speed = val;  
+      ELFOSpeed->value(val);
+      LFOSpeed->value(val);
+      break;
+
+  case 1:
+      hor->a[0].Chorus_LFO_Speed = val;
+      hor->a[0].Rotary_LFO_Speed = val;
+      ELFOSpeed->value(val);
+      LFOSpeed->value(val);
+      break;
+  
+   case 2:
+      hor->a[0].Chorus_LFO_Speed = val;
+      hor->a[0].Pitch_LFO_Speed = val;
+      ELFOSpeed->value(val);
+      PLFOSpeed->value(val);
+      break;
+  
+   case 3:
+             
+      hor->a[0].Pitch_LFO_Speed = val;
+      hor->a[0].Rotary_LFO_Speed = val;
+      PLFOSpeed->value(val);
+      LFOSpeed->value(val);
+      break;  
+}
 }

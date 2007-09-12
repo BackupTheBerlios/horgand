@@ -5,6 +5,7 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- Added syncro speed to all the LFO effects.
 - Support for old file formats >=1.11.
 - Code optimized. 
 - Added Click.

@@ -132,10 +132,8 @@ public:
   float u_p_decay;
   float u_release;
   float u_p_release;
-  float c_release;
   float u_c_attack;
   float u_c_decay;
-  float u_c_release;  
   float dcphi[POLY];
   float dcphi2[POLY];
   int PERIOD;
@@ -350,6 +348,7 @@ struct Todolo
    float Chorus_Delay;
    float Chorus_LFO_Amplitude;
    float Chorus_LFO_Speed;
+   int Speed_Sync;
    float Chorus_Volume;
    float Rotary_LFO_Amplitude;
    int Click;

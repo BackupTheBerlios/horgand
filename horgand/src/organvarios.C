@@ -306,14 +306,12 @@ HOR::New ()
   u_p_attack = 1.0 / a[0].p_attack;
   a[0].p_decay = 0.018;
   u_p_decay = 1.0 / a[0].p_decay;
-  p_release=0.2;
+  p_release=0.1;
   u_p_release = 1.0 / p_release;
   a[0].c_attack=0.0001;
   a[0].c_decay=0.003;
-  c_release=0.2;
   u_c_attack= 1.0/a[0].c_attack;
   u_c_decay = 1.0/a[0].c_decay;
-  u_c_release=1.0/c_release;
   a[0].Click_Vol=.6;
   a[0].Click2_Vol=.4;
   a[0].Click_Vol1=1.0;
@@ -322,7 +320,7 @@ HOR::New ()
   a[0].Click_Freq2=6712;              
   a[0].Click=0;
   a[0].Rotary_LFO_Amplitude = 9980;
-
+  a[0].Speed_Sync=0;
 
 
 }

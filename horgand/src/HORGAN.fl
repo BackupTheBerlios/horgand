@@ -99,7 +99,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {296 149 825 595} type Double color 33 selection_color 47 hide resizable
+      xywh {357 120 825 595} type Double color 33 selection_color 47 hide resizable
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -251,6 +251,8 @@ put_icon(aboutwindow);}
 D_Freq->value(1);
 D_Freq_F->value(1);
 D_FFval->lstep(0.001);
+D_Click_Freq->lstep(100);
+D_Click_Freq2->lstep(100);
 
 
 metesynth();
@@ -290,9 +292,6 @@ put_icon(Settingswindow);
 Fl::focus(SClose);}
           xywh {0 0 100 20} shortcut 0x80073 labelsize 14
         }
-      }
-      Fl_Box {} {
-        xywh {180 245 46 46} box OVAL_FRAME
       }
       Fl_Box {} {
         xywh {240 139 46 46} box OVAL_FRAME
@@ -539,12 +538,13 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {180 245 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 when 4 maximum 100 step 0.1
+        xywh {180 250 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 when 4 maximum 100 step 0.1
         class Rueda
       }
       Fl_Dial LFOSpeed {
         label Speed
         callback {hor->a[0].Rotary_LFO_Speed = (float) o->value();
+if (hor->a[0].Speed_Sync) Syncronize(2,(float) o->value());
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
@@ -562,18 +562,21 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {115 245 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 200 step 1
+        xywh {115 250 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 200 step 1
         class Rueda
       }
       Fl_Dial PLFOSpeed {
         label Speed
         callback {hor->a[0].Pitch_LFO_Speed = (float) o->value();
+
+if (hor->a[0].Speed_Sync) Syncronize(1,(float) o->value()); 
+
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {115 95 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 30 step 0.01
+        xywh {115 95 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 40 step 0.01
         class Rueda
       }
       Fl_Dial PLFODelay {
@@ -584,7 +587,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {115 170 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 99 step 1
+        xywh {115 190 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 99 step 1
         class Rueda
       }
       Fl_Counter EchoVol {
@@ -665,18 +668,19 @@ Actu();}
       Fl_Button Rota {
         label Rotary
         callback {hor->a[0].E_Rotary_On=o->value();
-Actu();}
+Actu();} selected
         xywh {180 160 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
       }
       Fl_Dial ELFOSpeed {
         label Speed
         callback {hor->a[0].Chorus_LFO_Speed = (float) o->value();
+if (hor->a[0].Speed_Sync) Syncronize(3,(float) o->value());
 if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {245 140 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 5 step 0.01
+        xywh {245 140 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 maximum 40 step 0.01
         class Rueda
       }
       Fl_Slider ELFOAmplitude {
@@ -1294,7 +1298,14 @@ Signal_for_Cb_Sliders = 0;
         label Click
         callback {hor->a[0].Click=o->value();
 Actu();}
-        xywh {180 205 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
+        xywh {180 205 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 5 labelsize 9 align 64
+      }
+      Fl_Button BSync_Speed {
+        label Sync
+        callback {hor->a[0].Speed_Sync=o->value();
+if(o->value()) Syncronize(0,0);
+Actu();}
+        xywh {115 160 45 20} type Toggle box PLASTIC_UP_BOX color 31 selection_color 4 labelsize 9 align 64
       }
     }
     Fl_Window aboutwindow {
@@ -2323,7 +2334,7 @@ Signal_for_Cb_Sliders = 0;
         label Frequency1
         callback {hor->a[0].Click_Freq=o->value();
 Actu();}
-        xywh {170 300 90 25} type Simple labelsize 9 align 8 when 4 minimum 10 maximum 20000 step 10 value 200
+        xywh {115 300 150 25} labelsize 9 align 8 when 4 minimum 10 maximum 20000 step 10 value 200
       }
       Fl_Dial D_Click_Vol {
         label {V.Attack}
@@ -2353,7 +2364,7 @@ Signal_for_Cb_Sliders = 0;
         label Frequency2
         callback {hor->a[0].Click_Freq2=o->value();
 Actu();}
-        xywh {170 335 90 25} type Simple labelsize 9 align 8 when 4 minimum 10 maximum 20000 step 10 value 6700
+        xywh {115 335 150 25} labelsize 9 align 8 when 4 minimum 10 maximum 20000 step 10 value 6700
       }
       Fl_Dial D_Click_Vol1 {
         label {V.Freq 1}
@@ -2375,7 +2386,7 @@ if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
 Signal_for_Cb_Sliders = 0;
-}} selected
+}}
         xywh {65 320 35 35} box OSHADOW_BOX labelsize 9 minimum 0.01 step 0.01 value 1
         class Rueda
       }
@@ -3059,6 +3070,7 @@ hor->Calc_Chorus_LFO_Frequency();
 POPO->value(hor->a[0].Chorus_Delay);
 ELFOSpeed->value(hor->a[0].Chorus_LFO_Speed);
 ChorVol->value(hor->a[0].Chorus_Volume * 100);
+BSync_Speed->value(hor->a[0].Speed_Sync);
 ponreverb();
 metesynth();
 hor->syncadsr();} {}
@@ -3204,5 +3216,39 @@ Actu();
 hor->PutPrim();
 sprintf(hor->temporal,"--");
 DispNumber->label(hor->temporal);} {}
+  }
+  Function {Syncronize(int i, float val)} {} {
+    code {switch(i)
+{
+  case 0:
+      val=hor->a[0].Pitch_LFO_Speed;
+      hor->a[0].Chorus_LFO_Speed = val;
+      hor->a[0].Rotary_LFO_Speed = val;  
+      ELFOSpeed->value(val);
+      LFOSpeed->value(val);
+      break;
+
+  case 1:
+      hor->a[0].Chorus_LFO_Speed = val;
+      hor->a[0].Rotary_LFO_Speed = val;
+      ELFOSpeed->value(val);
+      LFOSpeed->value(val);
+      break;
+  
+   case 2:
+      hor->a[0].Chorus_LFO_Speed = val;
+      hor->a[0].Pitch_LFO_Speed = val;
+      ELFOSpeed->value(val);
+      PLFOSpeed->value(val);
+      break;
+  
+   case 3:
+             
+      hor->a[0].Pitch_LFO_Speed = val;
+      hor->a[0].Rotary_LFO_Speed = val;
+      PLFOSpeed->value(val);
+      LFOSpeed->value(val);
+      break;  
+}} {}
   }
 } 

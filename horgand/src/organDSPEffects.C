@@ -34,7 +34,7 @@ HOR::Chorus_LFO (float *Chorus_X)
 
   float out;
 
-  *Chorus_X += a[0].Chorus_LFO_Speed * increment * 3.0;
+  *Chorus_X += a[0].Chorus_LFO_Speed * increment;
 
   if (*Chorus_X > 1) *Chorus_X =0.0f;
 

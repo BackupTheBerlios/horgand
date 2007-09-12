@@ -584,6 +584,11 @@ private:
   void cb_BClick_i(Fl_Button*, void*);
   static void cb_BClick(Fl_Button*, void*);
 public:
+  Fl_Button *BSync_Speed;
+private:
+  void cb_BSync_Speed_i(Fl_Button*, void*);
+  static void cb_BSync_Speed(Fl_Button*, void*);
+public:
   Fl_Double_Window *aboutwindow;
 private:
   void cb_aboutwindow_i(Fl_Double_Window*, void*);
@@ -1143,5 +1148,6 @@ public:
   void put_icon(Fl_Window* window);
   void putmoresounds();
   void PutLoaded();
+  void Syncronize(int i, float val);
 };
 #endif

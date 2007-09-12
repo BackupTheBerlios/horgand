@@ -73,7 +73,7 @@ HOR::savefile (char *filename)
   }
 
   bzero (buf, sizeof (buf));
-  sprintf (buf, "%d,%f,%f,%f,%f,%f,%f\n", a[0].Click,a[0].Click_Vol,a[0].Click2_Vol,a[0].Click_Freq,a[0].Click_Freq2,a[0].Click_Vol1,a[0].Click_Vol2);
+  sprintf (buf, "%d,%d,%f,%f,%f,%f,%f,%f\n", a[0].Speed_Sync,a[0].Click,a[0].Click_Vol,a[0].Click2_Vol,a[0].Click_Freq,a[0].Click_Freq2,a[0].Click_Vol1,a[0].Click_Vol2);
   fputs (buf, fn);
 
   bzero (buf, sizeof (buf));
@@ -153,7 +153,7 @@ HOR::loadfile (char *filename)
   {
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%d,%f,%f,%f,%f,%f,%f\n", &a[0].Click,&a[0].Click_Vol,&a[0].Click2_Vol,&a[0].Click_Freq,&a[0].Click_Freq2,&a[0].Click_Vol1,&a[0].Click_Vol2);
+  sscanf (buf, "%d %d,%f,%f,%f,%f,%f,%f\n", &a[0].Speed_Sync,&a[0].Click,&a[0].Click_Vol,&a[0].Click2_Vol,&a[0].Click_Freq,&a[0].Click_Freq2,&a[0].Click_Vol1,&a[0].Click_Vol2);
   }
 
   bzero (buf, sizeof (buf));
@@ -224,7 +224,7 @@ HOR::savebank (char *filename)
         }
 
      bzero (buf, sizeof (buf));
-     sprintf (buf, "%d,%f,%f,%f,%f,%f,%f\n", Banco[j].Click, Banco[j].Click_Vol, Banco[j].Click2_Vol, Banco[j].Click_Freq,
+     sprintf (buf, "%d,%d,%f,%f,%f,%f,%f,%f\n", Banco[j].Speed_Sync,Banco[j].Click, Banco[j].Click_Vol, Banco[j].Click2_Vol, Banco[j].Click_Freq,
              Banco[j].Click_Freq2,Banco[j].Click_Vol1,Banco[j].Click_Vol2);
      fputs (buf, fn);
     
@@ -317,7 +317,7 @@ HOR::loadbank (char *filename)
       {
        bzero (buf, sizeof (buf));
        fgets (buf, sizeof buf, fn);
-       sscanf (buf, "%d,%f,%f,%f,%f,%f,%f\n", &Banco[j].Click, &Banco[j].Click_Vol, &Banco[j].Click2_Vol, &Banco[j].Click_Freq,
+       sscanf (buf, "%d %d,%f,%f,%f,%f,%f,%f\n", &Banco[j].Speed_Sync,&Banco[j].Click, &Banco[j].Click_Vol, &Banco[j].Click2_Vol, &Banco[j].Click_Freq,
              &Banco[j].Click_Freq2,&Banco[j].Click_Vol1,&Banco[j].Click_Vol2);
       } 
 
@@ -656,7 +656,7 @@ HOR::LoadSoundBank(int Num)
   {
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%d,%f,%f,%f,%f,%f,%f\n", &a[0].Click,&a[0].Click_Vol,&a[0].Click2_Vol,&a[0].Click_Freq,&a[0].Click_Freq2,&a[0].Click_Vol1,&a[0].Click_Vol2);
+  sscanf (buf, "%d,%d,%f,%f,%f,%f,%f,%f\n", &a[0].Speed_Sync,&a[0].Click,&a[0].Click_Vol,&a[0].Click2_Vol,&a[0].Click_Freq,&a[0].Click_Freq2,&a[0].Click_Vol1,&a[0].Click_Vol2);
   }
 
 
