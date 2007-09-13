@@ -61,7 +61,7 @@ int readcounts,lanota;
         lpos = pos;
         if (Line_Bass_Note[pos] != 0)
         {
-        if (a[0].split == 1) Get_Chord();
+        if (split) Get_Chord();
         lanota = Line_Bass_Note[pos];
         if (lanota == 5 ) lanota += TCh[chord_type].third;
         if (lanota == 8 ) lanota += TCh[chord_type].five_th;

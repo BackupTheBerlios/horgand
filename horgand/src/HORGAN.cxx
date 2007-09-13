@@ -755,9 +755,8 @@ void HORGAN::cb_ChorVol(Fl_Counter* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_ChorVol_i(o,v);
 }
 
-void HORGAN::cb_Split_i(Fl_Button*, void*) {
-  if (hor->a[0].split == 0) hor->a[0].split = 1; else hor->a[0].split = 0;
-Actu();
+void HORGAN::cb_Split_i(Fl_Button* o, void*) {
+  hor->split=o->value();
 }
 void HORGAN::cb_Split(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_Split_i(o,v);
@@ -1301,7 +1300,7 @@ void HORGAN::cb_BassVol(Fl_Slider* o, void* v) {
 void HORGAN::cb_Basson_i(Fl_Button* o, void*) {
   //int readcounts = sf_seek (hor->infileb, 0, SEEK_SET);
 BarLead = 0;
-hor->a[0].split = o->value();
+hor->split = o->value();
 Split->value(o->value());
 hor->Bass_On =  o->value();
 }
@@ -5598,7 +5597,6 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click_Vol->labelfont(0);
       D_Click_Vol->labelsize(9);
       D_Click_Vol->labelcolor(FL_FOREGROUND_COLOR);
-      D_Click_Vol->minimum(0.01);
       D_Click_Vol->step(0.01);
       D_Click_Vol->value(0.1);
       D_Click_Vol->callback((Fl_Callback*)cb_D_Click_Vol);
@@ -5613,7 +5611,6 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click2_Vol->labelfont(0);
       D_Click2_Vol->labelsize(9);
       D_Click2_Vol->labelcolor(FL_FOREGROUND_COLOR);
-      D_Click2_Vol->minimum(0.01);
       D_Click2_Vol->step(0.01);
       D_Click2_Vol->value(0.1);
       D_Click2_Vol->callback((Fl_Callback*)cb_D_Click2_Vol);
@@ -5638,7 +5635,6 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click_Vol1->labelfont(0);
       D_Click_Vol1->labelsize(9);
       D_Click_Vol1->labelcolor(FL_FOREGROUND_COLOR);
-      D_Click_Vol1->minimum(0.01);
       D_Click_Vol1->step(0.01);
       D_Click_Vol1->value(1);
       D_Click_Vol1->callback((Fl_Callback*)cb_D_Click_Vol1);
@@ -5653,7 +5649,6 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click_Vol2->labelfont(0);
       D_Click_Vol2->labelsize(9);
       D_Click_Vol2->labelcolor(FL_FOREGROUND_COLOR);
-      D_Click_Vol2->minimum(0.01);
       D_Click_Vol2->step(0.01);
       D_Click_Vol2->value(1);
       D_Click_Vol2->callback((Fl_Callback*)cb_D_Click_Vol2);
@@ -5743,8 +5738,8 @@ if(commandline != 1) PutCombi(hor->cpreset);
 else meteprog();
 
 horgand.get("Split Point",val,0);
-hor->a[0].split=val;
-
+hor->split=val;
+Split->value(hor->split);
 
 horgand.get("Master_Tune",valf,1);
 hor->mastertune=valf;
@@ -6346,7 +6341,7 @@ R7->deactivate();
 R8->deactivate();
 }
 
-if(hor->Rhythm_On != 1) Split->value(hor->a[0].split);
+
 BClick->value(hor->a[0].Click);
 ChorusOn->value(hor->a[0].E_Chorus_On);
 ELFOAmplitude->value(hor->a[0].Chorus_LFO_Amplitude);
@@ -6385,7 +6380,7 @@ horgand.set("Rhythm Filename",hor->RhythmFilename);
 
 
 horgand.set("Type Chord Recognition",hor->TypeRecChord);
-horgand.set("Split Point",hor->a[0].split);
+horgand.set("Split Point",hor->split);
 
 horgand.set("Bass Selected",hor->Bass_Type);
 horgand.set("Bass Volume",hor->Bass_Volume);

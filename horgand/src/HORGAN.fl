@@ -99,7 +99,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {357 120 825 595} type Double color 33 selection_color 47 hide resizable
+      xywh {1418 131 825 595} type Double color 33 selection_color 47 hide resizable
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -668,7 +668,7 @@ Actu();}
       Fl_Button Rota {
         label Rotary
         callback {hor->a[0].E_Rotary_On=o->value();
-Actu();} selected
+Actu();}
         xywh {180 160 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
       }
       Fl_Dial ELFOSpeed {
@@ -714,8 +714,7 @@ Actu();}
       }
       Fl_Button Split {
         label Split
-        callback {if (hor->a[0].split == 0) hor->a[0].split = 1; else hor->a[0].split = 0;
-Actu();}
+        callback {hor->split=o->value();}
         xywh {765 560 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
       }
       Fl_Box DMIN2 {
@@ -1170,7 +1169,7 @@ if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
         label Bass
         callback {//int readcounts = sf_seek (hor->infileb, 0, SEEK_SET);
 BarLead = 0;
-hor->a[0].split = o->value();
+hor->split = o->value();
 Split->value(o->value());
 hor->Bass_On =  o->value();}
         xywh {755 425 65 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 8 align 64
@@ -2159,7 +2158,7 @@ RtFile->value(filename);}
     Fl_Window ADSRwin {
       label Synthesizer
       callback {Guarda_Pref(3);
-o->hide();}
+o->hide();} selected
       xywh {1441 212 330 370} type Double hide
     } {
       Fl_Box {} {
@@ -2345,7 +2344,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {5 275 35 35} box OSHADOW_BOX labelsize 9 minimum 0.01 step 0.01 value 0.1
+        xywh {5 275 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 0.1
         class Rueda
       }
       Fl_Dial D_Click2_Vol {
@@ -2357,7 +2356,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {65 275 35 35} box OSHADOW_BOX labelsize 9 minimum 0.01 step 0.01 value 0.1
+        xywh {65 275 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 0.1
         class Rueda
       }
       Fl_Counter D_Click_Freq2 {
@@ -2375,7 +2374,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {5 320 35 35} box OSHADOW_BOX labelsize 9 minimum 0.01 step 0.01 value 1
+        xywh {5 320 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 1
         class Rueda
       }
       Fl_Dial D_Click_Vol2 {
@@ -2387,7 +2386,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {65 320 35 35} box OSHADOW_BOX labelsize 9 minimum 0.01 step 0.01 value 1
+        xywh {65 320 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 1
         class Rueda
       }
     }
@@ -2470,8 +2469,8 @@ if(commandline != 1) PutCombi(hor->cpreset);
 else meteprog();
 
 horgand.get("Split Point",val,0);
-hor->a[0].split=val;
-
+hor->split=val;
+Split->value(hor->split);
 
 horgand.get("Master_Tune",valf,1);
 hor->mastertune=valf;
@@ -3062,7 +3061,7 @@ R7->deactivate();
 R8->deactivate();
 }
 
-if(hor->Rhythm_On != 1) Split->value(hor->a[0].split);
+
 BClick->value(hor->a[0].Click);
 ChorusOn->value(hor->a[0].E_Chorus_On);
 ELFOAmplitude->value(hor->a[0].Chorus_LFO_Amplitude);
@@ -3100,7 +3099,7 @@ horgand.set("Rhythm Filename",hor->RhythmFilename);
 
 
 horgand.set("Type Chord Recognition",hor->TypeRecChord);
-horgand.set("Split Point",hor->a[0].split);
+horgand.set("Split Point",hor->split);
 
 horgand.set("Bass Selected",hor->Bass_Type);
 horgand.set("Bass Volume",hor->Bass_Volume);

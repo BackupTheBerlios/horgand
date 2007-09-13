@@ -167,6 +167,7 @@ public:
   float Chorus_LFO_Frequency;
   int cl_counter;
   int Salida;
+  int split;
   float increment;
   float D_PI_to_SAMPLE_RATE; 
   int Reverb_Time;
@@ -348,9 +349,9 @@ struct Todolo
    float Chorus_Delay;
    float Chorus_LFO_Amplitude;
    float Chorus_LFO_Speed;
-   int Speed_Sync;
    float Chorus_Volume;
    float Rotary_LFO_Amplitude;
+   int Speed_Sync;
    int Click;
    int E_Reverb_On;
    int organ_transpose;

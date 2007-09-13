@@ -108,7 +108,7 @@ HOR::midievents (int keIN)
 		  MidiInLevel = midievent->data.note.velocity;
 		  velocity[l1] = midievent->data.note.velocity /126.0;
                   if (velocity[l1] > 1.0) velocity[l1]=1.0;
-		  if ((a[0].split) && (rnote[l1] < 60))
+		  if ((split) && (rnote[l1] < 60))
 		    {
                      
 		      note[l1] += 24;
@@ -118,7 +118,7 @@ HOR::midievents (int keIN)
 		  env_time[l1] = 0;
 		  gate[l1] = 1;
 		  note_active[l1] = 1;
-                  if (a[0].split) Get_Chord();
+                  if (split) Get_Chord();
                   break;
 		}
 	    }
@@ -136,7 +136,7 @@ HOR::midievents (int keIN)
 		{
                   gate[l1] = 0;
                   if (pedal==0) env_time[l1] = 0;
-                  if (a[0].split) Get_Chord();
+                  if (split) Get_Chord();
 		}
 
 	    }
@@ -156,7 +156,7 @@ HOR::midievents (int keIN)
 	    {
               gate[l1] = 0;
               if (pedal==0) env_time[l1] = 0;
-              if (a[0].split) Get_Chord();
+              if (split) Get_Chord();
 	    }
 
 	}

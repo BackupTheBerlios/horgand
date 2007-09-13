@@ -56,6 +56,7 @@ HOR::HOR()
   Master_Volume=0.70;
   pattern_bars=1;
   ae=1;
+  split=0;
   file_ok=0;  
   cpreset=1;
   IsCoIn=0;
@@ -90,6 +91,7 @@ HOR::HOR()
   lasfreq[22] = 16.0;
 
   New();
+
 
   mastertune=1;
   release=0.1;
@@ -796,6 +798,7 @@ for (j = 1; j<= 20; j++)
 
 
     }
+
 
 
   // Init Sound and effect buffers
