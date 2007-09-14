@@ -266,7 +266,7 @@ HOR::New ()
   Master_Volume = 0.70;
   a[0].Organ_Master_Volume = 0.70;
   a[0].detune = 0;
-  a[0].split = 0;
+  a[0].scaling = 0;
   a[0].Chorus_Volume = 0.60;
   a[0].E_Chorus_On = 0;
   a[0].Chorus_LFO_Speed = 0;

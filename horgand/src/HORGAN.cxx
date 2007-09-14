@@ -3201,6 +3201,14 @@ void HORGAN::cb_D_Wave_Type_Val(Fl_Counter* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_D_Wave_Type_Val_i(o,v);
 }
 
+void HORGAN::cb_D_KeybS_i(Fl_Button* o, void*) {
+  hor->a[0].scaling=o->value();
+Actu();
+}
+void HORGAN::cb_D_KeybS(Fl_Button* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_D_KeybS_i(o,v);
+}
+
 Fl_Double_Window* HORGAN::make_window() {
   { HORwindow = new Fl_Double_Window(825, 595);
     HORwindow->color((Fl_Color)33);
@@ -5372,12 +5380,13 @@ e version 2 of the \n GNU General Public License for details."));
     } // Fl_Button* o
     RitEdit->end();
   } // Fl_Double_Window* RitEdit
-  { ADSRwin = new Fl_Double_Window(330, 425, gettext("Synthesizer"));
+  { ADSRwin = new Fl_Double_Window(330, 445, gettext("Synthesizer"));
     ADSRwin->callback((Fl_Callback*)cb_ADSRwin, (void*)(this));
     { Fl_Box* o = new Fl_Box(1, 1, 140, 76, gettext("Drawbar"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_GRAY0);
       o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
     { D_attack = new Rueda(10, 27, 35, 35, gettext("Attack"));
@@ -5431,6 +5440,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_GRAY0);
       o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
     { D_p_attack = new Rueda(150, 25, 35, 35, gettext("Attack"));
@@ -5474,6 +5484,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
     { D_Freq = new Fl_Counter(5, 139, 70, 25, gettext("Frequency"));
@@ -5501,6 +5512,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
     { D_Freq_F = new Fl_Counter(180, 140, 70, 25, gettext("Drawbar"));
@@ -5522,13 +5534,14 @@ e version 2 of the \n GNU General Public License for details."));
       D_FFval->align(FL_ALIGN_RIGHT);
       D_FFval->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_FFval
-    { Fl_Box* o = new Fl_Box(0, 270, 170, 55, gettext("Rotary Amplitude"));
+    { Fl_Box* o = new Fl_Box(0, 290, 170, 55, gettext("Rotary Amplitude"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { D_Rot_Amp = new Fl_Counter(10, 295, 90, 25, gettext("Amplitude"));
+    { D_Rot_Amp = new Fl_Counter(10, 315, 90, 25, gettext("Amplitude"));
       D_Rot_Amp->type(1);
       D_Rot_Amp->labelsize(9);
       D_Rot_Amp->minimum(100);
@@ -5539,13 +5552,14 @@ e version 2 of the \n GNU General Public License for details."));
       D_Rot_Amp->align(FL_ALIGN_RIGHT);
       D_Rot_Amp->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_Rot_Amp
-    { Fl_Box* o = new Fl_Box(170, 270, 160, 55, gettext("Transpose"));
+    { Fl_Box* o = new Fl_Box(170, 290, 160, 55, gettext("Transpose"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { D_O_Transpose = new Fl_Counter(220, 290, 70, 25);
+    { D_O_Transpose = new Fl_Counter(215, 315, 70, 25);
       D_O_Transpose->type(1);
       D_O_Transpose->labelsize(9);
       D_O_Transpose->minimum(-36);
@@ -5559,6 +5573,7 @@ e version 2 of the \n GNU General Public License for details."));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_GRAY0);
       o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
     { D_c_attack = new Rueda(245, 23, 35, 35, gettext("Attack"));
@@ -5593,13 +5608,14 @@ e version 2 of the \n GNU General Public License for details."));
       D_c_decay->align(FL_ALIGN_BOTTOM);
       D_c_decay->when(FL_WHEN_CHANGED);
     } // Rueda* D_c_decay
-    { Fl_Box* o = new Fl_Box(0, 325, 330, 100, gettext("Click"));
+    { Fl_Box* o = new Fl_Box(0, 345, 330, 100, gettext("Click"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { D_Click_Freq = new Fl_Counter(115, 355, 150, 25, gettext("Frequency1"));
+    { D_Click_Freq = new Fl_Counter(115, 375, 150, 25, gettext("Frequency1"));
       D_Click_Freq->labelsize(9);
       D_Click_Freq->minimum(10);
       D_Click_Freq->maximum(20000);
@@ -5609,7 +5625,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click_Freq->align(FL_ALIGN_RIGHT);
       D_Click_Freq->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_Click_Freq
-    { D_Click_Vol = new Rueda(5, 330, 35, 35, gettext("V.Attack"));
+    { D_Click_Vol = new Rueda(5, 350, 35, 35, gettext("V.Attack"));
       D_Click_Vol->box(FL_OSHADOW_BOX);
       D_Click_Vol->color(FL_BACKGROUND_COLOR);
       D_Click_Vol->selection_color(FL_INACTIVE_COLOR);
@@ -5623,7 +5639,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click_Vol->align(FL_ALIGN_BOTTOM);
       D_Click_Vol->when(FL_WHEN_CHANGED);
     } // Rueda* D_Click_Vol
-    { D_Click2_Vol = new Rueda(65, 330, 35, 35, gettext("V.Release"));
+    { D_Click2_Vol = new Rueda(65, 350, 35, 35, gettext("V.Release"));
       D_Click2_Vol->box(FL_OSHADOW_BOX);
       D_Click2_Vol->color(FL_BACKGROUND_COLOR);
       D_Click2_Vol->selection_color(FL_INACTIVE_COLOR);
@@ -5637,7 +5653,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click2_Vol->align(FL_ALIGN_BOTTOM);
       D_Click2_Vol->when(FL_WHEN_CHANGED);
     } // Rueda* D_Click2_Vol
-    { D_Click_Freq2 = new Fl_Counter(115, 390, 150, 25, gettext("Frequency2"));
+    { D_Click_Freq2 = new Fl_Counter(115, 410, 150, 25, gettext("Frequency2"));
       D_Click_Freq2->labelsize(9);
       D_Click_Freq2->minimum(10);
       D_Click_Freq2->maximum(20000);
@@ -5647,7 +5663,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click_Freq2->align(FL_ALIGN_RIGHT);
       D_Click_Freq2->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_Click_Freq2
-    { D_Click_Vol1 = new Rueda(5, 375, 35, 35, gettext("V.Freq 1"));
+    { D_Click_Vol1 = new Rueda(5, 395, 35, 35, gettext("V.Freq 1"));
       D_Click_Vol1->box(FL_OSHADOW_BOX);
       D_Click_Vol1->color(FL_BACKGROUND_COLOR);
       D_Click_Vol1->selection_color(FL_INACTIVE_COLOR);
@@ -5661,7 +5677,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click_Vol1->align(FL_ALIGN_BOTTOM);
       D_Click_Vol1->when(FL_WHEN_CHANGED);
     } // Rueda* D_Click_Vol1
-    { D_Click_Vol2 = new Rueda(65, 375, 35, 35, gettext("V.Freq 2"));
+    { D_Click_Vol2 = new Rueda(65, 395, 35, 35, gettext("V.Freq 2"));
       D_Click_Vol2->box(FL_OSHADOW_BOX);
       D_Click_Vol2->color(FL_BACKGROUND_COLOR);
       D_Click_Vol2->selection_color(FL_INACTIVE_COLOR);
@@ -5675,13 +5691,14 @@ e version 2 of the \n GNU General Public License for details."));
       D_Click_Vol2->align(FL_ALIGN_BOTTOM);
       D_Click_Vol2->when(FL_WHEN_CHANGED);
     } // Rueda* D_Click_Vol2
-    { Fl_Box* o = new Fl_Box(0, 215, 330, 55, gettext("Wave Type"));
+    { Fl_Box* o = new Fl_Box(0, 215, 230, 75, gettext("Wave Type"));
       o->box(FL_PLASTIC_UP_BOX);
       o->color(FL_FOREGROUND_COLOR);
       o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
       o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { D_Wave_Type = new Fl_Counter(5, 235, 70, 25, gettext("Drawbar"));
+    { D_Wave_Type = new Fl_Counter(5, 245, 70, 25, gettext("Drawbar"));
       D_Wave_Type->type(1);
       D_Wave_Type->labelsize(9);
       D_Wave_Type->minimum(1);
@@ -5691,7 +5708,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Wave_Type->callback((Fl_Callback*)cb_D_Wave_Type);
       D_Wave_Type->align(FL_ALIGN_RIGHT);
     } // Fl_Counter* D_Wave_Type
-    { D_Wave_Type_Val = new Fl_Counter(205, 235, 70, 25, gettext("Wave"));
+    { D_Wave_Type_Val = new Fl_Counter(125, 245, 70, 25, gettext("Wave"));
       D_Wave_Type_Val->type(1);
       D_Wave_Type_Val->labelsize(9);
       D_Wave_Type_Val->minimum(1);
@@ -5702,6 +5719,20 @@ e version 2 of the \n GNU General Public License for details."));
       D_Wave_Type_Val->align(FL_ALIGN_RIGHT);
       D_Wave_Type_Val->when(FL_WHEN_RELEASE);
     } // Fl_Counter* D_Wave_Type_Val
+    { Fl_Box* o = new Fl_Box(230, 215, 100, 75, gettext("Keyboard Scaling"));
+      o->box(FL_PLASTIC_UP_BOX);
+      o->color(FL_FOREGROUND_COLOR);
+      o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
+      o->align(129|FL_ALIGN_INSIDE);
+    } // Fl_Box* o
+    { D_KeybS = new Fl_Button(255, 260, 55, 25, gettext("On"));
+      D_KeybS->type(1);
+      D_KeybS->box(FL_PLASTIC_UP_BOX);
+      D_KeybS->selection_color((Fl_Color)3);
+      D_KeybS->labelsize(12);
+      D_KeybS->callback((Fl_Callback*)cb_D_KeybS);
+    } // Fl_Button* D_KeybS
     ADSRwin->end();
   } // Fl_Double_Window* ADSRwin
   return ADSRwin;
@@ -6504,6 +6535,7 @@ D_Click_Freq2->value(hor->a[0].Click_Freq2);
 D_Click_Vol1->value(hor->a[0].Click_Vol1);
 D_Click_Vol2->value(hor->a[0].Click_Vol2);
 D_Wave_Type_Val->value(hor->a[0].Operator[(int)D_Wave_Type->value()].wave);
+D_KeybS->value(hor->a[0].scaling);
 }
 
 void HORGAN::put_icon(Fl_Window* window) {

@@ -58,7 +58,7 @@ HOR::savefile (char *filename)
 	   a[0].Delay_Delay, a[0].Delay_Volume);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
-  sprintf (buf, "%d,%d,%f,%d,%f,%f,%f\n", a[0].split, a[0].E_Chorus_On, a[0].Chorus_Delay, a[0].Reverb_Preset,
+  sprintf (buf, "%d,%d,%f,%d,%f,%f,%f\n", a[0].scaling, a[0].E_Chorus_On, a[0].Chorus_Delay, a[0].Reverb_Preset,
 	   a[0].Chorus_LFO_Speed, a[0].Chorus_LFO_Amplitude, a[0].Chorus_Volume);
   fputs (buf, fn);
   bzero (buf, sizeof (buf));
@@ -139,7 +139,7 @@ HOR::loadfile (char *filename)
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf
-    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &a[0].split, &a[0].E_Chorus_On, &a[0].Chorus_Delay, &a[0].Reverb_Preset,
+    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &a[0].scaling, &a[0].E_Chorus_On, &a[0].Chorus_Delay, &a[0].Reverb_Preset,
      &a[0].Chorus_LFO_Speed, &a[0].Chorus_LFO_Amplitude, &a[0].Chorus_Volume);
 
 
@@ -222,7 +222,7 @@ HOR::savebank (char *filename)
       fputs (buf, fn);
       bzero (buf, sizeof (buf));
       sprintf
-	(buf, "%d,%d,%f,%d,%f,%f,%f\n", Banco[j].split, Banco[j].E_Chorus_On,
+	(buf, "%d,%d,%f,%d,%f,%f,%f\n", Banco[j].scaling, Banco[j].E_Chorus_On,
 	 Banco[j].Chorus_Delay, Banco[j].Reverb_Preset, Banco[j].Chorus_LFO_Speed,
 	 Banco[j].Chorus_LFO_Amplitude, Banco[j].Chorus_Volume);
       fputs (buf, fn);
@@ -319,7 +319,7 @@ HOR::loadbank (char *filename)
       bzero (buf, sizeof (buf));
       fgets (buf, sizeof buf, fn);
       sscanf
-	(buf, "%d,%d,%f,%d,%f,%f,%f\n", &Banco[j].split, &Banco[j].E_Chorus_On,
+	(buf, "%d,%d,%f,%d,%f,%f,%f\n", &Banco[j].scaling, &Banco[j].E_Chorus_On,
 	 &Banco[j].Chorus_Delay, &Banco[j].Reverb_Preset, &Banco[j].Chorus_LFO_Speed,
 	 &Banco[j].Chorus_LFO_Amplitude, &Banco[j].Chorus_Volume);
 
@@ -667,7 +667,7 @@ HOR::LoadSoundBank(int Num)
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf
-    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &a[0].split, &a[0].E_Chorus_On, &a[0].Chorus_Delay, &a[0].Reverb_Preset,
+    (buf, "%d,%d,%f,%d,%f,%f,%f\n", &a[0].scaling, &a[0].E_Chorus_On, &a[0].Chorus_Delay, &a[0].Reverb_Preset,
      &a[0].Chorus_LFO_Speed, &a[0].Chorus_LFO_Amplitude, &a[0].Chorus_Volume);
 
 

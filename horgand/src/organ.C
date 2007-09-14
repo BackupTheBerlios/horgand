@@ -820,9 +820,6 @@ for (j = 1; j<= 20; j++)
       if( i > 6) msin[i-7] = (msin[i-7] *  ( 1.0 +  msin[i-6] - msin[i-7]));
       if( i > 7) msin[i-8] = (msin[i-8] *  ( 1.0 +  msin[i-7] - msin[i-8]));
 
-
-
-
     psin[i]=sin(x_sin+sin(2.0*x_sin));
   
   }
@@ -962,6 +959,12 @@ HOR::Adjust_Audio()
       
 }
 
+// Keyboard Level Scaling
+float
+HOR::Get_Keyb_Level_Scaling(int nota)
+{
+return(1.5*velocity[nota]*sin((120-note[nota])/120.0));
+};
 
 
 

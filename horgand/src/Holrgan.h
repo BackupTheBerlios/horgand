@@ -69,6 +69,7 @@ public:
   float pitch_Operator(int i, int note);      
   float pitch_Operator2(int i, int note);      
   void volume_Operator(int i, int note);
+  float Get_Keyb_Level_Scaling(int nota);
   void Effect_Delay();
   void Effect_Reverb();
   void Clean_Buffer_Effects();
@@ -361,7 +362,7 @@ struct Todolo
    int organ_transpose;
    int E_Rotary_On;
    int E_Delay_On;
-   int split;
+   int scaling;
    int E_Chorus_On;
    int Reverb_Preset;
    char *nombre;
