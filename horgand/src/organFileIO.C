@@ -75,6 +75,13 @@ HOR::savefile (char *filename)
   bzero (buf, sizeof (buf));
   sprintf (buf, "%d,%d,%f,%f,%f,%f,%f,%f\n", a[0].Speed_Sync,a[0].Click,a[0].Click_Vol,a[0].Click2_Vol,a[0].Click_Freq,a[0].Click_Freq2,a[0].Click_Vol1,a[0].Click_Vol2);
   fputs (buf, fn);
+ 
+  for (i = 1; i <= 10; i++)
+      {
+            bzero (buf, sizeof (buf));
+            sprintf (buf, "%d\n",a[0].Operator[i].wave);
+            fputs(buf,fn);
+      }
 
   bzero (buf, sizeof (buf));
   fputs (a[0].nombre, fn);
@@ -151,9 +158,17 @@ HOR::loadfile (char *filename)
 
   if (Data_Version >= 1.12)
   {
-  bzero (buf, sizeof (buf));
-  fgets (buf, sizeof buf, fn);
-  sscanf (buf, "%d %d,%f,%f,%f,%f,%f,%f\n", &a[0].Speed_Sync,&a[0].Click,&a[0].Click_Vol,&a[0].Click2_Vol,&a[0].Click_Freq,&a[0].Click_Freq2,&a[0].Click_Vol1,&a[0].Click_Vol2);
+   bzero (buf, sizeof (buf));
+   fgets (buf, sizeof buf, fn);
+   sscanf (buf, "%d %d,%f,%f,%f,%f,%f,%f\n", &a[0].Speed_Sync,&a[0].Click,&a[0].Click_Vol,&a[0].Click2_Vol,&a[0].Click_Freq,&a[0].Click_Freq2,&a[0].Click_Vol1,&a[0].Click_Vol2);
+
+
+    for (i = 1; i <= 10; i++)
+     {
+       bzero (buf, sizeof (buf));
+       fgets (buf, sizeof buf, fn);
+       sscanf (buf, "%d\n",&a[0].Operator[i].wave);
+      }
   }
 
   bzero (buf, sizeof (buf));
@@ -227,7 +242,14 @@ HOR::savebank (char *filename)
      sprintf (buf, "%d,%d,%f,%f,%f,%f,%f,%f\n", Banco[j].Speed_Sync,Banco[j].Click, Banco[j].Click_Vol, Banco[j].Click2_Vol, Banco[j].Click_Freq,
              Banco[j].Click_Freq2,Banco[j].Click_Vol1,Banco[j].Click_Vol2);
      fputs (buf, fn);
-    
+ 
+   for (i = 1; i <= 10; i++)
+      {
+          bzero (buf, sizeof (buf));
+          sprintf (buf, "%d\n",Banco[j].Operator[i].wave);
+          fputs(buf,fn);
+      }
+   
 
 
       bzero (buf, sizeof (buf));
@@ -319,6 +341,15 @@ HOR::loadbank (char *filename)
        fgets (buf, sizeof buf, fn);
        sscanf (buf, "%d,%d,%f,%f,%f,%f,%f,%f\n", &Banco[j].Speed_Sync,&Banco[j].Click, &Banco[j].Click_Vol, &Banco[j].Click2_Vol, &Banco[j].Click_Freq,
              &Banco[j].Click_Freq2,&Banco[j].Click_Vol1,&Banco[j].Click_Vol2);
+
+       
+    for (i = 1; i <= 10; i++)
+     {
+       bzero (buf, sizeof (buf));
+       fgets (buf, sizeof buf, fn);
+       sscanf (buf, "%d\n",&Banco[j].Operator[i].wave);
+      }
+
        } 
 
       bzero (buf, sizeof (buf));
@@ -657,8 +688,16 @@ HOR::LoadSoundBank(int Num)
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf (buf, "%d,%d,%f,%f,%f,%f,%f,%f\n", &a[0].Speed_Sync,&a[0].Click,&a[0].Click_Vol,&a[0].Click2_Vol,&a[0].Click_Freq,&a[0].Click_Freq2,&a[0].Click_Vol1,&a[0].Click_Vol2);
-  }
 
+  
+   for (i = 1; i <= 10; i++)
+     {
+       bzero (buf, sizeof (buf));
+       fgets (buf, sizeof buf, fn);
+       sscanf (buf, "%d\n",&a[0].Operator[i].wave);
+      }
+
+  }
 
   bzero (buf, sizeof (buf));
   bzero (a[0].Name, sizeof (a[0].Name));

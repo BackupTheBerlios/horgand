@@ -53,9 +53,7 @@ public:
    HOR ();
   ~HOR ();
 
-  void  init_hor();
-  void Adjust_Audio();
-  float Fsin(float x);
+  float NFsin(int i,float x);
   void Alg1s (int frames, void*);
   float Jenvelope(int *note_active, int gate, float t, int nota);
   float Penvelope(int *note_active, int gate, float t, int nota);
@@ -112,11 +110,16 @@ public:
   void Get_Combi_t(int i);
   void Put_Combi_t(int i);
   void syncadsr();
+  void init_hor();
+  void Adjust_Audio();
 
   snd_seq_t *midi_in;
   
   float ldelay,rdelay;
   float *lsin;
+  float *nsin;
+  float *msin;
+  float *psin;
   float *buf;
   short *wbuf;
   float *rbuf;
@@ -314,6 +317,7 @@ struct OperatorPar
  float con1;
  int harmonic;
  int marimba; 
+ int wave;
  };
      
 

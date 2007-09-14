@@ -776,9 +776,14 @@ for (j = 1; j<= 20; j++)
   size_t sizesin = (size_t) (D_PI * 1000); 
 
   lsin = (float *) malloc (sizeof (float) * (sizesin + 4));
-
+  nsin = (float *) malloc (sizeof (float) * (sizesin + 4));
+  msin = (float *) malloc (sizeof (float) * (sizesin + 4));
+  psin = (float *) malloc (sizeof (float) * (sizesin + 4));
+  
   memset (lsin, 0, sizesin);
-
+  memset (nsin, 0, sizesin);
+  memset (msin, 0, sizesin);
+  memset (psin, 0, sizesin);
 
    float x_sin;
    for (i = 0; i < (int) sizesin; i++)
@@ -799,7 +804,28 @@ for (j = 1; j<= 20; j++)
 
     }
 
+  for (i = 0; i < (int) sizesin; i++)
+  {
+    
+    x_sin = (float) ( i * D_PI / sizesin);
+  
+    nsin[i]=sin(x_sin+sin(x_sin));
+    msin[i]=sin(x_sin+sin(1.5*x_sin));
+      if( i > 0) msin[i-1] = (msin[i-1] *  ( 1.0 +  msin[i] - msin[i-1]));
+      if( i > 1) msin[i-2] = (msin[i-2] *  ( 1.0 +  msin[i-1] - msin[i-2]));
+      if( i > 2) msin[i-3] = (msin[i-3] *  ( 1.0 +  msin[i-2] - msin[i-3]));
+      if( i > 3) msin[i-4] = (msin[i-4] *  ( 1.0 +  msin[i-3] - msin[i-4]));
+      if( i > 4) msin[i-5] = (msin[i-5] *  ( 1.0 +  msin[i-4] - msin[i-5]));
+      if( i > 5) msin[i-6] = (msin[i-6] *  ( 1.0 +  msin[i-5] - msin[i-6]));
+      if( i > 6) msin[i-7] = (msin[i-7] *  ( 1.0 +  msin[i-6] - msin[i-7]));
+      if( i > 7) msin[i-8] = (msin[i-8] *  ( 1.0 +  msin[i-7] - msin[i-8]));
 
+
+
+
+    psin[i]=sin(x_sin+sin(2.0*x_sin));
+  
+  }
 
   // Init Sound and effect buffers
 
@@ -1091,7 +1117,7 @@ HOR::Pitch_LFO (float t)
 
   x=fmod(a[0].Pitch_LFO_Speed*t,1.0); 
 
-  out = Fsin(x*D_PI)*LFO_Frequency;
+  out = NFsin(1,x*D_PI)*LFO_Frequency;
 
   return(out);     
 
@@ -1116,23 +1142,27 @@ HOR::Get_Partial (int nota)
 };
 
 
-float
-HOR::Fsin (float x)
-{
-
-if ( x > D_PI) x = fmod(x,D_PI);  
-return(lsin[(int)(x * 1000)]);
-
-};
-
-
-
 void
 HOR::Calc_LFO_Frequency()
 {
 LFO_Frequency =  a[0].modulation * a[0].LFOpitch * D_PI_to_SAMPLE_RATE;
+
 };  
 
+
+
+
+float 
+HOR:: NFsin(int i,float x)
+{
+   if ( x > D_PI) x = fmod(x,D_PI);
+
+   if(i==1)return(lsin[(int)(x * 1000)]);
+   if(i==2)return(nsin[(int)(x * 1000)]);
+   if(i==3)return(msin[(int)(x * 1000)]);
+   if(i==4)return(psin[(int)(x * 1000)]);
+   return 0.0;
+};
 
 
 
@@ -1162,7 +1192,9 @@ HOR::Alg1s (int nframes, void *)
 
     
     for (i=1;i<=10;i++)
-    { p_op[i]=pitch_Operator(i,0);
+    
+    { 
+      p_op[i]=pitch_Operator(i,0);
       p_op2[i]=pitch_Operator2(i,0);
       total_vol += a[0].Operator[i].volumen*a[0].Normalize[a[0].Operator[i].harmonic];
     }  
@@ -1195,20 +1227,21 @@ HOR::Alg1s (int nframes, void *)
                     if (dcphi[l2] > D_PI) dcphi[l2] = fmod(dcphi[l2],D_PI);
                     if (dcphi2[l2] > D_PI) dcphi2[l2] = fmod(dcphi2[l2],D_PI);
                     Click_TVol=Click_Env*velocity[l2]*organ_master;
-                    Am_Click=a[0].Click_Vol1*Click_TVol*Fsin(dcphi[l2]);
-                    Am_Click+=a[0].Click_Vol2*Click_TVol*Fsin(dcphi2[l2]);
+                    Am_Click=a[0].Click_Vol1*Click_TVol*NFsin(3,dcphi[l2]);
+                    Am_Click+=a[0].Click_Vol2*Click_TVol*NFsin(3,dcphi2[l2]);
                     buf[l1] +=Am_Click;
                     buf[l1+1] +=Am_Click;
                    }
                }
              for(i = 1; i <= 10; i++)
 	      {
-
+                 
 	        if (a[0].Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2]*a[0].Operator[i].con1;
                      else Env_Vol=Perc_Volume[l2]*a[0].Operator[i].con1; 
 	      
                 if (Env_Vol>0.0f)
                    { 
+                                        
                      f[i].dphi = m_partial * (p_op[i] + LFO_Volume);
                      if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
                      f[i].phi[l2] += f[i].dphi;
@@ -1218,8 +1251,8 @@ HOR::Alg1s (int nframes, void *)
                      if (f[i].dphi2 > D_PI) f[i].dphi2 = fmod(f[i].dphi2,D_PI);
                      f[i].phi2[l2] += f[i].dphi2;
                      if (f[i].phi2[l2] > D_PI) f[i].phi2[l2]=fmod(f[i].phi2[l2],D_PI);
-                     sound += Env_Vol*lsin[(int)(1000*f[i].phi[l2])];
-                     sound2 +=Env_Vol*lsin[(int)(1000*f[i].phi2[l2])];                  
+                     sound += Env_Vol*NFsin(a[0].Operator[i].wave,f[i].phi[l2]);
+                     sound2 +=Env_Vol*NFsin(a[0].Operator[i].wave,f[i].phi2[l2]);                  
                    }                
               }  
               

@@ -38,7 +38,7 @@ HOR::Chorus_LFO (float *Chorus_X)
 
   if (*Chorus_X > 1) *Chorus_X =0.0f;
 
-  out=Fsin(*Chorus_X*D_PI)*Chorus_LFO_Frequency;
+  out=NFsin(1,*Chorus_X*D_PI)*Chorus_LFO_Frequency;
   
   return (out);
   
@@ -127,11 +127,11 @@ HOR::Rotary_LFO (float t)
 
   float out;
 
-  Rotary_X += a[0].Rotary_LFO_Speed * increment;
+  Rotary_X +=  a[0].Rotary_LFO_Speed * increment;
 
   if (Rotary_X > 1) Rotary_X =0.0f;
 
-  out = Fsin (Rotary_X * D_PI) * Rotary_LFO_Frequency;
+  out = NFsin (1,Rotary_X * D_PI) * Rotary_LFO_Frequency;
 
   return (out);
   

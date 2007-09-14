@@ -1119,6 +1119,16 @@ private:
   void cb_D_Click_Vol2_i(Rueda*, void*);
   static void cb_D_Click_Vol2(Rueda*, void*);
 public:
+  Fl_Counter *D_Wave_Type;
+private:
+  void cb_D_Wave_Type_i(Fl_Counter*, void*);
+  static void cb_D_Wave_Type(Fl_Counter*, void*);
+public:
+  Fl_Counter *D_Wave_Type_Val;
+private:
+  void cb_D_Wave_Type_Val_i(Fl_Counter*, void*);
+  static void cb_D_Wave_Type_Val(Fl_Counter*, void*);
+public:
   HORGAN(int argc, char **argv,HOR *hor_);
   void metelo();
   void GetCombi(int i);

@@ -236,6 +236,7 @@ HOR::New ()
       a[0].Operator[i].harmonic_fine = 0.0;
       a[0].Operator[i].volumen = 0.0;
       a[0].Operator[i].marimba = 0;
+      a[0].Operator[i].wave=1;
     }
 
   a[0].Operator[1].harmonic = 1;

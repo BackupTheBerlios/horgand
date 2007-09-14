@@ -55,9 +55,10 @@ HOR::Final_Output (int S_Output)
 {
   int i,j,kk;
   short sl,sr;
+  
+  
   memset (wbuf, 0, PERIOD4);
- 
-
+  
   for (i = 0; i < PERIOD; i +=2)
     { 
       j = i*2;
