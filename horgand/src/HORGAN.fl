@@ -3015,7 +3015,7 @@ hor->Calc_LFO_Frequency();
 Rota->value(hor->a[0].E_Rotary_On);
 Transpose->value(hor->transpose);
 calbtrans();
-Nombre->value(hor->a[0].nombre);
+Nombre->value(hor->a[0].Name);
 CPrograma->value(hor->cpreset);
 EchoVol->value(hor->a[0].Delay_Volume * 100);
 EchoDelay->value(hor->a[0].Delay_Delay / 176400);
@@ -3092,7 +3092,8 @@ ChorVol->value(hor->a[0].Chorus_Volume * 100);
 BSync_Speed->value(hor->a[0].Speed_Sync);
 ponreverb();
 metesynth();
-hor->syncadsr();} {}
+hor->syncadsr();} {selected
+    }
   }
   Function {SetBassType(int type)} {return_type void
   } {
@@ -3193,8 +3194,7 @@ D_Click_Freq->value(hor->a[0].Click_Freq);
 D_Click_Freq2->value(hor->a[0].Click_Freq2);
 D_Click_Vol1->value(hor->a[0].Click_Vol1);
 D_Click_Vol2->value(hor->a[0].Click_Vol2);
-D_Wave_Type_Val->value(hor->a[0].Operator[(int)D_Wave_Type->value()].wave);} {selected
-    }
+D_Wave_Type_Val->value(hor->a[0].Operator[(int)D_Wave_Type->value()].wave);} {}
   }
   Function {put_icon(Fl_Window* window)} {} {
     code {if (hints == NULL)

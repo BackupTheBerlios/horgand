@@ -5,6 +5,7 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- Fixed bug in Name display.
 - Added 3 waveforms more.
 - Added syncro speed to all the LFO effects.
 - Support for old file formats >=1.11.

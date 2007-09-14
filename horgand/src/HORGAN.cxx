@@ -6322,7 +6322,7 @@ hor->Calc_LFO_Frequency();
 Rota->value(hor->a[0].E_Rotary_On);
 Transpose->value(hor->transpose);
 calbtrans();
-Nombre->value(hor->a[0].nombre);
+Nombre->value(hor->a[0].Name);
 CPrograma->value(hor->cpreset);
 EchoVol->value(hor->a[0].Delay_Volume * 100);
 EchoDelay->value(hor->a[0].Delay_Delay / 176400);
