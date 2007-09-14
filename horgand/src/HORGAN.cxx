@@ -111,7 +111,7 @@ void HORGAN::cb_New(Fl_Menu_* o, void* v) {
 void HORGAN::cb_Load_i(Fl_Menu_*, void*) {
   char *filename;
 Fl::focus(PANICO);
-filename=fl_file_chooser("Load:","(*.hor)",NULL,0);
+filename=fl_file_chooser("Preset Load:","(*.hor)",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,".hor");
 hor->loadfile(filename);
@@ -124,7 +124,7 @@ void HORGAN::cb_Load(Fl_Menu_* o, void* v) {
 void HORGAN::cb_Save_i(Fl_Menu_*, void*) {
   char *filename;
 #define EXT ".hor"
-filename=fl_file_chooser("Save:","(*"EXT")",NULL,0);
+filename=fl_file_chooser("Preset Save:","(*"EXT")",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 #undef EXT
@@ -2235,7 +2235,7 @@ void HORGAN::cb_BClose(Fl_Button* o, void* v) {
 
 void HORGAN::cb_BLoad_i(Fl_Menu_*, void*) {
   char *filename;
-filename=fl_file_chooser("Load:","(*.horeb)",NULL,0);
+filename=fl_file_chooser("Bank Load:","(*.horeb)",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,".horeb");
 hor->loadbank(filename);
@@ -2249,7 +2249,7 @@ void HORGAN::cb_BLoad(Fl_Menu_* o, void* v) {
 void HORGAN::cb_BSave_i(Fl_Menu_*, void*) {
   char *filename;
 #define EXT ".horeb"
-filename=fl_file_chooser("Save:","(*"EXT")",hor->SavedBank,0);
+filename=fl_file_chooser("Bank Save:","(*"EXT")",hor->SavedBank,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 #undef EXT
