@@ -113,7 +113,7 @@ public:
   void syncadsr();
   void init_hor();
   void Adjust_Audio();
-
+  void PutReverb(int i);
   snd_seq_t *midi_in;
   
   float ldelay,rdelay;

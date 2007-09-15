@@ -102,10 +102,11 @@ int main(int argc, char *argv[])
   Pexitprogram = 0;
   commandline = 0;
 
-
   opterr = 0;
   int option_index = 0, opt;
   exitwithhelp = 0;
+  
+  
   while (1)
     {
       opt = getopt_long (argc, argv, "l:b:r:h", opts, &option_index);
@@ -187,9 +188,9 @@ int main(int argc, char *argv[])
   if (hor.Salida < 3) hor.Adjust_Audio();
 
   // Launch GUI
+
+  HORGAN *horUI  = new HORGAN(argc,argv,&hor);
   
-  HORGAN *horUI = new HORGAN(argc,argv,&hor);
- 
   
   // Launch MIDI thread
 
@@ -215,6 +216,8 @@ int main(int argc, char *argv[])
   while (Pexitprogram == 0)
  { 
 
+ 
+   
       // Refresh GUI
      Fl::wait(0.01);
       
@@ -242,7 +245,10 @@ int main(int argc, char *argv[])
 	}
           
        } else preset = 0; 
-         
+           
+       
+
+
  }
 
 

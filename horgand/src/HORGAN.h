@@ -1146,7 +1146,6 @@ public:
   void Redo();
   void GetPrim();
   static void tick(void *v);
-  void ponreverb();
   void GetRit(int Selected_Rhythm);
   void meteritmos();
   void calbtrans();

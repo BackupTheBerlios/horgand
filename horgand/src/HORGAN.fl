@@ -752,57 +752,57 @@ Actu();}
         Fl_Button R1 {
           label 1
           callback {hor->a[0].Reverb_Preset = 1;
-ponreverb();
+hor->PutReverb(1);
 Actu();}
           xywh {397 135 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R2 {
           label 2
           callback {hor->a[0].Reverb_Preset = 2;
-ponreverb();
+hor->PutReverb(2);
 Actu();}
           xywh {427 135 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R3 {
           label 3
           callback {hor->a[0].Reverb_Preset = 3;
-ponreverb();
+hor->PutReverb(3);
 Actu();}
           xywh {397 160 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R4 {
           label 4
           callback {hor->a[0].Reverb_Preset = 4;
-ponreverb();
+hor->PutReverb(4);
 Actu();}
           xywh {427 160 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R5 {
           label 5
           callback {hor->a[0].Reverb_Preset = 5;
-ponreverb();
+hor->PutReverb(5);
 Actu();}
           xywh {397 185 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R6 {
           label 6
           callback {hor->a[0].Reverb_Preset = 6;
-ponreverb();
+hor->PutReverb(6);
 Actu();}
           xywh {427 185 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R7 {
           label 7
           callback {hor->a[0].Reverb_Preset = 7;
-ponreverb();
+hor->PutReverb(7);
 Actu();}
           xywh {397 210 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
         Fl_Button R8 {
           label 8
           callback {hor->a[0].Reverb_Preset = 8;
-ponreverb();
-Actu();}
+hor->PutReverb(8);
+Actu();} selected
           xywh {427 210 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
       }
@@ -2657,68 +2657,6 @@ meteprog();} {}
   } {
     code {Fl::add_timeout(1.0 * 0.04,tick);} {}
   }
-  Function {ponreverb()} {} {
-    code {int j;
-
-hor->Clean_Buffer_Effects();
-
-switch(hor->a[0].Reverb_Preset)
-{
-case 1:
-hor->Reverb_Time = 16;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.14;
-
-break;
-
-case 2:
-hor->Reverb_Time = 18;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.14;
-break;
-
-case 3:
-hor->Reverb_Time = 20;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-
-case 4:
-hor->Reverb_Time = 22;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-
-case 5:
-hor->Reverb_Time = 24;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-
-case 6:
-hor->Reverb_Time = 26;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-
-case 7:
-hor->Reverb_Time = 30;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-
-case 8:
-hor->Reverb_Time = 34;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-}
-
-for (j=0; j<16; j++)
-  {
-   hor->a_combl[j]=(hor->Reverb_Time * hor->combl[j]);
-   hor->a_combr[j]=(hor->Reverb_Time * hor->combr[j]);
-  }} {}
-  }
   Function {GetRit(int Selected_Rhythm)} {} {
     code {int i;
 int rula;
@@ -3100,7 +3038,6 @@ POPO->value(hor->a[0].Chorus_Delay);
 ELFOSpeed->value(hor->a[0].Chorus_LFO_Speed);
 ChorVol->value(hor->a[0].Chorus_Volume * 100);
 BSync_Speed->value(hor->a[0].Speed_Sync);
-ponreverb();
 metesynth();
 hor->syncadsr();} {}
   }
@@ -3204,8 +3141,7 @@ D_Click_Freq2->value(hor->a[0].Click_Freq2);
 D_Click_Vol1->value(hor->a[0].Click_Vol1);
 D_Click_Vol2->value(hor->a[0].Click_Vol2);
 D_Wave_Type_Val->value(hor->a[0].Operator[(int)D_Wave_Type->value()].wave);
-D_KeybS->value(hor->a[0].scaling);} {selected
-    }
+D_KeybS->value(hor->a[0].scaling);} {}
   }
   Function {put_icon(Fl_Window* window)} {} {
     code {if (hints == NULL)

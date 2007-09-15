@@ -800,7 +800,7 @@ void HORGAN::cb_ChorusOn(Fl_Button* o, void* v) {
 
 void HORGAN::cb_R1_i(Fl_Button*, void*) {
   hor->a[0].Reverb_Preset = 1;
-ponreverb();
+hor->PutReverb(1);
 Actu();
 }
 void HORGAN::cb_R1(Fl_Button* o, void* v) {
@@ -809,7 +809,7 @@ void HORGAN::cb_R1(Fl_Button* o, void* v) {
 
 void HORGAN::cb_R2_i(Fl_Button*, void*) {
   hor->a[0].Reverb_Preset = 2;
-ponreverb();
+hor->PutReverb(2);
 Actu();
 }
 void HORGAN::cb_R2(Fl_Button* o, void* v) {
@@ -818,7 +818,7 @@ void HORGAN::cb_R2(Fl_Button* o, void* v) {
 
 void HORGAN::cb_R3_i(Fl_Button*, void*) {
   hor->a[0].Reverb_Preset = 3;
-ponreverb();
+hor->PutReverb(3);
 Actu();
 }
 void HORGAN::cb_R3(Fl_Button* o, void* v) {
@@ -827,7 +827,7 @@ void HORGAN::cb_R3(Fl_Button* o, void* v) {
 
 void HORGAN::cb_R4_i(Fl_Button*, void*) {
   hor->a[0].Reverb_Preset = 4;
-ponreverb();
+hor->PutReverb(4);
 Actu();
 }
 void HORGAN::cb_R4(Fl_Button* o, void* v) {
@@ -836,7 +836,7 @@ void HORGAN::cb_R4(Fl_Button* o, void* v) {
 
 void HORGAN::cb_R5_i(Fl_Button*, void*) {
   hor->a[0].Reverb_Preset = 5;
-ponreverb();
+hor->PutReverb(5);
 Actu();
 }
 void HORGAN::cb_R5(Fl_Button* o, void* v) {
@@ -845,7 +845,7 @@ void HORGAN::cb_R5(Fl_Button* o, void* v) {
 
 void HORGAN::cb_R6_i(Fl_Button*, void*) {
   hor->a[0].Reverb_Preset = 6;
-ponreverb();
+hor->PutReverb(6);
 Actu();
 }
 void HORGAN::cb_R6(Fl_Button* o, void* v) {
@@ -854,7 +854,7 @@ void HORGAN::cb_R6(Fl_Button* o, void* v) {
 
 void HORGAN::cb_R7_i(Fl_Button*, void*) {
   hor->a[0].Reverb_Preset = 7;
-ponreverb();
+hor->PutReverb(7);
 Actu();
 }
 void HORGAN::cb_R7(Fl_Button* o, void* v) {
@@ -863,7 +863,7 @@ void HORGAN::cb_R7(Fl_Button* o, void* v) {
 
 void HORGAN::cb_R8_i(Fl_Button*, void*) {
   hor->a[0].Reverb_Preset = 8;
-ponreverb();
+hor->PutReverb(8);
 Actu();
 }
 void HORGAN::cb_R8(Fl_Button* o, void* v) {
@@ -5976,69 +5976,6 @@ void HORGAN::tick(void *v) {
   Fl::add_timeout(1.0 * 0.04,tick);
 }
 
-void HORGAN::ponreverb() {
-  int j;
-
-hor->Clean_Buffer_Effects();
-
-switch(hor->a[0].Reverb_Preset)
-{
-case 1:
-hor->Reverb_Time = 16;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.14;
-
-break;
-
-case 2:
-hor->Reverb_Time = 18;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.14;
-break;
-
-case 3:
-hor->Reverb_Time = 20;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-
-case 4:
-hor->Reverb_Time = 22;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-
-case 5:
-hor->Reverb_Time = 24;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-
-case 6:
-hor->Reverb_Time = 26;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-
-case 7:
-hor->Reverb_Time = 30;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-
-case 8:
-hor->Reverb_Time = 34;
-hor->Reverb_Volume = 0.65;
-hor->Reverb_Diffussion = 0.16;
-break;
-}
-
-for (j=0; j<16; j++)
-  {
-   hor->a_combl[j]=(hor->Reverb_Time * hor->combl[j]);
-   hor->a_combr[j]=(hor->Reverb_Time * hor->combr[j]);
-  }
-}
-
 void HORGAN::GetRit(int Selected_Rhythm) {
   int i;
 int rula;
@@ -6428,7 +6365,6 @@ POPO->value(hor->a[0].Chorus_Delay);
 ELFOSpeed->value(hor->a[0].Chorus_LFO_Speed);
 ChorVol->value(hor->a[0].Chorus_Volume * 100);
 BSync_Speed->value(hor->a[0].Speed_Sync);
-ponreverb();
 metesynth();
 hor->syncadsr();
 }

@@ -397,6 +397,8 @@ void
 HOR::Put_Combi_t(int i)
 {
 a[0]=Banco[i];
+PutReverb(a[0].Reverb_Preset);
+syncadsr();
 Prim[1] = Banco[i];
 };
 
@@ -422,4 +424,75 @@ HOR::syncadsr()
 
  
 };
+
+
+
+void
+HOR::PutReverb(int i)
+{
+
+int j;
+
+Clean_Buffer_Effects();
+
+switch(i)
+{
+case 1:
+Reverb_Time = 16;
+Reverb_Volume = 0.65;
+Reverb_Diffussion = 0.14;
+
+break;
+
+case 2:
+Reverb_Time = 18;
+Reverb_Volume = 0.65;
+Reverb_Diffussion = 0.14;
+break;
+
+case 3:
+Reverb_Time = 20;
+Reverb_Volume = 0.65;
+Reverb_Diffussion = 0.16;
+break;
+
+case 4:
+Reverb_Time = 22;
+Reverb_Volume = 0.65;
+Reverb_Diffussion = 0.16;
+break;
+
+case 5:
+Reverb_Time = 24;
+Reverb_Volume = 0.65;
+Reverb_Diffussion = 0.16;
+break;
+
+case 6:
+Reverb_Time = 26;
+Reverb_Volume = 0.65;
+Reverb_Diffussion = 0.16;
+
+case 7:
+Reverb_Time = 30;
+Reverb_Volume = 0.65;
+Reverb_Diffussion = 0.16;
+break;
+
+case 8:
+Reverb_Time = 34;
+Reverb_Volume = 0.65;
+Reverb_Diffussion = 0.16;
+break;
+}
+
+for (j=0; j<16; j++)
+  {
+   a_combl[j]=(Reverb_Time * combl[j]);
+   a_combr[j]=(Reverb_Time * combr[j]);
+  }
+  
+  
+};
+
 
