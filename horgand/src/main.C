@@ -94,6 +94,7 @@ int main(int argc, char *argv[])
     {"load", 1, NULL, 'l'},
     {"bank", 1, NULL, 'b'},
     {"rhyt", 1, NULL, 'r'},
+    {"no-gui", 0, NULL, 'n'},
     {"help", 0, NULL, 'h'},
     {0, 0, 0, 0}
   };
@@ -101,7 +102,7 @@ int main(int argc, char *argv[])
   
   Pexitprogram = 0;
   commandline = 0;
-
+  gui=1;
   opterr = 0;
   int option_index = 0, opt;
   exitwithhelp = 0;
@@ -109,7 +110,7 @@ int main(int argc, char *argv[])
   
   while (1)
     {
-      opt = getopt_long (argc, argv, "l:b:r:h", opts, &option_index);
+      opt = getopt_long (argc, argv, "l:b:r:nh", opts, &option_index);
       char *optarguments = optarg;
       
       if (opt == -1)
@@ -121,7 +122,9 @@ int main(int argc, char *argv[])
 	case 'h':
 	  exitwithhelp = 1;
 	  break;
-                                          
+        case 'n':
+          gui=0;
+          break;                                  
 	case 'l':
 	  if (optarguments != NULL)
 	    {
@@ -153,6 +156,7 @@ int main(int argc, char *argv[])
     {
       fprintf (stderr, "Usage: Horgand [OPTION]\n\n");
       fprintf (stderr, "  -h ,     --help \t\t\t display command-line help and exit\n");
+      fprintf (stderr, "  -n ,     --no-gui \t\t\t disable GUI\n");
       fprintf (stderr, "  -l File, --load=File \t\t\t loads sound\n");
       fprintf (stderr, "  -b File, --bank=File \t\t\t loads bank\n");
       fprintf (stderr, "  -r File, --rhyt=File \t\t\t loads rhythm\n\n");
@@ -189,7 +193,8 @@ int main(int argc, char *argv[])
 
   // Launch GUI
 
-  HORGAN *horUI  = new HORGAN(argc,argv,&hor);
+
+  if(gui) new HORGAN(argc,argv,&hor);
   
   
   // Launch MIDI thread
@@ -211,45 +216,24 @@ int main(int argc, char *argv[])
   }   
   
   
-  // Main  
+  // Main Loop 
 
   while (Pexitprogram == 0)
  { 
 
- 
-   
       // Refresh GUI
-     Fl::wait(0.01);
-      
-      // Refresh MIDI Input Level on GUI
-     if (LastMidiInLevel != MidiInLevel) horUI->VUI1->value(MidiInLevel);
-      
-      // Refresh Bar Lead of Drum Loops
-     if (hor.Rhythm_On != 0) if (BarLead != horUI->VUI2->value()) horUI->VUI2->value(BarLead);
+  if (gui) Fl::wait(0.01);
+  else
+  { 
+   usleep(1500);
+   if (preset !=0)
+    {
+      hor.Put_Combi_t(preset);
+      preset=0;
+    } 
+   }
 
-      // Refresh Chord Names
-
-      if (changeNameChord == 1) 
-      {
-       horUI->ACI->label(NameChord);
-       changeNameChord = 0;
-      }
-      // If MIDI Program Change Message arrives change preset
-
-       if (horUI->CPrograma->active())
-       {
-        if (preset != 0)
-        {
- 	  horUI->PutCombi (preset);
-	  preset = 0;
-	}
-          
-       } else preset = 0; 
-           
-       
-
-
- }
+}
 
 
     // Exit  Close Audio devices
@@ -259,11 +243,13 @@ int main(int argc, char *argv[])
     // free memory etc.
 
   free(hor.lsin);    
+  free(hor.msin);
+  free(hor.nsin);
+  free(hor.psin);
   free(hor.history);
   free(hor.buf);
   free(hor.wbuf);
   pthread_mutex_destroy (&mutex);
-  delete horUI;
 
 };
 

@@ -286,6 +286,36 @@ Fl_Menu_Item* HORGAN::MFile = HORGAN::menu_MenuPrincipal + 0;
 Fl_Menu_Item* HORGAN::MEdit = HORGAN::menu_MenuPrincipal + 11;
 Fl_Menu_Item* HORGAN::MBank = HORGAN::menu_MenuPrincipal + 16;
 
+void HORGAN::cb_MT_i(Fl_Box*, void*) {
+  // Refresh MIDI Input Level on GUI
+if (LastMidiInLevel != MidiInLevel) VUI1->value(MidiInLevel);
+
+      // Refresh Bar Lead of Drum Loops
+if (hor->Rhythm_On != 0) if (BarLead != VUI2->value()) VUI2->value(BarLead);
+
+      // Refresh Chord Names
+
+if (changeNameChord == 1)
+   {
+    ACI->label(NameChord);
+    changeNameChord = 0;
+    }
+      // If MIDI Program Change Message arrives change preset
+
+if (CPrograma->active())
+   {
+     if (preset != 0)
+        {
+          PutCombi (preset);
+          preset = 0;
+        }
+
+    } else preset = 0;
+}
+void HORGAN::cb_MT(Fl_Box* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_MT_i(o,v);
+}
+
 void HORGAN::cb_CF_i(Fl_Light_Button* o, void*) {
   if (o->value() != 0 ) {
 CL->deactivate();
@@ -3326,11 +3356,12 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelcolor((Fl_Color)208);
       o->align(FL_ALIGN_CENTER|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(385, 240, 75, 15, gettext("Master Tune"));
-      o->labelsize(10);
-      o->labelcolor((Fl_Color)208);
-      o->align(192|FL_ALIGN_INSIDE);
-    } // Fl_Box* o
+    { MT = new Fl_Box(385, 240, 75, 15, gettext("Master Tune"));
+      MT->labelsize(10);
+      MT->labelcolor((Fl_Color)208);
+      MT->callback((Fl_Callback*)cb_MT);
+      MT->align(192|FL_ALIGN_INSIDE);
+    } // Fl_Box* MT
     { Fl_Box* o = new Fl_Box(320, 240, 45, 15, gettext("Delay"));
       o->labelsize(10);
       o->labelcolor((Fl_Color)208);
@@ -5766,7 +5797,10 @@ meteritmos();
 Fl::background(163,163,163);
 HORwindow->show(argc,argv);
 put_icon(HORwindow);
-Fl::add_timeout(1.0 * 0.04,tick);
+
+void * v=MT;
+
+Fl::add_timeout(1.0 * 0.04,tick,v);
 }
 
 void HORGAN::metelo() {
@@ -5972,8 +6006,10 @@ void HORGAN::GetPrim() {
 meteprog();
 }
 
-void HORGAN::tick(void *v) {
-  Fl::add_timeout(1.0 * 0.04,tick);
+void HORGAN::tick(void* v) {
+  Fl_Box *o = (Fl_Box*)v;
+o->do_callback();
+Fl::repeat_timeout(1.0 * 0.04,tick,v);
 }
 
 void HORGAN::GetRit(int Selected_Rhythm) {

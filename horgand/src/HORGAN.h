@@ -91,6 +91,11 @@ private:
   void cb_Settings_i(Fl_Menu_*, void*);
   static void cb_Settings(Fl_Menu_*, void*);
 public:
+  Fl_Box *MT;
+private:
+  void cb_MT_i(Fl_Box*, void*);
+  static void cb_MT(Fl_Box*, void*);
+public:
   Fl_Light_Button *CF;
 private:
   void cb_CF_i(Fl_Light_Button*, void*);
@@ -1145,7 +1150,7 @@ public:
   void Actu();
   void Redo();
   void GetPrim();
-  static void tick(void *v);
+  static void tick(void* v);
   void GetRit(int Selected_Rhythm);
   void meteritmos();
   void calbtrans();

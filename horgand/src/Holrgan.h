@@ -37,7 +37,7 @@
 
 extern pthread_mutex_t mutex, m_mutex;
 extern int Pexitprogram, UndoCount, preset,MidiInLevel,LastMidiInLevel,BarLead,changeNameChord;
-extern int Signal_for_Cb_Sliders,commandline;
+extern int Signal_for_Cb_Sliders,commandline,gui;
 extern char NameChord[16];
 extern int Selected_Rhythm,exitwithhelp;
 extern Pixmap p,mask;

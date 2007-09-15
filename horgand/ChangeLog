@@ -5,6 +5,7 @@ horgand ChangeLog
 
 == v1.12 (  /  /2007) ==
 --------------------------------------------------------------------------------------------
+- Posibility to run without GUI.
 - Added Keyboard Velocity Scaling.
 - Fixed bug in Name display.
 - Added 3 waveforms more.

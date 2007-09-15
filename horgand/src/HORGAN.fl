@@ -99,7 +99,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1418 131 825 595} type Double color 33 selection_color 47 hide resizable
+      xywh {344 131 825 595} type Double color 33 selection_color 47 hide resizable
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -306,8 +306,32 @@ Fl::focus(SClose);}
         label Volume
         xywh {250 210 55 20} labelsize 10 labelcolor 208 align 16
       }
-      Fl_Box {} {
+      Fl_Box MT {
         label {Master Tune}
+        callback {// Refresh MIDI Input Level on GUI
+if (LastMidiInLevel != MidiInLevel) VUI1->value(MidiInLevel);
+
+      // Refresh Bar Lead of Drum Loops
+if (hor->Rhythm_On != 0) if (BarLead != VUI2->value()) VUI2->value(BarLead);
+
+      // Refresh Chord Names
+
+if (changeNameChord == 1)
+   {
+    ACI->label(NameChord);
+    changeNameChord = 0;
+    }
+      // If MIDI Program Change Message arrives change preset
+
+if (CPrograma->active())
+   {
+     if (preset != 0)
+        {
+          PutCombi (preset);
+          preset = 0;
+        }
+
+    } else preset = 0;}
         xywh {385 240 75 15} labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
@@ -802,7 +826,7 @@ Actu();}
           label 8
           callback {hor->a[0].Reverb_Preset = 8;
 hor->PutReverb(8);
-Actu();} selected
+Actu();}
           xywh {427 210 25 20} type Radio box PLASTIC_UP_BOX color 31 selection_color 1 labeltype ENGRAVED_LABEL labelsize 9 deactivate
         }
       }
@@ -2450,7 +2474,11 @@ meteritmos();
 Fl::background(163,163,163);
 HORwindow->show(argc,argv);
 put_icon(HORwindow);
-Fl::add_timeout(1.0 * 0.04,tick);} {}
+
+void * v=MT;
+
+Fl::add_timeout(1.0 * 0.04,tick,v);} {selected
+    }
   }
   Function {metelo()} {} {
     code {char *temp;
@@ -2653,9 +2681,11 @@ meteprog();} {}
     code {hor->MGetPrim();
 meteprog();} {}
   }
-  Function {tick(void *v)} {return_type {static void}
+  Function {tick(void* v)} {return_type {static void}
   } {
-    code {Fl::add_timeout(1.0 * 0.04,tick);} {}
+    code {Fl_Box *o = (Fl_Box*)v;
+o->do_callback();
+Fl::repeat_timeout(1.0 * 0.04,tick,v);} {}
   }
   Function {GetRit(int Selected_Rhythm)} {} {
     code {int i;

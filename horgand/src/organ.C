@@ -36,7 +36,7 @@ int i,j,l1,k,Pexitprogram, MidiInLevel, LastMidiInLevel,UndoCount,preset,Signal_
 char NameChord[16];
 int Selected_Rhythm,commandline;
 const char *FilePreset;
-int exitwithhelp;
+int exitwithhelp,gui;
 Pixmap p,mask;
 XWMHints *hints;
 
@@ -94,7 +94,7 @@ HOR::HOR()
 
 
   mastertune=1;
-  release=0.1;
+  release=0.6;
   u_release=1.0/release;
   transpose = 0;
   pitch =0.0f;
@@ -1244,7 +1244,6 @@ HOR::Alg1s (int nframes, void *)
 	      
                 if (Env_Vol>0.0f)
                    { 
-                                        
                      f[i].dphi = m_partial * (p_op[i] + LFO_Volume);
                      if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
                      f[i].phi[l2] += f[i].dphi;
