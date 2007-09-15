@@ -24,7 +24,7 @@ horgand ChangeLog
 - Remember last saved Bank.
 - Fixed bug in command line.
 - Fixed bug initiating ryhthms.
-- Default buffer 256
+- Default buffer 128 again.
 - Fixed jack crash for non-statig libxpm hints.
 
 

@@ -50,7 +50,7 @@ HOR::HOR()
   Bass_Type=0;
   TypeRecChord=0;
   Selected_Rhythm=0;
-  rperhis=130000;
+  rperhis=65100;
   capsg=0;
   cl_counter=0;
   Master_Volume=0.70;
@@ -773,7 +773,7 @@ for (j = 1; j<= 20; j++)
 
   // Allocate memory for calculated sins
 
-  size_t sizesin = (size_t) (D_PI * 1000); 
+  size_t sizesin = (size_t) (D_PI * 1000)+2; 
 
   lsin = (float *) malloc (sizeof (float) * (sizesin + 4));
   nsin = (float *) malloc (sizeof (float) * (sizesin + 4));
@@ -789,6 +789,7 @@ for (j = 1; j<= 20; j++)
    for (i = 0; i < (int) sizesin; i++)
 
     {
+
       x_sin = (float) ( i * D_PI / sizesin);
       lsin[i] =sin (x_sin);
 
@@ -831,7 +832,7 @@ for (j = 1; j<= 20; j++)
   rbuf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   bbuf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   buf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
-  history = (float *) malloc (2 * sizeof (float) * BUFSIZE * 512);
+  history = (float *) malloc (2 * sizeof (float) * BUFSIZE * 256);
 
   cldelay = (float *) malloc (sizeof  (float) * 8192);
   crdelay = (float *) malloc (sizeof (float)  * 8192); 
@@ -839,7 +840,7 @@ for (j = 1; j<= 20; j++)
 // Init Buffers
 
 
-  memset (history, 0, BUFSIZE * 1024);
+  memset (history, 0, BUFSIZE * 256);
   memset (cldelay, 0, BUFSIZE * 8);
   memset (crdelay, 0, BUFSIZE * 8);
 
@@ -1139,6 +1140,7 @@ HOR::Get_Partial (int nota)
   l = note[nota] + transpose + a[0].organ_transpose + 12;
   freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
   partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
+  if(partial>D_PI) partial= fmod(partial,D_PI);
   return(partial);
   
 
@@ -1158,12 +1160,14 @@ LFO_Frequency =  a[0].modulation * a[0].LFOpitch * D_PI_to_SAMPLE_RATE;
 float 
 HOR:: NFsin(int i,float x)
 {
-   if ( x > D_PI) x = fmod(x,D_PI);
+   int k;
+   
+   k=lrintf(x*1000.0);
 
-   if(i==1)return(lsin[(int)(x * 1000)]);
-   if(i==2)return(nsin[(int)(x * 1000)]);
-   if(i==3)return(msin[(int)(x * 1000)]);
-   if(i==4)return(psin[(int)(x * 1000)]);
+   if(i==1)return(lsin[k]);
+   if(i==2)return(nsin[k]);
+   if(i==3)return(msin[k]);
+   if(i==4)return(psin[k]);
    return 0.0;
 };
 
@@ -1178,6 +1182,7 @@ HOR::Alg1s (int nframes, void *)
 
  pthread_mutex_lock(&mutex);
   int l1, l2, i;
+  int k[11];
   float total_vol=.1;
   float sound,sound2;
   float Env_Vol=0.0f;
@@ -1194,12 +1199,13 @@ HOR::Alg1s (int nframes, void *)
   memset (buf, 0, PERIOD4);
 
     
-    for (i=1;i<=10;i++)
+    for (i=1;i<11;i++)
     
     { 
       p_op[i]=pitch_Operator(i,0);
       p_op2[i]=pitch_Operator2(i,0);
       total_vol += a[0].Operator[i].volumen*a[0].Normalize[a[0].Operator[i].harmonic];
+      k[i]=a[0].Operator[i].wave;
     }  
    
     organ_master=a[0].Organ_Master_Volume/total_vol;
@@ -1210,15 +1216,16 @@ HOR::Alg1s (int nframes, void *)
       if (note_active[l2])
 	{
 	  m_partial=Get_Partial(l2);
-          for (i=1;i<=10;i++) volume_Operator(i, l2);
-        
-          for (l1 = 0; l1 < PERIOD; l1 +=2)
+          for(i=1;i<11;i++) volume_Operator(i,l2);
+          
+                  
+          for (l1 = 0; l1< PERIOD; l1 +=2)
           {
      	    sound=0.0f;
      	    sound2=0.0f;
             Envelope_Volume[l2] = Jenvelope(&note_active[l2], gate[l2], env_time[l2], l2);        
             Perc_Volume[l2] = Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
-     	    if (env_time[l2]>0.0) LFO_Volume=Pitch_LFO(env_time[l2]);
+     	    LFO_Volume=Pitch_LFO(env_time[l2]);
      	         	   
             if (a[0].Click)
                {
@@ -1227,8 +1234,8 @@ HOR::Alg1s (int nframes, void *)
                   {
                     dcphi[l2] +=Click_sFreq;
                     dcphi2[l2] +=Click_2sFreq;
-                    if (dcphi[l2] > D_PI) dcphi[l2] = fmod(dcphi[l2],D_PI);
-                    if (dcphi2[l2] > D_PI) dcphi2[l2] = fmod(dcphi2[l2],D_PI);
+                    if (dcphi[l2] > D_PI) dcphi[l2] -= D_PI;
+                    if (dcphi2[l2] > D_PI) dcphi2[l2] -= D_PI;
                     Click_TVol=Click_Env*velocity[l2]*organ_master;
                     Am_Click=a[0].Click_Vol1*Click_TVol*NFsin(3,dcphi[l2]);
                     Am_Click+=a[0].Click_Vol2*Click_TVol*NFsin(3,dcphi2[l2]);
@@ -1236,7 +1243,7 @@ HOR::Alg1s (int nframes, void *)
                     buf[l1+1] +=Am_Click;
                    }
                }
-             for(i = 1; i <= 10; i++)
+             for(i = 1; i<11; i++)
 	      {
                  
 	        if (a[0].Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2]*a[0].Operator[i].con1;
@@ -1244,17 +1251,19 @@ HOR::Alg1s (int nframes, void *)
 	      
                 if (Env_Vol>0.0f)
                    { 
+                   
                      f[i].dphi = m_partial * (p_op[i] + LFO_Volume);
-                     if (f[i].dphi > D_PI) f[i].dphi = fmod(f[i].dphi,D_PI);
+                     if (f[i].dphi > D_PI) f[i].dphi -= D_PI;
                      f[i].phi[l2] += f[i].dphi;
-                     if (f[i].phi[l2] > D_PI) f[i].phi[l2]=fmod(f[i].phi[l2],D_PI);
+                     if (f[i].phi[l2] > D_PI) f[i].phi[l2] -=D_PI;
                     
                      f[i].dphi2 = m_partial * (p_op2[i] + LFO_Volume);
-                     if (f[i].dphi2 > D_PI) f[i].dphi2 = fmod(f[i].dphi2,D_PI);
+                     if (f[i].dphi2 > D_PI) f[i].dphi2 -= D_PI;
                      f[i].phi2[l2] += f[i].dphi2;
-                     if (f[i].phi2[l2] > D_PI) f[i].phi2[l2]=fmod(f[i].phi2[l2],D_PI);
-                     sound += Env_Vol*NFsin(a[0].Operator[i].wave,f[i].phi[l2]);
-                     sound2 +=Env_Vol*NFsin(a[0].Operator[i].wave,f[i].phi2[l2]);                  
+                     if (f[i].phi2[l2] > D_PI) f[i].phi2[l2] -=D_PI;
+                    
+                     sound += Env_Vol*NFsin(k[i],f[i].phi[l2]);
+                     sound2 += Env_Vol*NFsin(k[i],f[i].phi2[l2]);                  
                    }                
               }  
               

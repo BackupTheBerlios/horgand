@@ -29,11 +29,11 @@
 #include <sndfile.h>
 #include <X11/xpm.h>
 #include "config.h"
-#define MPERIOD  256
-#define BUFSIZE 1024
+#define MPERIOD  128
+#define BUFSIZE 512
 #define POLY 32
 #define DSAMPLE_RATE 44100
-#define D_PI 6.283184
+#define D_PI 6.283185
 
 extern pthread_mutex_t mutex, m_mutex;
 extern int Pexitprogram, UndoCount, preset,MidiInLevel,LastMidiInLevel,BarLead,changeNameChord;
@@ -234,6 +234,66 @@ public:
   int Pcin;
   int Nums;
 
+  
+struct OperatorPar
+
+ {
+ float harmonic_fine;
+ float volumen;
+ float con1;
+ int harmonic;
+ int marimba; 
+ int wave;
+ };
+     
+
+struct Todolo
+
+  { OperatorPar Operator[11];
+
+   char Name[36];
+
+   float Normalize[24];
+   float modulation;
+   float Delay_Volume;
+   float Pitch_LFO_Speed;
+   float Pitch_LFO_Delay;
+   float Rotary_LFO_Speed;
+   float LFOpitch;
+   float attack;
+   float decay;
+   float sustain;
+   float p_attack;
+   float p_decay;
+   float c_attack;
+   float c_decay;
+   float Click_Vol;
+   float Click2_Vol; 
+   float Click_Freq;
+   float Click_Freq2;
+   float Click_Vol1;
+   float Click_Vol2;
+   float detune;
+   float Organ_Master_Volume;
+   float Delay_Delay;
+   float Chorus_Delay;
+   float Chorus_LFO_Amplitude;
+   float Chorus_LFO_Speed;
+   float Chorus_Volume;
+   float Rotary_LFO_Amplitude;
+   int Speed_Sync;
+   int Click;
+   int E_Reverb_On;
+   int organ_transpose;
+   int E_Rotary_On;
+   int E_Delay_On;
+   int scaling;
+   int E_Chorus_On;
+   int Reverb_Preset;
+   char *nombre;
+
+} a[1],Banco[35], Undo[100], Prim[2];
+    
 
   
 struct Rhythm
@@ -306,69 +366,6 @@ struct Ch5
   int dist4;
 } Chord5[12];
      
-
-
- 
-  
-struct OperatorPar
-
- {
- float harmonic_fine;
- float volumen;
- float con1;
- int harmonic;
- int marimba; 
- int wave;
- };
-     
-
-struct Todolo
-
-  { OperatorPar Operator[11];
-
-   char Name[36];
-
-   float Normalize[24];
-   float modulation;
-   float Delay_Volume;
-   float Pitch_LFO_Speed;
-   float Pitch_LFO_Delay;
-   float Rotary_LFO_Speed;
-   float LFOpitch;
-   float attack;
-   float decay;
-   float sustain;
-   float p_attack;
-   float p_decay;
-   float c_attack;
-   float c_decay;
-   float Click_Vol;
-   float Click2_Vol; 
-   float Click_Freq;
-   float Click_Freq2;
-   float Click_Vol1;
-   float Click_Vol2;
-   float detune;
-   float Organ_Master_Volume;
-   float Delay_Delay;
-   float Chorus_Delay;
-   float Chorus_LFO_Amplitude;
-   float Chorus_LFO_Speed;
-   float Chorus_Volume;
-   float Rotary_LFO_Amplitude;
-   int Speed_Sync;
-   int Click;
-   int E_Reverb_On;
-   int organ_transpose;
-   int E_Rotary_On;
-   int E_Delay_On;
-   int scaling;
-   int E_Chorus_On;
-   int Reverb_Preset;
-   char *nombre;
-
-} Banco[35], Undo[100], Prim[2], a[1];
-    
   char temporal[8]; 
     
  // ALSA Audio 

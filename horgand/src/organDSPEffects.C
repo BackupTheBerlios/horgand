@@ -194,9 +194,9 @@ HOR::Effect_Reverb ()
      for (j = 0; j<16; j++)
         {
          elke = a_rperhis-a_combl[j];
-         if (elke < 0) elke += 262400;
+         if (elke < 0) elke += 131200;
          elke1 =  a_rperhis-a_combr[j];
-         if (elke1<0) elke1 +=262400;
+         if (elke1<0) elke1 +=131200;
 
          stmp += Reverb_Diffussion*ready_apsg[capsg];
          if (++capsg >15) capsg =0;
@@ -214,7 +214,7 @@ HOR::Effect_Reverb ()
       buf[i + 1] += (efxoutr * tmprvol);
                                                    
       a_rperhis +=2;
-      if (a_rperhis >262400) a_rperhis -=262400;
+      if (a_rperhis >131200) a_rperhis -=131200;
     }
 };
 
@@ -245,15 +245,15 @@ HOR::Effect_Delay()
       elke = a_rperhis - delay;    
       if (elke % 2 != 0) elke++;
       if (elke < 0)
-	elke = 262400 + elke;
+	elke = 131200 + elke;
       elke1 = elke + 1;
       if (elke1 < 0)
-	elke1 = 262400 + elke1;
+	elke1 = 131200 + elke1;
 
       buf[i] +=  (history[elke] * Delay_Volumel * .5);
       buf[i + 1] +=(history[elke1] * Delay_Volumer * .5);
       a_rperhis +=2;
-      if (a_rperhis > 262400) a_rperhis -= 262400; 
+      if (a_rperhis > 131200) a_rperhis -= 131200; 
 
     }
 
@@ -295,7 +295,7 @@ int i;
       for (i=0; i< PERIOD; i++) 
        {
          history[rperhis] = buf[i];
-         if (++rperhis > 262400) rperhis = 0;
+         if (++rperhis > 131200) rperhis = 0;
        }
 
 

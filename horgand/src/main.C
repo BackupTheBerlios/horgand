@@ -53,8 +53,9 @@ void pon_realtime()
 void *
 thread1 (void *arg)
 {
-  pon_realtime();
-  while (Pexitprogram ==0) 
+pon_realtime(); 
+
+while (Pexitprogram ==0)
    {
    pthread_mutex_lock(&m_mutex);
    hor.midievents(1);

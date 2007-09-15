@@ -628,7 +628,7 @@ void HORGAN::cb_EchoVol(Fl_Counter* o, void* v) {
 }
 
 void HORGAN::cb_EchoDelay_i(Fl_Counter* o, void*) {
-  hor->a[0].Delay_Delay = (float) o->value() * 131200;
+  hor->a[0].Delay_Delay = (float) o->value() * 65100;
 Actu();
 }
 void HORGAN::cb_EchoDelay(Fl_Counter* o, void* v) {

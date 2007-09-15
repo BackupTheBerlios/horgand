@@ -620,8 +620,8 @@ Actu();}
         xywh {310 285 65 20} type Simple labelcolor 208 when 4 minimum 0 maximum 99 step 1
       }
       Fl_Counter EchoDelay {
-        callback {hor->a[0].Delay_Delay = (float) o->value() * 131200;
-Actu();}
+        callback {hor->a[0].Delay_Delay = (float) o->value() * 65100;
+Actu();} selected
         xywh {310 255 65 20} type Simple labelcolor 208 when 4 minimum 0 maximum 1 step 0.01
       }
       Fl_Slider H1 {
@@ -2477,8 +2477,7 @@ put_icon(HORwindow);
 
 void * v=MT;
 
-Fl::add_timeout(1.0 * 0.04,tick,v);} {selected
-    }
+Fl::add_timeout(1.0 * 0.04,tick,v);} {}
   }
   Function {metelo()} {} {
     code {char *temp;
