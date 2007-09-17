@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
 
   if (exitwithhelp != 0)
     {
-      fprintf (stderr, "Usage: Horgand [OPTION]\n\n");
+      fprintf (stderr, "Usage: horgand [OPTION]\n\n");
       fprintf (stderr, "  -h ,     --help \t\t\t display command-line help and exit\n");
       fprintf (stderr, "  -n ,     --no-gui \t\t\t disable GUI\n");
       fprintf (stderr, "  -l File, --load=File \t\t\t loads sound\n");
