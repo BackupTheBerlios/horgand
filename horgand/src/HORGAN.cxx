@@ -311,6 +311,15 @@ if (CPrograma->active())
         }
 
     } else preset = 0;
+    
+    
+if (hor->cambiaDriver)
+   {
+      
+   DMIN2->do_callback();   
+   hor->cambiaDriver=0;   
+      
+   };
 }
 void HORGAN::cb_MT(Fl_Box* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_MT_i(o,v);

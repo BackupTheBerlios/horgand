@@ -45,6 +45,7 @@ HOR::HOR()
 {
 
   //Init de vars
+  cambiaDriver=0;
   Nums=0;
   commandline=0;
   Bass_Type=0;
@@ -1161,7 +1162,7 @@ float
 HOR:: NFsin(int i,float x)
 {
    int k;
-   
+
    k=lrintf(x*1000.0);
 
    if(i==1)return(lsin[k]);
@@ -1182,22 +1183,22 @@ HOR::Alg1s (int nframes, void *)
 
  pthread_mutex_lock(&mutex);
   int l1, l2, i;
-  int k[11];
-  float total_vol=.1;
+//  int k[11];
+//  float total_vol=.1;
   float sound,sound2;
   float Env_Vol=0.0f;
   float Am_Click=0.0f;
   float Click_TVol=0.0f;
   float Click_Env=0.0f;
-  float Click_sFreq=a[0].Click_Freq*D_PI_to_SAMPLE_RATE;
-  float Click_2sFreq=a[0].Click_Freq2*D_PI_to_SAMPLE_RATE;
+//  float Click_sFreq=a[0].Click_Freq*D_PI_to_SAMPLE_RATE;
+//  float Click_2sFreq=a[0].Click_Freq2*D_PI_to_SAMPLE_RATE;
   float m_partial;
-  float p_op[11];
-  float p_op2[11];
-  float organ_master=a[0].Organ_Master_Volume*.1;
+//  float p_op[11];
+//  float p_op2[11];
+//  float organ_master=a[0].Organ_Master_Volume*.1;
 
   memset (buf, 0, PERIOD4);
-
+/*
     
     for (i=1;i<11;i++)
     
@@ -1209,6 +1210,8 @@ HOR::Alg1s (int nframes, void *)
     }  
    
     organ_master=a[0].Organ_Master_Volume/total_vol;
+*/
+
 
     for (l2 = 0; l2 < POLY; l2++)
     {
@@ -1234,8 +1237,8 @@ HOR::Alg1s (int nframes, void *)
                   {
                     dcphi[l2] +=Click_sFreq;
                     dcphi2[l2] +=Click_2sFreq;
-                    if (dcphi[l2] > D_PI) dcphi[l2] -= D_PI;
-                    if (dcphi2[l2] > D_PI) dcphi2[l2] -= D_PI;
+                    if(dcphi[l2]>D_PI) dcphi[l2] -= D_PI;
+                    if(dcphi2[l2]>D_PI) dcphi2[l2] -= D_PI;
                     Click_TVol=Click_Env*velocity[l2]*organ_master;
                     Am_Click=a[0].Click_Vol1*Click_TVol*NFsin(3,dcphi[l2]);
                     Am_Click+=a[0].Click_Vol2*Click_TVol*NFsin(3,dcphi2[l2]);
@@ -1253,15 +1256,15 @@ HOR::Alg1s (int nframes, void *)
                    { 
                    
                      f[i].dphi = m_partial * (p_op[i] + LFO_Volume);
-                     if (f[i].dphi > D_PI) f[i].dphi -= D_PI;
+                     if(f[i].dphi>D_PI) f[i].dphi -= D_PI;
                      f[i].phi[l2] += f[i].dphi;
-                     if (f[i].phi[l2] > D_PI) f[i].phi[l2] -=D_PI;
-                    
+                     if(f[i].phi[l2]>D_PI) f[i].phi[l2] -= D_PI;
+
                      f[i].dphi2 = m_partial * (p_op2[i] + LFO_Volume);
-                     if (f[i].dphi2 > D_PI) f[i].dphi2 -= D_PI;
+                     if(f[i].dphi2>D_PI) f[i].dphi2 -= D_PI; 
                      f[i].phi2[l2] += f[i].dphi2;
-                     if (f[i].phi2[l2] > D_PI) f[i].phi2[l2] -=D_PI;
-                    
+                     if(f[i].phi2[l2]>D_PI) f[i].phi2[l2] -= D_PI;                    
+
                      sound += Env_Vol*NFsin(k[i],f[i].phi[l2]);
                      sound2 += Env_Vol*NFsin(k[i],f[i].phi2[l2]);                  
                    }                

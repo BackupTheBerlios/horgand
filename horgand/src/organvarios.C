@@ -364,6 +364,7 @@ HOR::MActu()
 UndoCount++;
 if (UndoCount == 95) UndoCount = 0;
 Undo[UndoCount]=a[0];
+syncadsr();
 };
 
 
@@ -407,11 +408,10 @@ void
 HOR::syncadsr()
 {
 
+int i;
 
- memset(f ,0, sizeof f);
- 
-
- memset (dcphi ,0,sizeof dcphi);
+// memset(f ,0, sizeof f);
+// memset (dcphi ,0,sizeof dcphi);
  
   
  u_attack = 1.0 /a[0].attack;
@@ -422,7 +422,29 @@ HOR::syncadsr()
  u_c_decay = 1.0 / a[0].c_decay;
 
 
- 
+
+total_vol=.1;
+organ_master=a[0].Organ_Master_Volume*.1;
+
+
+for (i=1;i<11;i++)
+
+    {
+      p_op[i]=pitch_Operator(i,0);
+      p_op2[i]=pitch_Operator2(i,0);
+      total_vol += a[0].Operator[i].volumen*a[0].Normalize[a[0].Operator[i].harmonic];
+      k[i]=a[0].Operator[i].wave;
+    }
+
+    organ_master=a[0].Organ_Master_Volume/total_vol;
+
+Click_sFreq=a[0].Click_Freq*D_PI_to_SAMPLE_RATE;
+Click_2sFreq=a[0].Click_Freq2*D_PI_to_SAMPLE_RATE;
+
+
+
+
+
 };
 
 

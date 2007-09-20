@@ -212,7 +212,14 @@ int main(int argc, char *argv[])
 
   if (hor.Salida==3)
   {
-     JACKstart(&hor);
+     hor.Salida=JACKstart(&hor);
+     if (hor.Salida==2)
+        {
+          hor.alsaaudioprepare();
+          pthread_create (&thr2, NULL, thread2, NULL);
+          hor.cambiaDriver=1;
+        }       
+
      hor.Adjust_Audio();
   }   
   

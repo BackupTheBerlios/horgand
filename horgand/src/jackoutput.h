@@ -28,7 +28,7 @@
 
 #include "Holrgan.h"
 
-void JACKstart(HOR *hor_);
+int JACKstart(HOR *hor_);
 void JACKfinish();
 
 #endif

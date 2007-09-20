@@ -280,6 +280,9 @@ HOR::Effect_Delay()
 void
 HOR::Clean_Buffer_Effects()
 {
+
+memset(f ,0, sizeof f);
+memset (dcphi ,0,sizeof dcphi);
 memset (history, 0, BUFSIZE * 1024);
 memset (cldelay,0,BUFSIZE * 8);
 memset (crdelay,0,BUFSIZE * 8);

@@ -115,6 +115,16 @@ public:
   void Adjust_Audio();
   void PutReverb(int i);
   snd_seq_t *midi_in;
+
+
+  float Click_sFreq;
+  float Click_2sFreq;
+  float total_vol;    
+  float organ_master;
+  float p_op[11];
+  float p_op2[11];
+  int k[11];   
+
   
   float ldelay,rdelay;
   float *lsin;
@@ -233,7 +243,7 @@ public:
   int Ccin;
   int Pcin;
   int Nums;
-
+  int cambiaDriver;
   
 struct OperatorPar
 

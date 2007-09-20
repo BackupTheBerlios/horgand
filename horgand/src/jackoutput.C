@@ -39,7 +39,7 @@ HOR *JackOUT;
 
 
 
-void
+int
 JACKstart(HOR *hor_)
 {
 
@@ -47,8 +47,8 @@ JACKstart(HOR *hor_)
   jackclient = jack_client_new ("Horgand");
   if (jackclient == 0)
     {
-      fprintf (stderr, "Cannot make a jack client\n");
-      exit (1);
+      fprintf (stderr, "Cannot make a jack client, back to Alsa\n");
+      return (2);
     };
   JackOUT->SAMPLE_RATE=DSAMPLE_RATE;
   fprintf (stderr, "Internal SampleRate   = %d\nJack Output SampleRate= %d\n",
@@ -73,8 +73,8 @@ JACKstart(HOR *hor_)
 
   if (jack_activate (jackclient))
     {
-      fprintf (stderr, "Cannot activate jack client\n");
-      exit (1);
+      fprintf (stderr, "Cannot activate jack client, back to Alsa\n");
+      return (2);
     };
 
   jack_connect (jackclient, jack_port_name (outport_left),
@@ -84,6 +84,8 @@ JACKstart(HOR *hor_)
 
 
   pthread_mutex_init (&jmutex, NULL);
+  
+  return 3;
 
 };
 

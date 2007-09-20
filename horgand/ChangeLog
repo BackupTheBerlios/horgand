@@ -3,7 +3,16 @@ horgand ChangeLog
 
 
 
-== v1.12 (  /  /2007) ==
+== v1.14 (  /  /2007) ==
+-------------------------------------------------------------------------------------------
+- Back to Alsa if JACK was not started.
+- Optimized code, less CPU usage    
+
+
+
+
+
+== v1.12 (17/09/2007) ==
 --------------------------------------------------------------------------------------------
 - Posibility to run without GUI.
 - Added Keyboard Velocity Scaling.

@@ -331,7 +331,16 @@ if (CPrograma->active())
           preset = 0;
         }
 
-    } else preset = 0;}
+    } else preset = 0;
+    
+    
+if (hor->cambiaDriver)
+   {
+      
+   DMIN2->do_callback();   
+   hor->cambiaDriver=0;   
+      
+   }} selected
         xywh {385 240 75 15} labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
@@ -621,7 +630,7 @@ Actu();}
       }
       Fl_Counter EchoDelay {
         callback {hor->a[0].Delay_Delay = (float) o->value() * 65100;
-Actu();} selected
+Actu();}
         xywh {310 255 65 20} type Simple labelcolor 208 when 4 minimum 0 maximum 1 step 0.01
       }
       Fl_Slider H1 {
