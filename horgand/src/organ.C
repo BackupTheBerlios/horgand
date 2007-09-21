@@ -991,11 +991,11 @@ return (lasfreq[a[0].Operator[i].harmonic] - a[0].Operator[i].harmonic_fine);
 
 // Returns The FM Operator Volume 
 
-float
+void
 HOR::volume_Operator (int i, int l2)
 {
   a[0].Operator[i].con1 = a[0].Operator[i].volumen * velocity[l2] * a[0].Normalize[a[0].Operator[i].harmonic];
-  return(a[0].Operator[i].con1);
+  
 };
 
 
@@ -1163,6 +1163,8 @@ HOR:: NFsin(int i,float x)
 {
    int k;
 
+   if(x>D_PI) x=fmod(x,D_PI);
+
    k=lrintf(x*1000.0);
 
    if(i==1)return(lsin[k]);
@@ -1189,10 +1191,8 @@ HOR::Alg1s (int nframes, void *)
   float Click_TVol=0.0f;
   float Click_Env=0.0f;
   float m_partial;
-  float vo[11];
-  int ma[11];
-  float cv1=a[0].Click_Vol1;
-  float cv2=a[0].Click_Vol2;
+  
+  
   memset (buf, 0, PERIOD4);
 
     for (l2 = 0; l2 < POLY; l2++)
@@ -1201,11 +1201,8 @@ HOR::Alg1s (int nframes, void *)
       if (note_active[l2])
 	{
 	  m_partial=Get_Partial(l2);
-          for(i=1;i<=10;i++)
-          {
-           vo[i]=volume_Operator(i,l2);
-           ma[i]=a[0].Operator[i].marimba;
-          } 
+          for(i=1;i<=10;i++) volume_Operator(i,l2);
+           
                   
           for (l1 = 0; l1< PERIOD; l1 +=2)
           {
@@ -1225,8 +1222,8 @@ HOR::Alg1s (int nframes, void *)
                     if(dcphi[l2]>D_PI) dcphi[l2] -= D_PI;
                     if(dcphi2[l2]>D_PI) dcphi2[l2] -= D_PI;
                     Click_TVol=Click_Env*velocity[l2]*organ_master;
-                    Am_Click=cv1*Click_TVol*NFsin(3,dcphi[l2]);
-                    Am_Click+=cv2*Click_TVol*NFsin(3,dcphi2[l2]);
+                    Am_Click=a[0].Click_Vol1*Click_TVol*NFsin(3,dcphi[l2]);
+                    Am_Click+=a[0].Click_Vol2*Click_TVol*NFsin(3,dcphi2[l2]);
                     buf[l1] +=Am_Click;
                     buf[l1+1] +=Am_Click;
                    }
@@ -1234,8 +1231,8 @@ HOR::Alg1s (int nframes, void *)
              for(i = 1; i<11; i++)
 	      {
                  
-	        if (ma[i]==0) Env_Vol=Envelope_Volume[l2]*vo[i];
-                     else Env_Vol=Perc_Volume[l2]*vo[i]; 
+	        if (a[0].Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2]*a[0].Operator[i].con1;
+                     else Env_Vol=Perc_Volume[l2]*a[0].Operator[i].con1; 
 	      
                 if (Env_Vol>0.0f)
                    { 

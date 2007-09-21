@@ -234,8 +234,8 @@ HOR::Effect_Delay()
 
   voll = 1 - Stereo_Side;
   volr = 1 - voll;
-  Delay_Volumel = voll * a[0].Delay_Volume;
-  Delay_Volumer = volr * a[0].Delay_Volume;
+  Delay_Volumel = voll * a[0].Delay_Volume*.5;
+  Delay_Volumer = volr * a[0].Delay_Volume*.5;
 
 
   
@@ -250,8 +250,8 @@ HOR::Effect_Delay()
       if (elke1 < 0)
 	elke1 = 131200 + elke1;
 
-      buf[i] +=  (history[elke] * Delay_Volumel * .5);
-      buf[i + 1] +=(history[elke1] * Delay_Volumer * .5);
+      buf[i] +=  (history[elke] * Delay_Volumel);
+      buf[i + 1] +=(history[elke1] * Delay_Volumer);
       a_rperhis +=2;
       if (a_rperhis > 131200) a_rperhis -= 131200; 
 

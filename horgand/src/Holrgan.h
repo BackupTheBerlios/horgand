@@ -68,7 +68,7 @@ public:
   void midievents (int i);
   float pitch_Operator(int i, int note);      
   float pitch_Operator2(int i, int note);      
-  float volume_Operator(int i, int note);
+  void volume_Operator(int i, int note);
   float Get_Keyb_Level_Scaling(int nota);
   void Effect_Delay();
   void Effect_Reverb();
@@ -114,137 +114,18 @@ public:
   void init_hor();
   void Adjust_Audio();
   void PutReverb(int i);
-  snd_seq_t *midi_in;
 
 
-  float Click_sFreq;
-  float Click_2sFreq;
-  float total_vol;    
-  float organ_master;
-  float p_op[11];
-  float p_op2[11];
-  int k[11];   
+  struct freqVarios
+  {   
+    float phi[POLY];
+    float dphi;
+    float phi2[POLY];
+    float dphi2; 
+  } f[11];
 
   
-  float ldelay,rdelay;
-  float *lsin;
-  float *nsin;
-  float *msin;
-  float *psin;
-  float *buf;
-  short *wbuf;
-  float *rbuf;
-  float *bbuf;
-  float *history;
-  float *cldelay;
-  float *crdelay;
-  float release;
-  float p_release;
-  float u_attack;
-  float u_p_attack;
-  float u_decay;
-  float u_p_decay;
-  float u_release;
-  float u_p_release;
-  float u_c_attack;
-  float u_c_decay;
-  float dcphi[POLY];
-  float dcphi2[POLY];
-  int PERIOD;
-  unsigned int SAMPLE_RATE;
-  int PERIOD2;
-  int PERIOD4;
-  int PERIOD8;
-  float velocity[POLY];
-  float pitch;
-  float env_time[POLY];
-  int  note[POLY];
-  int rnote[POLY];
-  int  gate[POLY];
-  float Envelope_Volume[POLY];
-  float Perc_Volume[POLY];
-  int  note_active[POLY];
-  float  mastertune;
-  float lasfreq[24];
-  float  Master_Volume;
-  int pedal;
-  int rperhis;
-  int transpose;
-  float Stereo_Side; 
-  int To_Stereo_Side;
-  float LFO_Volume;
-  float LFO_Frequency;
-  float Rotary_LFO_Frequency;
-  float Rotary_X;
-  float Chorus_X_R;
-  float Chorus_X_L;
-  float Chorus_LFO_Frequency;
-  int cl_counter;
-  int Salida;
-  int split;
-  float increment;
-  float D_PI_to_SAMPLE_RATE; 
-  int Reverb_Time;
-  float Reverb_Diffussion;
-  float Reverb_Volume;
-  int combl[16];
-  int combr[16];
-  int a_combl[16];
-  int a_combr[16];
-  int apsg[16];
-  float ready_apsg[16];
-  int capsg;         
-  int apss;
-  int Bass_On;
-  int Rhythm_On;
-  float Bass_Volume;
-  float Rhythm_Volume;
-  float tempo;                  
-  int Samples_Readed;
-  int Line_Bass_Note[66];
-  int Line_Bass_Velocity[66];
-  int frame_total_size;
-  int fractional_position;
-  int basspending;
-  // pos means musical subdivision 1/16 position
-  int pos;
-  // lpos meas last musical subdivision 1/16 checked for bass line
-  int lpos;    
-  int bass_note;
-  float length_bass_note;
-  float frames_bass;
-  int chord;  
-  int fundamental;
-  float bass_velocity;
-  int bars;
-  int quarter_note;
-  int chord_type;
-  int Num_Rhythm;  
-  int bass_transpose;
-  int bmt;
-  int cpreset;
-  //ae means the selected rhythm
-  int ae;
-  int pattern_bars;
-  int file_ok;
-  int TypeRecChord;
-  int Bass_Type;
-  char SavedBank[128];
-  char BankFilename[128];
-  char RhythmFilename[128];
-  SNDFILE *infile;
-  SF_INFO sfinfo;
-  SNDFILE *infileb;
-  SF_INFO sfinfob;
-  char MID[128];
-  int IsCoIn;
-  int Cyoin;
-  int Pyoin;
-  int Ccin;
-  int Pcin;
-  int Nums;
-  int cambiaDriver;
-  
+    
 struct OperatorPar
 
  {
@@ -302,9 +183,163 @@ struct Todolo
    int Reverb_Preset;
    char *nombre;
 
-} a[1],Banco[35], Undo[100], Prim[2];
-    
+} a[1];
 
+
+  float increment;
+  float D_PI_to_SAMPLE_RATE; 
+  float ldelay,rdelay;
+  float *lsin;
+  float *nsin;
+  float *msin;
+  float *psin;
+  float *buf;
+  short *wbuf;
+  float *rbuf;
+  float *bbuf;
+  float *history;
+  float *cldelay;
+  float *crdelay;
+  float release;
+  float p_release;
+  float u_attack;
+  float u_p_attack;
+  float u_decay;
+  float u_p_decay;
+  float u_release;
+  float u_p_release;
+  float u_c_attack;
+  float u_c_decay;
+  float dcphi[POLY];
+  float dcphi2[POLY];
+  float velocity[POLY];
+  float pitch;
+  float env_time[POLY];
+  float Envelope_Volume[POLY];
+  float Perc_Volume[POLY];
+  float  mastertune;
+  float lasfreq[24];
+  float  Master_Volume;
+  float Stereo_Side; 
+  float LFO_Volume;
+  float LFO_Frequency;
+  float Rotary_LFO_Frequency;
+  float Rotary_X;
+  float Chorus_X_R;
+  float Chorus_X_L;
+  float Chorus_LFO_Frequency;
+  float Reverb_Diffussion;
+  float Reverb_Volume;
+  float ready_apsg[16];
+  float Bass_Volume;
+  float Rhythm_Volume;
+  float tempo;                  
+  float length_bass_note;
+  float frames_bass;
+  float bass_velocity;
+  float Click_sFreq;
+  float Click_2sFreq;
+  float total_vol;    
+  float organ_master;
+  float p_op[11];
+  float p_op2[11];
+
+ // ALSA Seq
+
+  snd_seq_t *midi_in;
+    
+ // ALSA Audio 
+  
+  snd_pcm_t *playback_handle;
+  snd_pcm_hw_params_t *hw_params;
+  snd_pcm_sw_params_t *sw_params;
+                
+
+
+// OSS Audio
+
+  int snd_handle;
+  int snd_fragment;
+  int snd_stereo;
+  int snd_format;
+  int snd_samplerate;
+  short int *smps;    
+  int k[11];   
+  int PERIOD;
+  unsigned int SAMPLE_RATE;
+  int PERIOD2;
+  int PERIOD4;
+  int PERIOD8;
+  int  note[POLY];
+  int rnote[POLY];
+  int  gate[POLY];
+  int  note_active[POLY];
+  int pedal;
+  int rperhis;
+  int transpose;
+  int To_Stereo_Side;
+  int cl_counter;
+  int Salida;
+  int split;
+  int Reverb_Time;
+  int combl[16];
+  int combr[16];
+  int a_combl[16];
+  int a_combr[16];
+  int apsg[16];
+  int capsg;         
+  int apss;
+  int Bass_On;
+  int Rhythm_On;
+  int Samples_Readed;
+  int Line_Bass_Note[66];
+  int Line_Bass_Velocity[66];
+  int frame_total_size;
+  int fractional_position;
+  int basspending;
+  // pos means musical subdivision 1/16 position
+  int pos;
+  // lpos meas last musical subdivision 1/16 checked for bass line
+  int lpos;    
+  int bass_note;
+  int chord;  
+  int fundamental;
+  int bars;
+  int quarter_note;
+  int chord_type;
+  int Num_Rhythm;  
+  int bass_transpose;
+  int bmt;
+  int cpreset;
+  //ae means the selected rhythm
+  int ae;
+  int pattern_bars;
+  int file_ok;
+  int TypeRecChord;
+  int Bass_Type;
+  char SavedBank[128];
+  char BankFilename[128];
+  char RhythmFilename[128];
+  SNDFILE *infile;
+  SF_INFO sfinfo;
+  SNDFILE *infileb;
+  SF_INFO sfinfob;
+  char MID[128];
+  int IsCoIn;
+  int Cyoin;
+  int Pyoin;
+  int Ccin;
+  int Pcin;
+  int Nums;
+  int cambiaDriver;
+
+  struct Menoscalculos
+  
+  { 
+    float f1,f2,f3;
+  }  h[192];
+
+Todolo Banco[34], Undo[100], Prim[2];
   
 struct Rhythm
 {
@@ -351,7 +386,7 @@ struct Ch3
  int fund;
  int dist1;
  int dist2;
-} Chord3[15];
+} Chord3[16];
 
 struct Ch4
 
@@ -377,48 +412,6 @@ struct Ch5
 } Chord5[12];
      
   char temporal[8]; 
-    
- // ALSA Audio 
-  
-  snd_pcm_t *playback_handle;
-  snd_pcm_hw_params_t *hw_params;
-  snd_pcm_sw_params_t *sw_params;
-                
-
-
-// OSS Audio
-
-  int snd_handle;
-  int snd_fragment;
-  int snd_stereo;
-  int snd_format;
-  int snd_samplerate;
-  short int *smps;    
-  
-
-
-  struct freqVarios
-
-  {   
-    float phi[POLY];
-    float dphi;
-    float phi2[POLY];
-    float dphi2; 
-    
-
-
-  } f[11];
-  
-
-
-  struct Menoscalculos
-  
-  { 
-    float f1,f2,f3;
-  }  h[192];
-
-
-
 
   struct NombreBancoPos
   
