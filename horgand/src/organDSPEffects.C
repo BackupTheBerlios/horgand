@@ -63,11 +63,11 @@ HOR::Effect_Chorus()
 {
 
   int elkel,elkel2;
-  float ch_delay= a[0].Chorus_Delay*SAMPLE_RATE/10000.0*3.0;
+  float ch_delay= a[0].Chorus_Delay*SAMPLE_RATE*.0003;
   float ldelay1,rdelay1,dell,valorl;
   int i;
   float chor_vol=a[0].Chorus_Volume*.5;
-  float ms=SAMPLE_RATE/1000.0;
+  float ms=SAMPLE_RATE*.001;
   float dllo;
     
     

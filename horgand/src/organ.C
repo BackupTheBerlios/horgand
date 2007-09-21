@@ -991,11 +991,11 @@ return (lasfreq[a[0].Operator[i].harmonic] - a[0].Operator[i].harmonic_fine);
 
 // Returns The FM Operator Volume 
 
-void
+float
 HOR::volume_Operator (int i, int l2)
 {
   a[0].Operator[i].con1 = a[0].Operator[i].volumen * velocity[l2] * a[0].Normalize[a[0].Operator[i].harmonic];
-  
+  return(a[0].Operator[i].con1);
 };
 
 
@@ -1183,35 +1183,17 @@ HOR::Alg1s (int nframes, void *)
 
  pthread_mutex_lock(&mutex);
   int l1, l2, i;
-//  int k[11];
-//  float total_vol=.1;
   float sound,sound2;
   float Env_Vol=0.0f;
   float Am_Click=0.0f;
   float Click_TVol=0.0f;
   float Click_Env=0.0f;
-//  float Click_sFreq=a[0].Click_Freq*D_PI_to_SAMPLE_RATE;
-//  float Click_2sFreq=a[0].Click_Freq2*D_PI_to_SAMPLE_RATE;
   float m_partial;
-//  float p_op[11];
-//  float p_op2[11];
-//  float organ_master=a[0].Organ_Master_Volume*.1;
-
+  float vo[11];
+  int ma[11];
+  float cv1=a[0].Click_Vol1;
+  float cv2=a[0].Click_Vol2;
   memset (buf, 0, PERIOD4);
-/*
-    
-    for (i=1;i<11;i++)
-    
-    { 
-      p_op[i]=pitch_Operator(i,0);
-      p_op2[i]=pitch_Operator2(i,0);
-      total_vol += a[0].Operator[i].volumen*a[0].Normalize[a[0].Operator[i].harmonic];
-      k[i]=a[0].Operator[i].wave;
-    }  
-   
-    organ_master=a[0].Organ_Master_Volume/total_vol;
-*/
-
 
     for (l2 = 0; l2 < POLY; l2++)
     {
@@ -1219,8 +1201,11 @@ HOR::Alg1s (int nframes, void *)
       if (note_active[l2])
 	{
 	  m_partial=Get_Partial(l2);
-          for(i=1;i<11;i++) volume_Operator(i,l2);
-          
+          for(i=1;i<=10;i++)
+          {
+           vo[i]=volume_Operator(i,l2);
+           ma[i]=a[0].Operator[i].marimba;
+          } 
                   
           for (l1 = 0; l1< PERIOD; l1 +=2)
           {
@@ -1240,8 +1225,8 @@ HOR::Alg1s (int nframes, void *)
                     if(dcphi[l2]>D_PI) dcphi[l2] -= D_PI;
                     if(dcphi2[l2]>D_PI) dcphi2[l2] -= D_PI;
                     Click_TVol=Click_Env*velocity[l2]*organ_master;
-                    Am_Click=a[0].Click_Vol1*Click_TVol*NFsin(3,dcphi[l2]);
-                    Am_Click+=a[0].Click_Vol2*Click_TVol*NFsin(3,dcphi2[l2]);
+                    Am_Click=cv1*Click_TVol*NFsin(3,dcphi[l2]);
+                    Am_Click+=cv2*Click_TVol*NFsin(3,dcphi2[l2]);
                     buf[l1] +=Am_Click;
                     buf[l1+1] +=Am_Click;
                    }
@@ -1249,8 +1234,8 @@ HOR::Alg1s (int nframes, void *)
              for(i = 1; i<11; i++)
 	      {
                  
-	        if (a[0].Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2]*a[0].Operator[i].con1;
-                     else Env_Vol=Perc_Volume[l2]*a[0].Operator[i].con1; 
+	        if (ma[i]==0) Env_Vol=Envelope_Volume[l2]*vo[i];
+                     else Env_Vol=Perc_Volume[l2]*vo[i]; 
 	      
                 if (Env_Vol>0.0f)
                    { 
