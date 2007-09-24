@@ -124,7 +124,7 @@ void HORGAN::cb_Load(Fl_Menu_* o, void* v) {
 void HORGAN::cb_Save_i(Fl_Menu_*, void*) {
   char *filename;
 #define EXT ".hor"
-filename=fl_file_chooser("Preset Save:","(*"EXT")",NULL,0);
+filename=fl_file_chooser("Preset Save:","(*"EXT")",hor->a[0].Name,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 #undef EXT

@@ -99,7 +99,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {344 131 825 595} type Double color 33 selection_color 47 hide resizable
+      xywh {1440 72 825 595} type Double color 33 selection_color 47 resizable visible
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -174,12 +174,12 @@ PutLoaded();}
             label {&Save...}
             callback {char *filename;
 \#define EXT ".hor"
-filename=fl_file_chooser("Preset Save:","(*"EXT")",NULL,0);
+filename=fl_file_chooser("Preset Save:","(*"EXT")",hor->a[0].Name,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->savefile(filename);
-hor->PutPrim();}
+hor->PutPrim();} selected
             xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
@@ -340,7 +340,7 @@ if (hor->cambiaDriver)
    DMIN2->do_callback();   
    hor->cambiaDriver=0;   
       
-   }} selected
+   }}
         xywh {385 240 75 15} labelsize 10 labelcolor 208 align 208
       }
       Fl_Box {} {
