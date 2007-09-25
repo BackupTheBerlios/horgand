@@ -643,6 +643,10 @@ private:
   static Fl_Menu_Item menu_[];
 public:
   static Fl_Menu_Item *BFile;
+private:
+  void cb_New1_i(Fl_Menu_*, void*);
+  static void cb_New1(Fl_Menu_*, void*);
+public:
   static Fl_Menu_Item *BLoad;
 private:
   void cb_BLoad_i(Fl_Menu_*, void*);

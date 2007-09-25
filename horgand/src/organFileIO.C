@@ -564,15 +564,15 @@ HOR::ReadNames(char *filename,char *bankname)
      } 
 
   k=36;
-  if (Data_Version>=1.12) k=37;
-
+  if (Data_Version>=1.12) k=47;
+ 
+  
   for (j = 1; j <= 32; j++)
     {
       for (i = 1; i <= k; i++)
 	{
 	  bzero (buf, sizeof (buf));
 	  fgets (buf, sizeof buf, fn);
-
 	}
 
 
@@ -631,7 +631,7 @@ HOR::LoadSoundBank(int Num)
 
   j=1;
   k=38;
-  if (Data_Version>=1.12) k=39;
+  if (Data_Version>=1.12) k=49;
   while (j < NBP[Num].pos)
     {
     

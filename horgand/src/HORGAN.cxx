@@ -2272,6 +2272,15 @@ void HORGAN::cb_BClose(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_BClose_i(o,v);
 }
 
+void HORGAN::cb_New1_i(Fl_Menu_*, void*) {
+  hor->New_Bank();
+metebanco();
+Undo();
+}
+void HORGAN::cb_New1(Fl_Menu_* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_New1_i(o,v);
+}
+
 void HORGAN::cb_BLoad_i(Fl_Menu_*, void*) {
   char *filename;
 filename=fl_file_chooser("Bank Load:","(*.horeb)",NULL,0);
@@ -2307,6 +2316,7 @@ void HORGAN::cb_Close(Fl_Menu_* o, void* v) {
 
 Fl_Menu_Item HORGAN::menu_[] = {
  {gettext("&File"), 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {gettext("New"), 0,  (Fl_Callback*)HORGAN::cb_New1, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {gettext("&Load Bank"), 0,  (Fl_Callback*)HORGAN::cb_BLoad, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {gettext("&Save Bank"), 0,  (Fl_Callback*)HORGAN::cb_BSave, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {gettext("&Close"), 0,  (Fl_Callback*)HORGAN::cb_Close, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -2314,8 +2324,8 @@ Fl_Menu_Item HORGAN::menu_[] = {
  {0,0,0,0,0,0,0,0,0}
 };
 Fl_Menu_Item* HORGAN::BFile = HORGAN::menu_ + 0;
-Fl_Menu_Item* HORGAN::BLoad = HORGAN::menu_ + 1;
-Fl_Menu_Item* HORGAN::BSave = HORGAN::menu_ + 2;
+Fl_Menu_Item* HORGAN::BLoad = HORGAN::menu_ + 2;
+Fl_Menu_Item* HORGAN::BSave = HORGAN::menu_ + 3;
 
 void HORGAN::cb_Banco1_i(Fl_Button* o, void*) {
   if (Fl::event_button()==3) GetCombi(1);

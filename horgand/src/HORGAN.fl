@@ -99,7 +99,7 @@ class HORGAN {} {
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1440 72 825 595} type Double color 33 selection_color 47 resizable visible
+      xywh {1440 72 825 595} type Double color 33 selection_color 47 hide resizable
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -179,7 +179,7 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->savefile(filename);
-hor->PutPrim();} selected
+hor->PutPrim();}
             xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
@@ -1467,6 +1467,13 @@ Fl::focus(PANICO);}
           label {&File} open
           xywh {0 0 100 20} labelsize 14
         } {
+          MenuItem {} {
+            label New
+            callback {hor->New_Bank();
+metebanco();
+Undo();} selected
+            xywh {0 0 45 26} labelsize 14 divider
+          }
           MenuItem BLoad {
             label {&Load Bank}
             callback {char *filename;

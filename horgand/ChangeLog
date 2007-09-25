@@ -5,6 +5,9 @@ horgand ChangeLog
 
 == v1.14 (  /  /2007) ==
 -------------------------------------------------------------------------------------------
+- Bug Fixed, reading sounds in More Sounds menu bank manager. 
+- Added New Bank, bank file to init state for work with a empty banks.
+- Suggest preset name at Save File.
 - Back to Alsa if JACK was not started.
 - Optimized code, less CPU usage    
 
