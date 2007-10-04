@@ -780,11 +780,18 @@ for (j = 1; j<= 20; j++)
   nsin = (float *) malloc (sizeof (float) * (sizesin + 4));
   msin = (float *) malloc (sizeof (float) * (sizesin + 4));
   psin = (float *) malloc (sizeof (float) * (sizesin + 4));
+  qsin = (float *) malloc (sizeof (float) * (sizesin + 4));
+  rsin = (float *) malloc (sizeof (float) * (sizesin + 4));
+  tsin = (float *) malloc (sizeof (float) * (sizesin + 4));
+  
   
   memset (lsin, 0, sizesin);
   memset (nsin, 0, sizesin);
   memset (msin, 0, sizesin);
   memset (psin, 0, sizesin);
+  memset (qsin, 0, sizesin);
+  memset (rsin, 0, sizesin);
+  memset (tsin, 0, sizesin);
 
    float x_sin;
    for (i = 0; i < (int) sizesin; i++)
@@ -811,7 +818,7 @@ for (j = 1; j<= 20; j++)
     
     x_sin = (float) ( i * D_PI / sizesin);
   
-    nsin[i]=sin(x_sin+sin(x_sin));
+    nsin[i]=sin(x_sin+lsin[i]);
     msin[i]=sin(x_sin+sin(1.5*x_sin));
       if( i > 0) msin[i-1] = (msin[i-1] *  ( 1.0 +  msin[i] - msin[i-1]));
       if( i > 1) msin[i-2] = (msin[i-2] *  ( 1.0 +  msin[i-1] - msin[i-2]));
@@ -823,6 +830,12 @@ for (j = 1; j<= 20; j++)
       if( i > 7) msin[i-8] = (msin[i-8] *  ( 1.0 +  msin[i-7] - msin[i-8]));
 
     psin[i]=sin(x_sin+sin(2.0*x_sin));
+    
+    qsin[i]=sin(nsin[i]+lsin[i]+psin[i]); 
+
+    rsin[i]=sin(lsin[i]+sin(msin[i]));
+    tsin[i]=sin(lsin[i]);
+  
   
   }
 
@@ -1171,6 +1184,12 @@ HOR:: NFsin(int i,float x)
    if(i==2)return(nsin[k]);
    if(i==3)return(msin[k]);
    if(i==4)return(psin[k]);
+   if(i==5)return(qsin[k]);
+   if(i==6)return(rsin[k]);
+   if(i==7)return(tsin[k]);
+
+
+
    return 0.0;
 };
 

@@ -254,6 +254,9 @@ int main(int argc, char *argv[])
   free(hor.msin);
   free(hor.nsin);
   free(hor.psin);
+  free(hor.qsin);
+  free(hor.rsin);
+  free(hor.tsin);
   free(hor.history);
   free(hor.buf);
   free(hor.wbuf);

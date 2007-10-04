@@ -193,6 +193,9 @@ struct Todolo
   float *nsin;
   float *msin;
   float *psin;
+  float *qsin;
+  float *rsin;
+  float *tsin;
   float *buf;
   short *wbuf;
   float *rbuf;
