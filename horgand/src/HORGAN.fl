@@ -429,7 +429,7 @@ Actu();}
         xywh {395 285 60 20} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum -48 maximum 48 step 1
       }
       Fl_Slider Master {
-        label Volume
+        label Master
         callback {hor->Master_Volume = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
@@ -747,8 +747,8 @@ Actu();}
       }
       Fl_Button Split {
         label Split
-        callback {hor->split=o->value();}
-        xywh {765 560 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
+        callback {hor->split=o->value();} selected
+        xywh {765 555 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
       }
       Fl_Box DMIN2 {
         callback {switch (hor->Salida)
@@ -909,7 +909,7 @@ Actu();}
         xywh {397 100 55 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 3 labelsize 8 align 64
       }
       Fl_Slider RitVol {
-        label {Vol.}
+        label Drums
         callback {hor->Rhythm_Volume = o->value();}
         xywh {600 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labelsize 10 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
       }
@@ -1194,7 +1194,7 @@ if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
         }
       }
       Fl_Slider BassVol {
-        label {Vol.}
+        label Bass
         callback {hor->Bass_Volume = o->value();}
         xywh {710 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labelsize 10 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
       }
@@ -1208,22 +1208,22 @@ hor->Bass_On =  o->value();}
         xywh {755 425 65 35} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 8 align 64
       }
       Fl_Group {} {
-        xywh {755 470 70 90}
+        xywh {755 465 70 95}
       } {
         Fl_Button Bass1 {
           label Acoustic
           callback {SetBassType(0);}
-          xywh {755 470 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
+          xywh {755 465 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Bass2 {
           label Electric
           callback {SetBassType(1);}
-          xywh {755 500 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
+          xywh {755 495 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
         Fl_Button Bass3 {
           label Fretless
           callback {SetBassType(2);}
-          xywh {755 530 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
+          xywh {755 525 65 25} type Radio box PLASTIC_UP_BOX color 31 selection_color 63 labeltype ENGRAVED_LABEL labelsize 11 align 64
         }
       }
       Fl_Box ACI {
@@ -1266,7 +1266,7 @@ Actu();}
         xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum 1 maximum 32 step 1
       }
       Fl_Slider OMaster {
-        label Volume
+        label Organ
         callback {hor->a[0].Organ_Master_Volume = (float) o->value() / 100.0;
 if (Signal_for_Cb_Sliders == 1)
 { 
@@ -2446,7 +2446,7 @@ Saca->copy_label(temp);}
       Fl_Counter D_Wave_Type_Val {
         label Wave
         callback {hor->a[0].Operator[(int)D_Wave_Type->value()].wave=(int)o->value();
-Actu();} selected
+Actu();}
         xywh {125 245 70 25} type Simple labelsize 9 align 8 when 4 minimum 1 maximum 7 step 1 value 1
       }
       Fl_Box {} {

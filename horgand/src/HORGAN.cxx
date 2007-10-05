@@ -3456,7 +3456,7 @@ Fl_Double_Window* HORGAN::make_window() {
       Transpose->align(FL_ALIGN_LEFT);
       Transpose->when(FL_WHEN_RELEASE);
     } // Fl_Counter* Transpose
-    { Master = new Drawbar(535, 100, 55, 190, gettext("Volume"));
+    { Master = new Drawbar(535, 100, 55, 190, gettext("Master"));
       Master->type(4);
       Master->box(FL_PLASTIC_DOWN_BOX);
       Master->color(FL_FOREGROUND_COLOR);
@@ -3925,7 +3925,7 @@ Fl_Double_Window* HORGAN::make_window() {
       ChorVol->callback((Fl_Callback*)cb_ChorVol);
       ChorVol->when(FL_WHEN_RELEASE);
     } // Fl_Counter* ChorVol
-    { Split = new Fl_Button(765, 560, 45, 30, gettext("Split"));
+    { Split = new Fl_Button(765, 555, 45, 30, gettext("Split"));
       Split->type(1);
       Split->box(FL_PLASTIC_UP_BOX);
       Split->color((Fl_Color)31);
@@ -4051,7 +4051,7 @@ Fl_Double_Window* HORGAN::make_window() {
       Rev->callback((Fl_Callback*)cb_Rev);
       Rev->align(FL_ALIGN_CLIP);
     } // Fl_Button* Rev
-    { RitVol = new Fl_Slider(600, 415, 40, 155, gettext("Vol."));
+    { RitVol = new Fl_Slider(600, 415, 40, 155, gettext("Drums"));
       RitVol->type(4);
       RitVol->box(FL_PLASTIC_DOWN_BOX);
       RitVol->color((Fl_Color)24);
@@ -4338,7 +4338,7 @@ Fl_Double_Window* HORGAN::make_window() {
       } // Fl_Button* Rit20
       RitButtons->end();
     } // Fl_Group* RitButtons
-    { BassVol = new Fl_Slider(710, 415, 40, 155, gettext("Vol."));
+    { BassVol = new Fl_Slider(710, 415, 40, 155, gettext("Bass"));
       BassVol->type(4);
       BassVol->box(FL_PLASTIC_DOWN_BOX);
       BassVol->color((Fl_Color)24);
@@ -4361,8 +4361,8 @@ Fl_Double_Window* HORGAN::make_window() {
       Basson->callback((Fl_Callback*)cb_Basson);
       Basson->align(FL_ALIGN_CLIP);
     } // Fl_Button* Basson
-    { Fl_Group* o = new Fl_Group(755, 470, 70, 90);
-      { Bass1 = new Fl_Button(755, 470, 65, 25, gettext("Acoustic"));
+    { Fl_Group* o = new Fl_Group(755, 465, 70, 95);
+      { Bass1 = new Fl_Button(755, 465, 65, 25, gettext("Acoustic"));
         Bass1->type(102);
         Bass1->box(FL_PLASTIC_UP_BOX);
         Bass1->color((Fl_Color)31);
@@ -4372,7 +4372,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Bass1->callback((Fl_Callback*)cb_Bass1);
         Bass1->align(FL_ALIGN_CLIP);
       } // Fl_Button* Bass1
-      { Bass2 = new Fl_Button(755, 500, 65, 25, gettext("Electric"));
+      { Bass2 = new Fl_Button(755, 495, 65, 25, gettext("Electric"));
         Bass2->type(102);
         Bass2->box(FL_PLASTIC_UP_BOX);
         Bass2->color((Fl_Color)31);
@@ -4382,7 +4382,7 @@ Fl_Double_Window* HORGAN::make_window() {
         Bass2->callback((Fl_Callback*)cb_Bass2);
         Bass2->align(FL_ALIGN_CLIP);
       } // Fl_Button* Bass2
-      { Bass3 = new Fl_Button(755, 530, 65, 25, gettext("Fretless"));
+      { Bass3 = new Fl_Button(755, 525, 65, 25, gettext("Fretless"));
         Bass3->type(102);
         Bass3->box(FL_PLASTIC_UP_BOX);
         Bass3->color((Fl_Color)31);
@@ -4503,7 +4503,7 @@ Fl_Double_Window* HORGAN::make_window() {
       CPrograma->align(FL_ALIGN_LEFT);
       CPrograma->when(FL_WHEN_RELEASE);
     } // Fl_Counter* CPrograma
-    { OMaster = new Drawbar(470, 100, 55, 190, gettext("Volume"));
+    { OMaster = new Drawbar(470, 100, 55, 190, gettext("Organ"));
       OMaster->type(4);
       OMaster->box(FL_PLASTIC_DOWN_BOX);
       OMaster->color((Fl_Color)24);
