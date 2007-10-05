@@ -458,7 +458,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {2 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {2 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V2 {
@@ -468,7 +468,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {61 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {61 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V3 {
@@ -478,7 +478,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {120 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {120 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V4 {
@@ -488,7 +488,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {179 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {179 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V5 {
@@ -498,7 +498,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {238 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {238 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V6 {
@@ -508,7 +508,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {297 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {297 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V7 {
@@ -518,7 +518,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {356 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {356 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V8 {
@@ -528,7 +528,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {415 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {415 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V9 {
@@ -538,7 +538,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {474 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {474 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider V10 {
@@ -548,7 +548,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {533 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
+        xywh {533 335 55 205} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 63 labeltype ENGRAVED_LABEL labelcolor 4 align 66 maximum 99 step 1
         class Drawbar
       }
       Fl_Dial Detune {
@@ -725,7 +725,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {310 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 1 labelsize 10 labelcolor 4 align 65 maximum 99 step 1
+        xywh {310 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 1 labelsize 10 labelcolor 4 align 65 maximum 99 step 1
         class Drawbar
       }
       Fl_Slider POPO {
@@ -736,8 +736,8 @@ if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
 Signal_for_Cb_Sliders = 0;
-}}
-        xywh {345 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labelsize 10 labelcolor 4 align 65 maximum 99 step 0.1
+}} selected
+        xywh {345 115 30 90} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labelsize 10 labelcolor 4 align 65 maximum 99 step 0.1
         class Drawbar
       }
       Fl_Counter ChorVol {
@@ -747,7 +747,7 @@ Actu();}
       }
       Fl_Button Split {
         label Split
-        callback {hor->split=o->value();} selected
+        callback {hor->split=o->value();}
         xywh {765 555 45 30} type Toggle box PLASTIC_UP_BOX color 31 selection_color 135 labelsize 9 align 64
       }
       Fl_Box DMIN2 {
@@ -911,7 +911,7 @@ Actu();}
       Fl_Slider RitVol {
         label Drums
         callback {hor->Rhythm_Volume = o->value();}
-        xywh {600 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labelsize 10 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
+        xywh {600 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labelsize 10 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
       }
       Fl_Dial Tempo {
         label Tempo
@@ -1196,7 +1196,7 @@ if (Fl::event_button()==1) GetRit(Selected_Rhythm);}
       Fl_Slider BassVol {
         label Bass
         callback {hor->Bass_Volume = o->value();}
-        xywh {710 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 3 labelsize 10 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
+        xywh {710 415 40 155} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labelsize 10 labelcolor 4 align 194 minimum 0.99 maximum 0 step 0.01 value 0.5
       }
       Fl_Button Basson {
         label Bass
@@ -1273,7 +1273,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {470 100 55 190} type {Vert Knob} box PLASTIC_DOWN_BOX color 24 selection_color 2 labelsize 10 labelcolor 4 minimum 100 maximum 0 step 1 value 70
+        xywh {470 100 55 190} type {Vert Knob} box PLASTIC_DOWN_BOX color 0 selection_color 2 labelsize 10 labelcolor 4 minimum 100 maximum 0 step 1 value 70
         class Drawbar
       }
       Fl_Light_Button Mar1 {

@@ -3497,7 +3497,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V1 = new Drawbar(2, 335, 55, 205);
       V1->type(4);
       V1->box(FL_PLASTIC_DOWN_BOX);
-      V1->color((Fl_Color)24);
+      V1->color(FL_FOREGROUND_COLOR);
       V1->selection_color(FL_GREEN);
       V1->labeltype(FL_ENGRAVED_LABEL);
       V1->labelfont(0);
@@ -3512,7 +3512,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V2 = new Drawbar(61, 335, 55, 205);
       V2->type(4);
       V2->box(FL_PLASTIC_DOWN_BOX);
-      V2->color((Fl_Color)24);
+      V2->color(FL_FOREGROUND_COLOR);
       V2->selection_color(FL_GREEN);
       V2->labeltype(FL_ENGRAVED_LABEL);
       V2->labelfont(0);
@@ -3527,7 +3527,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V3 = new Drawbar(120, 335, 55, 205);
       V3->type(4);
       V3->box(FL_PLASTIC_DOWN_BOX);
-      V3->color((Fl_Color)24);
+      V3->color(FL_FOREGROUND_COLOR);
       V3->selection_color(FL_GREEN);
       V3->labeltype(FL_ENGRAVED_LABEL);
       V3->labelfont(0);
@@ -3542,7 +3542,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V4 = new Drawbar(179, 335, 55, 205);
       V4->type(4);
       V4->box(FL_PLASTIC_DOWN_BOX);
-      V4->color((Fl_Color)24);
+      V4->color(FL_FOREGROUND_COLOR);
       V4->selection_color(FL_GREEN);
       V4->labeltype(FL_ENGRAVED_LABEL);
       V4->labelfont(0);
@@ -3557,7 +3557,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V5 = new Drawbar(238, 335, 55, 205);
       V5->type(4);
       V5->box(FL_PLASTIC_DOWN_BOX);
-      V5->color((Fl_Color)24);
+      V5->color(FL_FOREGROUND_COLOR);
       V5->selection_color(FL_GREEN);
       V5->labeltype(FL_ENGRAVED_LABEL);
       V5->labelfont(0);
@@ -3572,7 +3572,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V6 = new Drawbar(297, 335, 55, 205);
       V6->type(4);
       V6->box(FL_PLASTIC_DOWN_BOX);
-      V6->color((Fl_Color)24);
+      V6->color(FL_FOREGROUND_COLOR);
       V6->selection_color(FL_GREEN);
       V6->labeltype(FL_ENGRAVED_LABEL);
       V6->labelfont(0);
@@ -3587,7 +3587,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V7 = new Drawbar(356, 335, 55, 205);
       V7->type(4);
       V7->box(FL_PLASTIC_DOWN_BOX);
-      V7->color((Fl_Color)24);
+      V7->color(FL_FOREGROUND_COLOR);
       V7->selection_color(FL_GREEN);
       V7->labeltype(FL_ENGRAVED_LABEL);
       V7->labelfont(0);
@@ -3602,7 +3602,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V8 = new Drawbar(415, 335, 55, 205);
       V8->type(4);
       V8->box(FL_PLASTIC_DOWN_BOX);
-      V8->color((Fl_Color)24);
+      V8->color(FL_FOREGROUND_COLOR);
       V8->selection_color(FL_GREEN);
       V8->labeltype(FL_ENGRAVED_LABEL);
       V8->labelfont(0);
@@ -3617,7 +3617,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V9 = new Drawbar(474, 335, 55, 205);
       V9->type(4);
       V9->box(FL_PLASTIC_DOWN_BOX);
-      V9->color((Fl_Color)24);
+      V9->color(FL_FOREGROUND_COLOR);
       V9->selection_color(FL_GREEN);
       V9->labeltype(FL_ENGRAVED_LABEL);
       V9->labelfont(0);
@@ -3632,7 +3632,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { V10 = new Drawbar(533, 335, 55, 205);
       V10->type(4);
       V10->box(FL_PLASTIC_DOWN_BOX);
-      V10->color((Fl_Color)24);
+      V10->color(FL_FOREGROUND_COLOR);
       V10->selection_color(FL_GREEN);
       V10->labeltype(FL_ENGRAVED_LABEL);
       V10->labelfont(0);
@@ -3889,7 +3889,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { ELFOAmplitude = new Drawbar(310, 115, 30, 90, gettext("Amp"));
       ELFOAmplitude->type(4);
       ELFOAmplitude->box(FL_PLASTIC_DOWN_BOX);
-      ELFOAmplitude->color((Fl_Color)24);
+      ELFOAmplitude->color(FL_FOREGROUND_COLOR);
       ELFOAmplitude->selection_color((Fl_Color)1);
       ELFOAmplitude->labeltype(FL_NORMAL_LABEL);
       ELFOAmplitude->labelfont(0);
@@ -3904,7 +3904,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { POPO = new Drawbar(345, 115, 30, 90, gettext("Del."));
       POPO->type(4);
       POPO->box(FL_PLASTIC_DOWN_BOX);
-      POPO->color((Fl_Color)24);
+      POPO->color(FL_FOREGROUND_COLOR);
       POPO->selection_color((Fl_Color)3);
       POPO->labeltype(FL_NORMAL_LABEL);
       POPO->labelfont(0);
@@ -4054,7 +4054,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { RitVol = new Fl_Slider(600, 415, 40, 155, gettext("Drums"));
       RitVol->type(4);
       RitVol->box(FL_PLASTIC_DOWN_BOX);
-      RitVol->color((Fl_Color)24);
+      RitVol->color(FL_FOREGROUND_COLOR);
       RitVol->selection_color((Fl_Color)3);
       RitVol->labelsize(10);
       RitVol->labelcolor((Fl_Color)4);
@@ -4341,7 +4341,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { BassVol = new Fl_Slider(710, 415, 40, 155, gettext("Bass"));
       BassVol->type(4);
       BassVol->box(FL_PLASTIC_DOWN_BOX);
-      BassVol->color((Fl_Color)24);
+      BassVol->color(FL_FOREGROUND_COLOR);
       BassVol->selection_color((Fl_Color)3);
       BassVol->labelsize(10);
       BassVol->labelcolor((Fl_Color)4);
@@ -4506,7 +4506,7 @@ Fl_Double_Window* HORGAN::make_window() {
     { OMaster = new Drawbar(470, 100, 55, 190, gettext("Organ"));
       OMaster->type(4);
       OMaster->box(FL_PLASTIC_DOWN_BOX);
-      OMaster->color((Fl_Color)24);
+      OMaster->color(FL_FOREGROUND_COLOR);
       OMaster->selection_color((Fl_Color)2);
       OMaster->labeltype(FL_NORMAL_LABEL);
       OMaster->labelfont(0);
