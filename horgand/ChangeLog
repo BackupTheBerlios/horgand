@@ -5,8 +5,9 @@ horgand ChangeLog
 
 == v1.14 (  /  /2007) ==
 -------------------------------------------------------------------------------------------
+- Fix small bug initializing vars. 
 - small changes on GUI, and ADSR range values. 
-- 3 new waveforms added.
+- Added 5 New waveforms.
 - Bug Fixed, reading sounds in More Sounds menu bank manager. 
 - Added New Bank, bank file to init state for work with a empty banks.
 - Suggest preset name at Save File.

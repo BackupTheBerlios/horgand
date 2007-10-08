@@ -122,7 +122,7 @@ public:
     float dphi;
     float phi2[POLY];
     float dphi2; 
-  } f[11];
+  } f[12];
 
   
     
@@ -196,6 +196,8 @@ struct Todolo
   float *qsin;
   float *rsin;
   float *tsin;
+  float *ssin;
+  float *usin;
   float *buf;
   short *wbuf;
   float *rbuf;
@@ -220,9 +222,9 @@ struct Todolo
   float env_time[POLY];
   float Envelope_Volume[POLY];
   float Perc_Volume[POLY];
-  float  mastertune;
+  float mastertune;
   float lasfreq[24];
-  float  Master_Volume;
+  float Master_Volume;
   float Stereo_Side; 
   float LFO_Volume;
   float LFO_Frequency;
@@ -244,8 +246,8 @@ struct Todolo
   float Click_2sFreq;
   float total_vol;    
   float organ_master;
-  float p_op[11];
-  float p_op2[11];
+  float p_op[12];
+  float p_op2[12];
 
  // ALSA Seq
 
@@ -267,7 +269,6 @@ struct Todolo
   int snd_format;
   int snd_samplerate;
   short int *smps;    
-  int k[11];   
   int PERIOD;
   unsigned int SAMPLE_RATE;
   int PERIOD2;

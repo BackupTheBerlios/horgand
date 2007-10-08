@@ -5763,7 +5763,7 @@ e version 2 of the \n GNU General Public License for details."));
       D_Wave_Type_Val->type(1);
       D_Wave_Type_Val->labelsize(9);
       D_Wave_Type_Val->minimum(1);
-      D_Wave_Type_Val->maximum(7);
+      D_Wave_Type_Val->maximum(9);
       D_Wave_Type_Val->step(1);
       D_Wave_Type_Val->value(1);
       D_Wave_Type_Val->callback((Fl_Callback*)cb_D_Wave_Type_Val);

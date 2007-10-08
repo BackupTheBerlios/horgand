@@ -410,10 +410,6 @@ HOR::syncadsr()
 
 int i;
 
-// memset(f ,0, sizeof f);
-// memset (dcphi ,0,sizeof dcphi);
- 
-  
  u_attack = 1.0 /a[0].attack;
  u_decay = 1.0 / a[0].decay;
  u_p_attack = 1.0 / a[0].p_attack;
@@ -433,10 +429,9 @@ for (i=1;i<11;i++)
       p_op[i]=pitch_Operator(i,0);
       p_op2[i]=pitch_Operator2(i,0);
       total_vol += a[0].Operator[i].volumen*a[0].Normalize[a[0].Operator[i].harmonic];
-      k[i]=a[0].Operator[i].wave;
     }
 
-    organ_master=a[0].Organ_Master_Volume/total_vol;
+organ_master=a[0].Organ_Master_Volume/total_vol;
 
 Click_sFreq=a[0].Click_Freq*D_PI_to_SAMPLE_RATE;
 Click_2sFreq=a[0].Click_Freq2*D_PI_to_SAMPLE_RATE;

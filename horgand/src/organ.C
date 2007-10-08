@@ -783,15 +783,20 @@ for (j = 1; j<= 20; j++)
   qsin = (float *) malloc (sizeof (float) * (sizesin + 4));
   rsin = (float *) malloc (sizeof (float) * (sizesin + 4));
   tsin = (float *) malloc (sizeof (float) * (sizesin + 4));
+  ssin = (float *) malloc (sizeof (float) * (sizesin + 4));
+  usin = (float *) malloc (sizeof (float) * (sizesin + 4));
   
   
-  memset (lsin, 0, sizesin);
-  memset (nsin, 0, sizesin);
-  memset (msin, 0, sizesin);
-  memset (psin, 0, sizesin);
-  memset (qsin, 0, sizesin);
-  memset (rsin, 0, sizesin);
-  memset (tsin, 0, sizesin);
+  memset (lsin, 0, sizesin*4);
+  memset (nsin, 0, sizesin*4);
+  memset (msin, 0, sizesin*4);
+  memset (psin, 0, sizesin*4);
+  memset (qsin, 0, sizesin*4);
+  memset (rsin, 0, sizesin*4);
+  memset (tsin, 0, sizesin*4);
+  memset (ssin, 0, sizesin*4);
+  memset (usin, 0, sizesin*4);
+  
 
    float x_sin;
    for (i = 0; i < (int) sizesin; i++)
@@ -817,7 +822,8 @@ for (j = 1; j<= 20; j++)
   {
     
     x_sin = (float) ( i * D_PI / sizesin);
-  
+
+    psin[i]=sin(x_sin+sin(2.0*x_sin));
     nsin[i]=sin(x_sin+lsin[i]);
     msin[i]=sin(x_sin+sin(1.5*x_sin));
       if( i > 0) msin[i-1] = (msin[i-1] *  ( 1.0 +  msin[i] - msin[i-1]));
@@ -829,15 +835,30 @@ for (j = 1; j<= 20; j++)
       if( i > 6) msin[i-7] = (msin[i-7] *  ( 1.0 +  msin[i-6] - msin[i-7]));
       if( i > 7) msin[i-8] = (msin[i-8] *  ( 1.0 +  msin[i-7] - msin[i-8]));
 
-    psin[i]=sin(x_sin+sin(2.0*x_sin));
-    
     qsin[i]=sin(nsin[i]+lsin[i]+psin[i]); 
-
-    rsin[i]=sin(lsin[i]+sin(msin[i]));
     tsin[i]=sin(lsin[i]);
+    rsin[i]=sin(lsin[i]+sin(msin[i]));
+
+     ssin[i]=(lsin[i]+nsin[i]+msin[i]+psin[i]+qsin[i]+rsin[i]+tsin[i])/7.0;
+      if( i > 0) ssin[i-1] = (ssin[i-1] *  ( 1.0 +  ssin[i] - ssin[i-1]));
+      if( i > 1) ssin[i-2] = (ssin[i-2] *  ( 1.0 +  ssin[i-1] - ssin[i-2]));
+      if( i > 2) ssin[i-3] = (ssin[i-3] *  ( 1.0 +  ssin[i-2] - ssin[i-3]));
+      if( i > 3) ssin[i-4] = (ssin[i-4] *  ( 1.0 +  ssin[i-3] - ssin[i-4]));
+      if( i > 4) ssin[i-5] = (ssin[i-5] *  ( 1.0 +  ssin[i-4] - ssin[i-5]));
+      if( i > 5) ssin[i-6] = (ssin[i-6] *  ( 1.0 +  ssin[i-5] - ssin[i-6]));
+      if( i > 6) ssin[i-7] = (ssin[i-7] *  ( 1.0 +  ssin[i-6] - ssin[i-7]));
+      if( i > 7) ssin[i-8] = (ssin[i-8] *  ( 1.0 +  ssin[i-7] - ssin[i-8]));
+
+     usin[i]=sin(ssin[i]);  
+ }
+ 
+   for (i = 0; i < (int) sizesin; i++)
+   {
+   x_sin = (float) ( i * D_PI / sizesin);
+   ssin[i]=sin(x_sin+usin[i]); 
+   }
   
-  
-  }
+   
 
   // Init Sound and effect buffers
 
@@ -846,17 +867,17 @@ for (j = 1; j<= 20; j++)
   rbuf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   bbuf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
   buf = (float *) malloc (2 * sizeof (float) * BUFSIZE);
-  history = (float *) malloc (2 * sizeof (float) * BUFSIZE * 256);
 
+  history = (float *) malloc (sizeof (float) * 131200);
   cldelay = (float *) malloc (sizeof  (float) * 8192);
   crdelay = (float *) malloc (sizeof (float)  * 8192); 
 
 // Init Buffers
 
 
-  memset (history, 0, BUFSIZE * 256);
-  memset (cldelay, 0, BUFSIZE * 8);
-  memset (crdelay, 0, BUFSIZE * 8);
+  memset (history, 0, sizeof (float)*131200);
+  memset (cldelay, 0, sizeof (float)*8192);
+  memset (crdelay, 0, sizeof (float)*8192);
 
   
   memset (buf, 0, PERIOD4);
@@ -1007,7 +1028,7 @@ return (lasfreq[a[0].Operator[i].harmonic] - a[0].Operator[i].harmonic_fine);
 void
 HOR::volume_Operator (int i, int l2)
 {
-  a[0].Operator[i].con1 = a[0].Operator[i].volumen * velocity[l2] * a[0].Normalize[a[0].Operator[i].harmonic];
+ a[0].Operator[i].con1=a[0].Operator[i].volumen * velocity[l2] * a[0].Normalize[a[0].Operator[i].harmonic];
   
 };
 
@@ -1187,7 +1208,8 @@ HOR:: NFsin(int i,float x)
    if(i==5)return(qsin[k]);
    if(i==6)return(rsin[k]);
    if(i==7)return(tsin[k]);
-
+   if(i==8)return(ssin[k]);
+   if(i==9)return(usin[k]);
 
 
    return 0.0;
@@ -1210,7 +1232,6 @@ HOR::Alg1s (int nframes, void *)
   float Click_TVol=0.0f;
   float Click_Env=0.0f;
   float m_partial;
-  
   
   memset (buf, 0, PERIOD4);
 
@@ -1247,14 +1268,17 @@ HOR::Alg1s (int nframes, void *)
                     buf[l1+1] +=Am_Click;
                    }
                }
-             for(i = 1; i<11; i++)
+             for(i = 1; i<=10; i++)
 	      {
                  
-	        if (a[0].Operator[i].marimba==0) Env_Vol=Envelope_Volume[l2]*a[0].Operator[i].con1;
-                     else Env_Vol=Perc_Volume[l2]*a[0].Operator[i].con1; 
+	        if (a[0].Operator[i].marimba==0) 
+	            Env_Vol=Envelope_Volume[l2]*a[0].Operator[i].con1;
+                     else 
+                      Env_Vol=Perc_Volume[l2]*a[0].Operator[i].con1; 
 	      
-                if (Env_Vol>0.0f)
-                   { 
+                   
+                     if(Env_Vol > 0.0f)
+                     {                 
                    
                      f[i].dphi = m_partial * (p_op[i] + LFO_Volume);
                      if(f[i].dphi>D_PI) f[i].dphi -= D_PI;
@@ -1266,9 +1290,10 @@ HOR::Alg1s (int nframes, void *)
                      f[i].phi2[l2] += f[i].dphi2;
                      if(f[i].phi2[l2]>D_PI) f[i].phi2[l2] -= D_PI;                    
 
-                     sound += Env_Vol*NFsin(k[i],f[i].phi[l2]);
-                     sound2 += Env_Vol*NFsin(k[i],f[i].phi2[l2]);                  
-                   }                
+                     sound += Env_Vol*NFsin(a[0].Operator[i].wave,f[i].phi[l2]);
+                     sound2 += Env_Vol*NFsin(a[0].Operator[i].wave,f[i].phi2[l2]);                  
+                   }
+                                   
               }  
               
                 buf[l1] += sound  * organ_master;

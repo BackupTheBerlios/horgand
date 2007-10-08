@@ -91,11 +91,9 @@ return 1;
   }
 } 
 
-class HORGAN {open
-} {
+class HORGAN {} {
   decl {HOR *hor;} {}
-  Function {make_window()} {open
-  } {
+  Function {make_window()} {} {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
@@ -2258,7 +2256,7 @@ if (Signal_for_Cb_Sliders == 1)
 { 
 Actu();
 Signal_for_Cb_Sliders = 0;
-}} selected
+}}
         xywh {145 25 40 40} box OSHADOW_BOX labelsize 9 minimum 5e-05 maximum 0.01 step 1e-05 value 0.0001
         class Rueda
       }
@@ -2448,8 +2446,8 @@ Saca->copy_label(temp);}
       Fl_Counter D_Wave_Type_Val {
         label Wave
         callback {hor->a[0].Operator[(int)D_Wave_Type->value()].wave=(int)o->value();
-Actu();}
-        xywh {125 245 70 25} type Simple labelsize 9 align 8 when 4 minimum 1 maximum 7 step 1 value 1
+Actu();} selected
+        xywh {125 245 70 25} type Simple labelsize 9 align 8 when 4 minimum 1 maximum 9 step 1 value 1
       }
       Fl_Box {} {
         label {Keyboard Scaling}
