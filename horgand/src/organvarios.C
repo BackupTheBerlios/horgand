@@ -322,6 +322,9 @@ HOR::New ()
   a[0].Click=0;
   a[0].Rotary_LFO_Amplitude = 9980;
   a[0].Speed_Sync=0;
+  a[0].LFO_Wave=1;
+  a[0].Chorus_Wave=1;
+  a[0].Rotary_Wave=1;
 
 
 }

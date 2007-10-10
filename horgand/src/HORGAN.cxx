@@ -3258,6 +3258,30 @@ void HORGAN::cb_D_KeybS(Fl_Button* o, void* v) {
   ((HORGAN*)(o->parent()->user_data()))->cb_D_KeybS_i(o,v);
 }
 
+void HORGAN::cb_D_Wave_Type_LFO_i(Fl_Counter* o, void*) {
+  hor->a[0].LFO_Wave=(int)o->value();
+Actu();
+}
+void HORGAN::cb_D_Wave_Type_LFO(Fl_Counter* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_D_Wave_Type_LFO_i(o,v);
+}
+
+void HORGAN::cb_D_Wave_Type_Chorus_i(Fl_Counter* o, void*) {
+  hor->a[0].Chorus_Wave=(int)o->value();
+Actu();
+}
+void HORGAN::cb_D_Wave_Type_Chorus(Fl_Counter* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_D_Wave_Type_Chorus_i(o,v);
+}
+
+void HORGAN::cb_D_Wave_Type_Rotary_i(Fl_Counter* o, void*) {
+  hor->a[0].Rotary_Wave=(int)o->value();
+Actu();
+}
+void HORGAN::cb_D_Wave_Type_Rotary(Fl_Counter* o, void* v) {
+  ((HORGAN*)(o->parent()->user_data()))->cb_D_Wave_Type_Rotary_i(o,v);
+}
+
 Fl_Double_Window* HORGAN::make_window() {
   { HORwindow = new Fl_Double_Window(825, 595);
     HORwindow->color((Fl_Color)33);
@@ -5430,7 +5454,7 @@ e version 2 of the \n GNU General Public License for details."));
     } // Fl_Button* o
     RitEdit->end();
   } // Fl_Double_Window* RitEdit
-  { ADSRwin = new Fl_Double_Window(330, 445, gettext("Synthesizer"));
+  { ADSRwin = new Fl_Double_Window(330, 500, gettext("Synthesizer"));
     ADSRwin->callback((Fl_Callback*)cb_ADSRwin, (void*)(this));
     { Fl_Box* o = new Fl_Box(1, 1, 140, 76, gettext("Drawbar"));
       o->box(FL_PLASTIC_UP_BOX);
@@ -5784,6 +5808,46 @@ e version 2 of the \n GNU General Public License for details."));
       D_KeybS->labelsize(12);
       D_KeybS->callback((Fl_Callback*)cb_D_KeybS);
     } // Fl_Button* D_KeybS
+    { Fl_Box* o = new Fl_Box(0, 445, 330, 55);
+      o->box(FL_PLASTIC_UP_BOX);
+      o->color(FL_FOREGROUND_COLOR);
+      o->labelsize(13);
+      o->labelcolor((Fl_Color)4);
+      o->align(FL_ALIGN_TOP|FL_ALIGN_INSIDE);
+    } // Fl_Box* o
+    { D_Wave_Type_LFO = new Fl_Counter(30, 465, 70, 25, gettext("Tremolo Wave"));
+      D_Wave_Type_LFO->type(1);
+      D_Wave_Type_LFO->labelsize(9);
+      D_Wave_Type_LFO->minimum(1);
+      D_Wave_Type_LFO->maximum(9);
+      D_Wave_Type_LFO->step(1);
+      D_Wave_Type_LFO->value(1);
+      D_Wave_Type_LFO->callback((Fl_Callback*)cb_D_Wave_Type_LFO);
+      D_Wave_Type_LFO->align(FL_ALIGN_TOP);
+      D_Wave_Type_LFO->when(FL_WHEN_RELEASE);
+    } // Fl_Counter* D_Wave_Type_LFO
+    { D_Wave_Type_Chorus = new Fl_Counter(230, 465, 70, 25, gettext("Chorus Wave"));
+      D_Wave_Type_Chorus->type(1);
+      D_Wave_Type_Chorus->labelsize(9);
+      D_Wave_Type_Chorus->minimum(1);
+      D_Wave_Type_Chorus->maximum(9);
+      D_Wave_Type_Chorus->step(1);
+      D_Wave_Type_Chorus->value(1);
+      D_Wave_Type_Chorus->callback((Fl_Callback*)cb_D_Wave_Type_Chorus);
+      D_Wave_Type_Chorus->align(FL_ALIGN_TOP);
+      D_Wave_Type_Chorus->when(FL_WHEN_RELEASE);
+    } // Fl_Counter* D_Wave_Type_Chorus
+    { D_Wave_Type_Rotary = new Fl_Counter(130, 465, 70, 25, gettext("Rotary Wave"));
+      D_Wave_Type_Rotary->type(1);
+      D_Wave_Type_Rotary->labelsize(9);
+      D_Wave_Type_Rotary->minimum(1);
+      D_Wave_Type_Rotary->maximum(9);
+      D_Wave_Type_Rotary->step(1);
+      D_Wave_Type_Rotary->value(1);
+      D_Wave_Type_Rotary->callback((Fl_Callback*)cb_D_Wave_Type_Rotary);
+      D_Wave_Type_Rotary->align(FL_ALIGN_TOP);
+      D_Wave_Type_Rotary->when(FL_WHEN_RELEASE);
+    } // Fl_Counter* D_Wave_Type_Rotary
     ADSRwin->end();
   } // Fl_Double_Window* ADSRwin
   return ADSRwin;
@@ -6528,6 +6592,9 @@ D_Click_Vol1->value(hor->a[0].Click_Vol1);
 D_Click_Vol2->value(hor->a[0].Click_Vol2);
 D_Wave_Type_Val->value(hor->a[0].Operator[(int)D_Wave_Type->value()].wave);
 D_KeybS->value(hor->a[0].scaling);
+D_Wave_Type_LFO->value(hor->a[0].LFO_Wave);
+D_Wave_Type_Chorus->value(hor->a[0].Chorus_Wave);
+D_Wave_Type_Rotary->value(hor->a[0].Rotary_Wave);
 }
 
 void HORGAN::put_icon(Fl_Window* window) {

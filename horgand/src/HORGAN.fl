@@ -91,7 +91,8 @@ return 1;
   }
 } 
 
-class HORGAN {} {
+class HORGAN {open
+} {
   decl {HOR *hor;} {}
   Function {make_window()} {} {
     Fl_Window HORwindow {
@@ -2199,7 +2200,7 @@ RtFile->value(filename);}
       label Synthesizer
       callback {Guarda_Pref(3);
 o->hide();}
-      xywh {1441 212 330 445} type Double visible
+      xywh {1494 170 330 500} type Double hide
     } {
       Fl_Box {} {
         label Drawbar
@@ -2446,7 +2447,7 @@ Saca->copy_label(temp);}
       Fl_Counter D_Wave_Type_Val {
         label Wave
         callback {hor->a[0].Operator[(int)D_Wave_Type->value()].wave=(int)o->value();
-Actu();} selected
+Actu();}
         xywh {125 245 70 25} type Simple labelsize 9 align 8 when 4 minimum 1 maximum 9 step 1 value 1
       }
       Fl_Box {} {
@@ -2458,6 +2459,27 @@ Actu();} selected
         callback {hor->a[0].scaling=o->value();
 Actu();}
         xywh {255 260 55 25} type Toggle box PLASTIC_UP_BOX selection_color 3 labelsize 12
+      }
+      Fl_Box {} {
+        xywh {0 445 330 55} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
+      }
+      Fl_Counter D_Wave_Type_LFO {
+        label {Tremolo Wave}
+        callback {hor->a[0].LFO_Wave=(int)o->value();
+Actu();}
+        xywh {30 465 70 25} type Simple labelsize 9 align 1 when 4 minimum 1 maximum 9 step 1 value 1
+      }
+      Fl_Counter D_Wave_Type_Chorus {
+        label {Chorus Wave}
+        callback {hor->a[0].Chorus_Wave=(int)o->value();
+Actu();}
+        xywh {230 465 70 25} type Simple labelsize 9 align 1 when 4 minimum 1 maximum 9 step 1 value 1
+      }
+      Fl_Counter D_Wave_Type_Rotary {
+        label {Rotary Wave}
+        callback {hor->a[0].Rotary_Wave=(int)o->value();
+Actu();}
+        xywh {130 465 70 25} type Simple labelsize 9 align 1 when 4 minimum 1 maximum 9 step 1 value 1
       }
     }
   }
@@ -3186,7 +3208,11 @@ D_Click_Freq2->value(hor->a[0].Click_Freq2);
 D_Click_Vol1->value(hor->a[0].Click_Vol1);
 D_Click_Vol2->value(hor->a[0].Click_Vol2);
 D_Wave_Type_Val->value(hor->a[0].Operator[(int)D_Wave_Type->value()].wave);
-D_KeybS->value(hor->a[0].scaling);} {}
+D_KeybS->value(hor->a[0].scaling);
+D_Wave_Type_LFO->value(hor->a[0].LFO_Wave);
+D_Wave_Type_Chorus->value(hor->a[0].Chorus_Wave);
+D_Wave_Type_Rotary->value(hor->a[0].Rotary_Wave);} {selected
+    }
   }
   Function {put_icon(Fl_Window* window)} {} {
     code {if (hints == NULL)

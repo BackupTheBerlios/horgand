@@ -1156,7 +1156,7 @@ HOR::Pitch_LFO (float t)
 
   x=fmod(a[0].Pitch_LFO_Speed*t,1.0); 
 
-  out = NFsin(1,x*D_PI)*LFO_Frequency;
+  out = NFsin(a[0].LFO_Wave,x*D_PI)*LFO_Frequency;
 
   return(out);     
 
@@ -1232,7 +1232,8 @@ HOR::Alg1s (int nframes, void *)
   float Click_TVol=0.0f;
   float Click_Env=0.0f;
   float m_partial;
-  
+  float LFO_Volume;
+    
   memset (buf, 0, PERIOD4);
 
     for (l2 = 0; l2 < POLY; l2++)
@@ -1270,14 +1271,13 @@ HOR::Alg1s (int nframes, void *)
                }
              for(i = 1; i<=10; i++)
 	      {
-                 
-	        if (a[0].Operator[i].marimba==0) 
+                  
+                  if (a[0].Operator[i].marimba==0)
 	            Env_Vol=Envelope_Volume[l2]*a[0].Operator[i].con1;
-                     else 
-                      Env_Vol=Perc_Volume[l2]*a[0].Operator[i].con1; 
-	      
-                   
-                     if(Env_Vol > 0.0f)
+                  else
+                    Env_Vol=Perc_Volume[l2]*a[0].Operator[i].con1; 
+                    
+                  if(Env_Vol > 0.0f)
                      {                 
                    
                      f[i].dphi = m_partial * (p_op[i] + LFO_Volume);

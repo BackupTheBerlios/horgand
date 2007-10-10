@@ -1143,6 +1143,21 @@ private:
   void cb_D_KeybS_i(Fl_Button*, void*);
   static void cb_D_KeybS(Fl_Button*, void*);
 public:
+  Fl_Counter *D_Wave_Type_LFO;
+private:
+  void cb_D_Wave_Type_LFO_i(Fl_Counter*, void*);
+  static void cb_D_Wave_Type_LFO(Fl_Counter*, void*);
+public:
+  Fl_Counter *D_Wave_Type_Chorus;
+private:
+  void cb_D_Wave_Type_Chorus_i(Fl_Counter*, void*);
+  static void cb_D_Wave_Type_Chorus(Fl_Counter*, void*);
+public:
+  Fl_Counter *D_Wave_Type_Rotary;
+private:
+  void cb_D_Wave_Type_Rotary_i(Fl_Counter*, void*);
+  static void cb_D_Wave_Type_Rotary(Fl_Counter*, void*);
+public:
   HORGAN(int argc, char **argv,HOR *hor_);
   void metelo();
   void GetCombi(int i);

@@ -181,6 +181,9 @@ struct Todolo
    int scaling;
    int E_Chorus_On;
    int Reverb_Preset;
+   int LFO_Wave;
+   int Chorus_Wave;
+   int Rotary_Wave;
    char *nombre;
 
 } a[1];
@@ -226,7 +229,6 @@ struct Todolo
   float lasfreq[24];
   float Master_Volume;
   float Stereo_Side; 
-  float LFO_Volume;
   float LFO_Frequency;
   float Rotary_LFO_Frequency;
   float Rotary_X;

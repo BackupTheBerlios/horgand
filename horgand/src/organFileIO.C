@@ -84,6 +84,10 @@ HOR::savefile (char *filename)
       }
 
   bzero (buf, sizeof (buf));
+  sprintf (buf, "%d,%d,%d\n",a[0].LFO_Wave,a[0].Chorus_Wave,a[0].Rotary_Wave);
+  fputs (buf, fn);
+
+  bzero (buf, sizeof (buf));
   fputs (a[0].nombre, fn);
   fputs ("\n", fn);
   fclose (fn);
@@ -171,6 +175,16 @@ HOR::loadfile (char *filename)
       }
   }
 
+ if (Data_Version>=1.13)
+   {
+   
+  bzero (buf, sizeof (buf));
+  fgets (buf, sizeof buf, fn);
+  sscanf (buf, "%d,%d,%d\n",&a[0].LFO_Wave,&a[0].Chorus_Wave,&a[0].Rotary_Wave);
+  
+   }
+
+
   bzero (buf, sizeof (buf));
   bzero (a[0].Name, sizeof (a[0].Name));
   fgets (buf, sizeof buf, fn);
@@ -251,6 +265,11 @@ HOR::savebank (char *filename)
       }
    
 
+
+   bzero (buf, sizeof (buf));
+   sprintf (buf, "%d,%d,%d\n",Banco[j].LFO_Wave,Banco[j].Chorus_Wave,Banco[j].Rotary_Wave);
+   fputs (buf, fn);
+   
 
       bzero (buf, sizeof (buf));
       for (i = 0; i <= 24; i++)
@@ -351,6 +370,17 @@ HOR::loadbank (char *filename)
       }
 
        } 
+
+    if (Data_Version>=1.13)
+       {
+         bzero (buf, sizeof (buf));
+         fgets (buf, sizeof buf, fn);
+         sscanf (buf, "%d,%d,%d\n",&Banco[j].LFO_Wave,&Banco[j].Chorus_Wave,&Banco[j].Rotary_Wave);
+           
+        }
+                
+
+
 
       bzero (buf, sizeof (buf));
       bzero (Banco[j].Name, sizeof (Banco[j].Name));
@@ -565,6 +595,7 @@ HOR::ReadNames(char *filename,char *bankname)
 
   k=36;
   if (Data_Version>=1.12) k=47;
+  if (Data_Version>=1.13) k=48;
  
   
   for (j = 1; j <= 32; j++)
@@ -632,6 +663,8 @@ HOR::LoadSoundBank(int Num)
   j=1;
   k=38;
   if (Data_Version>=1.12) k=49;
+  if (Data_Version>=1.13) k=50;
+  
   while (j < NBP[Num].pos)
     {
     
@@ -698,6 +731,15 @@ HOR::LoadSoundBank(int Num)
       }
 
   }
+
+ if (Data_Version>=1.13)
+    {
+      bzero (buf, sizeof (buf));
+      fgets (buf, sizeof buf, fn);
+      sscanf (buf, "%d,%d,%d\n",&a[0].LFO_Wave,&a[0].Chorus_Wave,&a[0].Rotary_Wave);
+     }
+             
+
 
   bzero (buf, sizeof (buf));
   bzero (a[0].Name, sizeof (a[0].Name));
