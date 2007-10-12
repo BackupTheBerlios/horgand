@@ -100,7 +100,7 @@ class HORGAN {open
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1440 72 825 595} type Double color 33 selection_color 47 hide resizable
+      xywh {1440 72 825 595} type Double color 33 selection_color 47 resizable visible
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -3033,7 +3033,7 @@ calbtrans();
 Nombre->value(hor->a[0].Name);
 CPrograma->value(hor->cpreset);
 EchoVol->value(hor->a[0].Delay_Volume * 100);
-EchoDelay->value(hor->a[0].Delay_Delay / 176400);
+EchoDelay->value(hor->a[0].Delay_Delay / 65100.0);
 EchoOn->value(hor->a[0].E_Delay_On);
 Rev->value(hor->a[0].E_Reverb_On);
 
@@ -3106,7 +3106,8 @@ ELFOSpeed->value(hor->a[0].Chorus_LFO_Speed);
 ChorVol->value(hor->a[0].Chorus_Volume * 100);
 BSync_Speed->value(hor->a[0].Speed_Sync);
 metesynth();
-hor->syncadsr();} {}
+hor->syncadsr();} {selected
+    }
   }
   Function {SetBassType(int type)} {return_type void
   } {
@@ -3211,8 +3212,7 @@ D_Wave_Type_Val->value(hor->a[0].Operator[(int)D_Wave_Type->value()].wave);
 D_KeybS->value(hor->a[0].scaling);
 D_Wave_Type_LFO->value(hor->a[0].LFO_Wave);
 D_Wave_Type_Chorus->value(hor->a[0].Chorus_Wave);
-D_Wave_Type_Rotary->value(hor->a[0].Rotary_Wave);} {selected
-    }
+D_Wave_Type_Rotary->value(hor->a[0].Rotary_Wave);} {}
   }
   Function {put_icon(Fl_Window* window)} {} {
     code {if (hints == NULL)

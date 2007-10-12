@@ -1201,17 +1201,37 @@ HOR:: NFsin(int i,float x)
 
    k=lrintf(x*1000.0);
 
-   if(i==1)return(lsin[k]);
-   if(i==2)return(nsin[k]);
-   if(i==3)return(msin[k]);
-   if(i==4)return(psin[k]);
-   if(i==5)return(qsin[k]);
-   if(i==6)return(rsin[k]);
-   if(i==7)return(tsin[k]);
-   if(i==8)return(ssin[k]);
-   if(i==9)return(usin[k]);
 
-
+   switch(i)
+   {
+      case 1:
+      return(lsin[k]);
+      break;
+      case 2:
+      return(nsin[k]);
+      break;
+      case 3:
+      return(msin[k]);
+      break;
+      case 4:
+      return(psin[k]);
+      break;
+      case 5:
+      return(qsin[k]);
+      break;
+      case 6:
+      return(rsin[k]);
+      break;
+      case 7:
+      return(tsin[k]);
+      break;
+      case 8:
+      return(ssin[k]);
+      break;
+      case 9:
+      return(usin[k]);
+      break;
+   } 
    return 0.0;
 };
 

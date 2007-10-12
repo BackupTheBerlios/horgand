@@ -5,6 +5,7 @@ horgand ChangeLog
 
 == v1.14 (  /  /2007) ==
 -------------------------------------------------------------------------------------------
+- Fix bug on Delay time.
 - Added wave type for LFO effects.
 - Fix small bug initializing vars. 
 - small changes on GUI, and ADSR range values. 

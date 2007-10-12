@@ -6413,7 +6413,7 @@ calbtrans();
 Nombre->value(hor->a[0].Name);
 CPrograma->value(hor->cpreset);
 EchoVol->value(hor->a[0].Delay_Volume * 100);
-EchoDelay->value(hor->a[0].Delay_Delay / 176400);
+EchoDelay->value(hor->a[0].Delay_Delay / 65100.0);
 EchoOn->value(hor->a[0].E_Delay_On);
 Rev->value(hor->a[0].E_Reverb_On);
 
