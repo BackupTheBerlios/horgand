@@ -5,6 +5,7 @@ horgand ChangeLog
 
 == v1.14 (  /  /2007) ==
 -------------------------------------------------------------------------------------------
+- Optimized Reverb, less CPU usage.
 - Fix bug on Delay time.
 - Added wave type for LFO effects.
 - Fix small bug initializing vars. 

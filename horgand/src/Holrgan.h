@@ -122,7 +122,7 @@ public:
     float dphi;
     float phi2[POLY];
     float dphi2; 
-  } f[12];
+  } f[11];
 
   
     
@@ -248,8 +248,8 @@ struct Todolo
   float Click_2sFreq;
   float total_vol;    
   float organ_master;
-  float p_op[12];
-  float p_op2[12];
+  float p_op[11];
+  float p_op2[11];
 
  // ALSA Seq
 

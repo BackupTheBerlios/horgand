@@ -91,8 +91,7 @@ return 1;
   }
 } 
 
-class HORGAN {open
-} {
+class HORGAN {} {
   decl {HOR *hor;} {}
   Function {make_window()} {} {
     Fl_Window HORwindow {
@@ -100,7 +99,7 @@ class HORGAN {open
 Pexitprogram=1;
 o->hide();
 exit(0);}
-      xywh {1440 72 825 595} type Double color 33 selection_color 47 resizable visible
+      xywh {1440 72 825 595} type Double color 33 selection_color 47 hide resizable
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -2199,8 +2198,8 @@ RtFile->value(filename);}
     Fl_Window ADSRwin {
       label Synthesizer
       callback {Guarda_Pref(3);
-o->hide();}
-      xywh {1494 170 330 500} type Double hide
+o->hide();} selected
+      xywh {1494 170 330 480} type Double hide
     } {
       Fl_Box {} {
         label Drawbar
@@ -2279,7 +2278,7 @@ Signal_for_Cb_Sliders = 0;
       }
       Fl_Box {} {
         label Normalize
-        xywh {0 110 140 105} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
+        xywh {0 110 140 100} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
       }
       Fl_Counter D_Freq {
         label Frequency
@@ -2299,7 +2298,7 @@ Actu();}
       }
       Fl_Box {} {
         label {F.Fine}
-        xywh {140 110 190 105} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
+        xywh {140 110 190 100} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
       }
       Fl_Counter D_Freq_F {
         label Drawbar
@@ -2315,26 +2314,26 @@ Saca->copy_label(temp);}
         label {F.Fine}
         callback {hor->a[0].Operator[(int) D_Freq_F->value()].harmonic_fine=o->value();
 Actu();}
-        xywh {150 180 145 25} labelsize 9 align 8 when 4 minimum -0.5 maximum 0.5 step 1e-05
+        xywh {150 175 145 25} labelsize 9 align 8 when 4 minimum -0.5 maximum 0.5 step 1e-05
       }
       Fl_Box {} {
         label {Rotary Amplitude}
-        xywh {0 290 170 55} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
+        xywh {0 280 170 55} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
       }
       Fl_Counter D_Rot_Amp {
         label Amplitude
         callback {hor->a[0].Rotary_LFO_Amplitude=o->value();
 Actu();}
-        xywh {10 315 90 25} type Simple labelsize 9 align 8 when 4 minimum 100 maximum 14100 step 100 value 12800
+        xywh {10 305 90 25} type Simple labelsize 9 align 8 when 4 minimum 100 maximum 14100 step 100 value 12800
       }
       Fl_Box {} {
         label Transpose
-        xywh {170 290 160 55} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
+        xywh {170 280 160 55} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
       }
       Fl_Counter D_O_Transpose {
         callback {hor->a[0].organ_transpose=(int)o->value();
 Actu();}
-        xywh {215 315 70 25} type Simple labelsize 9 align 8 when 4 minimum -36 maximum 24 step 1
+        xywh {215 305 70 25} type Simple labelsize 9 align 8 when 4 minimum -36 maximum 24 step 1
       }
       Fl_Box {} {
         label Click
@@ -2368,13 +2367,13 @@ Signal_for_Cb_Sliders = 0;
       }
       Fl_Box {} {
         label Click
-        xywh {0 345 330 100} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
+        xywh {0 335 330 100} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
       }
       Fl_Counter D_Click_Freq {
         label Frequency1
         callback {hor->a[0].Click_Freq=o->value();
 Actu();}
-        xywh {115 375 150 25} labelsize 9 align 8 when 4 minimum 10 maximum 20000 step 10 value 200
+        xywh {115 365 150 25} labelsize 9 align 8 when 4 minimum 10 maximum 20000 step 10 value 200
       }
       Fl_Dial D_Click_Vol {
         label {V.Attack}
@@ -2385,7 +2384,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {5 350 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 0.1
+        xywh {5 340 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 0.1
         class Rueda
       }
       Fl_Dial D_Click2_Vol {
@@ -2397,14 +2396,14 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {65 350 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 0.1
+        xywh {65 340 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 0.1
         class Rueda
       }
       Fl_Counter D_Click_Freq2 {
         label Frequency2
         callback {hor->a[0].Click_Freq2=o->value();
 Actu();}
-        xywh {115 410 150 25} labelsize 9 align 8 when 4 minimum 10 maximum 20000 step 10 value 6700
+        xywh {115 400 150 25} labelsize 9 align 8 when 4 minimum 10 maximum 20000 step 10 value 6700
       }
       Fl_Dial D_Click_Vol1 {
         label {V.Freq 1}
@@ -2415,7 +2414,7 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {5 395 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 1
+        xywh {5 385 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 1
         class Rueda
       }
       Fl_Dial D_Click_Vol2 {
@@ -2427,12 +2426,12 @@ if (Signal_for_Cb_Sliders == 1)
 Actu();
 Signal_for_Cb_Sliders = 0;
 }}
-        xywh {65 395 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 1
+        xywh {65 385 35 35} box OSHADOW_BOX labelsize 9 step 0.01 value 1
         class Rueda
       }
       Fl_Box {} {
         label {Wave Type}
-        xywh {0 215 230 75} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
+        xywh {0 210 230 70} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
       }
       Fl_Counter D_Wave_Type {
         label Drawbar
@@ -2442,44 +2441,44 @@ char temp[32];
 bzero(temp,sizeof(temp));
 sprintf(temp,"Drawbar %d",(int)o->value());
 Saca->copy_label(temp);}
-        xywh {5 245 70 25} type Simple labelsize 9 align 8 minimum 1 maximum 10 step 1 value 1
+        xywh {5 240 70 25} type Simple labelsize 9 align 8 minimum 1 maximum 10 step 1 value 1
       }
       Fl_Counter D_Wave_Type_Val {
         label Wave
         callback {hor->a[0].Operator[(int)D_Wave_Type->value()].wave=(int)o->value();
 Actu();}
-        xywh {125 245 70 25} type Simple labelsize 9 align 8 when 4 minimum 1 maximum 9 step 1 value 1
+        xywh {125 240 70 25} type Simple labelsize 9 align 8 when 4 minimum 1 maximum 9 step 1 value 1
       }
       Fl_Box {} {
         label {Keyboard Scaling}
-        xywh {230 215 100 75} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 145
+        xywh {230 210 100 70} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 145
       }
       Fl_Button D_KeybS {
         label On
         callback {hor->a[0].scaling=o->value();
 Actu();}
-        xywh {255 260 55 25} type Toggle box PLASTIC_UP_BOX selection_color 3 labelsize 12
+        xywh {255 250 55 25} type Toggle box PLASTIC_UP_BOX selection_color 3 labelsize 12
       }
       Fl_Box {} {
-        xywh {0 445 330 55} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
+        xywh {0 435 330 45} box PLASTIC_UP_BOX color 0 labelsize 13 labelcolor 4 align 17
       }
       Fl_Counter D_Wave_Type_LFO {
         label {Tremolo Wave}
         callback {hor->a[0].LFO_Wave=(int)o->value();
 Actu();}
-        xywh {30 465 70 25} type Simple labelsize 9 align 1 when 4 minimum 1 maximum 9 step 1 value 1
+        xywh {30 450 70 25} type Simple labelsize 9 align 1 when 4 minimum 1 maximum 9 step 1 value 1
       }
       Fl_Counter D_Wave_Type_Chorus {
         label {Chorus Wave}
         callback {hor->a[0].Chorus_Wave=(int)o->value();
 Actu();}
-        xywh {230 465 70 25} type Simple labelsize 9 align 1 when 4 minimum 1 maximum 9 step 1 value 1
+        xywh {230 450 70 25} type Simple labelsize 9 align 1 when 4 minimum 1 maximum 9 step 1 value 1
       }
       Fl_Counter D_Wave_Type_Rotary {
         label {Rotary Wave}
         callback {hor->a[0].Rotary_Wave=(int)o->value();
 Actu();}
-        xywh {130 465 70 25} type Simple labelsize 9 align 1 when 4 minimum 1 maximum 9 step 1 value 1
+        xywh {130 450 70 25} type Simple labelsize 9 align 1 when 4 minimum 1 maximum 9 step 1 value 1
       }
     }
   }
@@ -3106,8 +3105,7 @@ ELFOSpeed->value(hor->a[0].Chorus_LFO_Speed);
 ChorVol->value(hor->a[0].Chorus_Volume * 100);
 BSync_Speed->value(hor->a[0].Speed_Sync);
 metesynth();
-hor->syncadsr();} {selected
-    }
+hor->syncadsr();} {}
   }
   Function {SetBassType(int type)} {return_type void
   } {
