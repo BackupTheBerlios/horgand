@@ -186,8 +186,9 @@ HOR::Effect_Reverb ()
   for (i=0; i<16; i++)
   { 
     stmp[i] += (accum + Reverb_Diffussion*ready_apsg[capsg]);
-    if (++capsg >15) capsg =0;
+    if (++capsg >14) capsg =0;
     accum=stmp[i];
+    
   }    
     
   tmprvol = accum * Reverb_Volume * 2.2;
