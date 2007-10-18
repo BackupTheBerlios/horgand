@@ -617,7 +617,7 @@ HOR::ReadNames(char *filename,char *bankname)
           strcpy(NBP[Nums].Bank,bankname);
           NBP[Nums].pos=j;
           Nums++;
-          if (Nums > 320)
+          if (Nums > 999)
            { 
              printf("Sounds full\n");
              fclose(fn);

@@ -1196,11 +1196,11 @@ float
 HOR:: NFsin(int i,float x)
 {
    int k;
-
-   if(x>D_PI) x=fmod(x,D_PI);
-
+   
    k=lrintf(x*1000.0);
 
+   if (k>6283) k %= 6283; 
+     
 
    switch(i)
    {

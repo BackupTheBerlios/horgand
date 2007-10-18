@@ -116,6 +116,106 @@ public:
   void PutReverb(int i);
 
 
+  int PERIOD;
+  unsigned int SAMPLE_RATE;
+  int PERIOD2;
+  int PERIOD4;
+  int PERIOD8;
+  int  note[POLY];
+  int rnote[POLY];
+  int  gate[POLY];
+  int  note_active[POLY];
+  int pedal;
+  int rperhis;
+  int transpose;
+  int To_Stereo_Side;
+  int cl_counter;
+  int Salida;
+  int split;
+  int Reverb_Time;
+  int combl[16];
+  int combr[16];
+  int a_combl[16];
+  int a_combr[16];
+  int apsg[16];
+  int capsg;         
+  int apss;
+
+  float increment;
+  float D_PI_to_SAMPLE_RATE; 
+  float ldelay,rdelay;
+  float *lsin;
+  float *nsin;
+  float *msin;
+  float *psin;
+  float *qsin;
+  float *rsin;
+  float *tsin;
+  float *ssin;
+  float *usin;
+  float *buf;
+  short *wbuf;
+  float *rbuf;
+  float *bbuf;
+  float *history;
+  float *cldelay;
+  float *crdelay;
+  float release;
+  float p_release;
+  float u_attack;
+  float u_p_attack;
+  float u_decay;
+  float u_p_decay;
+  float u_release;
+  float u_p_release;
+  float u_c_attack;
+  float u_c_decay;
+  float dcphi[POLY];
+  float dcphi2[POLY];
+  float velocity[POLY];
+  float pitch;
+  float env_time[POLY];
+  float Envelope_Volume[POLY];
+  float Perc_Volume[POLY];
+  float Click_sFreq;
+  float Click_2sFreq;
+  float total_vol;    
+  float organ_master;
+  float p_op[11];
+  float p_op2[11];
+  float mastertune;
+  float lasfreq[24];
+  float Master_Volume;
+  float Stereo_Side; 
+  float LFO_Frequency;
+  float Rotary_LFO_Frequency;
+  float Rotary_X;
+  float Chorus_X_R;
+  float Chorus_X_L;
+  float Chorus_LFO_Frequency;
+  float Reverb_Diffussion;
+  float Reverb_Volume;
+  float ready_apsg[16];
+
+ // ALSA Seq
+
+  snd_seq_t *midi_in;
+    
+ // ALSA Audio 
+  
+  snd_pcm_t *playback_handle;
+  snd_pcm_hw_params_t *hw_params;
+  snd_pcm_sw_params_t *sw_params;
+                
+// OSS Audio
+
+  int snd_handle;
+  int snd_fragment;
+  int snd_stereo;
+  int snd_format;
+  int snd_samplerate;
+
+  
   struct freqVarios
   {   
     float phi[POLY];
@@ -186,115 +286,20 @@ struct Todolo
    int Rotary_Wave;
    char *nombre;
 
-} a[1];
+}a[1];
+
+struct Menoscalculos
+{ 
+   float f1,f2,f3;
+}h[194];
 
 
-  float increment;
-  float D_PI_to_SAMPLE_RATE; 
-  float ldelay,rdelay;
-  float *lsin;
-  float *nsin;
-  float *msin;
-  float *psin;
-  float *qsin;
-  float *rsin;
-  float *tsin;
-  float *ssin;
-  float *usin;
-  float *buf;
-  short *wbuf;
-  float *rbuf;
-  float *bbuf;
-  float *history;
-  float *cldelay;
-  float *crdelay;
-  float release;
-  float p_release;
-  float u_attack;
-  float u_p_attack;
-  float u_decay;
-  float u_p_decay;
-  float u_release;
-  float u_p_release;
-  float u_c_attack;
-  float u_c_decay;
-  float dcphi[POLY];
-  float dcphi2[POLY];
-  float velocity[POLY];
-  float pitch;
-  float env_time[POLY];
-  float Envelope_Volume[POLY];
-  float Perc_Volume[POLY];
-  float mastertune;
-  float lasfreq[24];
-  float Master_Volume;
-  float Stereo_Side; 
-  float LFO_Frequency;
-  float Rotary_LFO_Frequency;
-  float Rotary_X;
-  float Chorus_X_R;
-  float Chorus_X_L;
-  float Chorus_LFO_Frequency;
-  float Reverb_Diffussion;
-  float Reverb_Volume;
-  float ready_apsg[16];
   float Bass_Volume;
   float Rhythm_Volume;
   float tempo;                  
   float length_bass_note;
   float frames_bass;
   float bass_velocity;
-  float Click_sFreq;
-  float Click_2sFreq;
-  float total_vol;    
-  float organ_master;
-  float p_op[11];
-  float p_op2[11];
-
- // ALSA Seq
-
-  snd_seq_t *midi_in;
-    
- // ALSA Audio 
-  
-  snd_pcm_t *playback_handle;
-  snd_pcm_hw_params_t *hw_params;
-  snd_pcm_sw_params_t *sw_params;
-                
-
-
-// OSS Audio
-
-  int snd_handle;
-  int snd_fragment;
-  int snd_stereo;
-  int snd_format;
-  int snd_samplerate;
-  short int *smps;    
-  int PERIOD;
-  unsigned int SAMPLE_RATE;
-  int PERIOD2;
-  int PERIOD4;
-  int PERIOD8;
-  int  note[POLY];
-  int rnote[POLY];
-  int  gate[POLY];
-  int  note_active[POLY];
-  int pedal;
-  int rperhis;
-  int transpose;
-  int To_Stereo_Side;
-  int cl_counter;
-  int Salida;
-  int split;
-  int Reverb_Time;
-  int combl[16];
-  int combr[16];
-  int a_combl[16];
-  int a_combr[16];
-  int apsg[16];
-  int capsg;         
-  int apss;
   int Bass_On;
   int Rhythm_On;
   int Samples_Readed;
@@ -339,14 +344,10 @@ struct Todolo
   int Nums;
   int cambiaDriver;
 
-  struct Menoscalculos
-  
-  { 
-    float f1,f2,f3;
-  }  h[192];
 
-Todolo Banco[34], Undo[100], Prim[2];
-  
+Todolo Banco[33], Undo[100], Prim[2];
+
+
 struct Rhythm
 {
  char Nfile[256];
@@ -425,15 +426,10 @@ struct Ch5
   char Name[36];
   char Bank[36];
   int pos;
-} NBP[324];  
+} NBP[1000];  
 
 
 };
-
-
-
-
-
 
 #endif
 
