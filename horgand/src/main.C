@@ -2,7 +2,7 @@
   horgand - a organ software
 
   main.C  -  Main file of the organ
-  Copyright (C) 2003-2004 Josep Andreu (Holborn)
+  Copyright (C) 2003-2007 Josep Andreu (Holborn)
   Author: Josep Andreu
 
   This program is free software; you can redistribute it and/or modify
@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
  { 
 
       // Refresh GUI
-  if (gui) Fl::wait(0.01);
+  if (gui) Fl::wait();
   else
   { 
    usleep(1500);

@@ -1,8 +1,8 @@
 /*
   horgand - a organ software
 
- organ.FileIO.C  -  File Input/Output functions
-  Copyright (C) 2003-2004 Josep Andreu (Holborn)
+  organFileIO.C  -  File Input/Output functions
+  Copyright (C) 2003-2007 Josep Andreu (Holborn)
   Author: Josep Andreu
 
  This program is free software; you can redistribute it and/or modify
@@ -561,7 +561,7 @@ if (strstr(fs->d_name,BANK_EXTENSION)!=NULL)
     bzero(nombank,sizeof(nombank));
     sprintf(nombank,"%s/%s",nomdir,fs->d_name);
     ReadNames(nombank,fs->d_name);
-    if (Nums > 320) return;  
+    if (Nums > 999) return;  
    }
 
    

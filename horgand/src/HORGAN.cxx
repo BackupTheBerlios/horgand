@@ -4625,7 +4625,7 @@ Fl_Double_Window* HORGAN::make_window() {
     HORwindow->end();
     HORwindow->resizable(HORwindow);
   } // Fl_Double_Window* HORwindow
-  { aboutwindow = new Fl_Double_Window(380, 350, gettext("About..."));
+  { aboutwindow = new Fl_Double_Window(380, 375, gettext("About..."));
     aboutwindow->box(FL_PLASTIC_DOWN_BOX);
     aboutwindow->color(FL_GRAY0);
     aboutwindow->callback((Fl_Callback*)cb_aboutwindow, (void*)(this));
@@ -4633,7 +4633,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->image(image_horgand128);
       o->labelsize(18);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(75, 75, 135, 40, gettext("Horgand"));
+    { Fl_Box* o = new Fl_Box(55, 35, 135, 40, gettext("Horgand"));
       o->labelfont(1);
       o->labelsize(24);
       o->align(FL_ALIGN_CLIP);
@@ -4644,7 +4644,7 @@ fonica.net "));
       o->labelcolor((Fl_Color)18);
       o->align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(20, 165, 340, 130, gettext("This is free software. you may redistribute and/or modify it under the terms \
+    { Fl_Box* o = new Fl_Box(20, 210, 340, 115, gettext("This is free software. you may redistribute and/or modify it under the terms \
 of the version 2 of the GNU General Public License as published by the Free So\
 ftware Fundation.\n This program comes with \n ABSOLUTE NO WARRANTY. \n See th\
 e version 2 of the \n GNU General Public License for details."));
@@ -4652,10 +4652,21 @@ e version 2 of the \n GNU General Public License for details."));
       o->labelsize(11);
       o->align(194|FL_ALIGN_INSIDE);
     } // Fl_Box* o
-    { Fl_Button* o = new Fl_Button(160, 300, 65, 40, gettext("OK"));
+    { Fl_Button* o = new Fl_Button(160, 330, 65, 40, gettext("OK"));
       o->shortcut(0xff0d);
       o->callback((Fl_Callback*)cb_OK);
     } // Fl_Button* o
+    { Fl_Box* o = new Fl_Box(15, 180, 345, 20, gettext("http://horgand.berlios.de"));
+      o->labelfont(1);
+      o->labelsize(16);
+      o->labelcolor((Fl_Color)4);
+      o->align(FL_ALIGN_CLIP);
+    } // Fl_Box* o
+    { Fl_Box* o = new Fl_Box(20, 195, 345, 20, gettext("(Visite the website for new sounds)"));
+      o->labelfont(1);
+      o->labelsize(10);
+      o->align(FL_ALIGN_CLIP);
+    } // Fl_Box* o
     aboutwindow->end();
   } // Fl_Double_Window* aboutwindow
   { Settingswindow = new Fl_Double_Window(495, 310, gettext("Settings"));

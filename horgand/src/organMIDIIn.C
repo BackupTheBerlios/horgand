@@ -1,8 +1,8 @@
 /*
   horgand - a organ software
 
- organ.MIDIIn.C  -  organ functions
-  Copyright (C) 2003-2004 Josep Andreu (Holborn)
+  organMIDIIn.C  -  organ functions
+  Copyright (C) 2003-2007 Josep Andreu (Holborn)
   Author: Josep Andreu
 
  This program is free software; you can redistribute it and/or modify

@@ -1262,7 +1262,7 @@ hor->Bass_On =  o->value();}
       Fl_Counter CPrograma {
         callback {hor->cpreset = (int) o->value();
 PutCombi(hor->cpreset);
-Actu();}
+Actu();} selected
         xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum 1 maximum 32 step 1
       }
       Fl_Slider OMaster {
@@ -1343,14 +1343,14 @@ Actu();}
     Fl_Window aboutwindow {
       label {About...}
       callback {aboutwindow->hide();}
-      xywh {1630 88 380 350} type Double box PLASTIC_DOWN_BOX color 32 hide
+      xywh {1710 127 380 375} type Double box PLASTIC_DOWN_BOX color 32 hide
     } {
       Fl_Box {} {
         image {horgand128.xpm} xywh {175 13 195 107} labelsize 18
       }
       Fl_Box {} {
         label Horgand
-        xywh {75 75 135 40} labelfont 1 labelsize 24 align 64
+        xywh {55 35 135 40} labelfont 1 labelsize 24 align 64
       }
       Fl_Box {} {
         label {Copyright (C) 2003-2007 by Josep Andreu
@@ -1364,12 +1364,20 @@ Actu();}
  ABSOLUTE NO WARRANTY. 
  See the version 2 of the 
  GNU General Public License for details.}
-        xywh {20 165 340 130} labelfont 1 labelsize 11 align 210
+        xywh {20 210 340 115} labelfont 1 labelsize 11 align 210
       }
       Fl_Button {} {
         label OK
         callback {aboutwindow->do_callback();}
-        xywh {160 300 65 40} shortcut 0xff0d
+        xywh {160 330 65 40} shortcut 0xff0d
+      }
+      Fl_Box {} {
+        label {http://horgand.berlios.de}
+        xywh {15 180 345 20} labelfont 1 labelsize 16 labelcolor 4 align 64
+      }
+      Fl_Box {} {
+        label {(Visite the website for new sounds)}
+        xywh {20 195 345 20} labelfont 1 labelsize 10 align 64
       }
     }
     Fl_Window Settingswindow {
@@ -2198,7 +2206,7 @@ RtFile->value(filename);}
     Fl_Window ADSRwin {
       label Synthesizer
       callback {Guarda_Pref(3);
-o->hide();} selected
+o->hide();}
       xywh {1494 170 330 480} type Double hide
     } {
       Fl_Box {} {

@@ -138,13 +138,13 @@
 #define PACKAGE_NAME "horgand"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "horgand 1.14"
+#define PACKAGE_STRING "horgand 1.15"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "horgand"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.14"
+#define PACKAGE_VERSION "1.15"
 
 /* Install prefix */
 #define PREFIX "/usr/local"
@@ -162,7 +162,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "1.14"
+#define VERSION "1.15"
 
 /* WEBSITE */
 #define WEBSITE "horgand.berlios.de"
