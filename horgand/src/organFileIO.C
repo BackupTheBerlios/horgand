@@ -295,6 +295,7 @@ HOR::loadbank (char *filename)
   
   if ((fn = fopen (filename, "r")) == NULL) return;
 
+  strcpy(SavedBank,filename);
   bzero (buf, sizeof (buf));
   fgets (buf, sizeof buf, fn);
   sscanf(buf, "%f\n",&Data_Version);
