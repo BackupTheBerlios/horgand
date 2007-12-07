@@ -163,7 +163,7 @@ CPrograma->value(0);}
             label {&Load...}
             callback {char *filename;
 Fl::focus(PANICO);
-filename=fl_file_chooser("Preset Load:","(*.hor)",NULL,0);
+filename=fl_file_chooser("Load File:","(*.hor)",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,".hor");
 hor->loadfile(filename);
@@ -174,7 +174,7 @@ PutLoaded();}
             label {&Save...}
             callback {char *filename;
 \#define EXT ".hor"
-filename=fl_file_chooser("Preset Save:","(*"EXT")",hor->a[0].Name,0);
+filename=fl_file_chooser("Save File:","(*"EXT")",hor->a[0].Name,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
@@ -1262,7 +1262,7 @@ hor->Bass_On =  o->value();}
       Fl_Counter CPrograma {
         callback {hor->cpreset = (int) o->value();
 PutCombi(hor->cpreset);
-Actu();} selected
+Actu();}
         xywh {15 165 75 25} type Simple labeltype EMBOSSED_LABEL labelcolor 208 align 4 when 4 minimum 1 maximum 32 step 1
       }
       Fl_Slider OMaster {
@@ -1485,7 +1485,7 @@ Undo();}
           MenuItem BLoad {
             label {&Load Bank}
             callback {char *filename;
-filename=fl_file_chooser("Bank Load:","(*.horeb)",NULL,0);
+filename=fl_file_chooser("Load Bank:","(*.horeb)",NULL,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,".horeb");
 hor->loadbank(filename);
@@ -1497,11 +1497,11 @@ PutCombi(1);}
             label {&Save Bank}
             callback {char *filename;
 \#define EXT ".horeb"
-filename=fl_file_chooser("Bank Save:","(*"EXT")",hor->SavedBank,0);
+filename=fl_file_chooser("Save Bank:","(*"EXT")",hor->SavedBank,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
-hor->savebank(filename);}
+hor->savebank(filename);} selected
             xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {
