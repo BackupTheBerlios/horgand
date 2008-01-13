@@ -2,7 +2,7 @@
   horgand - a organ software
   
   Holrgan.h  -  Variable Definitions and functions
-  Copyright (C) 2003-2004 Josep Andreu (Holborn)
+  Copyright (C) 2003-2008 Josep Andreu (Holborn)
   Author: Josep Andreu
         
  This program is free software; you can redistribute it and/or modify

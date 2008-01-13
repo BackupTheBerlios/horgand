@@ -5,7 +5,7 @@ i18n_include <libintl.h>
 i18n_function gettext 
 header_name {.h} 
 code_name {.cxx}
-decl {//Copyright (c) 2003-2004 Josep Andreu (Holborn)} {} 
+decl {//Copyright (c) 2003-2008 Josep Andreu (Holborn)} {} 
 
 decl {//License: GNU GPL version 2} {} 
 
@@ -1353,9 +1353,9 @@ Actu();}
         xywh {55 35 135 40} labelfont 1 labelsize 24 align 64
       }
       Fl_Box {} {
-        label {Copyright (C) 2003-2007 by Josep Andreu
+        label {Copyright (C) 2003-2008 by Josep Andreu
      (Holborn) 
-      holborn@@telefonica.net }
+      holborn@@telefonica.net } selected
         xywh {10 115 345 70} labelfont 1 labelcolor 18 align 80
       }
       Fl_Box {} {
@@ -1501,7 +1501,7 @@ filename=fl_file_chooser("Save Bank:","(*"EXT")",hor->SavedBank,0);
 if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
-hor->savebank(filename);} selected
+hor->savebank(filename);}
             xywh {0 0 100 20} labelsize 14 divider
           }
           MenuItem {} {

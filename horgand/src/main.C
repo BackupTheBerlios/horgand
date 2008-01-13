@@ -2,7 +2,7 @@
   horgand - a organ software
 
   main.C  -  Main file of the organ
-  Copyright (C) 2003-2007 Josep Andreu (Holborn)
+  Copyright (C) 2003-2008 Josep Andreu (Holborn)
   Author: Josep Andreu
 
   This program is free software; you can redistribute it and/or modify
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 // Read command Line
 
   fprintf (stderr,
-	   "\n%s %s - Copyright (c) 2003-2007 Josep Andreu (Holborn)\n",PACKAGE,VERSION);
+	   "\n%s %s - Copyright (c) 2003-2008 Josep Andreu (Holborn)\n",PACKAGE,VERSION);
   if (argc == 1)
     fprintf (stderr, "Try 'horgand --help' for command-line options.\n");
 

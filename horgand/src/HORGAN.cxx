@@ -2,7 +2,7 @@
 
 #include <libintl.h>
 #include "HORGAN.h"
-//Copyright (c) 2003-2004 Josep Andreu (Holborn)
+//Copyright (c) 2003-2008 Josep Andreu (Holborn)
 //License: GNU GPL version 2
 #include "horgand128.xpm"
 
@@ -4638,7 +4638,7 @@ Fl_Double_Window* HORGAN::make_window() {
       o->labelsize(24);
       o->align(FL_ALIGN_CLIP);
     } // Fl_Box* o
-    { Fl_Box* o = new Fl_Box(10, 115, 345, 70, gettext("Copyright (C) 2003-2007 by Josep Andreu\n     (Holborn) \n      holborn@@tele\
+    { Fl_Box* o = new Fl_Box(10, 115, 345, 70, gettext("Copyright (C) 2003-2008 by Josep Andreu\n     (Holborn) \n      holborn@@tele\
 fonica.net "));
       o->labelfont(1);
       o->labelcolor((Fl_Color)18);

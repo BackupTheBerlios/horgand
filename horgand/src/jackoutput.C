@@ -2,7 +2,7 @@
   horgand - a organ software
 
   jackoutput.C  -   jack output
-  Copyright (C) 2003-2007 Josep Andreu (Holborn)
+  Copyright (C) 2003-2008 Josep Andreu (Holborn)
   Author: Josep Andreu
 
   This program is free software; you can redistribute it and/or modify
