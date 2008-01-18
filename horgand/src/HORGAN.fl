@@ -1355,7 +1355,7 @@ Actu();}
       Fl_Box {} {
         label {Copyright (C) 2003-2008 by Josep Andreu
      (Holborn) 
-      holborn@@telefonica.net } selected
+      holborn@@telefonica.net }
         xywh {10 115 345 70} labelfont 1 labelcolor 18 align 80
       }
       Fl_Box {} {
@@ -1460,8 +1460,8 @@ strcpy(hor->RhythmFilename,filename);}
       label {horgand Bank}
       callback {Guarda_Pref(2);
 HORBank->hide();
-Fl::focus(PANICO);}
-      tooltip {Right Click Get  - Left Click Put} xywh {1352 161 745 420} type Double hide
+Fl::focus(PANICO);} selected
+      tooltip {Right Click Get  - Left Click Put} xywh {411 232 745 420} type Double hide
     } {
       Fl_Button BClose {
         label Close
@@ -1515,7 +1515,7 @@ hor->savebank(filename);}
         xywh {0 30 745 335} labelsize 18
       } {
         Fl_Group {} {
-          label {Active Bank}
+          label {Active Bank} open
           xywh {10 55 720 305}
         } {
           Fl_Group {} {
@@ -1841,6 +1841,10 @@ o->label(hor->Banco[32].Name)}
               label 32
               xywh {555 335 30 25} labeltype ENGRAVED_LABEL align 80
             }
+          }
+          Fl_Box {} {
+            label {Visit http://horgand.berlios.de for more sound banks}
+            xywh {125 90 495 30} labelfont 1 labelcolor 4
           }
         }
         Fl_Group {} {

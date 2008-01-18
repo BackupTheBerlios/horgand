@@ -5155,6 +5155,10 @@ e version 2 of the \n GNU General Public License for details."));
           } // Fl_Box* o
           o->end();
         } // Fl_Group* o
+        { Fl_Box* o = new Fl_Box(125, 90, 495, 30, gettext("Visit http://horgand.berlios.de for more sound banks"));
+          o->labelfont(1);
+          o->labelcolor((Fl_Color)4);
+        } // Fl_Box* o
         o->end();
       } // Fl_Group* o
       { Fl_Group* o = new Fl_Group(10, 55, 720, 305, gettext("More Sounds"));
