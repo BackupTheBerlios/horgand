@@ -174,7 +174,7 @@ int main(int argc, char *argv[])
       fprintf (stderr, "  -nod[nd]\n");
       fprintf (stderr, "  -nok[bd]\n");
       fprintf (stderr, "  -not[ooltips]\n");
-      fprintf (stderr, "  -s[cheme] scheme (pastic,none,gtk+)\n");
+      fprintf (stderr, "  -s[cheme] scheme (plastic,none,gtk+)\n");
       fprintf (stderr, "  -ti[tle] windowtitle\n");
       fprintf (stderr, "  -to[oltips]\n");
       fprintf (stderr, "\n");
