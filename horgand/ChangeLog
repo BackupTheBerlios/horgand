@@ -5,8 +5,10 @@ horgand ChangeLog
 
 
 
-== v1.15 (  /  /    ) ==
+== v1.15 (  /  /2008) ==
 -------------------------------------------------------------------------------------------
+- Connect to jackd-0.109 new name of default ports.
+- Typo fix.
 - Remember loaded bank filename.
 - Fix <C> date.
 - Up to 1000 sounds.
