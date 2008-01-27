@@ -93,7 +93,8 @@ return 1;
 
 class HORGAN {} {
   decl {HOR *hor;} {}
-  Function {make_window()} {} {
+  Function {make_window()} {selected
+  } {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
@@ -638,13 +639,13 @@ Actu();}
 NV1->value(hor->lasfreq[(int) o->value()]);
 
 Actu();}
-        xywh {2 563 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 align 1 when 4 minimum 1 maximum 22 step 1
+        xywh {2 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 align 1 when 4 minimum 1 maximum 22 step 1
       }
       Fl_Slider H2 {
         callback {hor->a[0].Operator[2].harmonic = (int) o->value();
 NV2->value(hor->lasfreq[(int) o->value()]);
 Actu();}
-        xywh {61 563 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
+        xywh {61 565 55 25} type {Horz Knob} box PLASTIC_DOWN_BOX color 0 selection_color 3 labeltype ENGRAVED_LABEL labelcolor 4 when 4 minimum 1 maximum 22 step 1
       }
       Fl_Slider H3 {
         callback {hor->a[0].Operator[3].harmonic = (int) o->value();
@@ -1460,7 +1461,7 @@ strcpy(hor->RhythmFilename,filename);}
       label {horgand Bank}
       callback {Guarda_Pref(2);
 HORBank->hide();
-Fl::focus(PANICO);} selected
+Fl::focus(PANICO);}
       tooltip {Right Click Get  - Left Click Put} xywh {411 232 745 420} type Double hide
     } {
       Fl_Button BClose {

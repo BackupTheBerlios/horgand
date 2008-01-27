@@ -3756,7 +3756,7 @@ Fl_Double_Window* HORGAN::make_window() {
       EchoDelay->callback((Fl_Callback*)cb_EchoDelay);
       EchoDelay->when(FL_WHEN_RELEASE);
     } // Fl_Counter* EchoDelay
-    { H1 = new Fl_Slider(2, 563, 55, 25);
+    { H1 = new Fl_Slider(2, 565, 55, 25);
       H1->type(5);
       H1->box(FL_PLASTIC_DOWN_BOX);
       H1->color(FL_FOREGROUND_COLOR);
@@ -3770,7 +3770,7 @@ Fl_Double_Window* HORGAN::make_window() {
       H1->align(FL_ALIGN_TOP);
       H1->when(FL_WHEN_RELEASE);
     } // Fl_Slider* H1
-    { H2 = new Fl_Slider(61, 563, 55, 25);
+    { H2 = new Fl_Slider(61, 565, 55, 25);
       H2->type(5);
       H2->box(FL_PLASTIC_DOWN_BOX);
       H2->color(FL_FOREGROUND_COLOR);
