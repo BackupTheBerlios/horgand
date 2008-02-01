@@ -81,10 +81,6 @@ JACKstart(HOR *hor_)
                 "alsa_pcm:playback_1");
   jack_connect (jackclient, jack_port_name (outport_right),
                 "alsa_pcm:playback_2");
-  jack_connect (jackclient, jack_port_name (outport_left),
-                "system:playback_1");
-  jack_connect (jackclient, jack_port_name (outport_right),
-                "system:playback_2");
 
 
   pthread_mutex_init (&jmutex, NULL);

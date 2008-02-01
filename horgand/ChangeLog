@@ -7,8 +7,9 @@ horgand ChangeLog
 
 == v1.15 (  /  /2008) ==
 -------------------------------------------------------------------------------------------
+- Back changes to connect to jackd-0.109.2
 - fixed small graphic things.
-- Connect to jackd-0.109 new name of default ports.
+- Connect to jackd-0.109.1 new name of default ports.
 - Typo fix.
 - Remember loaded bank filename.
 - Fix <C> date.
