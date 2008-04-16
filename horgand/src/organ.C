@@ -908,6 +908,7 @@ char orden[256];
   // Open Alsa Seq 
  
   snd_seq_open (&midi_in, "default", SND_SEQ_OPEN_INPUT, 0);
+  snd_seq_set_client_name(midi_in, "horgand");
   int alsaport = 0;
   char portname[50];
 
