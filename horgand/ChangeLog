@@ -7,6 +7,9 @@ horgand ChangeLog
 
 == v1.15 (  /  /2008) ==
 -------------------------------------------------------------------------------------------
+- Add pid to jack client name for multiple instances
+- Better Jack Exit
+- Add ALSA seq client name.
 - Back changes to connect to jackd-0.109.2
 - fixed small graphic things.
 - Connect to jackd-0.109.1 new name of default ports.
