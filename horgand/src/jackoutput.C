@@ -30,6 +30,10 @@ pthread_mutex_t jmutex;
 
 
 jack_client_t *jackclient;
+jack_options_t options;
+jack_status_t status;
+  
+
 jack_port_t *outport_left,*outport_right;
 
 int jackprocess (jack_nframes_t nframes,void *arg);
@@ -49,12 +53,13 @@ JACKstart(HOR *hor_)
   sprintf(temp,"Horgand_%d",getpid());
 
 
-  jackclient = jack_client_new (temp);
-  if (jackclient == 0)
+  jackclient = jack_client_open(temp,options,&status,NULL);;
+  if (jackclient == NULL)
     {
       fprintf (stderr, "Cannot make a jack client, back to Alsa\n");
       return (2);
     };
+
   JackOUT->SAMPLE_RATE=DSAMPLE_RATE;
   fprintf (stderr, "Internal SampleRate   = %d\nJack Output SampleRate= %d\n",
            JackOUT->SAMPLE_RATE, jack_get_sample_rate (jackclient));
