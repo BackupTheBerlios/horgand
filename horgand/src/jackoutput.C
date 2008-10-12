@@ -47,13 +47,10 @@ int
 JACKstart(HOR *hor_)
 {
 
-  char temp[64]; 
+   
   JackOUT=hor_; 
-  bzero(temp,sizeof(temp));
-  sprintf(temp,"Horgand_%d",getpid());
 
-
-  jackclient = jack_client_open(temp,options,&status,NULL);;
+  jackclient = jack_client_open("Horgand",options,&status,NULL);;
   if (jackclient == NULL)
     {
       fprintf (stderr, "Cannot make a jack client, back to Alsa\n");
