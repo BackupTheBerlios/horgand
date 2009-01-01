@@ -52,7 +52,7 @@ am_horgand_OBJECTS = main.$(OBJEXT) organ.$(OBJEXT) \
 	organDSPEffects.$(OBJEXT) organAudioOut.$(OBJEXT) \
 	organMIDIIn.$(OBJEXT) organAccompaniment.$(OBJEXT) \
 	organvarios.$(OBJEXT) organFileIO.$(OBJEXT) \
-	jackoutput.$(OBJEXT) HORGAN.$(OBJEXT)
+	jackoutput.$(OBJEXT) jackmidi.$(OBJEXT) HORGAN.$(OBJEXT)
 horgand_OBJECTS = $(am_horgand_OBJECTS)
 horgand_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I.
@@ -167,6 +167,7 @@ horgand_SOURCES = main.C \
 	organvarios.C \
 	organFileIO.C \
 	jackoutput.C \
+	jackmidi.C \
         HORGAN.cxx \
         Holrgan.h \
         jackoutput.h \
@@ -258,6 +259,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/HORGAN.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jackmidi.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jackoutput.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/organ.Po@am__quote@

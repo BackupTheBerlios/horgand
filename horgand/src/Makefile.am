@@ -8,6 +8,7 @@ horgand_SOURCES = main.C \
 	organvarios.C \
 	organFileIO.C \
 	jackoutput.C \
+	jackmidi.C \
         HORGAN.cxx \
         Holrgan.h \
         jackoutput.h \

@@ -28,6 +28,7 @@
 #include <alsa/asoundlib.h>
 #include <sndfile.h>
 #include <X11/xpm.h>
+#include <jack/midiport.h>
 #include "config.h"
 #define MPERIOD  128
 #define BUFSIZE 512
@@ -66,6 +67,7 @@ public:
   void Calc_Chorus_LFO_Frequency();
   void Write_Buffer_Effects();
   void midievents (int i);
+  void jack_process_midievents(jack_midi_event_t *midievent);
   float pitch_Operator(int i, int note);      
   float pitch_Operator2(int i, int note);      
   void volume_Operator(int i, int note);

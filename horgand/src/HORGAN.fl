@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0108 
+version 1.0109 
 i18n_type 1 
 i18n_include <libintl.h> 
 i18n_function gettext 
@@ -93,8 +93,7 @@ return 1;
 
 class HORGAN {} {
   decl {HOR *hor;} {}
-  Function {make_window()} {selected
-  } {
+  Function {make_window()} {} {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
@@ -2502,7 +2501,7 @@ fl_open_display();
 XpmCreatePixmapFromData(fl_display, DefaultRootWindow(fl_display),(char **)horgand128,&p ,&mask, NULL);
 Fl::visual(FL_RGB);
 Fl::visual(FL_DOUBLE|FL_INDEX);
-
+Fl::get_system_colors();
 hor=hor_;
 make_window();
 HORwindow->icon((char *)p);
@@ -2527,7 +2526,8 @@ put_icon(HORwindow);
 
 void * v=MT;
 
-Fl::add_timeout(1.0 * 0.04,tick,v);} {}
+Fl::add_timeout(1.0 * 0.04,tick,v);} {selected
+    }
   }
   Function {metelo()} {} {
     code {char *temp;

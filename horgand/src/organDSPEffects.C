@@ -80,8 +80,9 @@ HOR::Effect_Chorus()
 
       // L Channel
 
-      ldelay=ms+ch_delay+Chorus_LFO(&Chorus_X_L);
+      ldelay=Chorus_LFO(&Chorus_X_L);
       dell=(ldelay1*(PERIOD-i)+ldelay*i)/PERIOD;
+      dell=dell+ms+ch_delay;
       elkel=cl_counter-(int)ceil(dell-1.0);
       if (elkel<0) elkel +=8192;
       if (elkel>=8192) elkel -=8192;
@@ -93,11 +94,11 @@ HOR::Effect_Chorus()
       buf[i]+=valorl*chor_vol;
       cldelay[cl_counter]=buf[i];
       
-          
       
       // R Channel
-      rdelay=ms+ch_delay+Chorus_LFO(&Chorus_X_R);
+      rdelay=Chorus_LFO(&Chorus_X_R);
       dell=(rdelay1*(PERIOD-i)+rdelay*i)/PERIOD;
+      dell=dell+ms+ch_delay;
       elkel=cl_counter-(int)ceil(dell-1.0);
       if (elkel<0) elkel +=8192;
       if (elkel>=8192) elkel -=8192;

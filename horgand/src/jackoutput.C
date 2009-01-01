@@ -22,6 +22,7 @@
 */
 
 #include <jack/jack.h>
+#include <jack/midiport.h>
 #include "jackoutput.h"
 #include "Holrgan.h"
 
@@ -34,7 +35,7 @@ jack_options_t options;
 jack_status_t status;
   
 
-jack_port_t *outport_left,*outport_right;
+jack_port_t *outport_left,*outport_right, *jack_midi_in;
 
 int jackprocess (jack_nframes_t nframes,void *arg);
 void jackaudioprepare();
@@ -78,6 +79,10 @@ JACKstart(HOR *hor_)
                         JackPortIsOutput | JackPortIsTerminal, 0);
 
 
+  jack_midi_in =  jack_port_register(jackclient, "in", JACK_DEFAULT_MIDI_TYPE, JackPortIsInput, 0);
+   
+
+
   if (jack_activate (jackclient))
     {
       fprintf (stderr, "Cannot activate jack client, back to Alsa\n");
@@ -97,28 +102,33 @@ JACKstart(HOR *hor_)
 };
 
 
-
-
-
-
-
 int jackprocess(jack_nframes_t nframes,void *arg)
 
 {
 
-int i;
+ int i,count;
+ 
+
+jack_midi_event_t midievent;
 
    jack_default_audio_sample_t *outl = (jack_default_audio_sample_t*)
    jack_port_get_buffer(outport_left, JackOUT->PERIOD);
    jack_default_audio_sample_t *outr = (jack_default_audio_sample_t*)
    jack_port_get_buffer(outport_right, JackOUT->PERIOD);
-
    
-// memset(outl, 0, nframes * sizeof(jack_default_audio_sample_t));
-// memset(outr, 0, nframes * sizeof(jack_default_audio_sample_t));
-   
+   float *data = (float *)jack_port_get_buffer(jack_midi_in, JackOUT->PERIOD);
 
 pthread_mutex_lock(&jmutex);
+
+
+count = jack_midi_get_event_count(data);
+
+for (int i = 0; i < count; i++)
+{                  
+  //midievent = NULL;
+  jack_midi_event_get(&midievent, data, i);
+  JackOUT->jack_process_midievents(&midievent);
+}  
 JackOUT->Alg1s(JackOUT->PERIOD,0);
 for (i=0; i<JackOUT->PERIOD; i +=2)
 {
