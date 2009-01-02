@@ -23,9 +23,6 @@
 
 #include "Holrgan.h"
 
-// Read MIDI Events
-
-// i = ((value * 16383) / 127) - 8192;
 
 void
 HOR::jack_process_midievents(jack_midi_event_t *midievent)
@@ -41,7 +38,7 @@ HOR::jack_process_midievents(jack_midi_event_t *midievent)
       pitch = (float) (midievent->buffer[1] + 128 * midievent->buffer[2] - 8192) / 8192.0;
       break;
 
-    case 10:
+    case 12:
 
       value = midievent->buffer[1]; 
       if ((value > 0) && (value < 33))
