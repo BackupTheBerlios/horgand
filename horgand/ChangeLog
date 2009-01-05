@@ -7,10 +7,11 @@ horgand ChangeLog
 
 == v1.15 (  /  /2008) ==
 -------------------------------------------------------------------------------------------
-- Jack MIDI
-- Use jack_client_open instead of jack_client_new
-- Add pid to jack client name for multiple instances
-- Better Jack Exit
+- add optimized options in configure.
+- Jack MIDI.
+- Use jack_client_open instead of jack_client_new.
+- Add pid to jack client name for multiple instances.
+- Better Jack Exit.
 - Add ALSA seq client name.
 - Back changes to connect to jackd-0.109.2
 - fixed small graphic things.

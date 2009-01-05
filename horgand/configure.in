@@ -71,7 +71,7 @@ SSE=$(cat /proc/cpuinfo | grep sse)
 if test -z "$SSE"; then 
 SSE=""
 else
-SSE="-msse"
+SSE="-msse -mfpmath=sse"
 fi
 
 LIBS="`$FLTKCONFIG --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile` -lXpm"
