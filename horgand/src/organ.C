@@ -946,7 +946,7 @@ if (val==0)
  sprintf(orden,"%s","Not Connected");
  horgand.set("MIDI IN Device",orden);
  bzero(orden,sizeof(orden));
- sprintf(orden,"%s","Alsa");
+ sprintf(orden,"%s","Jack");
  horgand.set("Audio Out device",orden);
  horgand.set("Preset",1);                    
 }
