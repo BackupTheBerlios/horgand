@@ -125,9 +125,9 @@ float l, r, rl, rr;
 int i,j,readcounts,readcountr;
 int longi;
 
-memset (bbuf, 0, PERIOD4);
+memset (bbuf, 0, PERIOD8);
 
-longi  = (int) (length_bass_note * PERIOD * .5);
+longi  = (int) (length_bass_note * PERIOD);
 
 readcounts = sf_seek (infileb, 0, SEEK_CUR); 
 readcountr = sf_readf_float (infileb, bbuf, longi);
@@ -137,7 +137,7 @@ if ((readcounts + longi ) < frames_bass) basspending = 1;
 else basspending = 0; 
 
 
- for (i = 0; i < PERIOD; i +=2)
+ for (i = 0; i < PERIOD2; i +=2)
     {
 
       j = (int) (i * length_bass_note);
@@ -187,10 +187,10 @@ void HOR::Get_Rhythm() { float l, r, rl, rr;
 int i,j,readcountr,falta; 
 int ftempo;
 
-memset (rbuf, 0, PERIOD4);
+memset (rbuf, 0, PERIOD8);
 
 
-ftempo  = (int) (tempo * PERIOD * .5);
+ftempo  = (int) (tempo * PERIOD);
 
 Get_Tempo();
 if (Bass_On == 1 ) Get_Bass_Line();
@@ -198,7 +198,7 @@ if (Bass_On == 1 ) Get_Bass_Line();
 Samples_Readed  = sf_seek (infile, 0, SEEK_CUR);
 readcountr = sf_readf_float (infile, rbuf, ftempo);
 
-if (readcountr < ftempo)
+if ((readcountr) < ftempo)
 
 {
 
@@ -211,7 +211,7 @@ readcountr = sf_readf_float (infile, rbuf, falta);
 
 
 
- for (i = 0; i < PERIOD; i += 2)
+ for (i = 0; i < PERIOD2; i += 2)
     {
 
       j = (int) (i * tempo);

@@ -71,7 +71,7 @@ HOR::Effect_Chorus()
   float dllo;
     
     
-  for (i = 0; i < PERIOD; i +=2)
+  for (i = 0; i < PERIOD2; i +=2)
 
     {
       
@@ -151,7 +151,7 @@ HOR::Effect_Rotary ()
   Rotary_LFO_Frequency = a[0].modulation * a[0].Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
 
 
-  for (i = 0; i <PERIOD; i +=2)
+  for (i = 0; i <PERIOD2; i +=2)
     {
 
       val = Rotary_LFO (Rotary_X)*.5;
@@ -195,7 +195,7 @@ HOR::Effect_Reverb ()
   tmprvol = accum * Reverb_Volume * 2.2;
      
     
-  for (i = 0; i <PERIOD; i +=2)
+  for (i = 0; i <PERIOD2; i +=2)
 
     {
 
@@ -241,7 +241,7 @@ HOR::Effect_Delay()
 
 
   
-  for (i = 0; i <PERIOD; i +=2)
+  for (i = 0; i <PERIOD2; i +=2)
 
     {
       elke = a_rperhis - delay;    
@@ -297,7 +297,7 @@ HOR::Write_Buffer_Effects()
 
 int i;
 
-      for (i=0; i< PERIOD; i++) 
+      for (i=0; i< PERIOD2; i++) 
        {
          history[rperhis] = buf[i];
          if (++rperhis > 131200) rperhis = 0;

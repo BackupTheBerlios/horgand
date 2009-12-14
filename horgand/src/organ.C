@@ -109,7 +109,7 @@ HOR::HOR()
   Reverb_Time=10;
   Reverb_Diffussion=0.1;
   Reverb_Volume=0.20;
-  tempo=2;
+  tempo=1;
   Rhythm_Volume = 0.5;
   Bass_Volume = 0.5;
   basspending = 0;
@@ -158,18 +158,18 @@ strcpy(NC[11].Nom,"B");
 
 //Init bass offsets to tune sample notes
 
-AB[0].tune = 2.0;
-AB[1].tune = 2.119;
-AB[2].tune = 2.245;
-AB[3].tune = 2.3785;
-AB[4].tune = 2.519877;
-AB[5].tune = 2.669724;
-AB[6].tune = 2.828746;
-AB[7].tune = 1.49847;
-AB[8].tune = 1.587767;
-AB[9].tune = 1.681957;
-AB[10].tune = 1.782262;
-AB[11].tune = 1.888073;
+AB[0].tune = 1.0;
+AB[1].tune = 1.0595;
+AB[2].tune = 1.1225;
+AB[3].tune = 1.18925;
+AB[4].tune = 1.2599385;
+AB[5].tune = 1.334862;
+AB[6].tune = 2.414373;
+AB[7].tune = 0.749235;
+AB[8].tune = 0.7938835;
+AB[9].tune = 0.8409785;
+AB[10].tune = 0.891131;
+AB[11].tune = 0.9440365;
 
 
 
@@ -774,7 +774,7 @@ for (j = 1; j<= 20; j++)
 
   // Allocate memory for calculated sins
 
-  size_t sizesin = (size_t) (D_PI * 1000)+2; 
+  size_t sizesin = (size_t) (D_PI * 10000)+2; 
 
   lsin = (float *) malloc (sizeof (float) * (sizesin + 4));
   nsin = (float *) malloc (sizeof (float) * (sizesin + 4));
@@ -991,7 +991,7 @@ void
 HOR::Adjust_Audio()
 {
 
-      increment = .5 / SAMPLE_RATE;
+      increment = .25 / (float) SAMPLE_RATE;
       D_PI_to_SAMPLE_RATE = D_PI / SAMPLE_RATE;
       
 }
@@ -1173,7 +1173,7 @@ HOR::Get_Partial (int nota)
   float partial=0;
   float freq_note=0; 
   
-  l = note[nota] + transpose + a[0].organ_transpose + 12;
+  l = note[nota] + transpose + a[0].organ_transpose;
   freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
   partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if(partial>D_PI) partial= fmod(partial,D_PI);
@@ -1198,11 +1198,10 @@ HOR:: NFsin(int i,float x)
 {
    int k;
    
-   k=lrintf(x*1000.0);
+   k=lrintf(x*10000.0);
 
-   if (k>6283) k %= 6283; 
+   if (k>62830) k %= 62830; 
      
-
    switch(i)
    {
       case 1:
@@ -1255,7 +1254,7 @@ HOR::Alg1s (int nframes, void *)
   float m_partial;
   float LFO_Volume;
     
-  memset (buf, 0, PERIOD4);
+  memset (buf, 0, PERIOD8);
 
     for (l2 = 0; l2 < POLY; l2++)
     {
@@ -1266,7 +1265,7 @@ HOR::Alg1s (int nframes, void *)
           for(i=1;i<=10;i++) volume_Operator(i,l2);
            
                   
-          for (l1 = 0; l1< PERIOD; l1 +=2)
+          for (l1 = 0; l1< PERIOD2; l1 +=2)
           {
      	    sound=0.0f;
      	    sound2=0.0f;

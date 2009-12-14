@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0109 
+version 1.0110 
 i18n_type 1 
 i18n_include <libintl.h> 
 i18n_function gettext 
@@ -91,15 +91,17 @@ return 1;
   }
 } 
 
-class HORGAN {} {
+class HORGAN {open
+} {
   decl {HOR *hor;} {}
-  Function {make_window()} {} {
+  Function {make_window()} {open
+  } {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 Pexitprogram=1;
 o->hide();
-exit(0);}
-      xywh {1440 72 825 595} type Double color 33 selection_color 47 hide resizable
+exit(0);} open
+      xywh {1433 65 825 595} type Double color 33 selection_color 47 resizable visible
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -145,7 +147,7 @@ exit(0);}
         Submenu MFile {
           label {&File}
           callback {Fl::focus(PANICO);}
-          xywh {0 0 100 20} labelsize 14
+          xywh {0 0 100 20}
         } {
           MenuItem {} {
             label {&New...}
@@ -157,7 +159,7 @@ hor->PutPrim();
 sprintf(hor->temporal, "--"); 
 DispNumber->label(hor->temporal);
 CPrograma->value(0);}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {&Load...}
@@ -168,7 +170,7 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,".hor");
 hor->loadfile(filename);
 PutLoaded();}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
           MenuItem {} {
             label {&Save...}
@@ -180,17 +182,17 @@ filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->savefile(filename);
 hor->PutPrim();}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {Load Bank...}
             callback {BLoad->do_callback(o);}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
           MenuItem {} {
             label {Save Bank...}
             callback {BSave->do_callback(o);}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {Load Rhythm...}
@@ -201,7 +203,7 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,".txt");
 hor->loadrhyt(filename);
 meteritmos();}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
           MenuItem {} {
             label {Save Rhythm...}
@@ -212,34 +214,34 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->saverhyt(filename);}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {&About...}
             callback {aboutwindow->position(HORwindow->x()+200,HORwindow->y()+200);
 aboutwindow->show();
 put_icon(aboutwindow);}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {E&xit}
             callback {HORwindow->do_callback();}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
         }
         Submenu MEdit {
           label {&Edit} open
-          xywh {0 0 100 20} labelsize 14
+          xywh {0 0 100 20}
         } {
           MenuItem {} {
             label {&Undo}
             callback {Undo();}
-            xywh {0 0 100 20} shortcut 0x4007a labelsize 14
+            xywh {0 0 100 20} shortcut 0x4007a
           }
           MenuItem {} {
             label {&Redo}
             callback {Redo();}
-            xywh {0 0 100 20} shortcut 0x40072 labelsize 14 divider
+            xywh {0 0 100 20} shortcut 0x40072 divider
           }
           MenuItem {} {
             label {&Synthesizer}
@@ -267,7 +269,7 @@ horgand.get("Synth Y",y,1);
 ADSRwin->position(x,y);
 ADSRwin->show();
 put_icon(ADSRwin);}
-            xywh {0 0 100 20} shortcut 0x40073 labelsize 14
+            xywh {0 0 100 20} shortcut 0x40073
           }
         }
         MenuItem MBank {
@@ -280,7 +282,7 @@ HORBank->position(x,y);
 HORBank->show();
 put_icon(HORBank);
 Fl::focus(BClose);}
-          xywh {0 0 100 20} shortcut 0x80062 labelsize 14
+          xywh {0 0 100 20} shortcut 0x80062
         }
         MenuItem {} {
           label {&Settings}
@@ -290,7 +292,7 @@ Settingswindow->position(HORwindow->x(),HORwindow->y());
 Settingswindow->show();
 put_icon(Settingswindow);
 Fl::focus(SClose);}
-          xywh {0 0 100 20} shortcut 0x80073 labelsize 14
+          xywh {0 0 100 20} shortcut 0x80073
         }
       }
       Fl_Box {} {
@@ -917,8 +919,8 @@ Actu();}
         label Tempo
         callback {hor->tempo = (float) o->value();
 hor->frame_total_size = (int) (hor->tempo * hor->sfinfo.frames);
-hor->fractional_position = hor->frame_total_size /(4 * hor->quarter_note * hor->bars);}
-        xywh {650 525 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 align 194 minimum 1.7 maximum 2.7 step 0.01 value 2 deactivate
+hor->fractional_position = hor->frame_total_size /(4 * hor->quarter_note * hor->bars);} selected
+        xywh {650 525 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 align 194 minimum 0.4 maximum 2.7 step 0.01 value 1 deactivate
       }
       Fl_Slider VUI2 {
         callback {o->value(BarLead);}
@@ -1473,14 +1475,14 @@ Fl::focus(PANICO);}
       } {
         Submenu BFile {
           label {&File} open
-          xywh {0 0 100 20} labelsize 14
+          xywh {0 0 100 20}
         } {
           MenuItem {} {
             label New
             callback {hor->New_Bank();
 metebanco();
 Undo();}
-            xywh {0 0 45 26} labelsize 14 divider
+            xywh {0 0 45 26} divider
           }
           MenuItem BLoad {
             label {&Load Bank}
@@ -1491,7 +1493,7 @@ filename=fl_filename_setext(filename,".horeb");
 hor->loadbank(filename);
 metebanco();
 PutCombi(1);}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
           MenuItem BSave {
             label {&Save Bank}
@@ -1502,12 +1504,12 @@ if (filename==NULL) return;
 filename=fl_filename_setext(filename,EXT);
 \#undef EXT
 hor->savebank(filename);}
-            xywh {0 0 100 20} labelsize 14 divider
+            xywh {0 0 100 20} divider
           }
           MenuItem {} {
             label {&Close}
             callback {HORBank->do_callback();}
-            xywh {0 0 100 20} labelsize 14
+            xywh {0 0 100 20}
           }
         }
       }
@@ -2526,8 +2528,7 @@ put_icon(HORwindow);
 
 void * v=MT;
 
-Fl::add_timeout(1.0 * 0.04,tick,v);} {selected
-    }
+Fl::add_timeout(1.0 * 0.04,tick,v);} {}
   }
   Function {metelo()} {} {
     code {char *temp;

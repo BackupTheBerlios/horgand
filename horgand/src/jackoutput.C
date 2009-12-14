@@ -130,11 +130,13 @@ for (int i = 0; i < count; i++)
   JackOUT->jack_process_midievents(&midievent);
 }  
 JackOUT->Alg1s(JackOUT->PERIOD,0);
-for (i=0; i<JackOUT->PERIOD; i +=2)
+
+for (i=0; i<JackOUT->PERIOD; i++)
 {
- outl[i]=JackOUT->buf[i]*JackOUT->Master_Volume;
- outr[i]=JackOUT->buf[i+1]*JackOUT->Master_Volume;
+ outl[i]=JackOUT->buf[i*2]*JackOUT->Master_Volume;
+ outr[i]=JackOUT->buf[i*2+1]*JackOUT->Master_Volume;
 }
+
 pthread_mutex_unlock(&jmutex);
 
 return(0);

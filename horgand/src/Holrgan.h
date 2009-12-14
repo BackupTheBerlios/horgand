@@ -31,7 +31,7 @@
 #include <jack/midiport.h>
 #include "config.h"
 #define MPERIOD  128
-#define BUFSIZE 512
+#define BUFSIZE 4096
 #define POLY 32
 #define DSAMPLE_RATE 44100
 #define D_PI 6.283185
