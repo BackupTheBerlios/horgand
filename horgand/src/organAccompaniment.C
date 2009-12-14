@@ -72,7 +72,6 @@ int readcounts,lanota;
         if (bass_note > 11) bass_note -= 12;
         if (bass_note < 0 ) bass_note += 12;
         length_bass_note = (((AB[bass_note].tune+AB[bass_note].bmt)*44100.0)/SAMPLE_RATE);
-         
         readcounts = sf_seek (infileb, 0, SEEK_SET);
         basspending = 1;
 	Get_Bass();
@@ -141,7 +140,8 @@ else basspending = 0;
     {
 
       j = (int) (i * length_bass_note);
-      if (j % 2 != 0) j++;
+    
+     if (j % 2 != 0) j--;
 
       l = buf[i];
       r = buf[i+1];
