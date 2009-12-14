@@ -803,7 +803,7 @@ for (j = 1; j<= 20; j++)
 
     {
 
-      x_sin = (float) ( i * D_PI / sizesin);
+      x_sin = (float) ( (float)i * (float) D_PI / (float) sizesin);
       lsin[i] =sin (x_sin);
 
       if( i > 0) lsin[i-1] = (lsin[i-1] *  ( 1.0 +  lsin[i] - lsin[i-1]));
