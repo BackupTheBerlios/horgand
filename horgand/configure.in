@@ -66,13 +66,21 @@ AC_DEFINE_UNQUOTED(DATADIR,"$DATADIR",[DATADIR])
 AC_DEFINE([WEBSITE],["horgand.berlios.de"],[WEBSITE])
 
 
-SSE=$(cat /proc/cpuinfo | grep sse) 
-
-if test -z "$SSE"; then 
+SSE=$(cat /proc/cpuinfo | grep sse2)
+if test -z "$SSE"; then
+SSE=""
+else
+SSE="-msse2"
+fi
+if test -z "$SSE"; then
+SSE=$(cat /proc/cpuinfo | grep sse)
+if test -z "$SSE"; then
 SSE=""
 else
 SSE="-msse -mfpmath=sse"
 fi
+fi
+
 
 LIBS="`$FLTKCONFIG --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile` -lXpm"
 CXXFLAGS="-O3 $SSE -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
