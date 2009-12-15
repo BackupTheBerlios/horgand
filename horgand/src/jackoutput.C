@@ -147,5 +147,4 @@ return(0);
 void JACKfinish()
 {
 jack_client_close(jackclient);
-usleep(100000);
 }

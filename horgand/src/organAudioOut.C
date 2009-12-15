@@ -57,15 +57,14 @@ HOR::Final_Output (int S_Output)
   short sl,sr;
   
   
-  memset (wbuf, 0, PERIOD4);
+  memset (wbuf, 0, PERIOD8);
   
-  for (i = 0; i < PERIOD; i +=2)
+  for (i = 0; i < PERIOD2; i +=2)
     { 
-      j = i*2;
       sl = (short) (buf[i]*Master_Volume*32767.0);
       sr = (short) (buf[i+1]*Master_Volume*32767.0);
-      wbuf[j] = sl;
-      wbuf[j+1]=sr;
+      wbuf[i] = sl;
+      wbuf[i+1]=sr;
     }
 
 
