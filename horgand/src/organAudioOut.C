@@ -150,11 +150,11 @@ HOR::alsaaudioprepare ()
   snd_pcm_hw_params_set_channels (playback_handle, hw_params, 2);
 
   snd_pcm_hw_params_set_periods (playback_handle, hw_params, 2, 0);
-  snd_pcm_hw_params_set_period_size (playback_handle, hw_params, PERIOD, 0);
+  snd_pcm_hw_params_set_period_size (playback_handle, hw_params, PERIOD2, 0);
   snd_pcm_hw_params (playback_handle, hw_params);
   snd_pcm_sw_params_alloca (&sw_params);
   snd_pcm_sw_params_current (playback_handle, sw_params);
-  snd_pcm_sw_params_set_avail_min (playback_handle, sw_params, PERIOD);
+  snd_pcm_sw_params_set_avail_min (playback_handle, sw_params, PERIOD2);
   snd_pcm_sw_params (playback_handle, sw_params);
 
 
