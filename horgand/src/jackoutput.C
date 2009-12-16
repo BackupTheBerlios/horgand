@@ -106,7 +106,7 @@ int jackprocess(jack_nframes_t nframes,void *arg)
 
 {
 
- int i,count;
+ int i,j,count;
  
 
 jack_midi_event_t midievent;
@@ -125,16 +125,17 @@ count = jack_midi_get_event_count(data);
 
 for (int i = 0; i < count; i++)
 {                  
-  //midievent = NULL;
   jack_midi_event_get(&midievent, data, i);
   JackOUT->jack_process_midievents(&midievent);
 }  
+
 JackOUT->Alg1s(JackOUT->PERIOD,0);
 
 for (i=0; i<JackOUT->PERIOD; i++)
 {
- outl[i]=JackOUT->buf[i*2]*JackOUT->Master_Volume;
- outr[i]=JackOUT->buf[i*2+1]*JackOUT->Master_Volume;
+ j = i*2;
+ outl[i]=JackOUT->buf[j]*JackOUT->Master_Volume;
+ outr[i]=JackOUT->buf[j+1]*JackOUT->Master_Volume;
 }
 
 pthread_mutex_unlock(&jmutex);

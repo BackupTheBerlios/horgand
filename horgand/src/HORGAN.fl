@@ -91,17 +91,14 @@ return 1;
   }
 } 
 
-class HORGAN {open
-} {
+class HORGAN {} {
   decl {HOR *hor;} {}
-  Function {make_window()} {open
-  } {
+  Function {make_window()} {} {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
-Pexitprogram=1;
 o->hide();
-exit(0);} open
-      xywh {1433 65 825 595} type Double color 33 selection_color 47 resizable visible
+Pexitprogram=1;} open selected
+      xywh {1594 88 825 595} type Double color 33 selection_color 47 resizable visible
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -141,12 +138,12 @@ exit(0);} open
         callback {hor->panic();}
         xywh {5 275 95 30} box PLASTIC_UP_BOX shortcut 0xff0d color 1 labelcolor 7
       }
-      Fl_Menu_Bar MenuPrincipal {open
+      Fl_Menu_Bar MenuPrincipal {
         xywh {0 0 1030 25} box THIN_UP_BOX
       } {
         Submenu MFile {
           label {&File}
-          callback {Fl::focus(PANICO);}
+          callback {Fl::focus(PANICO);} open
           xywh {0 0 100 20}
         } {
           MenuItem {} {
@@ -919,7 +916,7 @@ Actu();}
         label Tempo
         callback {hor->tempo = (float) o->value();
 hor->frame_total_size = (int) (hor->tempo * hor->sfinfo.frames);
-hor->fractional_position = hor->frame_total_size /(4 * hor->quarter_note * hor->bars);} selected
+hor->fractional_position = hor->frame_total_size /(4 * hor->quarter_note * hor->bars);}
         xywh {650 525 45 45} box OSHADOW_BOX color 47 labelsize 10 labelcolor 4 align 194 minimum 0.4 maximum 2.7 step 0.01 value 1 deactivate
       }
       Fl_Slider VUI2 {

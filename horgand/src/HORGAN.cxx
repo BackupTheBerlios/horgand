@@ -72,9 +72,8 @@ return 1;
 
 void HORGAN::cb_HORwindow_i(Fl_Double_Window* o, void*) {
   Guarda_Pref(0);
-Pexitprogram=1;
 o->hide();
-exit(0);
+Pexitprogram=1;
 }
 void HORGAN::cb_HORwindow(Fl_Double_Window* o, void* v) {
   ((HORGAN*)(o->user_data()))->cb_HORwindow_i(o,v);

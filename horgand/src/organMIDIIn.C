@@ -138,6 +138,7 @@ HOR::midievents (int keIN)
                   gate[l1] = 0;
                   if (pedal==0) env_time[l1] = 0;
                   if (split) Get_Chord();
+                  break;
 		}
 
 	    }
@@ -158,6 +159,7 @@ HOR::midievents (int keIN)
               gate[l1] = 0;
               if (pedal==0) env_time[l1] = 0;
               if (split) Get_Chord();
+              break;
 	    }
 
 	}

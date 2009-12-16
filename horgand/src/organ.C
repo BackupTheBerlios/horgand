@@ -32,7 +32,7 @@
 #include "Holrgan.h"
 
 pthread_mutex_t mutex, m_mutex;
-int i,j,l1,k,Pexitprogram, MidiInLevel, LastMidiInLevel,UndoCount,preset,Signal_for_Cb_Sliders,BarLead,changeNameChord;
+int i,j,l1,k,Pexitprogram,MidiInLevel, LastMidiInLevel,UndoCount,preset,Signal_for_Cb_Sliders,BarLead,changeNameChord;
 char NameChord[16];
 int Selected_Rhythm,commandline;
 const char *FilePreset;
@@ -43,7 +43,6 @@ XWMHints *hints;
 
 HOR::HOR()
 {
-
   //Init de vars
   cambiaDriver=0;
   Nums=0;
@@ -774,7 +773,7 @@ for (j = 1; j<= 20; j++)
 
   // Allocate memory for calculated sins
 
-  size_t sizesin = (size_t) (D_PI * 10000)+2; 
+  size_t sizesin = (size_t) (D_PI * 1000)+2; 
 
   lsin = (float *) malloc (sizeof (float) * (sizesin + 4));
   nsin = (float *) malloc (sizeof (float) * (sizesin + 4));
@@ -1198,9 +1197,9 @@ HOR:: NFsin(int i,float x)
 {
    int k;
    
-   k=lrintf(x*10000.0);
+   k=lrintf(x*1000.0);
 
-   if (k>62830) k %= 62830; 
+   if (k>6283) k %= 6283; 
      
    switch(i)
    {
@@ -1334,7 +1333,6 @@ if (a[0].E_Reverb_On) Effect_Reverb();
 Write_Buffer_Effects();
 if (Rhythm_On) Get_Rhythm();
 if (Salida < 3) Final_Output(Salida);
-
 pthread_mutex_unlock(&mutex);
 return;
 

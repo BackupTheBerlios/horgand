@@ -41,7 +41,6 @@ void pon_realtime()
 
 {
     sched_param scprior;
-
     scprior.sched_priority=50;
     int prior=sched_setscheduler(0,SCHED_FIFO,&scprior);
     if (prior==0) printf("SCHED_FIFO\n");
@@ -53,7 +52,6 @@ void pon_realtime()
 void *
 thread1 (void *arg)
 {
-pon_realtime(); 
 
 while (Pexitprogram ==0)
    {
@@ -72,7 +70,6 @@ thread2 (void *arg)
 {
     pon_realtime();
     while (Pexitprogram ==0)  hor.Alg1s(hor.PERIOD,0);
-
     return(0);
 
 };
@@ -246,10 +243,11 @@ int main(int argc, char *argv[])
 
     // Exit  Close Audio devices
 
-  hor.CloseAudio(hor.Salida);
-
+if (hor.Salida < 3 )  hor.CloseAudio(hor.Salida);
+else JACKfinish();
     // free memory etc.
 
+   
   free(hor.lsin);    
   free(hor.msin);
   free(hor.nsin);
@@ -263,7 +261,7 @@ int main(int argc, char *argv[])
   free(hor.buf);
   free(hor.wbuf);
   pthread_mutex_destroy (&mutex);
-
+  exit(0);
 };
 
 
