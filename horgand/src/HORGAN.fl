@@ -97,8 +97,8 @@ class HORGAN {} {
     Fl_Window HORwindow {
       callback {Guarda_Pref(0);
 o->hide();
-Pexitprogram=1;} open selected
-      xywh {1594 88 825 595} type Double color 33 selection_color 47 resizable visible
+Pexitprogram=1;}
+      xywh {1587 81 825 595} type Double color 33 selection_color 47 resizable visible
     } {
       Fl_Box {} {
         xywh {595 405 230 190} box PLASTIC_UP_BOX color 0 labeltype ENGRAVED_LABEL labelsize 17 labelcolor 4 align 1
@@ -1341,8 +1341,8 @@ Actu();}
     }
     Fl_Window aboutwindow {
       label {About...}
-      callback {aboutwindow->hide();}
-      xywh {1710 127 380 375} type Double box PLASTIC_DOWN_BOX color 32 hide
+      callback {aboutwindow->hide();} open
+      xywh {1703 120 380 375} type Double box PLASTIC_DOWN_BOX color 32 visible
     } {
       Fl_Box {} {
         image {horgand128.xpm} xywh {175 13 195 107} labelsize 18
@@ -1352,9 +1352,9 @@ Actu();}
         xywh {55 35 135 40} labelfont 1 labelsize 24 align 64
       }
       Fl_Box {} {
-        label {Copyright (C) 2003-2008 by Josep Andreu
+        label {Copyright (C) 2003-2009 by Josep Andreu
      (Holborn) 
-      holborn@@telefonica.net }
+      holborn@@telefonica.net } selected
         xywh {10 115 345 70} labelfont 1 labelcolor 18 align 80
       }
       Fl_Box {} {

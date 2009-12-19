@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 // Read command Line
 
   fprintf (stderr,
-	   "\n%s %s - Copyright (c) 2003-2008 Josep Andreu (Holborn)\n",PACKAGE,VERSION);
+	   "\n%s %s - Copyright (c) 2003-2009 Josep Andreu (Holborn)\n",PACKAGE,VERSION);
   if (argc == 1)
     fprintf (stderr, "Try 'horgand --help' for command-line options.\n");
 
