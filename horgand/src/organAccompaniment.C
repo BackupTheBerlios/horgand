@@ -23,7 +23,7 @@
 
 
 #include "Holrgan.h"
-
+#include "math.h"
 
 
 // Calculates the 1/16 position of the drumploop sampleplayed  to play the bass line
@@ -36,7 +36,7 @@ HOR::Get_Tempo()
 
 int i;
 
-pos = (int) ((tempo * Samples_Readed) / fractional_position) + 1;
+pos = lrintf(tempo * Samples_Readed)/fractional_position+1;
 if (pos == 1)  BarLead = 127; else BarLead = 0;
 for (i=1; i<=bars; i++) if (pos== 4*quarter_note) BarLead = 127;
 
@@ -140,6 +140,7 @@ else basspending = 0;
     {
 
       j = (int) (i * length_bass_note);
+
     
      if (j % 2 != 0) j--;
 

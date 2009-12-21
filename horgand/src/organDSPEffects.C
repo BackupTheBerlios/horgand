@@ -39,7 +39,7 @@ HOR::Chorus_LFO (float *Chorus_X)
   if (*Chorus_X > 1) *Chorus_X =0.0f;
 
   out=NFsin(a[0].Chorus_Wave,*Chorus_X*D_PI)*Chorus_LFO_Frequency;
-  
+
   return (out);
   
   
@@ -69,7 +69,7 @@ HOR::Effect_Chorus()
   float chor_vol=a[0].Chorus_Volume*.5;
   float ms=SAMPLE_RATE*.001;
   float dllo;
-    
+  float PerCoef = 1.0 / PERIOD;
     
   for (i = 0; i < PERIOD2; i +=2)
 
@@ -81,9 +81,9 @@ HOR::Effect_Chorus()
       // L Channel
 
       ldelay=Chorus_LFO(&Chorus_X_L);
-      dell=(ldelay1*(PERIOD-i)+ldelay*i)/PERIOD;
+      dell=(ldelay1*(PERIOD-i)+ldelay*i)*PerCoef;
       dell=dell+ms+ch_delay;
-      elkel=cl_counter-(int)ceil(dell-1.0);
+      elkel=cl_counter-lrintf(dell);
       if (elkel<0) elkel +=8192;
       if (elkel>=8192) elkel -=8192;
       elkel2=elkel-1;
@@ -97,9 +97,9 @@ HOR::Effect_Chorus()
       
       // R Channel
       rdelay=Chorus_LFO(&Chorus_X_R);
-      dell=(rdelay1*(PERIOD-i)+rdelay*i)/PERIOD;
+      dell=(rdelay1*(PERIOD-i)+rdelay*i)*PerCoef;
       dell=dell+ms+ch_delay;
-      elkel=cl_counter-(int)ceil(dell-1.0);
+      elkel=cl_counter-lrintf(dell);
       if (elkel<0) elkel +=8192;
       if (elkel>=8192) elkel -=8192;
       elkel2=elkel-1;
@@ -228,7 +228,7 @@ HOR::Effect_Delay()
 {
   int i;  
   int elke, elke1;
-  int delay = (int) a[0].Delay_Delay;
+  int delay = lrintf(a[0].Delay_Delay);
   float voll, volr;
   float Delay_Volumer, Delay_Volumel;
   int a_rperhis=rperhis;
