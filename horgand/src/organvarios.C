@@ -277,7 +277,7 @@ HOR::New ()
   bzero (a.Name, sizeof (a.Name));
   a.nombre = a.Name;
   a.Normalize[1] = 2.0;
-  a.Normalize[2] = 1.0;
+  a.Normalize[2] = 1.2;
   a.Normalize[3] = 1.0;
   a.Normalize[4] = 1.0;
   a.Normalize[5] = 1.0;
