@@ -743,12 +743,12 @@ for (j = 1; j<= 20; j++)
  
 //  Init Undo/Redo
 
-  for (j = 0; j <= 100; j++) Undo[j]=a[0];
+  for (j = 0; j <= 100; j++) Undo[j]=a;
 
 
 // Init Initial state of Undo/Redo buffer
 
-  for (j = 0; j <= 3; j++) Prim[j]=a[0];
+  for (j = 0; j <= 3; j++) Prim[j]=a;
 
 
   // Init gated notes
@@ -1010,14 +1010,14 @@ return(1.5*velocity[nota]*sin((120-note[nota])/120.0));
 float
 HOR::pitch_Operator (int i, int note)
 {
-return (lasfreq[a[0].Operator[i].harmonic]+a[0].Operator[i].harmonic_fine);
+return (lasfreq[a.Operator[i].harmonic]+a.Operator[i].harmonic_fine);
 }
 
 
 float
 HOR::pitch_Operator2 (int i, int note)
 {
-return (lasfreq[a[0].Operator[i].harmonic] - a[0].Operator[i].harmonic_fine);
+return (lasfreq[a.Operator[i].harmonic] - a.Operator[i].harmonic_fine);
 }
 
 
@@ -1028,7 +1028,7 @@ return (lasfreq[a[0].Operator[i].harmonic] - a[0].Operator[i].harmonic_fine);
 void
 HOR::volume_Operator (int i, int l2)
 {
- a[0].Operator[i].con1=a[0].Operator[i].volumen * velocity[l2] * a[0].Normalize[a[0].Operator[i].harmonic];
+ a.Operator[i].con1=a.Operator[i].volumen * velocity[l2] * a.Normalize[a.Operator[i].harmonic];
   
 };
 
@@ -1059,13 +1059,13 @@ HOR::Cenvelope (int *note_active,int gate,float t,int nota)
 
 float val=0;
        
-       if (t > a[0].c_attack + a[0].c_decay )  return 0.0f;
-       if (t > a[0].c_attack) val=1.0 - (t - a[0].c_attack) * u_c_decay;
+       if (t > a.c_attack + a.c_decay )  return 0.0f;
+       if (t > a.c_attack) val=1.0 - (t - a.c_attack) * u_c_decay;
        else
        val=t * u_c_attack;
        
-       if (gate) return (a[0].Click_Vol*val);  
-       return(a[0].Click2_Vol*val);
+       if (gate) return (a.Click_Vol*val);  
+       return(a.Click2_Vol*val);
 };
 
 
@@ -1077,8 +1077,8 @@ HOR::Penvelope (int *note_active,int gate,float t,int nota)
 
        if ((gate) || (pedal))
        {    
-       if (t > a[0].p_attack + a[0].p_decay )  return 0.0f;
-       if (t > a[0].p_attack) return(1.0 - (t - a[0].p_attack) * u_p_decay);
+       if (t > a.p_attack + a.p_decay )  return 0.0f;
+       if (t > a.p_attack) return(1.0 - (t - a.p_attack) * u_p_decay);
        return(t * u_p_attack);
        }
        else 
@@ -1099,8 +1099,8 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
   
     if (gate)
     {
-       if (t > a[0].attack + a[0].decay )  return (a[0].sustain);
-       if (t > a[0].attack) return(1.0 - (1.0 - a[0].sustain) * (t - a[0].attack) * u_decay);
+       if (t > a.attack + a.decay )  return (a.sustain);
+       if (t > a.attack) return(1.0 - (1.0 - a.sustain) * (t - a.attack) * u_decay);
        
        return(t * u_attack);
     }
@@ -1132,8 +1132,8 @@ HOR::Jenvelope (int *note_active, int gate, float t, int nota)
        
       else
         {
-        if (a[0].sustain != 0) return(a[0].sustain);
-        else  return(1.0 -  (t - a[0].attack) * u_decay);
+        if (a.sustain != 0) return(a.sustain);
+        else  return(1.0 -  (t - a.attack) * u_decay);
         }
      }     
 
@@ -1151,12 +1151,12 @@ HOR::Pitch_LFO (float t)
 
   float x,out;
 
-  if (t * 20 < a[0].Pitch_LFO_Delay)
+  if (t * 20 < a.Pitch_LFO_Delay)
     return (0.0f);
 
-  x=fmod(a[0].Pitch_LFO_Speed*t,1.0); 
+  x=fmod(a.Pitch_LFO_Speed*t,1.0); 
 
-  out = NFsin(a[0].LFO_Wave,x*D_PI)*LFO_Frequency;
+  out = NFsin(a.LFO_Wave,x*D_PI)*LFO_Frequency;
 
   return(out);     
 
@@ -1172,7 +1172,7 @@ HOR::Get_Partial (int nota)
   float partial=0;
   float freq_note=0; 
   
-  l = note[nota] + transpose + a[0].organ_transpose;
+  l = note[nota] + transpose + a.organ_transpose;
   freq_note=(pitch >0) ? h[l].f2 + (h[l].f3 - h[l].f2) * pitch : h[l].f2 + (h[l].f2 - h[l].f1) * pitch;
   partial = mastertune * freq_note * D_PI_to_SAMPLE_RATE;
   if(partial>D_PI) partial= fmod(partial,D_PI);
@@ -1185,7 +1185,7 @@ HOR::Get_Partial (int nota)
 void
 HOR::Calc_LFO_Frequency()
 {
-LFO_Frequency =  a[0].modulation * a[0].LFOpitch * D_PI_to_SAMPLE_RATE;
+LFO_Frequency =  a.modulation * a.LFOpitch * D_PI_to_SAMPLE_RATE;
 
 };  
 
@@ -1272,7 +1272,7 @@ HOR::Alg1s (int nframes, void *)
             Perc_Volume[l2] = Penvelope (&note_active[l2], gate[l2], env_time[l2], l2);        
      	    LFO_Volume=Pitch_LFO(env_time[l2]);
      	         	   
-            if (a[0].Click)
+            if (a.Click)
                {
       	       Click_Env=Cenvelope(&note_active[l2], gate[l2], env_time[l2], l2);                     
                if (Click_Env>0.0f)
@@ -1282,8 +1282,8 @@ HOR::Alg1s (int nframes, void *)
                     if(dcphi[l2]>D_PI) dcphi[l2] -= D_PI;
                     if(dcphi2[l2]>D_PI) dcphi2[l2] -= D_PI;
                     Click_TVol=Click_Env*velocity[l2]*organ_master;
-                    Am_Click=a[0].Click_Vol1*Click_TVol*NFsin(3,dcphi[l2]);
-                    Am_Click+=a[0].Click_Vol2*Click_TVol*NFsin(3,dcphi2[l2]);
+                    Am_Click=a.Click_Vol1*Click_TVol*NFsin(3,dcphi[l2]);
+                    Am_Click+=a.Click_Vol2*Click_TVol*NFsin(3,dcphi2[l2]);
                     buf[l1] +=Am_Click;
                     buf[l1+1] +=Am_Click;
                    }
@@ -1291,10 +1291,10 @@ HOR::Alg1s (int nframes, void *)
              for(i = 1; i<=10; i++)
 	      {
                   
-                  if (a[0].Operator[i].marimba==0)
-	            Env_Vol=Envelope_Volume[l2]*a[0].Operator[i].con1;
+                  if (a.Operator[i].marimba==0)
+	            Env_Vol=Envelope_Volume[l2]*a.Operator[i].con1;
                   else
-                    Env_Vol=Perc_Volume[l2]*a[0].Operator[i].con1; 
+                    Env_Vol=Perc_Volume[l2]*a.Operator[i].con1; 
                     
                   if(Env_Vol > 0.0f)
                      {                 
@@ -1309,8 +1309,8 @@ HOR::Alg1s (int nframes, void *)
                      f[i].phi2[l2] += f[i].dphi2;
                      if(f[i].phi2[l2]>D_PI) f[i].phi2[l2] -= D_PI;                    
 
-                     sound += Env_Vol*NFsin(a[0].Operator[i].wave,f[i].phi[l2]);
-                     sound2 += Env_Vol*NFsin(a[0].Operator[i].wave,f[i].phi2[l2]);                  
+                     sound += Env_Vol*NFsin(a.Operator[i].wave,f[i].phi[l2]);
+                     sound2 += Env_Vol*NFsin(a.Operator[i].wave,f[i].phi2[l2]);                  
                    }
                                    
               }  
@@ -1326,10 +1326,10 @@ HOR::Alg1s (int nframes, void *)
 
     
 
-if (a[0].E_Chorus_On) Effect_Chorus();
-if (a[0].E_Rotary_On) Effect_Rotary();
-if (a[0].E_Delay_On)  Effect_Delay();
-if (a[0].E_Reverb_On) Effect_Reverb();
+if (a.E_Chorus_On) Effect_Chorus();
+if (a.E_Rotary_On) Effect_Rotary();
+if (a.E_Delay_On)  Effect_Delay();
+if (a.E_Reverb_On) Effect_Reverb();
 Write_Buffer_Effects();
 if (Rhythm_On) Get_Rhythm();
 if (Salida < 3) Final_Output(Salida);

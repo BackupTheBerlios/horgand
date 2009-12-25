@@ -51,7 +51,7 @@ HOR::jack_process_midievents(jack_midi_event_t *midievent)
       if (midievent->buffer[1] == 1)
 	{
          
-	a[0].modulation = (float) midievent->buffer[2] / 128;
+	a.modulation = (float) midievent->buffer[2] / 128;
         Calc_LFO_Frequency();
         Calc_Chorus_LFO_Frequency();
         }
@@ -60,7 +60,7 @@ HOR::jack_process_midievents(jack_midi_event_t *midievent)
               Reverb_Volume = (float) midievent->buffer[2] / 256.0;
 
       if (midievent->buffer[1] == 93)
-              a[0].Chorus_Volume = (float) midievent->buffer[2] / 128.0;
+              a.Chorus_Volume = (float) midievent->buffer[2] / 128.0;
             
       if (midievent->buffer[1] == 7)
 	Master_Volume = (float) midievent->buffer[2] / 128.0;
@@ -98,7 +98,7 @@ HOR::jack_process_midievents(jack_midi_event_t *midievent)
 		  LastMidiInLevel = MidiInLevel;
 		  MidiInLevel = midievent->buffer[2];
 		  velocity[l1] = midievent->buffer[2] /126.0;
-                  if (a[0].scaling) velocity[l1]=Get_Keyb_Level_Scaling(l1);
+                  if (a.scaling) velocity[l1]=Get_Keyb_Level_Scaling(l1);
                   if (velocity[l1] > 1.0) velocity[l1]=1.0;
 		  if ((split) && (rnote[l1] < 60))
 		    {

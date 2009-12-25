@@ -34,11 +34,11 @@ HOR::Chorus_LFO (float *Chorus_X)
 
   float out;
 
-  *Chorus_X += a[0].Chorus_LFO_Speed * increment;
+  *Chorus_X += a.Chorus_LFO_Speed * increment;
 
   if (*Chorus_X > 1) *Chorus_X =0.0f;
 
-  out=NFsin(a[0].Chorus_Wave,*Chorus_X*D_PI)*Chorus_LFO_Frequency;
+  out=NFsin(a.Chorus_Wave,*Chorus_X*D_PI)*Chorus_LFO_Frequency;
 
   return (out);
   
@@ -52,7 +52,7 @@ void
 HOR::Calc_Chorus_LFO_Frequency()
 
 {
-Chorus_LFO_Frequency = a[0].modulation*a[0].Chorus_LFO_Amplitude;
+Chorus_LFO_Frequency = a.modulation*a.Chorus_LFO_Amplitude;
 
 };
 
@@ -63,10 +63,10 @@ HOR::Effect_Chorus()
 {
 
   int elkel,elkel2;
-  float ch_delay= a[0].Chorus_Delay*SAMPLE_RATE*.0003;
+  float ch_delay= a.Chorus_Delay*SAMPLE_RATE*.0003;
   float ldelay1,rdelay1,dell,valorl;
   int i;
-  float chor_vol=a[0].Chorus_Volume*.5;
+  float chor_vol=a.Chorus_Volume*.5;
   float ms=SAMPLE_RATE*.001;
   float dllo;
   float PerCoef = 1.0 / PERIOD;
@@ -128,11 +128,11 @@ HOR::Rotary_LFO (float t)
 
   float out;
 
-  Rotary_X +=  a[0].Rotary_LFO_Speed * increment;
+  Rotary_X +=  a.Rotary_LFO_Speed * increment;
 
   if (Rotary_X > 1) Rotary_X =0.0f;
 
-  out = NFsin (a[0].Rotary_Wave,Rotary_X * D_PI) * Rotary_LFO_Frequency;
+  out = NFsin (a.Rotary_Wave,Rotary_X * D_PI) * Rotary_LFO_Frequency;
 
   return (out);
   
@@ -148,7 +148,7 @@ HOR::Effect_Rotary ()
   int i;
   float val ,l, r;
 
-  Rotary_LFO_Frequency = a[0].modulation * a[0].Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
+  Rotary_LFO_Frequency = a.modulation * a.Rotary_LFO_Amplitude * D_PI_to_SAMPLE_RATE;
 
 
   for (i = 0; i <PERIOD2; i +=2)
@@ -228,7 +228,7 @@ HOR::Effect_Delay()
 {
   int i;  
   int elke, elke1;
-  int delay = lrintf(a[0].Delay_Delay);
+  int delay = lrintf(a.Delay_Delay);
   float voll, volr;
   float Delay_Volumer, Delay_Volumel;
   int a_rperhis=rperhis;
@@ -236,8 +236,8 @@ HOR::Effect_Delay()
 
   voll = 1 - Stereo_Side;
   volr = 1 - voll;
-  Delay_Volumel = voll * a[0].Delay_Volume*.5;
-  Delay_Volumer = volr * a[0].Delay_Volume*.5;
+  Delay_Volumel = voll * a.Delay_Volume*.5;
+  Delay_Volumer = volr * a.Delay_Volume*.5;
 
 
   

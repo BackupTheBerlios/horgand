@@ -219,7 +219,7 @@ HOR::New_Bank()
  int j;
 
  New();
- for (j = 1; j <= 32; j++) Banco[j]=a[0];
+ for (j = 1; j <= 32; j++) Banco[j]=a;
 
 };
 
@@ -233,98 +233,98 @@ HOR::New ()
 
   for (i = 1; i <= 10; i++)
     {
-      a[0].Operator[i].harmonic_fine = 0.0;
-      a[0].Operator[i].volumen = 0.0;
-      a[0].Operator[i].marimba = 0;
-      a[0].Operator[i].wave=1;
+      a.Operator[i].harmonic_fine = 0.0;
+      a.Operator[i].volumen = 0.0;
+      a.Operator[i].marimba = 0;
+      a.Operator[i].wave=1;
     }
 
-  a[0].Operator[1].harmonic = 1;
-  a[0].Operator[2].harmonic = 3;
-  a[0].Operator[3].harmonic = 4;
-  a[0].Operator[4].harmonic = 5;
-  a[0].Operator[5].harmonic = 7;
-  a[0].Operator[6].harmonic = 8;
-  a[0].Operator[7].harmonic = 11;
-  a[0].Operator[8].harmonic = 14;
-  a[0].Operator[9].harmonic = 19;
-  a[0].Operator[10].harmonic = 22;
+  a.Operator[1].harmonic = 1;
+  a.Operator[2].harmonic = 3;
+  a.Operator[3].harmonic = 4;
+  a.Operator[4].harmonic = 5;
+  a.Operator[5].harmonic = 7;
+  a.Operator[6].harmonic = 8;
+  a.Operator[7].harmonic = 11;
+  a.Operator[8].harmonic = 14;
+  a.Operator[9].harmonic = 19;
+  a.Operator[10].harmonic = 22;
 
 
-  a[0].E_Delay_On = 0;
-  a[0].Delay_Delay = 0;
-  a[0].Delay_Volume = 0;
-  a[0].Pitch_LFO_Speed = 0;
-  a[0].Pitch_LFO_Delay = 0;
-  a[0].Rotary_LFO_Speed = 0;
-  a[0].LFOpitch = 0;
-  a[0].modulation = .99;
-  a[0].organ_transpose = 0;
-  a[0].E_Rotary_On = 0;
+  a.E_Delay_On = 0;
+  a.Delay_Delay = 0;
+  a.Delay_Volume = 0;
+  a.Pitch_LFO_Speed = 0;
+  a.Pitch_LFO_Delay = 0;
+  a.Rotary_LFO_Speed = 0;
+  a.LFOpitch = 0;
+  a.modulation = .99;
+  a.organ_transpose = 0;
+  a.E_Rotary_On = 0;
   pitch = 0;
   pedal = 0;
   Master_Volume = 0.70;
-  a[0].Organ_Master_Volume = 0.70;
-  a[0].detune = 0;
-  a[0].scaling = 0;
-  a[0].Chorus_Volume = 0.60;
-  a[0].E_Chorus_On = 0;
-  a[0].Chorus_LFO_Speed = 0;
-  a[0].Chorus_LFO_Amplitude = 0;
-  a[0].Chorus_Delay = 0;
-  a[0].Reverb_Preset = 1;
-  a[0].E_Reverb_On=0;
-  bzero (a[0].Name, sizeof (a[0].Name));
-  a[0].nombre = a[0].Name;
-  a[0].Normalize[1] = 1.0;
-  a[0].Normalize[2] = 1.0;
-  a[0].Normalize[3] = 1.0;
-  a[0].Normalize[4] = 1.0;
-  a[0].Normalize[5] = 1.0;
-  a[0].Normalize[6] = 1.0;
-  a[0].Normalize[7] = 1.0;
-  a[0].Normalize[8] = 1.0;
-  a[0].Normalize[9] = .22;
-  a[0].Normalize[10] = .2;
-  a[0].Normalize[11] = .166;
-  a[0].Normalize[12] = .142;
-  a[0].Normalize[13] = .133;
-  a[0].Normalize[14] = .125;
-  a[0].Normalize[15] = .111;
-  a[0].Normalize[16] = .1;
-  a[0].Normalize[17] = 0.095;
-  a[0].Normalize[18] = 0.090;
-  a[0].Normalize[19] = 0.083;
-  a[0].Normalize[20] = 0.076;
-  a[0].Normalize[21] = 0.071;
-  a[0].Normalize[22] = .066;
-  a[0].attack = 0.003;
-  u_attack = 1.0 /a[0].attack;
-  a[0].decay = 0.28;
-  u_decay = 1.0 / a[0].decay;
-  a[0].sustain = 0.8;
-  a[0].p_attack= 0.0002;
-  u_p_attack = 1.0 / a[0].p_attack;
-  a[0].p_decay = 0.077;
-  u_p_decay = 1.0 / a[0].p_decay;
+  a.Organ_Master_Volume = 0.70;
+  a.detune = 0;
+  a.scaling = 0;
+  a.Chorus_Volume = 0.60;
+  a.E_Chorus_On = 0;
+  a.Chorus_LFO_Speed = 0;
+  a.Chorus_LFO_Amplitude = 0;
+  a.Chorus_Delay = 0;
+  a.Reverb_Preset = 1;
+  a.E_Reverb_On=0;
+  bzero (a.Name, sizeof (a.Name));
+  a.nombre = a.Name;
+  a.Normalize[1] = 2.0;
+  a.Normalize[2] = 1.0;
+  a.Normalize[3] = 1.0;
+  a.Normalize[4] = 1.0;
+  a.Normalize[5] = 1.0;
+  a.Normalize[6] = 1.0;
+  a.Normalize[7] = 1.0;
+  a.Normalize[8] = 1.0;
+  a.Normalize[9] = .22;
+  a.Normalize[10] = .2;
+  a.Normalize[11] = .166;
+  a.Normalize[12] = .142;
+  a.Normalize[13] = .133;
+  a.Normalize[14] = .125;
+  a.Normalize[15] = .111;
+  a.Normalize[16] = .1;
+  a.Normalize[17] = 0.095;
+  a.Normalize[18] = 0.090;
+  a.Normalize[19] = 0.083;
+  a.Normalize[20] = 0.076;
+  a.Normalize[21] = 0.071;
+  a.Normalize[22] = .066;
+  a.attack = 0.003;
+  u_attack = 1.0 /a.attack;
+  a.decay = 0.28;
+  u_decay = 1.0 / a.decay;
+  a.sustain = 0.8;
+  a.p_attack= 0.0002;
+  u_p_attack = 1.0 / a.p_attack;
+  a.p_decay = 0.077;
+  u_p_decay = 1.0 / a.p_decay;
   p_release=0.1;
   u_p_release = 1.0 / p_release;
-  a[0].c_attack=0.0001;
-  a[0].c_decay=0.003;
-  u_c_attack= 1.0/a[0].c_attack;
-  u_c_decay = 1.0/a[0].c_decay;
-  a[0].Click_Vol=.2;
-  a[0].Click2_Vol=.09;
-  a[0].Click_Vol1=.23;
-  a[0].Click_Vol2=.04;
-  a[0].Click_Freq=360;
-  a[0].Click_Freq2=6712;              
-  a[0].Click=0;
-  a[0].Rotary_LFO_Amplitude = 9980;
-  a[0].Speed_Sync=0;
-  a[0].LFO_Wave=1;
-  a[0].Chorus_Wave=1;
-  a[0].Rotary_Wave=1;
+  a.c_attack=0.0001;
+  a.c_decay=0.003;
+  u_c_attack= 1.0/a.c_attack;
+  u_c_decay = 1.0/a.c_decay;
+  a.Click_Vol=.2;
+  a.Click2_Vol=.09;
+  a.Click_Vol1=.23;
+  a.Click_Vol2=.04;
+  a.Click_Freq=360;
+  a.Click_Freq2=6712;              
+  a.Click=0;
+  a.Rotary_LFO_Amplitude = 9980;
+  a.Speed_Sync=0;
+  a.LFO_Wave=1;
+  a.Chorus_Wave=1;
+  a.Rotary_Wave=1;
 
 
 }
@@ -343,7 +343,7 @@ PonDATA_Undo(UndoCount);
 void
 HOR::PonDATA_Undo(int UndoCount)
 {
-a[0]=Undo[UndoCount];
+a=Undo[UndoCount];
 };
 
 
@@ -366,7 +366,7 @@ HOR::MActu()
 {
 UndoCount++;
 if (UndoCount == 95) UndoCount = 0;
-Undo[UndoCount]=a[0];
+Undo[UndoCount]=a;
 syncadsr();
 };
 
@@ -376,7 +376,7 @@ syncadsr();
 void
 HOR::PutPrim()
 {
-Prim[1]=a[0];
+Prim[1]=a;
 };
 
 
@@ -386,22 +386,22 @@ Prim[1]=a[0];
 void
 HOR::MGetPrim()
 {
-a[0]=Prim[1];
+a=Prim[1];
 };
 
 
 void
 HOR::Get_Combi_t(int i)
 {
-Banco[i]=a[0];
+Banco[i]=a;
 };
 
 
 void
 HOR::Put_Combi_t(int i)
 {
-a[0]=Banco[i];
-PutReverb(a[0].Reverb_Preset);
+a=Banco[i];
+PutReverb(a.Reverb_Preset);
 syncadsr();
 Prim[1] = Banco[i];
 };
@@ -413,17 +413,17 @@ HOR::syncadsr()
 
 int i;
 
- u_attack = 1.0 /a[0].attack;
- u_decay = 1.0 / a[0].decay;
- u_p_attack = 1.0 / a[0].p_attack;
- u_p_decay = 1.0 / a[0].p_decay;
- u_c_attack = 1.0 / a[0].c_attack;
- u_c_decay = 1.0 / a[0].c_decay;
+ u_attack = 1.0 /a.attack;
+ u_decay = 1.0 / a.decay;
+ u_p_attack = 1.0 / a.p_attack;
+ u_p_decay = 1.0 / a.p_decay;
+ u_c_attack = 1.0 / a.c_attack;
+ u_c_decay = 1.0 / a.c_decay;
 
 
 
 total_vol=.1;
-organ_master=a[0].Organ_Master_Volume*.1;
+organ_master=a.Organ_Master_Volume*.1;
 
 
 for (i=1;i<11;i++)
@@ -431,13 +431,13 @@ for (i=1;i<11;i++)
     {
       p_op[i]=pitch_Operator(i,0);
       p_op2[i]=pitch_Operator2(i,0);
-      total_vol += a[0].Operator[i].volumen*a[0].Normalize[a[0].Operator[i].harmonic];
+      total_vol += a.Operator[i].volumen*a.Normalize[a.Operator[i].harmonic];
     }
 
-organ_master=a[0].Organ_Master_Volume/total_vol;
+organ_master=a.Organ_Master_Volume/total_vol;
 
-Click_sFreq=a[0].Click_Freq*D_PI_to_SAMPLE_RATE;
-Click_2sFreq=a[0].Click_Freq2*D_PI_to_SAMPLE_RATE;
+Click_sFreq=a.Click_Freq*D_PI_to_SAMPLE_RATE;
+Click_2sFreq=a.Click_Freq2*D_PI_to_SAMPLE_RATE;
 
 
 

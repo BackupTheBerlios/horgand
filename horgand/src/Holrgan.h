@@ -288,7 +288,7 @@ struct Todolo
    int Rotary_Wave;
    char *nombre;
 
-}a[1];
+}a;
 
 struct Menoscalculos
 { 

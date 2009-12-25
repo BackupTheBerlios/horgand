@@ -60,7 +60,7 @@ HOR::midievents (int keIN)
 
       if (midievent->data.control.param == 1)
 	{
-	a[0].modulation = (float) midievent->data.control.value / 128;
+	a.modulation = (float) midievent->data.control.value / 128;
         Calc_LFO_Frequency();
         Calc_Chorus_LFO_Frequency();
         }
@@ -69,7 +69,7 @@ HOR::midievents (int keIN)
               Reverb_Volume = (float) midievent->data.control.value / 256.0;
 
       if (midievent->data.control.param == 93)
-              a[0].Chorus_Volume = (float) midievent->data.control.value / 128.0;
+              a.Chorus_Volume = (float) midievent->data.control.value / 128.0;
             
       if (midievent->data.control.param == 7)
 	Master_Volume = (float) midievent->data.control.value / 128.0;
@@ -107,7 +107,7 @@ HOR::midievents (int keIN)
 		  LastMidiInLevel = MidiInLevel;
 		  MidiInLevel = midievent->data.note.velocity;
 		  velocity[l1] = midievent->data.note.velocity /126.0;
-                  if (a[0].scaling) velocity[l1]=Get_Keyb_Level_Scaling(l1);
+                  if (a.scaling) velocity[l1]=Get_Keyb_Level_Scaling(l1);
                   if (velocity[l1] > 1.0) velocity[l1]=1.0;
 		  if ((split) && (rnote[l1] < 60))
 		    {
