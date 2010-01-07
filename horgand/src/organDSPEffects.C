@@ -69,7 +69,7 @@ HOR::Effect_Chorus()
   float chor_vol=a.Chorus_Volume*.5;
   float ms=SAMPLE_RATE*.001;
   float dllo;
-  float PerCoef = 1.0 / PERIOD;
+  float PerCoef = 1.0 / PERIOD2;
     
   for (i = 0; i < PERIOD2; i +=2)
 
@@ -81,7 +81,7 @@ HOR::Effect_Chorus()
       // L Channel
 
       ldelay=Chorus_LFO(&Chorus_X_L);
-      dell=(ldelay1*(PERIOD-i)+ldelay*i)*PerCoef;
+      dell=(ldelay1*(PERIOD2-i)+ldelay*i)*PerCoef;
       dell=dell+ms+ch_delay;
       elkel=cl_counter-lrintf(dell);
       if (elkel<0) elkel +=8192;
@@ -97,7 +97,7 @@ HOR::Effect_Chorus()
       
       // R Channel
       rdelay=Chorus_LFO(&Chorus_X_R);
-      dell=(rdelay1*(PERIOD-i)+rdelay*i)*PerCoef;
+      dell=(rdelay1*(PERIOD2-i)+rdelay*i)*PerCoef;
       dell=dell+ms+ch_delay;
       elkel=cl_counter-lrintf(dell);
       if (elkel<0) elkel +=8192;
