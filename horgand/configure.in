@@ -43,6 +43,7 @@ AC_CHECK_LIB([z], [main])
 AC_CHECK_LIB([jack],main)
 AC_CHECK_LIB([sndfile],sf_open)
 AC_CHECK_LIB([Xpm],[main])
+AC_CHECK_LIB([X11],[main])
 
 if test "x$prefix" = "xNONE"; then
 AC_DEFINE_UNQUOTED(PREFIX, "/usr/local", [Install prefix])
@@ -82,8 +83,8 @@ fi
 fi
 
 
-LIBS="`$FLTKCONFIG --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile` -lXpm"
-CXXFLAGS="-O3 $SSE -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
+# LIBS="`$FLTKCONFIG --ldflags` -lasound `pkg-config --libs jack` `pkg-config --libs sndfile` -lXpm"
+CXXFLAGS="-O2 $SSE -fno-rtti -pipe -ffast-math -ffunction-sections -fomit-frame-pointer -Wall `$FLTKCONFIG --cxxflags` `pkg-config --cflags jack` `pkg-config --cflags sndfile`"
 AC_CONFIG_FILES([Makefile src/Makefile data/Makefile man/Makefile])
 AC_OUTPUT
 

@@ -53,6 +53,9 @@
 /* Define to 1 if you have the `sndfile' library (-lsndfile). */
 #define HAVE_LIBSNDFILE 1
 
+/* Define to 1 if you have the `X11' library (-lX11). */
+#define HAVE_LIBX11 1
+
 /* Define to 1 if you have the `Xft' library (-lXft). */
 #define HAVE_LIBXFT 1
 

@@ -7,20 +7,16 @@ horgand ChangeLog
 
 == v1.15 (  /  /2008) ==
 -------------------------------------------------------------------------------------------
+- Code optimized.
 - OPs ... fix the program exit :-)
 - Use sse2 as posible
-- Big Waveforms. 
-- Removed tricks fir unuse CPU, now better sound.
+- Removed tricks for unuse CPU, now better sound.
 - By Default use jack.
 - add optimized options in configure.
 - Jack MIDI.
 - Use jack_client_open instead of jack_client_new.
-- Add pid to jack client name for multiple instances.
-- Better Jack Exit.
 - Add ALSA seq client name.
-- Back changes to connect to jackd-0.109.2
 - fixed small graphic things.
-- Connect to jackd-0.109.1 new name of default ports.
 - Typo fix.
 - Remember loaded bank filename.
 - Fix <C> date.
